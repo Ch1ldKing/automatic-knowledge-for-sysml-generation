@@ -1,0 +1,558 @@
+{
+  "system_id": "distribution_system",
+  "system_name": "Distribution System",
+  "specification": {
+    "designScenario": {
+      "name": "Fluid Distribution System",
+      "description": "The Fluid Distribution System is designed to precisely manage the delivery of multiple critical fluids (fuel, hydraulic, de-icing, and lubrication) across an aircraft's systems. It ensures controlled flow rates, pressures, and fluid routing via an integrated network of pumps, valves, sensors, and control modules. The system employs adaptive control algorithms, real-time monitoring, and redundant pathways to maintain operational integrity under extreme temperatures, altitude, and fault conditions, while complying with FAA/EASA safety and performance standards.",
+      "requirements": [
+        {
+          "title": "Fluid Routing and Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall dynamically route and regulate fluid flow to designated systems (e.g., engines, landing gear, wings) based on real-time operational demands."
+            },
+            {
+              "description": "The system shall support selective activation of fluid delivery pathways for different fluid types (e.g., fuel, hydraulic fluid, de-icing fluid)."
+            }
+          ]
+        },
+        {
+          "title": "Performance Specifications",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system must maintain fluid pressure within 3-8 bar and achieve flow rates up to 150 L/min under standard operational conditions."
+            },
+            {
+              "description": "Fluid temperature must be regulated between -40°C to 80°C to ensure viscosity compatibility with aircraft systems."
+            }
+          ]
+        },
+        {
+          "title": "Safety and Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "The system must incorporate triple redundancy in critical fluid pathways (e.g., pumps, valves) to ensure uninterrupted operation under single-point failures."
+            },
+            {
+              "description": "Automated leak detection and isolation mechanisms must activate within 5 seconds of detecting fluid pressure drops exceeding 10% of nominal values."
+            }
+          ]
+        },
+        {
+          "title": "Maintainability and Accessibility",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All fluid reservoirs, pumps, and valves must be accessible via standardized quick-release connectors for rapid maintenance and fluid replenishment."
+            },
+            {
+              "description": "Diagnostic interfaces must provide real-time status updates and fault codes compliant with ARINC 661 standards."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Fluid Distribution System",
+        "type": "Subsystem",
+        "description": "Central subsystem managing fluid distribution across aircraft systems through integrated pumps, valves, sensors, and control modules.",
+        "subComponents": [
+          {
+            "name": "Fluid Pump Module",
+            "type": "Assembly",
+            "description": "Modular unit containing pumps and motors for pressurizing and delivering fluids to target systems.",
+            "subComponents": [
+              {
+                "name": "Centrifugal Pump",
+                "type": "Actuator",
+                "description": "High-pressure pump designed for variable fluid viscosity and temperature ranges."
+              },
+              {
+                "name": "Electric Motor",
+                "type": "Power Source",
+                "description": "Brushless DC motor providing variable speed control for pump operation."
+              }
+            ]
+          },
+          {
+            "name": "Valve Control Unit",
+            "type": "Assembly",
+            "description": "Network of solenoid valves and actuators regulating fluid flow direction and volume.",
+            "subComponents": [
+              {
+                "name": "Solenoid Valve",
+                "type": "Actuator",
+                "description": "Electrically controlled valve for precise fluid pathway activation."
+              },
+              {
+                "name": "Actuator Assembly",
+                "type": "Mechanism",
+                "description": "Mechanical linkage system for synchronized valve operation."
+              }
+            ]
+          },
+          {
+            "name": "Fluid Reservoir",
+            "type": "Container",
+            "description": "Primary storage tank with level sensors and pressurization ports for fluid containment and delivery."
+          },
+          {
+            "name": "Sensor Array",
+            "type": "Sensor Network",
+            "description": "Integrated sensors monitoring pressure, flow rate, temperature, and fluid level across the distribution network.",
+            "subComponents": [
+              {
+                "name": "Pressure Sensor",
+                "type": "Sensor",
+                "description": "Transducer measuring fluid pressure in real time."
+              },
+              {
+                "name": "Flow Sensor",
+                "type": "Sensor",
+                "description": "Electromagnetic sensor tracking fluid flow velocity."
+              },
+              {
+                "name": "Level Sensor",
+                "type": "Sensor",
+                "description": "Capacitive sensor detecting fluid levels in reservoirs."
+              }
+            ]
+          },
+          {
+            "name": "Control Module",
+            "type": "Control System",
+            "description": "Centralized control unit processing sensor data and executing fluid distribution commands.",
+            "subComponents": [
+              {
+                "name": "Controller Unit",
+                "type": "Control",
+                "description": "Microprocessor-based controller running fluid distribution algorithms."
+              },
+              {
+                "name": "User Interface",
+                "type": "Interface",
+                "description": "Display panel for system status monitoring and manual override controls."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Fluid Distribution System",
+        "target": "Fluid Pump Module",
+        "relationshipType": "composition",
+        "description": "The Fluid Distribution System is composed of the Fluid Pump Module for pressurizing fluids."
+      },
+      {
+        "source": "Fluid Distribution System",
+        "target": "Valve Control Unit",
+        "relationshipType": "composition",
+        "description": "The Fluid Distribution System is composed of the Valve Control Unit for fluid pathway regulation."
+      },
+      {
+        "source": "Fluid Distribution System",
+        "target": "Sensor Array",
+        "relationshipType": "composition",
+        "description": "The Fluid Distribution System is composed of the Sensor Array for real-time monitoring."
+      },
+      {
+        "source": "Fluid Distribution System",
+        "target": "Control Module",
+        "relationshipType": "composition",
+        "description": "The Fluid Distribution System is composed of the Control Module for centralized command execution."
+      },
+      {
+        "source": "Fluid Pump Module",
+        "target": "Centrifugal Pump",
+        "relationshipType": "composition",
+        "description": "The Fluid Pump Module is composed of the Centrifugal Pump for fluid pressurization."
+      },
+      {
+        "source": "Valve Control Unit",
+        "target": "Solenoid Valve",
+        "relationshipType": "composition",
+        "description": "The Valve Control Unit is composed of the Solenoid Valve for pathway control."
+      },
+      {
+        "source": "Control Module",
+        "target": "Sensor Array",
+        "relationshipType": "dependency",
+        "description": "The Control Module depends on the Sensor Array for operational data input."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "operationalPressureRange",
+        "type": "string",
+        "value": "3-8 bar",
+        "description": "Pressure range maintained by the system for fluid distribution."
+      },
+      {
+        "name": "maxFlowRate",
+        "type": "string",
+        "value": "150 L/min",
+        "description": "Maximum flow rate achievable under standard operating conditions."
+      },
+      {
+        "name": "materialSpecification",
+        "type": "string",
+        "value": "Aerospace-grade titanium alloys",
+        "description": "Corrosion-resistant materials used in high-stress components."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple redundancy",
+        "description": "Redundancy level applied to critical fluid pathways and actuators."
+      },
+      {
+        "name": "certification",
+        "type": "string",
+        "value": "FAA/EASA Part 25 Certified",
+        "description": "Compliance with aviation safety and performance standards."
+      },
+      {
+        "name": "pumpMaxRPM",
+        "type": "string",
+        "value": "3000 RPM",
+        "description": "Maximum rotational speed of the Centrifugal Pump."
+      },
+      {
+        "name": "valveResponseTime",
+        "type": "string",
+        "value": "<500 ms",
+        "description": "Maximum response time for valve actuation commands."
+      },
+      {
+        "name": "sensorAccuracy",
+        "type": "string",
+        "value": "±0.5% FS",
+        "description": "Accuracy tolerance for pressure and flow sensors."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "DistributionSystem",
+          "type": "Block",
+          "name": "Distribution System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "DS_PressureRange",
+            "DS_FlowRateRange",
+            "DS_Certification"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "PressureConstraint",
+            "FlowRateConstraint"
+          ],
+          "partIds": [
+            "PumpAssembly",
+            "ValveAssembly"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PumpAssembly",
+          "type": "Block",
+          "name": "Pump Assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "PA_Material"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "RedundancyConstraint"
+          ],
+          "partIds": [
+            "Pump1",
+            "Pump2"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ValveAssembly",
+          "type": "Block",
+          "name": "Valve Assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "VA_Material"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "RedundancyConstraint"
+          ],
+          "partIds": [
+            "Valve1",
+            "Valve2"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Pump",
+          "type": "Block",
+          "name": "Pump",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Pump_Pressure",
+            "Pump_FlowRate"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Valve",
+          "type": "Block",
+          "name": "Valve",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Valve_Position",
+            "Valve_Material"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [],
+      "ports": [
+        {
+          "id": "DS_ControlPort",
+          "type": "Port",
+          "name": "ControlPort",
+          "blockId": "DistributionSystem",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "ControlInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "DS_FluidPort",
+          "type": "FlowPort",
+          "name": "FluidPort",
+          "blockId": "DistributionSystem",
+          "isConjugated": false,
+          "flowSpecificationId": "FluidFlowSpec",
+          "attributeIds": []
+        },
+        {
+          "id": "Pump_FluidPort",
+          "type": "FlowPort",
+          "name": "FluidPort",
+          "blockId": "Pump",
+          "isConjugated": false,
+          "flowSpecificationId": "FluidFlowSpec",
+          "attributeIds": []
+        },
+        {
+          "id": "Valve_ControlPort",
+          "type": "Port",
+          "name": "ControlPort",
+          "blockId": "Valve",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "ControlInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "PressureConstraint",
+          "type": "ConstraintBlock",
+          "name": "PressureConstraint",
+          "expression": "minPressure == 2 AND maxPressure == 5",
+          "parameterIds": [
+            "minPressure",
+            "maxPressure"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "FlowRateConstraint",
+          "type": "ConstraintBlock",
+          "name": "FlowRateConstraint",
+          "expression": "minFlow == 50 AND maxFlow == 100",
+          "parameterIds": [
+            "minFlow",
+            "maxFlow"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "RedundancyConstraint",
+          "type": "ConstraintBlock",
+          "name": "RedundancyConstraint",
+          "expression": "redundancyLevel == 2",
+          "parameterIds": [
+            "redundancyLevel"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "PressureType",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "PressureQuantity",
+          "unitId": "BarUnit",
+          "attributeIds": []
+        },
+        {
+          "id": "FlowRateType",
+          "type": "ValueType",
+          "name": "FlowRate",
+          "quantityKindId": "VolumeFlowQuantity",
+          "unitId": "LPerMinUnit",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ValvePosition",
+          "type": "Enumeration",
+          "name": "ValvePosition",
+          "literals": [
+            {
+              "id": "Valve_Open",
+              "name": "OPEN"
+            },
+            {
+              "id": "Valve_Closed",
+              "name": "CLOSED"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FluidFlowSpec",
+          "type": "FlowSpecification",
+          "name": "FluidFlow",
+          "flowType": "material",
+          "dataType": "Fluid",
+          "unit": "L/min",
+          "attributeIds": []
+        }
+      ],
+      "associations": [
+        {
+          "id": "DS_to_PA",
+          "type": "Composition",
+          "name": "Composition",
+          "sourceId": "DistributionSystem",
+          "targetId": "PumpAssembly",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "DS_to_VA",
+          "type": "Composition",
+          "name": "Composition",
+          "sourceId": "DistributionSystem",
+          "targetId": "ValveAssembly",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment1",
+          "type": "Comment",
+          "body": "Dual redundancy ensures continuous operation via two pumps/valves",
+          "annotatedElementId": "RedundancyConstraint"
+        },
+        {
+          "id": "Comment2",
+          "type": "Comment",
+          "body": "Certified for FAA/EASA de-icing safety standards",
+          "annotatedElementId": "DistributionSystem"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "DS_PressureRange",
+          "type": "Property",
+          "name": "PressureRange",
+          "propertyType": "String",
+          "value": "2-5 bar",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "Valve_Position",
+          "type": "Property",
+          "name": "Position",
+          "propertyType": "Enumeration",
+          "value": "ValvePosition",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "CLOSED",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Fluid Distribution System is designed to precisely regulate and distribute de-icing fluid to critical aerodynamic surfaces. It operates within an operational pressure range of 2-5 bar and a flow rate of 50-100 L/min. The pump and valve assembly is made of corrosion-resistant alloys and features dual redundancy for continuous operation. The system is certified by FAA and EASA for de-icing safety compliance.",
+  "timestamp": "20250326_014833",
+  "provider": "qwen"
+}

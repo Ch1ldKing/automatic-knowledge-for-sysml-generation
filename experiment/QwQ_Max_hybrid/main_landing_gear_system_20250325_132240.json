@@ -1,0 +1,655 @@
+{
+  "system_id": "main_landing_gear_system",
+  "system_name": "Main Landing Gear System",
+  "specification": {
+    "designScenario": {
+      "name": "Advanced Landing Gear System (ALGS)",
+      "description": "Design an advanced landing gear system integrating smart sensors, lightweight composite materials, and triple redundancy for extreme operational conditions. The system must autonomously manage deployment/retraction, shock absorption, and braking while maintaining structural integrity under high loads. It should support autonomous emergency protocols, real-time health monitoring, and extended maintenance intervals.",
+      "requirements": [
+        {
+          "title": "Autonomous Deployment and Retraction",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must deploy and retract autonomously based on altitude, speed, and aircraft configuration signals."
+            },
+            {
+              "description": "Manual override capability must coexist with autonomous operations."
+            }
+          ]
+        },
+        {
+          "title": "Shock Absorption and Energy Dissipation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must absorb at least 95% of vertical impact energy during landing."
+            },
+            {
+              "description": "Damping mechanisms must adapt to variable load conditions in real-time."
+            }
+          ]
+        },
+        {
+          "title": "Performance Metrics",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Full deployment/retraction must occur within 2.5 seconds under nominal conditions."
+            },
+            {
+              "description": "Operate effectively at temperatures ranging from -54°C to 80°C."
+            }
+          ]
+        },
+        {
+          "title": "Triple Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "All critical actuators and control systems must have three independent failure paths."
+            },
+            {
+              "description": "Emergency deployment must be achievable via independent mechanical actuators if hydraulic/electrical systems fail."
+            }
+          ]
+        },
+        {
+          "title": "Lightweight and Durability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Structural components must utilize carbon fiber composites to reduce weight by 50% compared to traditional systems."
+            },
+            {
+              "description": "System must maintain structural integrity after 5,000 flight hours under standard operating conditions."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Smart Control Unit",
+        "description": "AI-driven control system for autonomous operations, real-time diagnostics, and redundancy management.",
+        "type": "Electronic Module",
+        "subComponents": [
+          {
+            "name": "AI Processor Module",
+            "description": "Handles predictive analytics and decision-making for autonomous operations.",
+            "type": "Processor"
+          },
+          {
+            "name": "Sensor Interface Board",
+            "description": "Manages data flow from environmental and structural sensors.",
+            "type": "Interface Module"
+          }
+        ]
+      },
+      {
+        "name": "Advanced Hydraulic System",
+        "description": "High-pressure hydraulic subsystem with adaptive flow control for actuation and braking.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Variable Displacement Pump",
+            "description": "Adjusts output based on system demand to optimize energy consumption.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Thermal Management Unit",
+            "description": "Maintains hydraulic fluid temperature within operational limits.",
+            "type": "Cooling System"
+          }
+        ]
+      },
+      {
+        "name": "Lightweight Structural Assembly",
+        "description": "Composite-based structural framework providing high strength-to-weight ratio.",
+        "type": "Mechanical Assembly",
+        "subComponents": [
+          {
+            "name": "Carbon Fiber Strut",
+            "description": "Primary load-bearing component manufactured from aerospace-grade composites.",
+            "type": "Structural Component"
+          },
+          {
+            "name": "Adaptive Damping System",
+            "description": "Fluid-filled dampers with real-time stiffness adjustment.",
+            "type": "Damping Device"
+          }
+        ]
+      },
+      {
+        "name": "Integrated Braking System",
+        "description": "Hydro-mechanical braking with regenerative energy capture.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Regenerative Brake Caliper",
+            "description": "Converts kinetic energy into electrical energy during braking.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Carbon-Carbon Brake Disc",
+            "description": "Heat-resistant disc for high-performance braking.",
+            "type": "Friction Component"
+          }
+        ]
+      },
+      {
+        "name": "Environmental Sensor Array",
+        "description": "Multi-sensor package monitoring temperature, pressure, and structural health.",
+        "type": "Monitoring Module",
+        "subComponents": [
+          {
+            "name": "Strain Gauge Network",
+            "description": "Measures stress distribution across structural components.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Thermocouple Array",
+            "description": "Monitors temperature gradients in critical zones.",
+            "type": "Sensor"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Smart Control Unit",
+        "target": "Environmental Sensor Array",
+        "relationshipType": "aggregation",
+        "description": "The Smart Control Unit aggregates sensor data from the Environmental Sensor Array for decision-making."
+      },
+      {
+        "source": "Advanced Hydraulic System",
+        "target": "Variable Displacement Pump",
+        "relationshipType": "composition",
+        "description": "The Variable Displacement Pump is a core component of the Advanced Hydraulic System."
+      },
+      {
+        "source": "Lightweight Structural Assembly",
+        "target": "Adaptive Damping System",
+        "relationshipType": "dependency",
+        "description": "The Adaptive Damping System is mechanically coupled to the Carbon Fiber Strut for load distribution."
+      },
+      {
+        "source": "Integrated Braking System",
+        "target": "Regenerative Brake Caliper",
+        "relationshipType": "composition",
+        "description": "The Regenerative Brake Caliper is an integral part of the braking mechanism."
+      },
+      {
+        "source": "Smart Control Unit",
+        "target": "Thermal Management Unit",
+        "relationshipType": "association",
+        "description": "The Smart Control Unit sends thermal regulation commands to the Thermal Management Unit."
+      },
+      {
+        "source": "Environmental Sensor Array",
+        "target": "Strain Gauge Network",
+        "relationshipType": "composition",
+        "description": "The Strain Gauge Network is a subcomponent of the Environmental Sensor Array."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "maxLoadCapacity",
+        "type": "string",
+        "value": "200,000 lbs",
+        "description": "Maximum structural load capacity during static and dynamic operations."
+      },
+      {
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "<2.5 seconds",
+        "description": "Time to fully deploy/retract under nominal conditions."
+      },
+      {
+        "name": "energyAbsorptionEfficiency",
+        "type": "string",
+        "value": "95%+",
+        "description": "Percentage of vertical impact energy dissipated during landing."
+      },
+      {
+        "name": "materialComposition",
+        "type": "string",
+        "value": "Carbon fiber reinforced polymer (CFRP)",
+        "description": "Primary material used for structural components."
+      },
+      {
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "-54°C to 80°C",
+        "description": "Temperature range for safe operation."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple redundant actuators",
+        "description": "Number of independent failure paths in critical systems."
+      },
+      {
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "5,000 flight hours",
+        "description": "Recommended time between scheduled maintenance checks."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "packages": [
+        {
+          "id": "pkg-landing-gear",
+          "type": "Package",
+          "name": "AdvancedLandingGearSystem",
+          "elementImports": null,
+          "packageImports": []
+        },
+        {
+          "id": "pkg-blocks",
+          "type": "Package",
+          "name": "SubsystemBlocks",
+          "elementImports": null,
+          "packageImports": [
+            "pkg-landing-gear"
+          ]
+        },
+        {
+          "id": "pkg-interfaces",
+          "type": "Package",
+          "name": "ControlInterfaces",
+          "elementImports": null,
+          "packageImports": [
+            "pkg-landing-gear"
+          ]
+        },
+        {
+          "id": "pkg-value-types",
+          "type": "Package",
+          "name": "EngineeringUnits",
+          "elementImports": null,
+          "packageImports": [
+            "pkg-landing-gear"
+          ]
+        }
+      ],
+      "blocks": [
+        {
+          "id": "blk-landing-gear",
+          "type": "Block",
+          "name": "AdvancedLandingGearSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-max-load",
+            "attr-deployment-time",
+            "attr-energy-absorption"
+          ],
+          "operationIds": null,
+          "constraintIds": [
+            "cnst-deployment-time",
+            "cnst-energy-absorption"
+          ],
+          "partIds": [
+            "prt-smart-control",
+            "prt-hydraulic",
+            "prt-structural",
+            "prt-braking",
+            "prt-sensor-array"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "blk-smart-control",
+          "type": "Block",
+          "name": "SmartControlUnit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-ai-processing",
+            "attr-sensor-connection"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": [
+            "prt-ai-processor",
+            "prt-sensor-interface"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "blk-hydraulic",
+          "type": "Block",
+          "name": "AdvancedHydraulicSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-pressure",
+            "attr-thermal-control"
+          ],
+          "operationIds": null,
+          "constraintIds": [
+            "cnst-hydraulic-pressure"
+          ],
+          "partIds": [
+            "prt-variable-pump",
+            "prt-thermal-unit"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "blk-structural",
+          "type": "Block",
+          "name": "LightweightStructuralAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-composite-material",
+            "attr-damping-control"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": [
+            "prt-carbon-strut",
+            "prt-adaptive-damper"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "blk-braking",
+          "type": "Block",
+          "name": "IntegratedBrakingSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-regenerative-efficiency",
+            "attr-heat-resistance"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": [
+            "prt-regen-caliper",
+            "prt-carbon-disc"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "blk-sensor",
+          "type": "Block",
+          "name": "EnvironmentalSensorArray",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-strain-measurement",
+            "attr-temperature-monitoring"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": [
+            "prt-strain-gauges",
+            "prt-thermocouples"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifc-control",
+          "type": "InterfaceBlock",
+          "name": "LandingGearControlInterface",
+          "attributeIds": null,
+          "operationIds": [
+            "op-deploy",
+            "op-retract",
+            "op-emergency-deploy"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        },
+        {
+          "id": "ifc-sensor",
+          "type": "InterfaceBlock",
+          "name": "StructuralHealthMonitor",
+          "attributeIds": null,
+          "operationIds": [
+            "op-get-strain-data",
+            "op-get-temp-data"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fspec-hydraulic",
+          "type": "FlowSpecification",
+          "name": "HighPressureHydraulicFlow",
+          "flowType": "MaterialFlow",
+          "dataType": "HydraulicFluid",
+          "unit": "PSI",
+          "attributeIds": null
+        },
+        {
+          "id": "fspec-command",
+          "type": "FlowSpecification",
+          "name": "ControlCommandFlow",
+          "flowType": "InformationFlow",
+          "dataType": "ControlSignal",
+          "unit": null,
+          "attributeIds": null
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "cnst-deployment-time",
+          "type": "ConstraintBlock",
+          "name": "DeploymentTimeConstraint",
+          "expression": "deploymentTime < 2.5s",
+          "parameterIds": [
+            "param-deployment-time"
+          ],
+          "attributeIds": null
+        },
+        {
+          "id": "cnst-energy-absorption",
+          "type": "ConstraintBlock",
+          "name": "EnergyAbsorptionConstraint",
+          "expression": "energyAbsorptionEfficiency >= 95%",
+          "parameterIds": [
+            "param-energy-efficiency"
+          ],
+          "attributeIds": null
+        },
+        {
+          "id": "cnst-hydraulic-pressure",
+          "type": "ConstraintBlock",
+          "name": "HydraulicPressureConstraint",
+          "expression": "operatingPressure = 3000 PSI",
+          "parameterIds": [
+            "param-hydraulic-psi"
+          ],
+          "attributeIds": null
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-status",
+          "type": "Enumeration",
+          "name": "GearOperationalStatus",
+          "literals": [
+            {
+              "id": "lit-deployed",
+              "name": "Deployed"
+            },
+            {
+              "id": "lit-retracted",
+              "name": "Retracted"
+            },
+            {
+              "id": "lit-emergency",
+              "name": "EmergencyMode"
+            },
+            {
+              "id": "lit-maintenance",
+              "name": "Maintenance"
+            }
+          ],
+          "attributeIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "prt-control-cmd",
+          "type": "Port",
+          "name": "ControlCommandPort",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "blk-smart-control",
+          "providedInterfaceIds": [
+            "ifc-control"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": "fspec-command"
+        },
+        {
+          "id": "prt-sensor-data",
+          "type": "Port",
+          "name": "SensorDataExchange",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "blk-sensor",
+          "providedInterfaceIds": [
+            "ifc-sensor"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": "fspec-command"
+        },
+        {
+          "id": "prt-hydraulic-flow",
+          "type": "FlowPort",
+          "name": "HighPressureHydraulicPort",
+          "isConjugated": false,
+          "blockId": "blk-hydraulic",
+          "flowSpecificationId": "fspec-hydraulic"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-max-load",
+          "type": "Property",
+          "name": "maxLoadCapacity",
+          "propertyType": "Double",
+          "value": "200000",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-deployment-time",
+          "type": "Property",
+          "name": "deploymentTime",
+          "propertyType": "String",
+          "value": "<2.5 seconds",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-energy-absorption",
+          "type": "Property",
+          "name": "energyAbsorptionEfficiency",
+          "propertyType": "String",
+          "value": "95%",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-control-unit",
+          "type": "Composition",
+          "name": "SmartControlComposition",
+          "sourceId": "blk-landing-gear",
+          "targetId": "blk-smart-control",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "comp-hydraulic",
+          "type": "Composition",
+          "name": "HydraulicSystemComposition",
+          "sourceId": "blk-landing-gear",
+          "targetId": "blk-hydraulic",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-sensor-control",
+          "type": "Association",
+          "name": "SensorToControlLink",
+          "sourceId": "blk-sensor",
+          "targetId": "blk-smart-control",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comm-main-block",
+          "type": "Comment",
+          "body": "Central landing gear subsystem integrating AI control, triple-redundant hydraulic actuators, and advanced composites",
+          "annotatedElementId": "blk-landing-gear"
+        }
+      ]
+    }
+  },
+  "reference_system": "landing_gear_system",
+  "parent_system": null,
+  "timestamp": "20250325_132240"
+}

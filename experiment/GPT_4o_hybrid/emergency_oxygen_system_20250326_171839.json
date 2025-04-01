@@ -1,0 +1,469 @@
+{
+  "system_id": "emergency_oxygen_system",
+  "system_name": "Emergency Oxygen System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Time limit to deploy oxygen masks upon cabin depressurization.",
+        "name": "activationTime",
+        "type": "string",
+        "value": "3 seconds"
+      },
+      {
+        "description": "Maximum storage duration for oxygen canisters.",
+        "name": "storageLifetime",
+        "type": "string",
+        "value": "10 years"
+      },
+      {
+        "description": "The range of cabin pressures in which the system can operate effectively.",
+        "name": "operationalPressureRange",
+        "type": "string",
+        "value": "50kPa to 110kPa"
+      },
+      {
+        "description": "Number of redundant oxygen generation units.",
+        "name": "redundancyLevel",
+        "type": "integer",
+        "value": "3"
+      },
+      {
+        "description": "Energy backup capability for uninterrupted operation when main power source fails.",
+        "name": "powerBackup",
+        "type": "string",
+        "value": "Battery Backup Module"
+      }
+    ],
+    "designScenario": {
+      "description": "This design scenario for the Emergency Oxygen System outlines its role in providing breathable air to passengers and crew during a cabin depressurization event. Designed with robust fail-safe and real-time activation mechanisms, it integrates various components to manage oxygen storage, delivery, and monitoring, ensuring safety under emergency conditions.",
+      "name": "Emergency Oxygen System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Promptly deploy oxygen masks to all passengers and crew when triggered by cabin pressure thresholds."
+            }
+          ],
+          "title": "Automatic Oxygen Dispersion",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide a continuous oxygen supply for a minimum of 15 minutes under full capacity."
+            },
+            {
+              "description": "Initiate within 3 seconds of activation signal."
+            }
+          ],
+          "title": "Performance Standards",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure no single point of failure compromises the system’s functionality."
+            },
+            {
+              "description": "Use non-combustible materials for oxygen storage and transfer."
+            }
+          ],
+          "title": "Safety Considerations",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Allow for routine maintenance accessibility and diagnostics without disrupting airplane operations."
+            },
+            {
+              "description": "Contain self-diagnostic routines ensuring availability within set response times."
+            }
+          ],
+          "title": "Maintainability and Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Unit oversees the activation of Distribution Modules based on inputs from Pressure Sensors.",
+        "relationshipType": "association",
+        "source": "Central Control Unit",
+        "target": "Oxygen Distribution Module"
+      },
+      {
+        "description": "The Oxygen Cylinder Module feeds oxygen to the Distribution Module during operations.",
+        "relationshipType": "dependency",
+        "source": "Oxygen Cylinder Module",
+        "target": "Oxygen Distribution Module"
+      },
+      {
+        "description": "Redundant Pressure Sensors aggregate input data to the Control Unit for enhanced decision-making.",
+        "relationshipType": "aggregation",
+        "source": "Central Control Unit",
+        "target": "Pressure Sensor"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Monitors cabin pressure and activates the oxygen system at critical thresholds.",
+        "name": "Pressure Sensor",
+        "subComponents": [
+          {
+            "description": "Detects changes in atmospheric pressure.",
+            "name": "Sensor Element",
+            "type": "Detection Module"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Controls oxygen release and mask deployment based on sensor feedback.",
+        "name": "Central Control Unit",
+        "subComponents": [
+          {
+            "description": "Processes Algorithm for critical oxygen release timing.",
+            "name": "Timing Processor",
+            "type": "Logic Module"
+          }
+        ],
+        "type": "Control Module"
+      },
+      {
+        "description": "Stores medical-grade oxygen under high pressure for emergencies.",
+        "name": "Oxygen Cylinder Module",
+        "subComponents": [
+          {
+            "description": "Contains compressed oxygen.",
+            "name": "Cylinder",
+            "type": "Storage Unit"
+          }
+        ],
+        "type": "Storage Module"
+      },
+      {
+        "description": "Distributes oxygen to masks through valves.",
+        "name": "Oxygen Distribution Module",
+        "subComponents": [
+          {
+            "description": "Controls oxygen flow to individual masks.",
+            "name": "Distribution Valve",
+            "type": "Fluidic Module"
+          }
+        ],
+        "type": "Distribution Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-ccu-pressure",
+          "memberEndIds": null,
+          "name": "PressureSensorAggregationControl",
+          "ownedEndIds": null,
+          "sourceId": "block-central-control-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-pressure-sensor",
+          "targetMultiplicity": "*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-ccu-distribution",
+          "memberEndIds": null,
+          "name": "CentralControlsDistribution",
+          "ownedEndIds": null,
+          "sourceId": "block-central-control-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-distribution-unit",
+          "targetMultiplicity": "1..*",
+          "type": "Association"
+        },
+        {
+          "id": "assoc-cylinder-distribution",
+          "memberEndIds": null,
+          "name": "CylinderFeedsDistribution",
+          "ownedEndIds": null,
+          "sourceId": "block-cylinder-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-distribution-unit",
+          "targetMultiplicity": "*",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "3 seconds",
+          "id": "attr-activation-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "activationTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10 years",
+          "id": "attr-storage-lifetime",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "storageLifetime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "10 years",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-activation-time",
+            "attr-storage-lifetime"
+          ],
+          "constraintIds": null,
+          "id": "block-emergency-oxygen-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "EmergencyOxygenSystem",
+          "operationIds": [
+            "op-activateSystem",
+            "op-runDiagnostics"
+          ],
+          "partIds": [
+            "part-central-control-unit",
+            "part-pressure-sensor",
+            "part-distribution-unit",
+            "part-cylinder-unit"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-central-control-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "CentralControlUnit",
+          "operationIds": [
+            "op-decideActivation"
+          ],
+          "partIds": null,
+          "referenceIds": [
+            "ref-oxygen-flow"
+          ],
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-emergency-oxygen-system",
+          "body": "The emergency oxygen system is designed for automated operation under all emergency conditions, ensuring reliability and standby functionality.",
+          "id": "comment-emergency-oxygen-doc",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-oxygen-distribution-composite",
+          "memberEndIds": null,
+          "name": "DistributionModuleComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-emergency-oxygen-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-distribution-unit",
+          "targetMultiplicity": "*",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "activationTime <= '3 seconds' and storageLifetime >= '10 years'",
+          "id": "constraint-system-standards",
+          "name": "SystemStandardsConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [],
+      "directedAggregations": [
+        {
+          "id": "dir-aggr-unit-sensor",
+          "memberEndIds": null,
+          "name": "AggregatesUnitSensors",
+          "ownedEndIds": null,
+          "sourceId": "block-central-control-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-pressure-sensor",
+          "targetMultiplicity": "2..*",
+          "type": "DirectedAggregation"
+        }
+      ],
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-activation-methods",
+          "literals": [
+            {
+              "id": "lit-automated",
+              "name": "Automated"
+            },
+            {
+              "id": "lit-manual",
+              "name": "Manual"
+            }
+          ],
+          "name": "ActivationMethods",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-central-control-unit",
+          "flowSpecificationId": "flow-spec-oxygen-delivery",
+          "id": "flow-port-delivery-in",
+          "isConjugated": false,
+          "name": "OxygenInlet",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "OxygenFlow",
+          "flowType": "MaterialFlow",
+          "id": "flow-spec-oxygen-delivery",
+          "name": "OxygenFlowDelivery",
+          "type": "FlowSpecification",
+          "unit": "Liters/min"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-system-controls",
+          "name": "SystemControlInterfaces",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-central-control-unit",
+          "name": "CentralControlUnitPart",
+          "of": "block-central-control-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-pressure-sensor",
+          "name": "PressureSensorPart",
+          "of": "block-pressure-sensor",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-central-control-unit",
+          "flowSpecificationId": null,
+          "id": "port-control-in",
+          "isConjugated": false,
+          "name": "ControlPortIn",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-system-controls"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-fast-activation",
+          "name": "System Fast Activation",
+          "reqId": "REQ-ACT-0001",
+          "text": "The system must activate within 3 seconds upon pressure threshold detection.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-time",
+          "name": "TimeType",
+          "quantityKindId": "Duration",
+          "type": "ValueType",
+          "unitId": "Seconds"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "safety_emergency_systems",
+  "timestamp": "20250326_171839",
+  "provider": "gpt"
+}

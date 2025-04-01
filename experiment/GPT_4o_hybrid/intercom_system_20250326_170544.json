@@ -1,0 +1,584 @@
+{
+  "system_id": "intercom_system",
+  "system_name": "Intercom System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the system's capabilities in supporting both spontaneous and scheduled announcements.",
+        "name": "announcementCapabilities",
+        "type": "string",
+        "value": "Supports static and dynamic announcement systems."
+      },
+      {
+        "description": "Describes the operational voltage range tolerance of the modules.",
+        "name": "voltageRange",
+        "type": "string",
+        "value": "18-32V DC."
+      },
+      {
+        "description": "Provides information about backup systems ensuring uninterrupted service.",
+        "name": "backupMechanism",
+        "type": "string",
+        "value": "Redundant power and signal routing."
+      },
+      {
+        "description": "Details the integration options with passenger information systems.",
+        "name": "integrationCapability",
+        "type": "string",
+        "value": "Fully interoperable with onboard passenger systems."
+      }
+    ],
+    "designScenario": {
+      "description": "The Cabin Communication System (CCS) serves an integral role in maintaining effective communication within the aircraft cabin, addressing routine and urgent messaging requirements with high reliability and clarity. Designed to operate under stringent aviation standards, the CCS integrates seamlessly with other cabin management systems to provide an efficient and intuitive user experience.",
+      "name": "Cabin Communication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Facilitate two-way communication between staff in different zones seamlessly."
+            },
+            {
+              "description": "Broadcast pre-programmed or live announcements cabin-wide instantly."
+            }
+          ],
+          "title": "Essential Communication Features",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Guarantee message broadcasting within 1 second from initiation."
+            },
+            {
+              "description": "Equip noise cancellation features suitable for aircraft operational noise levels."
+            }
+          ],
+          "title": "Performance Standards",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure uninterrupted operations with backup during equipment failure."
+            },
+            {
+              "description": "Comply with all FAA and EASA safety directives for onboard communication."
+            }
+          ],
+          "title": "Safety Protocols",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Maximize system reliability with minimal maintenance demands."
+            },
+            {
+              "description": "Offer intuitive user interfaces with easy configurability for diverse cabin layouts."
+            }
+          ],
+          "title": "Enhancement Features",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The subsystem ensures unified interoperability for announcements.",
+        "relationshipType": "composition",
+        "source": "Cabin Communication System",
+        "target": "Announcement Module"
+      },
+      {
+        "description": "Enables coordination with other cabin control interfaces.",
+        "relationshipType": "association",
+        "source": "Cabin Communication System",
+        "target": "Cabin Control Interface"
+      },
+      {
+        "description": "Facilitates emergency message dissemination in coordination with safety protocols.",
+        "relationshipType": "dependency",
+        "source": "Cabin Communication System",
+        "target": "Emergency Broadcast Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central framework overseeing all cabin communication tasks.",
+        "name": "Main Communication Hub",
+        "subComponents": [
+          {
+            "description": "Specializes in inter-crew communication.",
+            "name": "Intercom Module",
+            "type": "Communication Device"
+          },
+          {
+            "description": "Handles announcements and public messages.",
+            "name": "Announcement Module",
+            "type": "Audio Equipment"
+          }
+        ],
+        "type": "Integration System"
+      },
+      {
+        "description": "Emergency-focused subsystem ensuring rapid alert dissemination.",
+        "name": "Emergency Broadcast Module",
+        "subComponents": [
+          {
+            "description": "Stores and initiates urgent alert sounds.",
+            "name": "Alert Sound System",
+            "type": "Audio Generator"
+          },
+          {
+            "description": "Supervises emergency data integration.",
+            "name": "Emergency Signal Processing Unit",
+            "type": "Processor"
+          }
+        ],
+        "type": "Safety System"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-main-to-intercom",
+          "memberEndIds": null,
+          "name": "AggregationMainToIntercom",
+          "ownedEndIds": null,
+          "sourceId": "block-main-communication-hub",
+          "sourceMultiplicity": "1",
+          "targetId": "block-intercom-module",
+          "targetMultiplicity": "0..*",
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-main-to-announcement",
+          "memberEndIds": null,
+          "name": "AggregationMainToAnnouncement",
+          "ownedEndIds": null,
+          "sourceId": "block-main-communication-hub",
+          "sourceMultiplicity": "1",
+          "targetId": "block-announcement-module",
+          "targetMultiplicity": "0..*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-system-to-control",
+          "memberEndIds": null,
+          "name": "AssociationSystemToControl",
+          "ownedEndIds": null,
+          "sourceId": "block-cabin-communication-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-cabin-control-interface",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "Supports static and dynamic announcement systems.",
+          "id": "attr-announcement-capabilities",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "announcementCapabilities",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Supports static and dynamic announcement systems.",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "18-32V DC.",
+          "id": "attr-voltage-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "voltageRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "18-32V DC.",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Redundant power and signal routing.",
+          "id": "attr-backup-mechanism",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "backupMechanism",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Redundant power and signal routing.",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Fully interoperable with onboard passenger systems.",
+          "id": "attr-integration-capability",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "integrationCapability",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Fully interoperable with onboard passenger systems.",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-announcement-capabilities",
+            "attr-voltage-range",
+            "attr-backup-mechanism",
+            "attr-integration-capability"
+          ],
+          "constraintIds": null,
+          "id": "block-cabin-communication-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Cabin Communication System",
+          "operationIds": [
+            "op-initiate-broadcast",
+            "op-monitor-health"
+          ],
+          "partIds": [
+            "part-main-communication-hub",
+            "part-emergency-broadcast-module"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-main-communication-hub",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Main Communication Hub",
+          "operationIds": [
+            "op-manage-intercom",
+            "op-process-announcements"
+          ],
+          "partIds": [
+            "part-intercom-module",
+            "part-announcement-module"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-intercom-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Intercom Module",
+          "operationIds": [
+            "op-enable-two-way-communication"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-announcement-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Announcement Module",
+          "operationIds": [
+            "op-distribute-audio"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": [
+            "constraint-broadcast-constraint"
+          ],
+          "id": "block-emergency-broadcast-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Emergency Broadcast Module",
+          "operationIds": [
+            "op-trigger-emergency-broadcast"
+          ],
+          "partIds": [
+            "part-alert-sound-system",
+            "part-emergency-signal-processing-unit"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-cabin-communication-system",
+          "body": "The Cabin Communication System is designed to operate under stringent aviation standards, serving multiple communication functionalities in the cabin including announcements and emergency broadcasting.",
+          "id": "comment-system-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-hub-to-emergency",
+          "memberEndIds": null,
+          "name": "CompositionHubToEmergencyModule",
+          "ownedEndIds": null,
+          "sourceId": "block-cabin-communication-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-emergency-broadcast-module",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "broadcastTime <= 1s",
+          "id": "constraint-broadcast-constraint",
+          "name": "BroadcastConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-emergency-to-system",
+          "name": "DependencyEmergencyToSystem",
+          "sourceId": "block-emergency-broadcast-module",
+          "sourceMultiplicity": "1",
+          "targetId": "block-cabin-communication-system",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-message-type",
+          "literals": [
+            {
+              "id": "lit-routine",
+              "name": "Routine"
+            },
+            {
+              "id": "lit-urgent",
+              "name": "Urgent"
+            },
+            {
+              "id": "lit-safety",
+              "name": "Safety"
+            }
+          ],
+          "name": "MessageType",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-cabin-communication-system",
+          "flowSpecificationId": "flow-spec-audio-data",
+          "id": "flowport-audio-data",
+          "isConjugated": false,
+          "name": "AudioDataFlowPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "AudioSignal",
+          "flowType": "Information",
+          "id": "flow-spec-audio-data",
+          "name": "AudioSignalFlowSpecification",
+          "type": "FlowSpecification",
+          "unit": "dB"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-communication-standard",
+          "name": "CommunicationStandardInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "real-main-to-interface",
+          "name": "RealizationMainToInterface",
+          "sourceId": "block-main-communication-hub",
+          "targetId": "if-block-communication-standard",
+          "type": "InterfaceRealization"
+        }
+      ],
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-main-communication-hub",
+          "name": "Main Communication Hub",
+          "of": "block-main-communication-hub",
+          "type": "Part"
+        },
+        {
+          "id": "part-emergency-broadcast-module",
+          "name": "Emergency Broadcast Module",
+          "of": "block-emergency-broadcast-module",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-cabin-communication-system",
+          "flowSpecificationId": null,
+          "id": "port-main-interface-connection",
+          "isConjugated": false,
+          "name": "MainInterfaceConnection",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-communication-standard"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-main-communication-hub",
+          "id": "proxy-communication-interface",
+          "isConjugated": false,
+          "name": "CommunicationInterfaceProxy",
+          "providedInterfaceIds": [
+            "if-block-communication-standard"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-two-way-communication",
+          "name": "Two-Way Communication Requirement",
+          "reqId": null,
+          "text": "Facilitate two-way communication between crew members in different cabin zones seamlessly.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-urgent-broadcast",
+          "name": "Urgent Broadcast Response",
+          "reqId": null,
+          "text": "Ensure message broadcasting within less than one second from initiation.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-emergency-protocol-compliance",
+          "name": "Emergency Protocol Compliance",
+          "reqId": null,
+          "text": "Comply with FAA and EASA communication safety directives.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-voltage",
+          "name": "VoltageType",
+          "quantityKindId": "quantity-voltage",
+          "type": "ValueType",
+          "unitId": "unit-volt"
+        }
+      ]
+    }
+  },
+  "reference_system": "cabin_communication_system",
+  "parent_system": null,
+  "timestamp": "20250326_170544",
+  "provider": "gpt"
+}

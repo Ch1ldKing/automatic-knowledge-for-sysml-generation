@@ -1,0 +1,410 @@
+{
+  "system_id": "elevator_system",
+  "system_name": "Elevator System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the rapid deployment of the elevator system upon receiving control inputs.",
+        "name": "responseSpeed",
+        "type": "time",
+        "value": "<100ms"
+      },
+      {
+        "description": "Specifies the durability of the components exposed to environmental conditions.",
+        "name": "operationalDurability",
+        "type": "string",
+        "value": "High-capacity titanium alloy, tested for over 20 years of operational usage"
+      },
+      {
+        "description": "Indicates the redundancy ensuring uninterruptible functionality.",
+        "name": "redundancyCapability",
+        "type": "integer",
+        "value": "3"
+      },
+      {
+        "description": "Measures the precision of movement translation.",
+        "name": "movementAccuracy",
+        "type": "angle",
+        "value": "0.1 degrees"
+      }
+    ],
+    "designScenario": {
+      "description": "The Elevator mechanism ensures precise pitch control of the aircraft, translating pilot controls into varied elevator deflections to adjust the aircraft's ascent or descent behavior. Its design emphasizes redundancy, swift actuation, and minimal failure probability to guarantee stability under diverse flying conditions.",
+      "name": "Elevator System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable precise translation of control inputs into elevator motion to adjust aircraft pitch."
+            },
+            {
+              "description": "Employ high-precision actuators to meet aviation standards for dynamic response."
+            }
+          ],
+          "title": "Pitch Adjustment Capability",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain operations within 50ms latency from command receipt."
+            },
+            {
+              "description": "Operate unaffected under maximum aerodynamic pressure."
+            }
+          ],
+          "title": "Rapid Behavior Control",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Include backup systems to ensure functionality during primary system failure."
+            },
+            {
+              "description": "Provide alert feedback in case deviations are detected."
+            }
+          ],
+          "title": "Backup and Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design for operational reliability above 99.99% under continuous usage."
+            },
+            {
+              "description": "Incorporate corrosion-resistant protection for material longevity."
+            }
+          ],
+          "title": "Sustainability and Maintenance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Elevator system proximally interacts with the flight control system to receive electro-mechanical input.",
+        "relationshipType": "dependency",
+        "source": "Control System",
+        "target": "Elevator System"
+      },
+      {
+        "description": "The Elevator system integrates with navigation tools to measure angle and movement impact.",
+        "relationshipType": "association",
+        "source": "Navigation System",
+        "target": "Elevator System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Major actuating component responsible for operating elevator surfaces.",
+        "name": "Elevator Actuator",
+        "subComponents": [
+          {
+            "description": "Provides rotational movement needed for angle modulation.",
+            "name": "Rotary Engine",
+            "type": "Mechanic Component"
+          },
+          {
+            "description": "Assists in maintaining the stiffness of controlled movement.",
+            "name": "Torsional Support",
+            "type": "Structural Component"
+          }
+        ],
+        "type": "Mechanism"
+      },
+      {
+        "description": "Mechanical structure providing linked movement to left-right elevators.",
+        "name": "Elevator Linkage",
+        "subComponents": [
+          {
+            "description": "Component facilitating movement of the right elevator surface.",
+            "name": "Right Fork",
+            "type": "Connector"
+          },
+          {
+            "description": "Component aiding the deflection of left elevator.",
+            "name": "Left Fork",
+            "type": "Connector"
+          }
+        ],
+        "type": "Connector"
+      },
+      {
+        "description": "Surfaces adjusting the aerodynamic properties to move the nose-level of the aircraft.",
+        "name": "Elevator Surfaces",
+        "subComponents": [
+          {
+            "description": "Surface adjacent to ailerons for pitch control enhancement.",
+            "name": "Left Control Surface",
+            "type": "Panel"
+          },
+          {
+            "description": "Surface synchronized with its counterpart for navigational stability.",
+            "name": "Right Control Surface",
+            "type": "Panel"
+          }
+        ],
+        "type": "Flight Surfaces"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-navigation-elevator-system",
+          "memberEndIds": null,
+          "name": "NavigationElevatorLink",
+          "ownedEndIds": null,
+          "sourceId": "block-navigation-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-elevator-system",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "<100ms",
+          "id": "attr-response-speed",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "responseSpeed",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "<100ms",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "High-capacity titanium alloy, tested for over 20 years of operational usage",
+          "id": "attr-operational-durability",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operationalDurability",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "High-capacity titanium alloy, tested for over 20 years of operational usage",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-response-speed",
+            "attr-operational-durability"
+          ],
+          "constraintIds": null,
+          "id": "block-elevator-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Elevators",
+          "operationIds": null,
+          "partIds": [
+            "part-actuator",
+            "part-actuator-linkage",
+            "part-control-surfaces"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-elevator-system",
+          "body": "The Elevators system is critical for aircraft pitch control. It embodies rapid deployment capabilities (<100ms actuation) and durable composite materials ensuring over 20 years of operational efficiency. Key subsystems include actuator mechanisms, linkage systems interconnecting structural components, and the control surfaces for aerodynamic adjustments.",
+          "id": "comment-elevator-design",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-elevator-actuator",
+          "memberEndIds": null,
+          "name": "ActuatorComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-elevator-system",
+          "sourceMultiplicity": "1",
+          "targetId": "part-actuator",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-elevator-linkage",
+          "memberEndIds": null,
+          "name": "LinkageComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-elevator-system",
+          "sourceMultiplicity": "1",
+          "targetId": "part-actuator-linkage",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-elevator-surfaces",
+          "memberEndIds": null,
+          "name": "SurfacesComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-elevator-system",
+          "sourceMultiplicity": "1",
+          "targetId": "part-control-surfaces",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "responseSpeed < 100ms",
+          "id": "constraint-response-constraint",
+          "name": "ActuationSpeedThreshold",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-control-to-elevator",
+          "name": "SignalDependency",
+          "sourceId": "block-flight-control-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-elevator-system",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": [
+        {
+          "attributeIds": null,
+          "id": "domain-aero-design",
+          "name": "AerospaceSystems",
+          "type": "Domain"
+        }
+      ],
+      "enumerations": [],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-elevator-system",
+          "flowSpecificationId": "flow-spec-response-characteristics",
+          "id": "flowport-input-commands",
+          "isConjugated": false,
+          "name": "CommandInterfaceFlowPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "DigitalCommands",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-response-characteristics",
+          "name": "CommandSpecificationFlow",
+          "type": "FlowSpecification",
+          "unit": "ms"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-flight-control-interface",
+          "name": "ElevatorControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-actuator",
+          "name": "Elevator Actuator",
+          "of": "block-elevator-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-actuator-linkage",
+          "name": "Actuator Linkage Mechanism",
+          "of": "block-elevator-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-control-surfaces",
+          "name": "Control Surface System",
+          "of": "block-elevator-system",
+          "type": "Part"
+        }
+      ],
+      "ports": [],
+      "proxyPorts": [],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-precise-actuation",
+          "name": "PreciseControlMechanism",
+          "reqId": "REQ-ELEV-101",
+          "text": "The elevator system must facilitate accurate pitch adjustments to ensure navigational precision.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [],
+      "states": null,
+      "transitions": null,
+      "usages": [],
+      "useCases": null,
+      "valueTypes": []
+    }
+  },
+  "reference_system": "elevators",
+  "parent_system": null,
+  "timestamp": "20250326_161653",
+  "provider": "gpt"
+}

@@ -1,0 +1,79 @@
+{
+  "results": {
+    "Structural Element Definition": {
+      "TP": 740,
+      "TN": 28,
+      "FP": 71,
+      "FN": 208
+    },
+    "Relationship Modeling": {
+      "TP": 214,
+      "TN": 157,
+      "FP": 78,
+      "FN": 20
+    },
+    "Attributes and Constraints": {
+      "TP": 377,
+      "TN": 18,
+      "FP": 88,
+      "FN": 5
+    },
+    "Interface and Connectivity Modeling": {
+      "TP": 134,
+      "TN": 0,
+      "FP": 28,
+      "FN": 200
+    },
+    "Requirements and Verification Modeling": {
+      "TP": 241,
+      "TN": 12,
+      "FP": 4,
+      "FN": 6
+    }
+  },
+  "metrics": {
+    "Structural Element Definition": {
+      "Precision": 0.9124537607891492,
+      "Recall": 0.7805907172995781,
+      "Accuracy": 0.7335243553008596,
+      "False_alarm": 0.7171717171717171,
+      "F1": 0.8413871517907902
+    },
+    "Relationship Modeling": {
+      "Precision": 0.7328767123287672,
+      "Recall": 0.9145299145299145,
+      "Accuracy": 0.7910447761194029,
+      "False_alarm": 0.33191489361702126,
+      "F1": 0.8136882129277568
+    },
+    "Attributes and Constraints": {
+      "Precision": 0.810752688172043,
+      "Recall": 0.9869109947643979,
+      "Accuracy": 0.8094262295081968,
+      "False_alarm": 0.8301886792452831,
+      "F1": 0.8902007083825266
+    },
+    "Interface and Connectivity Modeling": {
+      "Precision": 0.8271604938271605,
+      "Recall": 0.40119760479041916,
+      "Accuracy": 0.3701657458563536,
+      "False_alarm": 1.0,
+      "F1": 0.5403225806451613
+    },
+    "Requirements and Verification Modeling": {
+      "Precision": 0.9836734693877551,
+      "Recall": 0.9757085020242915,
+      "Accuracy": 0.9619771863117871,
+      "False_alarm": 0.25,
+      "F1": 0.9796747967479675
+    },
+    "Overall": {
+      "Precision": 0.8637974683544304,
+      "Recall": 0.7953379953379953,
+      "Accuracy": 0.7306960821605173,
+      "False_alarm": 0.5557851239669421,
+      "F1": 0.8281553398058251
+    }
+  },
+  "timestamp": "2025-03-25 09:16:16"
+}

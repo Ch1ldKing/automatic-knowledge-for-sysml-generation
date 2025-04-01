@@ -1,0 +1,306 @@
+{
+  "system_id": "energy_storage_system",
+  "system_name": "Energy Storage System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum permissible pressure range ensuring efficient operation during extreme conditions.",
+        "name": "maxOperatingPressure",
+        "type": "string",
+        "value": "2000-6000 psi"
+      },
+      {
+        "description": "Time taken to release stored energy for handling emergency situations efficiently.",
+        "name": "energyReleaseResponseTime",
+        "type": "string",
+        "value": "0.25 seconds"
+      },
+      {
+        "description": "The material used to construct the accumulator body to withstand high-pressure environments.",
+        "name": "material",
+        "type": "string",
+        "value": "Titanium alloy"
+      },
+      {
+        "description": "Fluid type used for compatibility with modern aircraft hydraulic systems.",
+        "name": "compatibleFluidType",
+        "type": "string",
+        "value": "Sky-Gluide Aerospace Hydraulic Oil"
+      }
+    ],
+    "designScenario": {
+      "description": "The accumulator acts as a dynamic energy storage and pressure regulation component within an aircraft’s hydraulic system. Its primary function is to stabilize circuit pressure, store excess hydraulic energy, and release it when sudden demands arise, such as during critical flight maneuvers or emergency landings. Designed for robustness and longevity, the accumulator enhances safety and system reliability under aerospace operating conditions.",
+      "name": "Advanced Aircraft Accumulator",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The accumulator will store and release hydraulic energy to stabilize circuit fluctuations during normal and emergency operations."
+            }
+          ],
+          "title": "Hydraulic Energy Management",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Energy release will occur within 0.25 seconds, aligning with critical handling and performance metrics for enhanced safety."
+            }
+          ],
+          "title": "Rapid Energy Deployment",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Equipped with emergency pressure release mechanisms safeguarding against pressure overloads."
+            }
+          ],
+          "title": "Pressure Overload Protection",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Withstand over 800 operational flight hours without significant maintenance requirements."
+            }
+          ],
+          "title": "Extended Durability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The main hydraulic system relies on the accumulator for pressure regulation and energy stability.",
+        "relationshipType": "composition",
+        "source": "HydraulicSystem",
+        "target": "Accumulator"
+      },
+      {
+        "description": "Energy stored by the accumulator is utilized by the actuator system during high-demand scenarios.",
+        "relationshipType": "dependency",
+        "source": "Accumulator",
+        "target": "ActuatorSystem"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central unit for energy storage and pressure management.",
+        "name": "Accumulator",
+        "subComponents": [
+          {
+            "description": "Stores energy using pressurized gas and hydraulic fluid separation.",
+            "name": "Gas-Charged Chamber",
+            "type": "Energy Storage Component"
+          },
+          {
+            "description": "Ensures controlled movement of stored energy release.",
+            "name": "Piston Mechanism",
+            "type": "Mechanical Component"
+          },
+          {
+            "description": "Monitors and controls system pressure levels.",
+            "name": "Pressure Regulator Valve",
+            "type": "Control Component"
+          }
+        ],
+        "type": "HydraulicSubsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "association-1",
+          "memberEndIds": null,
+          "name": "MonitoredBy",
+          "ownedEndIds": null,
+          "sourceId": "block-BatteryManagementController",
+          "sourceMultiplicity": "1..1",
+          "targetId": "block-BatteryCellArray",
+          "targetMultiplicity": "1..1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attribute-ESS-capacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "0",
+          "name": "Capacity",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attribute-ESS-capacity"
+          ],
+          "constraintIds": null,
+          "id": "block-EnergyStorageSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Energy Storage System",
+          "operationIds": [
+            "operation-checkStatus"
+          ],
+          "partIds": [
+            "part-BatteryCellArray",
+            "part-BatteryManagementController"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-BatteryCellArray",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Battery Cell Array",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-BatteryManagementController",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Battery Management Controller",
+          "operationIds": [
+            "operation-monitorCells"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-EnergyStorageSystem",
+          "body": "The Energy Storage System provides backup power for critical aircraft systems during main power failures.",
+          "id": "comment-ESS",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "composition-ESS-BatteryCellArray",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block-EnergyStorageSystem",
+          "sourceMultiplicity": "1..1",
+          "targetId": "block-BatteryCellArray",
+          "targetMultiplicity": "1..1",
+          "type": "Composition"
+        },
+        {
+          "id": "composition-ESS-BatteryManagementController",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block-EnergyStorageSystem",
+          "sourceMultiplicity": "1..1",
+          "targetId": "block-BatteryManagementController",
+          "targetMultiplicity": "1..1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-BatteryCellArray",
+          "name": "BatteryCellArray",
+          "of": "block-EnergyStorageSystem",
+          "type": "Part"
+        },
+        {
+          "id": "part-BatteryManagementController",
+          "name": "BatteryManagementController",
+          "of": "block-EnergyStorageSystem",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "valueType-Capacity",
+          "name": "Capacity",
+          "quantityKindId": "quantityKind-energy",
+          "type": "ValueType",
+          "unitId": "unit-kWh"
+        }
+      ]
+    }
+  },
+  "rag_context": "The Energy Storage System is designed to provide backup electrical energy to ensure uninterrupted operation during main power failures. It consists of a \"Battery Cell Array\" which is an array of high-performance battery cells designed for robust discharge and long lifecycle, and a \"Battery Management Controller\" which oversees charging cycles and ensures safe operation. The system is engineered to comply with safety standards and provide reliable emergency power to critical aircraft systems.",
+  "timestamp": "20250326_174349",
+  "provider": "gpt"
+}

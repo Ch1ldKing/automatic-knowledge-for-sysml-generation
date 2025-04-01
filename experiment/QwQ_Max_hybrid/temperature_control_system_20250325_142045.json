@@ -1,0 +1,608 @@
+{
+  "system_id": "temperature_control_system",
+  "system_name": "Temperature Control System",
+  "specification": {
+    "designScenario": {
+      "name": "Temperature Control System",
+      "description": "The Temperature Control System (TCS) is designed to regulate cabin thermal conditions across all flight phases, ensuring passenger comfort and regulatory compliance. It employs advanced HVAC technologies, including altitude-compensated heat exchangers and multi-zone temperature distribution. The system maintains a cabin temperature range of 16°C to 24°C, integrates with the Air Handling Unit (AHU) for airflow management, and communicates with the Flight Management System (FMS) for real-time altitude and flight phase data. Redundant control loops and fail-safe mechanisms ensure operational reliability under extreme conditions.",
+      "requirements": [
+        {
+          "title": "Altitude-Compensated Thermal Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall automatically adjust heating and cooling outputs based on external altitude and cabin pressure data provided by the Flight Management System."
+            }
+          ]
+        },
+        {
+          "title": "Rapid Response to Thermal Disturbances",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The TCS must detect and correct temperature deviations exceeding ±1°C within 3 seconds to prevent discomfort during rapid cabin pressure changes."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe Thermal Isolation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "In case of primary control failure, the system shall isolate affected zones and activate redundant cooling/heating circuits within 2 seconds to maintain minimum safety thresholds."
+            }
+          ]
+        },
+        {
+          "title": "Health Monitoring Integration",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "The subsystem must interface with the Aircraft Condition Monitoring System (ACMS) to log thermal performance data and provide predictive maintenance alerts for critical components."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Temperature Control System",
+        "type": "Subsystem",
+        "description": "Central subsystem managing cabin thermal equilibrium through multi-zone regulation and fault-tolerant architecture.",
+        "subComponents": [
+          {
+            "name": "Vapor Cycle Cooler",
+            "type": "Actuator",
+            "description": "Primary cooling unit using refrigerant cycles to remove heat from cabin airflows."
+          },
+          {
+            "name": "Electric Heater Array",
+            "type": "Actuator",
+            "description": "Resistance-based heating elements for rapid temperature elevation during cold-soak conditions."
+          },
+          {
+            "name": "Multi-Zone Sensor Array",
+            "type": "Sensor",
+            "description": "Distributed thermocouples and infrared sensors providing real-time temperature data across cabin sections."
+          },
+          {
+            "name": "Zone Management Controller",
+            "type": "Controller",
+            "description": "Dedicated microcontroller handling zone-specific temperature adjustments and airflow distribution."
+          },
+          {
+            "name": "Fail-Safe Thermal Valve",
+            "type": "Actuator",
+            "description": "Mechanical valve that automatically isolates faulty zones in case of control system failure."
+          }
+        ]
+      },
+      {
+        "name": "Air Handling Unit",
+        "type": "Subsystem",
+        "description": "Supplies conditioned airflows to the TCS for thermal exchange, with integrated humidity control.",
+        "subComponents": null
+      },
+      {
+        "name": "Flight Management System",
+        "type": "Subsystem",
+        "description": "Provides real-time flight data (altitude, speed) influencing thermal regulation algorithms.",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Temperature Control System",
+        "target": "Air Handling Unit",
+        "relationshipType": "aggregation",
+        "description": "The TCS aggregates airflow data from the AHU to optimize cooling/heating energy distribution."
+      },
+      {
+        "source": "Air Handling Unit",
+        "target": "Temperature Control System",
+        "relationshipType": "dependency",
+        "description": "The AHU depends on TCS commands to modulate airflow volume and direction for thermal balance."
+      },
+      {
+        "source": "Temperature Control System",
+        "target": "Flight Management System",
+        "relationshipType": "association",
+        "description": "TCS retrieves altitude and speed data from FMS to adjust thermal compensation parameters."
+      },
+      {
+        "source": "Temperature Control System",
+        "target": "Aircraft Condition Monitoring System",
+        "relationshipType": "association",
+        "description": "TCS transmits health data to ACMS for predictive maintenance analysis."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "16°C - 24°C",
+        "description": "Maintained cabin temperature range during normal operation."
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "<3 seconds",
+        "description": "Maximum allowed time to correct temperature deviations exceeding ±1°C."
+      },
+      {
+        "name": "sensorAccuracy",
+        "type": "string",
+        "value": "±0.3°C",
+        "description": "Measurement precision of the distributed sensor array."
+      },
+      {
+        "name": "controlResolution",
+        "type": "string",
+        "value": "±0.1°C",
+        "description": "Precision of temperature adjustments by the zone management controller."
+      },
+      {
+        "name": "zoneControlCapability",
+        "type": "string",
+        "value": "8 independent zones",
+        "description": "Number of separately controllable thermal zones within the cabin."
+      },
+      {
+        "name": "failoverThreshold",
+        "type": "string",
+        "value": "±2°C deviation",
+        "description": "Temperature deviation triggering automatic fail-safe isolation mechanisms."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-tcs",
+          "type": "Block",
+          "name": "Temperature Control System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-temp-range",
+            "attr-response-time",
+            "attr-sensor-accuracy",
+            "attr-control-resolution",
+            "attr-zone-capability",
+            "attr-failover-threshold"
+          ],
+          "operationIds": [
+            "op-adjust-temperature"
+          ],
+          "constraintIds": [
+            "constraint-temp-range"
+          ],
+          "partIds": [
+            "part-vapor-cooler",
+            "part-heater",
+            "part-sensor-array",
+            "part-zone-controller",
+            "part-fail-safe-valve"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-vapor-cooler",
+          "type": "Block",
+          "name": "Vapor Cycle Cooler",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-cooling-capacity"
+          ],
+          "operationIds": [
+            "op-cool"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-heater",
+          "type": "Block",
+          "name": "Electric Heater Array",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-heating-capacity"
+          ],
+          "operationIds": [
+            "op-heat"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-sensor-array",
+          "type": "Block",
+          "name": "Multi-Zone Sensor Array",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-sensor-count"
+          ],
+          "operationIds": [
+            "op-measure-temperature"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-zone-controller",
+          "type": "Block",
+          "name": "Zone Management Controller",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-zones-managed"
+          ],
+          "operationIds": [
+            "op-distribute-airflow"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-fail-safe-valve",
+          "type": "Block",
+          "name": "Fail-Safe Thermal Valve",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-isolation-time"
+          ],
+          "operationIds": [
+            "op-activate-isolation"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-ahu",
+          "type": "Block",
+          "name": "Air Handling Unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-airflow-rate"
+          ],
+          "operationIds": [
+            "op-modulate-airflow"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-fms",
+          "type": "Block",
+          "name": "Flight Management System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-altitude-data"
+          ],
+          "operationIds": [
+            "op-provide-flight-data"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-acms",
+          "type": "Block",
+          "name": "Aircraft Condition Monitoring System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-logging-capability"
+          ],
+          "operationIds": [
+            "op-receive-logs"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb-temp-control",
+          "type": "InterfaceBlock",
+          "name": "TemperatureControlInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "op-get-temperature",
+            "op-set-temperature"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-temp-data",
+          "type": "FlowSpecification",
+          "name": "TemperatureDataFlow",
+          "flowType": "InformationFlow",
+          "dataType": "TemperatureValue",
+          "unit": "°C",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-temp-range",
+          "type": "ConstraintBlock",
+          "name": "TemperatureRangeConstraint",
+          "parameterIds": [],
+          "expression": "if (currentTemp < 16°C || currentTemp > 24°C) then trigger_alert()",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt-temperature",
+          "type": "ValueType",
+          "name": "TemperatureValue",
+          "quantityKindId": "temperature",
+          "unitId": "unit-celsius",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-control-mode",
+          "type": "Enumeration",
+          "name": "ControlMode",
+          "literals": [
+            {
+              "id": "literal-auto",
+              "name": "AUTO"
+            },
+            {
+              "id": "literal-manual",
+              "name": "MANUAL"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-tcs-control",
+          "type": "Port",
+          "name": "ControlInterfacePort",
+          "portType": "full",
+          "isConjugated": false,
+          "blockId": "block-tcs",
+          "providedInterfaceIds": [
+            "ifb-temp-control"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "port-tcs-temp-data",
+          "type": "FlowPort",
+          "name": "TemperatureDataPort",
+          "isConjugated": false,
+          "blockId": "block-tcs",
+          "flowSpecificationId": "flow-spec-temp-data",
+          "attributeIds": []
+        },
+        {
+          "id": "port-tcs-acms",
+          "type": "ProxyPort",
+          "name": "ACMSMonitoringPort",
+          "isConjugated": false,
+          "blockId": "block-tcs",
+          "providedInterfaceIds": [
+            "ifb-temp-control"
+          ],
+          "requiredInterfaceIds": [],
+          "attributeIds": []
+        }
+      ],
+      "associations": [
+        {
+          "id": "agg-tcs-ahu",
+          "type": "Aggregation",
+          "name": "TCSAggregatesAHU",
+          "sourceId": "block-tcs",
+          "targetId": "block-ahu",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "dep-ahu-tcs",
+          "type": "Dependency",
+          "name": "AHUDependsOnTCS",
+          "sourceId": "block-ahu",
+          "targetId": "block-tcs",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "assoc-tcs-fms",
+          "type": "Association",
+          "name": "TCSCouplesWithFMS",
+          "sourceId": "block-tcs",
+          "targetId": "block-fms",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "assoc-tcs-acms",
+          "type": "Association",
+          "name": "TCSSendsToACMS",
+          "sourceId": "block-tcs",
+          "targetId": "block-acms",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-temp-range",
+          "type": "Property",
+          "name": "operatingTemperatureRange",
+          "propertyType": "String",
+          "value": "16°C - 24°C",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "16°C - 24°C",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-response-time",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "String",
+          "value": "<3 seconds",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "<3 seconds",
+          "isReadOnly": true,
+          "isStatic": true,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-sensor-accuracy",
+          "type": "Property",
+          "name": "sensorAccuracy",
+          "propertyType": "String",
+          "value": "±0.3°C",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "±0.3°C",
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-control-resolution",
+          "type": "Property",
+          "name": "controlResolution",
+          "propertyType": "String",
+          "value": "±0.1°C",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "±0.1°C",
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-zone-capability",
+          "type": "Property",
+          "name": "zoneControlCapability",
+          "propertyType": "String",
+          "value": "8 independent zones",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "8",
+          "isReadOnly": true,
+          "isStatic": true,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-failover-threshold",
+          "type": "Property",
+          "name": "failoverThreshold",
+          "propertyType": "String",
+          "value": "±2°C deviation",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "±2°C",
+          "isReadOnly": true,
+          "isStatic": true,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-tcs-design",
+          "type": "Comment",
+          "body": "The TCS manages cabin thermal conditions using altitude-compensated HVAC technologies. It ensures regulatory compliance through redundant control loops and real-time flight data integration.",
+          "annotatedElementId": "block-tcs"
+        }
+      ]
+    }
+  },
+  "reference_system": "temperature_control_system",
+  "parent_system": null,
+  "timestamp": "20250325_142045",
+  "provider": "qwen"
+}

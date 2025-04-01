@@ -1,0 +1,650 @@
+{
+  "system_id": "oxygen_system",
+  "system_name": "Oxygen System",
+  "specification": {
+    "designScenario": {
+      "name": "Oxygen System",
+      "description": "The Oxygen System is a critical safety system designed to provide breathable oxygen to passengers and crew during cabin decompression events or loss of cabin pressure. It integrates chemical oxygen generators, distribution networks, and mask deployment mechanisms to ensure rapid oxygen supply. The system is engineered for high reliability, fail-safe operation, and compliance with aviation safety regulations (e.g., FAA, EASA). It operates in tandem with the Environmental Control System to monitor cabin altitude and trigger emergency oxygen deployment when thresholds are exceeded.",
+      "requirements": [
+        {
+          "title": "Oxygen Generation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall generate breathable oxygen via chemical oxygen generators or stored gaseous oxygen, activated automatically during cabin depressurization."
+            }
+          ]
+        },
+        {
+          "title": "Mask Deployment",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Automatically deploy passenger and crew oxygen masks within 5 seconds of cabin altitude exceeding 14,000 feet."
+            }
+          ]
+        },
+        {
+          "title": "Oxygen Flow Rate",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Deliver a minimum oxygen flow rate of 2.4 liters per minute per passenger mask for at least 15 minutes."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Activation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant activation pathways (electrical and mechanical) to ensure mask deployment under all failure conditions."
+            }
+          ]
+        },
+        {
+          "title": "Monitoring Interface",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide real-time oxygen system status and fault diagnostics to the cockpit crew via the central Environmental Control System interface."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Oxygen Generators",
+        "description": "Chemical or gaseous oxygen sources that produce breathable oxygen upon activation.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Chemical Oxygen Canisters",
+            "description": "Sodium chlorate-based generators activated by pyrotechnic charges during decompression.",
+            "type": "Oxygen Source"
+          },
+          {
+            "name": "Activation Mechanism",
+            "description": "Electromechanical trigger initiating oxygen generation via thermal decomposition.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Oxygen Purity Sensor",
+            "description": "Monitors O2 concentration in generated gas to ensure ≥99% purity.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Distribution Network",
+        "description": "Ducting and valves regulating oxygen flow from generators to masks.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Oxygen Ducts",
+            "description": "Fire-resistant polymer conduits distributing oxygen to mask assemblies.",
+            "type": "Conduit"
+          },
+          {
+            "name": "Flow Control Valves",
+            "description": "Electropneumatic valves modulating oxygen pressure and flow rates.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Pressure Regulator",
+            "description": "Maintains 4-6 psi outlet pressure for mask delivery systems.",
+            "type": "Regulator"
+          }
+        ]
+      },
+      {
+        "name": "Masks Deployment System",
+        "description": "Mechanism storing and releasing passenger/crew oxygen masks.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Mask Assemblies",
+            "description": "Oxygen masks with rebreather bags and elastic lanyards.",
+            "type": "Safety Device"
+          },
+          {
+            "name": "Release Mechanism",
+            "description": "Spring-loaded panel doors activated by cabin altitude sensors.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Lanyard Sensor",
+            "description": "Detects mask pull-to-activate action to initiate oxygen flow.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Oxygen Monitoring System",
+        "description": "Sensors and controllers tracking oxygen system status.",
+        "type": "Monitoring Module",
+        "subComponents": [
+          {
+            "name": "Cabin Altitude Sensor",
+            "description": "Barometric sensor triggering deployment at 14,000 ft cabin altitude.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Oxygen Pressure Sensor",
+            "description": "Measures line pressure in distribution network.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Oxygen Control Unit",
+        "description": "Central processor managing activation thresholds and crew alerts.",
+        "type": "Electronic Module",
+        "subComponents": [
+          {
+            "name": "Fault Detection Circuit",
+            "description": "Continuous built-in-test (BIT) of oxygen system components.",
+            "type": "Diagnostic Module"
+          },
+          {
+            "name": "Crew Alerting Panel",
+            "description": "Visual/aural warnings for low oxygen pressure or generator faults.",
+            "type": "Interface"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Oxygen Control Unit",
+        "target": "Oxygen Monitoring System",
+        "relationshipType": "aggregation",
+        "description": "The Control Unit aggregates pressure and altitude data from the Monitoring System to determine deployment timing."
+      },
+      {
+        "source": "Distribution Network",
+        "target": "Oxygen Generators",
+        "relationshipType": "dependency",
+        "description": "The Distribution Network depends on oxygen supply from Generators during emergency operations."
+      },
+      {
+        "source": "Masks Deployment System",
+        "target": "Release Mechanism",
+        "relationshipType": "composition",
+        "description": "The Deployment System is composed of Release Mechanisms integrated into overhead panel assemblies."
+      },
+      {
+        "source": "Oxygen Monitoring System",
+        "target": "Oxygen Control Unit",
+        "relationshipType": "association",
+        "description": "The Monitoring System transmits real-time sensor data to the Control Unit via CAN bus."
+      },
+      {
+        "source": "Distribution Network",
+        "target": "Masks Deployment System",
+        "relationshipType": "association",
+        "description": "Oxygen ducts interface with mask lanyards to supply oxygen when masks are deployed."
+      },
+      {
+        "source": "Oxygen Control Unit",
+        "target": "Environmental Control System",
+        "relationshipType": "dependency",
+        "description": "The Oxygen System relies on cabin altitude data from the Environmental Control System's pressure sensors."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "oxygenFlowRate",
+        "type": "string",
+        "value": "2.4 - 4.0 L/min",
+        "description": "Guaranteed oxygen flow rate per mask under decompression conditions."
+      },
+      {
+        "name": "deploymentAltitude",
+        "type": "string",
+        "value": "14,000 ft",
+        "description": "Cabin altitude threshold for automatic mask deployment."
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "≤5 seconds",
+        "description": "Maximum allowable delay between altitude threshold breach and mask deployment."
+      },
+      {
+        "name": "oxygenCapacity",
+        "type": "string",
+        "value": "15-22 minutes",
+        "description": "Minimum duration of oxygen supply at maximum flow rate."
+      },
+      {
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "4-6 psi",
+        "description": "Regulated oxygen pressure at mask interface."
+      },
+      {
+        "name": "oxygenPurity",
+        "type": "string",
+        "value": "≥99%",
+        "description": "Minimum oxygen concentration in delivered gas mixture."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "b_OxygenSystem",
+          "type": "Block",
+          "name": "OxygenSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a_OxygenFlowRate",
+            "a_OxygenPressure",
+            "a_SystemStatus"
+          ],
+          "operationIds": [
+            "o_Activate",
+            "o_Deactivate",
+            "o_CheckStatus"
+          ],
+          "constraintIds": [
+            "c_MinOxygenFlow"
+          ],
+          "partIds": [
+            "p_OxygenTank",
+            "p_Regulator",
+            "p_Distribution"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b_OxygenTank",
+          "type": "Block",
+          "name": "OxygenTank",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a_TankCapacity",
+            "a_CurrentLevel"
+          ],
+          "operationIds": [
+            "o_Refill",
+            "o_ReleaseOxygen"
+          ],
+          "constraintIds": [
+            "c_MaxCapacity"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b_Regulator",
+          "type": "Block",
+          "name": "Regulator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a_FlowSetting",
+            "a_PressureSetting"
+          ],
+          "operationIds": [
+            "o_AdjustFlow",
+            "o_AdjustPressure"
+          ],
+          "constraintIds": [
+            "c_SafePressure"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b_Distribution",
+          "type": "Block",
+          "name": "Distribution",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a_NumOutlets",
+            "a_FlowPerOutlet"
+          ],
+          "operationIds": [
+            "o_Distribute",
+            "o_CheckLeaks"
+          ],
+          "constraintIds": [
+            "c_FlowBalance"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ib_OxygenInterface",
+          "type": "InterfaceBlock",
+          "name": "OxygenInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "io_RequestOxygen",
+            "io_ReportStatus"
+          ],
+          "signalIds": [
+            "s_LowOxygenWarning"
+          ],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fs_OxygenFlow",
+          "type": "FlowSpecification",
+          "name": "OxygenFlow",
+          "flowType": "material",
+          "dataType": "vt_OxygenFlowRate",
+          "unit": "L/min",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "c_MinOxygenFlow",
+          "type": "ConstraintBlock",
+          "name": "MinOxygenFlow",
+          "parameterIds": [
+            "p_FlowRate"
+          ],
+          "expression": "p_FlowRate >= 2.0",
+          "attributeIds": []
+        },
+        {
+          "id": "c_MaxCapacity",
+          "type": "ConstraintBlock",
+          "name": "MaxCapacity",
+          "parameterIds": [
+            "p_Level"
+          ],
+          "expression": "p_Level <= 100.0",
+          "attributeIds": []
+        },
+        {
+          "id": "c_SafePressure",
+          "type": "ConstraintBlock",
+          "name": "SafePressure",
+          "parameterIds": [
+            "p_Pressure"
+          ],
+          "expression": "p_Pressure <= 50.0",
+          "attributeIds": []
+        },
+        {
+          "id": "c_FlowBalance",
+          "type": "ConstraintBlock",
+          "name": "FlowBalance",
+          "parameterIds": [
+            "p_TotalFlow",
+            "p_OutletFlows"
+          ],
+          "expression": "sum(p_OutletFlows) == p_TotalFlow",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt_OxygenFlowRate",
+          "type": "ValueType",
+          "name": "OxygenFlowRate",
+          "quantityKindId": "qk_FlowRate",
+          "unitId": "u_LiterPerMin",
+          "attributeIds": []
+        },
+        {
+          "id": "vt_OxygenPressure",
+          "type": "ValueType",
+          "name": "OxygenPressure",
+          "quantityKindId": "qk_Pressure",
+          "unitId": "u_PSI",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "e_SystemStatus",
+          "type": "Enumeration",
+          "name": "SystemStatus",
+          "literals": [
+            {
+              "id": "l_Active",
+              "name": "ACTIVE"
+            },
+            {
+              "id": "l_Standby",
+              "name": "STANDBY"
+            },
+            {
+              "id": "l_Fault",
+              "name": "FAULT"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "p_OxygenIn",
+          "type": "FlowPort",
+          "name": "OxygenIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b_OxygenSystem",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs_OxygenFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "p_OxygenOut",
+          "type": "FlowPort",
+          "name": "OxygenOut",
+          "portType": "flow",
+          "isConjugated": true,
+          "blockId": "b_OxygenSystem",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs_OxygenFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "p_Control",
+          "type": "ProxyPort",
+          "name": "Control",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "b_OxygenSystem",
+          "providedInterfaceIds": [
+            "ib_OxygenInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp_OxygenSystem_Tank",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b_OxygenSystem",
+          "targetId": "b_OxygenTank",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..2",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp_OxygenSystem_Regulator",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b_OxygenSystem",
+          "targetId": "b_Regulator",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp_OxygenSystem_Distribution",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b_OxygenSystem",
+          "targetId": "b_Distribution",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "itemFlows": [
+        {
+          "id": "if_OxygenFlow",
+          "type": "ItemFlow",
+          "name": "OxygenFlow",
+          "sourceId": "p_OxygenIn",
+          "targetId": "p_OxygenOut",
+          "flowSpecificationId": "fs_OxygenFlow",
+          "itemPropertyIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "cm_OxygenSystem",
+          "type": "Comment",
+          "body": "Provides oxygen to crew/passengers at appropriate pressure and flow rates",
+          "annotatedElementId": "b_OxygenSystem"
+        },
+        {
+          "id": "cm_MinFlow",
+          "type": "Comment",
+          "body": "Minimum flow rate must meet FAA regulations",
+          "annotatedElementId": "c_MinOxygenFlow"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "a_OxygenFlowRate",
+          "type": "Property",
+          "name": "oxygenFlowRate",
+          "propertyType": "Double",
+          "value": "2.0",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "10",
+          "defaultValue": "2.0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a_OxygenPressure",
+          "type": "Property",
+          "name": "oxygenPressure",
+          "propertyType": "Double",
+          "value": "30.0",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "50",
+          "defaultValue": "30.0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a_SystemStatus",
+          "type": "Property",
+          "name": "systemStatus",
+          "propertyType": "String",
+          "value": "STANDBY",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "STANDBY",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "o_Activate",
+          "type": "Operation",
+          "name": "activate",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "o_Deactivate",
+          "type": "Operation",
+          "name": "deactivate",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Oxygen System information and specifications are not provided in the given context.",
+  "timestamp": "20250326_013810",
+  "provider": "dpsk"
+}

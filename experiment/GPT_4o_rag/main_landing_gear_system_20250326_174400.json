@@ -1,0 +1,298 @@
+{
+  "system_id": "main_landing_gear_system",
+  "system_name": "Main Landing Gear System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum load capacity supported by the landing gear system.",
+        "name": "loadCapacity",
+        "type": "string",
+        "value": "Up to 180,000 lbs"
+      },
+      {
+        "description": "Time required for full deployment or retraction of the landing gear system.",
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "2.5 seconds on average"
+      },
+      {
+        "description": "Energy absorption efficiency during landing impact transitions.",
+        "name": "shockAbsorption",
+        "type": "string",
+        "value": "High damping coefficient ensuring minimum stress transfer to the aircraft structure."
+      },
+      {
+        "description": "Operational hydraulic pressure facilitating gear actuation and braking functionalities.",
+        "name": "hydraulicPressure",
+        "type": "string",
+        "value": "Approx. 3500 PSI"
+      },
+      {
+        "description": "Acoustic and vibrational disturbance metrics measured during operation for compliance with comfort standards.",
+        "name": "noiseVibration",
+        "type": "string",
+        "value": "Low, designed to reduce cockpit and passenger discomfort"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear System is engineered to meet rigorous safety, performance, and durability standards for commercial airplanes, ensuring seamless takeoff, landing, and taxiing operations.",
+      "name": "Landing Gear System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Automated extension/retraction triggering synchronized with flight commands."
+            },
+            {
+              "description": "Optimized shock absorption mechanism for safe operation in adverse conditions."
+            }
+          ],
+          "title": "Operational Efficiency and Automation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Hydraulic actuators equipped for swift responses to command inputs."
+            }
+          ],
+          "title": "Performance Measures",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Emergency manual release provisions for landing gear actuation in case of system failure."
+            },
+            {
+              "description": "Load-distribution system to ensure even strain across multiple components."
+            }
+          ],
+          "title": "Fail-Safe Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Simplified inspection access and minimized turnaround times for maintenance."
+            }
+          ],
+          "title": "Serviceability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Sensor Array communicates gear position status to the Processing Unit.",
+        "relationshipType": "association",
+        "source": "Sensor Array",
+        "target": "Processing Unit"
+      },
+      {
+        "description": "The Actuation System uses power from the Hydraulic Assembly to operate load mechanisms.",
+        "relationshipType": "dependency",
+        "source": "Actuation System",
+        "target": "Hydraulic Assembly"
+      },
+      {
+        "description": "Brake Assembly components are integral to the structural operation of wheel components.",
+        "relationshipType": "composition",
+        "source": "Brake Assembly",
+        "target": "Wheel Framework"
+      },
+      {
+        "description": "Directional actuator units are incorporated into steering system's nose gear operations for ground control.",
+        "relationshipType": "aggregation",
+        "source": "Directional Actuator",
+        "target": "Nose Gear Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Main processing unit managing all commands and responses of the landing gear system.",
+        "name": "Processing Unit",
+        "subComponents": [
+          {
+            "description": "Logical module for evaluating input signal instructions.",
+            "name": "Command Logic",
+            "type": "Processor"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Central hydraulic unit providing necessary force for mechanical operations.",
+        "name": "Hydraulic Assembly",
+        "subComponents": [
+          {
+            "description": "Heavy-capacity pressure corner generation unit.",
+            "name": "Hydraulic Motor",
+            "type": "Mechanical Unit"
+          },
+          {
+            "description": "Pressure regulation flows circuits configuration.",
+            "name": "Pressure Control Module",
+            "type": "Mechanical Controller"
+          }
+        ],
+        "type": "Electro-mechanical Subsystem"
+      },
+      {
+        "description": "Structural frame and actuation integration enabling mechanical landing and shock features.",
+        "name": "Landing Modules",
+        "subComponents": [
+          {
+            "description": "Energy handling absorbers mounted on load extremity.",
+            "name": "Impact Dampers",
+            "type": "Absorbers"
+          }
+        ],
+        "type": "Mechanical Modules"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg1",
+          "memberEndIds": [
+            "prop1",
+            "prop2"
+          ],
+          "name": "includes",
+          "ownedEndIds": [
+            "prop1",
+            "prop2"
+          ],
+          "sourceId": "block1",
+          "sourceMultiplicity": "1",
+          "targetId": "block2",
+          "targetMultiplicity": "1..*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "LandingGearType",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr1"
+          ],
+          "constraintIds": null,
+          "id": "block1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "MainLandingGearSystem",
+          "operationIds": null,
+          "partIds": [
+            "part1",
+            "part2",
+            "part3"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block1",
+          "body": "Main Landing Gear System represents the entire landing gear system of an aircraft.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part1",
+          "name": "MainLandingWheels",
+          "of": "block1",
+          "type": "Part"
+        },
+        {
+          "id": "part2",
+          "name": "NoseGearWheel",
+          "of": "block1",
+          "type": "Part"
+        },
+        {
+          "id": "part3",
+          "name": "SensorPackage",
+          "of": "block1",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Main Landing Gear System includes components such as main landing wheels designed for high load capacity and durability, nose gear wheel with steering features, and a sensor package that monitors gear position, hydraulic pressure, and structural stress. The main landing wheels are crucial for supporting the full weight of the aircraft during landing, while the nose gear wheel aids in directional control during ground operations. The sensor module provides real-time feedback on hydraulic pressure, gear position, and structural stress to ensure safe and efficient operations of the landing gear system.",
+  "timestamp": "20250326_174400",
+  "provider": "gpt"
+}

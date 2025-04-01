@@ -1,0 +1,467 @@
+{
+  "system_id": "ventilation_system",
+  "system_name": "Ventilation System",
+  "specification": {
+    "designScenario": {
+      "name": "Ventilation System",
+      "description": "This design outlines a Ventilation System for aviation applications, focusing on maintaining optimal airflow, filtration efficiency, and pressure management within the aircraft cabin. The system is engineered to ensure passenger comfort, air quality, and safety by integrating advanced airflow regulation, multi-stage filtration, and pressure control mechanisms. It aligns with aviation standards for reliability, rapid response, and fail-safe operations.",
+      "requirements": [
+        {
+          "title": "Airflow Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Maintain cabin airflow between 500 CFM and 2000 CFM to ensure adequate ventilation and prevent stagnation."
+            }
+          ]
+        },
+        {
+          "title": "Filtration Efficiency",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must achieve 99.97% filtration efficiency for particles as small as 0.3 microns using HEPA filters."
+            }
+          ]
+        },
+        {
+          "title": "Pressure Differential Management",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Control pressure differentials between cabin zones to prevent air leakage and maintain structural integrity, within a range of 0.2 - 0.5 inches H2O."
+            }
+          ]
+        },
+        {
+          "title": "Response Time",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system must respond to airflow or pressure deviations within 5 seconds to maintain stability."
+            }
+          ]
+        },
+        {
+          "title": "Emergency Airflow Path Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement redundant airflow paths and fail-safe dampers to maintain critical ventilation in case of primary system failure."
+            }
+          ]
+        },
+        {
+          "title": "Modular Design",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All components must support modular replacement and upgrades to reduce downtime and align with aviation maintenance practices."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Air Circulation Unit",
+        "description": "Responsible for generating and directing airflow through the cabin using high-efficiency blowers and adjustable dampers.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Blower Assembly",
+            "description": "High-capacity centrifugal blower designed to deliver regulated airflow under varying cabin conditions.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Air Dampers",
+            "description": "Variable position dampers to control airflow direction and volume.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Air Intake Module",
+            "description": "Filtered external air intake with pressure regulation for fresh air supply.",
+            "type": "Conduit"
+          }
+        ]
+      },
+      {
+        "name": "Ductwork System",
+        "description": "Network of pressurized ducts and valves for distributing conditioned air to all cabin zones.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Primary Ducts",
+            "description": "Rigid aluminum ducts with corrosion-resistant coating for high-pressure airflow.",
+            "type": "Conduit"
+          },
+          {
+            "name": "Zonal Valves",
+            "description": "Electronically controlled valves to regulate airflow distribution between cabin sections.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Sealing Mechanisms",
+            "description": "Gasketed joints and pressure-sealed connections to prevent air leakage.",
+            "type": "Mechanical Component"
+          }
+        ]
+      },
+      {
+        "name": "Filtration Module",
+        "description": "Multi-stage filtration system to remove particulates, microbes, and contaminants from cabin air.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Pre-Filter",
+            "description": "Coarse mesh filter for large particles and debris.",
+            "type": "Filter"
+          },
+          {
+            "name": "HEPA Filter",
+            "description": "High-Efficiency Particulate Air filter for 0.3 micron particle capture.",
+            "type": "Filter"
+          },
+          {
+            "name": "Post-Filter",
+            "description": "Activated carbon filter to absorb odors and volatile organic compounds.",
+            "type": "Filter"
+          }
+        ]
+      },
+      {
+        "name": "Air Quality Sensors",
+        "description": "Suite of sensors monitoring particulate levels, CO2 concentration, and pressure differentials.",
+        "type": "Monitoring Module",
+        "subComponents": [
+          {
+            "name": "Particulate Sensor",
+            "description": "Laser-based sensor for real-time particle count measurement.",
+            "type": "Sensor"
+          },
+          {
+            "name": "CO2 Sensor",
+            "description": "Nondispersive infrared sensor for cabin CO2 monitoring.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Pressure Sensor Array",
+            "description": "Differential pressure sensors to detect zone pressure imbalances.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Control Subsystem",
+        "description": "Central control unit managing airflow, filtration, and pressure parameters based on sensor feedback.",
+        "type": "Electronic Module",
+        "subComponents": [
+          {
+            "name": "Main Controller",
+            "description": "Microprocessor-based controller for real-time algorithm execution.",
+            "type": "Controller"
+          },
+          {
+            "name": "User Interface",
+            "description": "Touchscreen display for flight crew to monitor and adjust ventilation parameters.",
+            "type": "Display Unit"
+          },
+          {
+            "name": "Communication Module",
+            "description": "Avionics bus interface for data exchange with aircraft systems.",
+            "type": "Network Interface"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Air Circulation Unit",
+        "target": "Blower Assembly",
+        "relationshipType": "composition",
+        "description": "The Blower Assembly is a core component of the Air Circulation Unit."
+      },
+      {
+        "source": "Control Subsystem",
+        "target": "Air Quality Sensors",
+        "relationshipType": "association",
+        "description": "The Control Subsystem processes sensor data to adjust ventilation parameters."
+      },
+      {
+        "source": "Ductwork System",
+        "target": "Air Circulation Unit",
+        "relationshipType": "dependency",
+        "description": "The Ductwork System depends on the Air Circulation Unit for airflow supply."
+      },
+      {
+        "source": "Filtration Module",
+        "target": "Air Circulation Unit",
+        "relationshipType": "aggregation",
+        "description": "The Filtration Module is integrated into the Air Circulation Unit's airflow path."
+      },
+      {
+        "source": "Control Subsystem",
+        "target": "Ductwork System",
+        "relationshipType": "aggregation",
+        "description": "The Control Subsystem regulates Ductwork System valves and dampers."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "airflowRate",
+        "type": "string",
+        "value": "500 - 2000 CFM",
+        "description": "Airflow volume maintained to ensure adequate cabin ventilation."
+      },
+      {
+        "name": "filtrationEfficiency",
+        "type": "string",
+        "value": "99.97% (0.3 micron)",
+        "description": "HEPA filter efficiency for particulate removal."
+      },
+      {
+        "name": "pressureDifferential",
+        "type": "string",
+        "value": "0.2 - 0.5 in H2O",
+        "description": "Allowed pressure difference between cabin zones to prevent structural stress."
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 5 seconds",
+        "description": "Maximum time to respond to airflow or pressure deviations."
+      },
+      {
+        "name": "modularityLevel",
+        "type": "string",
+        "value": "Component-level replacement",
+        "description": "Design allows for individual module swaps without full system disassembly."
+      }
+    ]
+  },
+  "model": {
+
+      "diagramType": "BDD",
+      "elements": {
+        "blocks": [
+          {
+            "id": "VentilationSystem",
+            "type": "Block",
+            "name": "Ventilation System",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "VentilationSystem_AirflowRate",
+              "VentilationSystem_Pressure",
+              "VentilationSystem_Mode"
+            ],
+            "operationIds": [
+              "initializeSystem",
+              "monitorAirQuality"
+            ],
+            "constraintIds": [
+              "PressureConstraint"
+            ],
+            "partIds": [
+              "AirIntakeSubsystem",
+              "AirFilterSubsystem",
+              "AirCirculationSubsystem",
+              "ExhaustSubsystem"
+            ],
+            "referenceIds": null,
+            "valueIds": null
+          },
+          {
+            "id": "AirIntakeSubsystem",
+            "type": "Block",
+            "name": "Air Intake Subsystem",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "AirIntake_FilterStatus"
+            ],
+            "operationIds": [
+              "startIntake"
+            ],
+            "constraintIds": null,
+            "partIds": [
+              "IntakeFan",
+              "AirFilter"
+            ],
+            "referenceIds": null,
+            "valueIds": null
+          },
+          {
+            "id": "AirFilter",
+            "type": "Block",
+            "name": "Air Filter",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": false,
+            "attributeIds": [
+              "AirFilter_Efficiency"
+            ],
+            "operationIds": [
+              "checkFilterHealth"
+            ],
+            "constraintIds": null,
+            "partIds": null,
+            "referenceIds": null,
+            "valueIds": null
+          },
+          {
+            "id": "IntakeFan",
+            "type": "Block",
+            "name": "Intake Fan",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": false,
+            "attributeIds": [
+              "Fan_RPM",
+              "Fan_Power"
+            ],
+            "operationIds": [
+              "adjustSpeed"
+            ],
+            "constraintIds": null,
+            "partIds": null,
+            "referenceIds": null,
+            "valueIds": null
+          }
+        ],
+        "interfaceBlocks": [
+          {
+            "id": "AirFlowInterface",
+            "type": "InterfaceBlock",
+            "name": "Air Flow Interface",
+            "attributeIds": [
+              "AirFlow_Temperature",
+              "AirFlow_Pressure"
+            ],
+            "operationIds": [
+              "getAirQuality"
+            ],
+            "signalIds": null,
+            "constraintIds": null
+          }
+        ],
+        "flowSpecifications": [
+          {
+            "id": "AirFlowSpec",
+            "type": "FlowSpecification",
+            "name": "Air Flow Specification",
+            "flowType": "material",
+            "dataType": "AirFlowData",
+            "unit": "m³/s",
+            "attributeIds": [
+              "AirFlow_Density"
+            ]
+          }
+        ],
+        "constraintBlocks": [
+          {
+            "id": "PressureConstraint",
+            "type": "ConstraintBlock",
+            "name": "Pressure Constraint",
+            "parameterIds": [
+              "Pressure_LowerLimit",
+              "Pressure_UpperLimit"
+            ],
+            "expression": "AirIntakeSubsystem_AirPressure >= Pressure_LowerLimit AND AirIntakeSubsystem_AirPressure <= Pressure_UpperLimit",
+            "attributeIds": null
+          }
+        ],
+        "enumerations": [
+          {
+            "id": "OperationModeEnum",
+            "type": "Enumeration",
+            "name": "Operation Mode",
+            "literals": [
+              {
+                "id": "NormalMode",
+                "name": "Normal"
+              },
+              {
+                "id": "EmergencyMode",
+                "name": "Emergency"
+              }
+            ],
+            "attributeIds": null
+          }
+        ],
+        "ports": [
+          {
+            "id": "Ventilation_InputPort",
+            "type": "FlowPort",
+            "name": "InputPort",
+            "blockId": "VentilationSystem",
+            "isConjugated": false,
+            "flowSpecificationId": "AirFlowSpec",
+            "attributeIds": null
+          },
+          {
+            "id": "Ventilation_OutputPort",
+            "type": "FlowPort",
+            "name": "OutputPort",
+            "blockId": "VentilationSystem",
+            "isConjugated": true,
+            "flowSpecificationId": "AirFlowSpec",
+            "attributeIds": null
+          }
+        ],
+        "comments": [
+          {
+            "id": "VentilationComment",
+            "type": "Comment",
+            "body": "Manages cabin air circulation and filtration with pressure/temperature constraints",
+            "annotatedElementId": "VentilationSystem"
+          }
+        ],
+        "attributes": [
+          {
+            "id": "VentilationSystem_AirflowRate",
+            "type": "Property",
+            "name": "AirflowRate",
+            "propertyType": "Double",
+            "value": "0.5",
+            "visibility": "public",
+            "aggregation": "none",
+            "lowerValue": "0.1",
+            "upperValue": "2.0",
+            "defaultValue": "0.5",
+            "isReadOnly": false,
+            "isStatic": false,
+            "isDerived": false,
+            "isDerivedUnion": false,
+            "isOrdered": false,
+            "isUnique": true,
+            "isID": false
+          },
+          {
+            "id": "OperationModeEnum_NormalMode",
+            "type": "Property",
+            "name": "Normal",
+            "propertyType": "EnumerationLiteral",
+            "value": null,
+            "visibility": "public",
+            "aggregation": "none",
+            "lowerValue": null,
+            "upperValue": null,
+            "defaultValue": null,
+            "isReadOnly": true,
+            "isStatic": true,
+            "isDerived": false,
+            "isDerivedUnion": false,
+            "isOrdered": false,
+            "isUnique": true,
+            "isID": false
+          }
+        ]
+      
+    }
+  },
+  "timestamp": "20250325_185814",
+  "provider": "qwen"
+}

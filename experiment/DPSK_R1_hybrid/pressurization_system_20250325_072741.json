@@ -1,0 +1,426 @@
+{
+  "system_id": "pressurization_system",
+  "system_name": "Pressurization System",
+  "specification": {
+    "designScenario": {
+      "name": "Pressurization System",
+      "description": "The Pressurization System maintains safe and comfortable cabin pressure levels by regulating airflow and pressure differentials during all flight phases. It dynamically adjusts cabin altitude to simulate near-sea-level conditions (typically ≤8,000 ft) despite external atmospheric changes. The system integrates with the Environmental Control System (ECS) to manage outflow valves, monitor pressure sensors, and activate safety mechanisms during rapid decompression events. It ensures structural integrity of the airframe while prioritizing passenger comfort and compliance with aviation safety regulations.",
+      "requirements": [
+        {
+          "title": "Cabin Pressure Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Automatically maintain cabin pressure between 0.8 atm and 1.2 atm using closed-loop control of outflow valves and air supply inputs."
+            }
+          ]
+        },
+        {
+          "title": "Altitude Rate Limiting",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Limit cabin altitude change rates to ≤500 ft/min during ascent/descent to prevent passenger discomfort."
+            }
+          ]
+        },
+        {
+          "title": "Pressure Differential Safety",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement redundant pressure relief valves to prevent cabin-to-external pressure differentials exceeding 9.0 psi (airframe limit)."
+            }
+          ]
+        },
+        {
+          "title": "Decompression Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Detect rapid decompression events and initiate corrective actions (oxygen mask deployment, emergency descent) within 2 seconds."
+            }
+          ]
+        },
+        {
+          "title": "Sensor Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Provide triple-redundant pressure sensor arrays with voting logic to prevent single-point failures."
+            }
+          ]
+        },
+        {
+          "title": "Maintenance Diagnostics",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Include built-in test equipment (BITE) for valve actuation tests and leak rate calculations during ground maintenance."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Pressure Control Unit",
+        "description": "Central controller processing sensor data and executing pressurization schedules via PID algorithms.",
+        "type": "Avionics Computer",
+        "subComponents": [
+          {
+            "name": "Flight Phase Scheduler",
+            "description": "Generates target pressure schedules based on aircraft altitude and flight phase (climb, cruise, descent).",
+            "type": "Software Module"
+          },
+          {
+            "name": "Valve Actuator Controller",
+            "description": "Converts pressure error signals into precise valve position commands.",
+            "type": "Control Hardware"
+          }
+        ]
+      },
+      {
+        "name": "Outflow Valve Assembly",
+        "description": "Electro-mechanically actuated valve modulating cabin exhaust airflow to control pressure.",
+        "type": "Mechanical Subsystem",
+        "subComponents": [
+          {
+            "name": "Valve Actuator",
+            "description": "Electric motor or pneumatic actuator providing torque for valve positioning.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Valve Position Sensor",
+            "description": "LVDT or rotary encoder providing real-time valve angle feedback.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Cabin Pressure Sensors",
+        "description": "Redundant absolute pressure transducers measuring cabin altitude equivalent pressure.",
+        "type": "Sensor Array",
+        "subComponents": [
+          {
+            "name": "Primary Pressure Transducer",
+            "description": "High-accuracy piezoresistive sensor with temperature compensation.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Backup Capacitive Sensor",
+            "description": "Secondary measurement using diaphragm capacitance technique.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Safety Relief Valves",
+        "description": "Passive mechanical valves opening automatically at preset differential pressures.",
+        "type": "Safety Device",
+        "subComponents": null
+      },
+      {
+        "name": "Air Supply Duct",
+        "description": "Bleed air conduit delivering compressed air from engines/APU for pressurization.",
+        "type": "Pneumatic Conduit",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Pressure Control Unit",
+        "target": "Cabin Pressure Sensors",
+        "relationshipType": "aggregation",
+        "description": "Control unit aggregates data from all cabin pressure sensors for differential voting"
+      },
+      {
+        "source": "Pressure Control Unit",
+        "target": "Outflow Valve Assembly",
+        "relationshipType": "dependency",
+        "description": "Valve positioning commands from control unit directly drive actuator movements"
+      },
+      {
+        "source": "Safety Relief Valves",
+        "target": "Outflow Valve Assembly",
+        "relationshipType": "composition",
+        "description": "Safety valves are physically integrated into outflow valve housing as fail-safe mechanism"
+      },
+      {
+        "source": "Air Supply Duct",
+        "target": "Pressure Control Unit",
+        "relationshipType": "association",
+        "description": "Control unit monitors bleed air supply pressure via dedicated transducers in duct"
+      },
+      {
+        "source": "Pressure Control Unit",
+        "target": "Environmental Control System",
+        "relationshipType": "association",
+        "description": "Integrated with ECS for coordinated temperature/pressure management through shared data bus"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "pressureRange",
+        "type": "string",
+        "value": "0.8 atm - 1.2 atm",
+        "description": "Operational cabin pressure range simulating ≤8,000 ft equivalent altitude"
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "<2 seconds",
+        "description": "Maximum allowed latency between pressure deviation detection and control surface adjustment"
+      },
+      {
+        "name": "valveActuationTime",
+        "type": "string",
+        "value": "0.5-5 sec (full travel)",
+        "description": "Outflow valve actuation speed range from closed to fully open positions"
+      },
+      {
+        "name": "sensorAccuracy",
+        "type": "string",
+        "value": "±0.01 atm",
+        "description": "Maximum permissible error in pressure transducers across operating envelope"
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple modular redundancy",
+        "description": "Architecture ensuring continued operation with two concurrent sensor failures"
+      },
+      {
+        "name": "maxPressureDifferential",
+        "type": "string",
+        "value": "9.0 psi",
+        "description": "Absolute maximum pressure difference between cabin and external environment before safety valve actuation"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-pressurization-system",
+          "type": "Block",
+          "name": "PressurizationSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-pressure-range",
+            "attr-response-time",
+            "attr-valve-actuation",
+            "attr-sensor-accuracy",
+            "attr-redundancy-level",
+            "attr-max-differential",
+            "attr-valve-actuation-time",
+            "attr-sensor-accuracy"
+          ],
+          "partIds": [
+            "part-pressure-control-unit",
+            "part-outflow-valve",
+            "part-cabin-sensors",
+            "part-safety-valves",
+            "part-air-duct",
+            "part-bite"
+          ]
+        },
+        {
+          "id": "block-pressure-control-unit",
+          "type": "Block",
+          "name": "PressureControlUnit",
+          "partIds": [
+            "part-flight-scheduler",
+            "part-valve-controller",
+            "part-sensor-voter"
+          ],
+          "attributeIds": [
+            "attr-pid-gains",
+            "attr-schedule-latency",
+            "attr-voting-logic"
+          ]
+        },
+        {
+          "id": "block-outflow-valve",
+          "type": "Block",
+          "name": "OutflowValveAssembly",
+          "partIds": [
+            "part-valve-actuator",
+            "part-position-sensor",
+            "part-failsafe-mechanism"
+          ]
+        },
+        {
+          "id": "block-cabin-sensors",
+          "type": "Block",
+          "name": "CabinPressureSensors",
+          "partIds": [
+            "part-primary-transducer",
+            "part-backup-sensor1",
+            "part-backup-sensor2"
+          ]
+        },
+        {
+          "id": "block-bite",
+          "type": "Block",
+          "name": "MaintenanceBITE",
+          "partIds": [
+            "part-valve-tester",
+            "part-leak-analyser"
+          ]
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-pcu-sensors",
+          "type": "Association",
+          "name": "SensorDataAggregation",
+          "sourceId": "block-pressure-control-unit",
+          "targetId": "block-cabin-sensors",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "3"
+        },
+        {
+          "id": "comp-safety-valves",
+          "type": "Composition",
+          "name": "FailSafeIntegration",
+          "sourceId": "block-outflow-valve",
+          "targetId": "block-safety-valves",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2"
+        },
+        {
+          "id": "assoc-duct-pcu",
+          "type": "Association",
+          "name": "BleedAirMonitoring",
+          "sourceId": "block-air-duct",
+          "targetId": "block-pressure-control-unit",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-pressure-range",
+          "type": "Property",
+          "name": "operationalPressureRange",
+          "propertyType": "PressureValue",
+          "value": "0.8 atm - 1.2 atm"
+        },
+        {
+          "id": "attr-response-time",
+          "type": "Property",
+          "name": "decompressionResponse",
+          "propertyType": "TimeValue",
+          "value": "<2 sec"
+        },
+        {
+          "id": "attr-valve-actuation-time",
+          "type": "Property",
+          "name": "valveActuationSpeed",
+          "propertyType": "TimeRange",
+          "value": "0.5-5 sec"
+        },
+        {
+          "id": "attr-sensor-accuracy",
+          "type": "Property",
+          "name": "sensorPrecision",
+          "propertyType": "PressureError",
+          "value": "±0.01 atm"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-cabin-altitude",
+          "type": "ConstraintBlock",
+          "name": "CabinAltitudeLimit",
+          "expression": "cabinAltitude <= 8000 ft"
+        },
+        {
+          "id": "constraint-differential",
+          "type": "ConstraintBlock",
+          "name": "PressureDifferentialSafety",
+          "expression": "cabinExternalDelta <= 9.0 psi"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-valve-state",
+          "type": "Enumeration",
+          "name": "ValveState",
+          "literals": [
+            {
+              "id": "lit-valve-closed",
+              "name": "Closed"
+            },
+            {
+              "id": "lit-valve-25",
+              "name": "25% Open"
+            },
+            {
+              "id": "lit-valve-50",
+              "name": "50% Open"
+            },
+            {
+              "id": "lit-valve-75",
+              "name": "75% Open"
+            },
+            {
+              "id": "lit-valve-open",
+              "name": "Full Open"
+            }
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-ecs-interface",
+          "type": "ProxyPort",
+          "name": "ECSIntegrationPort",
+          "blockId": "block-pressurization-system",
+          "providedInterfaceIds": [
+            "ifb-pressure-interface"
+          ]
+        },
+        {
+          "id": "port-bite",
+          "type": "FullPort",
+          "name": "MaintenancePort",
+          "blockId": "block-pressurization-system",
+          "requiredInterfaceIds": [
+            "ifb-diagnostic-interface"
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-valve-control",
+          "type": "Dependency",
+          "name": "ActuatorCommand",
+          "sourceId": "block-pressure-control-unit",
+          "targetId": "block-outflow-valve"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-tmr",
+          "type": "Comment",
+          "body": "Triple modular redundancy with 2oo3 voting logic implemented in SensorVoter module",
+          "annotatedElementId": "block-pressure-control-unit"
+        },
+        {
+          "id": "comment-bite",
+          "type": "Comment",
+          "body": "BITE system performs valve stroke tests and calculates cabin leak rates during ground maintenance",
+          "annotatedElementId": "block-bite"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "environmental_control_system",
+  "timestamp": "20250325_072741"
+}

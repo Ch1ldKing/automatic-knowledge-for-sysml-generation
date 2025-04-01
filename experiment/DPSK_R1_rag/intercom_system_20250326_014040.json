@@ -1,0 +1,773 @@
+{
+  "system_id": "intercom_system",
+  "system_name": "Intercom System",
+  "specification": {
+    "designScenario": {
+      "name": "Cabin Communication System",
+      "description": "An advanced digital communication platform integrating voice/data transmission, crew coordination, and passenger services. The system employs redundant fiber-optic/Ethernet networks with MIL-STD-810G environmental tolerance, supporting simultaneous operation of crew intercom, automated passenger announcements, and emergency coordination through a real-time operating system (RTOS). Interfaces with Flight Deck Communication System and Cabin Management System for synchronized operations.",
+      "requirements": [
+        {
+          "title": "Core Communication Services",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Multi-channel digital intercom supporting simultaneous crew-station communications with priority override"
+            },
+            {
+              "description": "Automated multilingual public address system with text-to-speech conversion"
+            },
+            {
+              "description": "Integrated emergency coordination channel with flight deck override capability"
+            }
+          ]
+        },
+        {
+          "title": "Operational Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "End-to-end audio latency <500ms across all communication channels"
+            },
+            {
+              "description": "99.999% system availability through redundant network architecture"
+            },
+            {
+              "description": "Concurrent support for 64+ voice/data channels with dynamic bandwidth allocation"
+            }
+          ]
+        },
+        {
+          "title": "Certification Compliance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Independent backup communication path meeting FAA/EASA CS-25.1431(c) requirements"
+            },
+            {
+              "description": "Galvanic isolation between critical subsystems to prevent fault propagation"
+            },
+            {
+              "description": "Smoke/toxicity compliance per ABD0031-100 for all installed components"
+            }
+          ]
+        },
+        {
+          "title": "System Integrity",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "AES-256 encrypted voice/data channels with FIPS 140-2 validated cryptographic modules"
+            },
+            {
+              "description": "Modular LRU design supporting <15 minute hot-swap replacement per ATA iSpec 2200"
+            },
+            {
+              "description": "Self-diagnostic system with prognostic health monitoring (PHM) capabilities"
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Central Communication Controller",
+        "type": "Avionics Computer",
+        "description": "Dual-channel fault-tolerant computer managing communication routing, prioritization, and system health monitoring",
+        "subComponents": [
+          {
+            "name": "Packet Switching Matrix",
+            "type": "Network Processor",
+            "description": "Layer 3 managed switch providing deterministic latency QoS for voice/video/data traffic"
+          },
+          {
+            "name": "Crypto Management Unit",
+            "type": "Security Module",
+            "description": "Hardware security module (HSM) for key management and secure protocol processing"
+          }
+        ]
+      },
+      {
+        "name": "Crew Terminal Network",
+        "type": "Human-Machine Interface",
+        "description": "Distributed touchscreen interfaces with noise-adaptive microphones and bone conduction headsets",
+        "subComponents": [
+          {
+            "name": "Voice Processing Unit",
+            "type": "DSP Module",
+            "description": "Beamforming array processor with active noise cancellation (ANC) algorithms"
+          },
+          {
+            "name": "Emergency Call Panel",
+            "type": "Control Interface",
+            "description": "Dedicated hardwired communication panel with tactile controls"
+          }
+        ]
+      },
+      {
+        "name": "Passenger Address System",
+        "type": "Audio Distribution Network",
+        "description": "Multi-zone Class-D amplification system with impedance monitoring and automatic load balancing",
+        "subComponents": [
+          {
+            "name": "Digital Announcement Manager",
+            "type": "Content Router",
+            "description": "Synchronizes pre-recorded messages across cabin zones with ambient noise compensation"
+          },
+          {
+            "name": "PA Amplifier Rack",
+            "type": "Power Electronics",
+            "description": "100V line array amplifiers with short-circuit protection and thermal derating"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Central Communication Controller",
+        "target": "Crew Terminal Network",
+        "relationshipType": "composition",
+        "description": "Controller manages configuration and security policies for all crew terminal operations"
+      },
+      {
+        "source": "Cabin Communication System",
+        "target": "Flight Deck ICS",
+        "relationshipType": "association",
+        "description": "Synchronized communication states through ARINC 758-compliant digital interface"
+      },
+      {
+        "source": "Passenger Address System",
+        "target": "Cabin Management System",
+        "relationshipType": "aggregation",
+        "description": "Shared audio infrastructure with separate control paths for passenger entertainment and safety announcements"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "networkLatency",
+        "type": "string",
+        "value": "<200μs switching delay",
+        "description": "Guaranteed maximum latency for inter-module communication across backplane"
+      },
+      {
+        "name": "EMI_Immunity",
+        "type": "string",
+        "value": "RTCA/DO-160G Section 20 Category Z",
+        "description": "High-intensity radiated field (HIRF) protection level for all external interfaces"
+      },
+      {
+        "name": "powerRedundancy",
+        "type": "string",
+        "value": "Dual 28VDC inputs with auto-failover",
+        "description": "Independent power feeds meeting FAA AC 25.1355(a)(2) requirements"
+      },
+      {
+        "name": "softwareCriticality",
+        "type": "string",
+        "value": "DO-178C DAL B",
+        "description": "Design assurance level for communication routing and prioritization software"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "b1",
+          "type": "Block",
+          "name": "IntercomSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a1",
+            "a2",
+            "a3",
+            "a4"
+          ],
+          "operationIds": [
+            "o1",
+            "o2"
+          ],
+          "constraintIds": [
+            "c1"
+          ],
+          "partIds": [
+            "p1",
+            "p2",
+            "p3"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b2",
+          "type": "Block",
+          "name": "SignalProcessor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a5"
+          ],
+          "operationIds": [
+            "o3"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b3",
+          "type": "Block",
+          "name": "PowerManager",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a6"
+          ],
+          "operationIds": [
+            "o4"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b4",
+          "type": "Block",
+          "name": "CommunicationProtocol",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a7"
+          ],
+          "operationIds": [
+            "o5"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ib1",
+          "type": "InterfaceBlock",
+          "name": "ICabinCommInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "io1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fs1",
+          "type": "FlowSpecification",
+          "name": "AudioSignalFlow",
+          "flowType": "information",
+          "dataType": "AudioSignal",
+          "unit": null,
+          "attributeIds": []
+        },
+        {
+          "id": "fs2",
+          "type": "FlowSpecification",
+          "name": "PowerFlow",
+          "flowType": "energy",
+          "dataType": "Power",
+          "unit": "Watt",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "cb1",
+          "type": "ConstraintBlock",
+          "name": "TemperatureConstraint",
+          "parameterIds": [
+            "param1"
+          ],
+          "expression": "self.temperature >= -40 and self.temperature <= 85",
+          "attributeIds": []
+        },
+        {
+          "id": "cb2",
+          "type": "ConstraintBlock",
+          "name": "ResponseTimeConstraint",
+          "parameterIds": [
+            "param2"
+          ],
+          "expression": "self.responseTime <= 2",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt1",
+          "type": "ValueType",
+          "name": "Temperature",
+          "quantityKindId": "qk1",
+          "unitId": "u1",
+          "attributeIds": []
+        },
+        {
+          "id": "vt2",
+          "type": "ValueType",
+          "name": "ResponseTime",
+          "quantityKindId": "qk2",
+          "unitId": "u2",
+          "attributeIds": []
+        },
+        {
+          "id": "vt3",
+          "type": "ValueType",
+          "name": "Power",
+          "quantityKindId": "qk3",
+          "unitId": "u3",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "e1",
+          "type": "Enumeration",
+          "name": "ProtocolType",
+          "literals": [
+            {
+              "id": "l1",
+              "name": "Secure"
+            },
+            {
+              "id": "l2",
+              "name": "Standard"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port1",
+          "type": "ProxyPort",
+          "name": "cabinCommPort",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "b1",
+          "providedInterfaceIds": [
+            "ib1"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "port2",
+          "type": "FlowPort",
+          "name": "audioIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b2",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs1",
+          "attributeIds": []
+        },
+        {
+          "id": "port3",
+          "type": "FlowPort",
+          "name": "audioOut",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b2",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs1",
+          "attributeIds": []
+        },
+        {
+          "id": "port4",
+          "type": "FlowPort",
+          "name": "powerIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b3",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs2",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp1",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b2",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp2",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b3",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp3",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b4",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "ir1",
+          "type": "InterfaceRealization",
+          "name": "CabinCommRealization",
+          "sourceId": "b1",
+          "targetId": "ib1"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "a1",
+          "type": "Property",
+          "name": "operatingTemperature",
+          "propertyType": "Temperature",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a2",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "ResponseTime",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a3",
+          "type": "Property",
+          "name": "powerConsumption",
+          "propertyType": "Power",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a4",
+          "type": "Property",
+          "name": "protocol",
+          "propertyType": "ProtocolType",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "Secure",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a5",
+          "type": "Property",
+          "name": "signalQuality",
+          "propertyType": "Double",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a6",
+          "type": "Property",
+          "name": "efficiency",
+          "propertyType": "Double",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a7",
+          "type": "Property",
+          "name": "encryptionLevel",
+          "propertyType": "Integer",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "o1",
+          "type": "Operation",
+          "name": "processCommunication",
+          "parameterIds": [
+            "param3"
+          ],
+          "returnType": "void",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        },
+        {
+          "id": "o2",
+          "type": "Operation",
+          "name": "establishConnection",
+          "parameterIds": [
+            "param4"
+          ],
+          "returnType": "Boolean",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        },
+        {
+          "id": "o3",
+          "type": "Operation",
+          "name": "filterNoise",
+          "parameterIds": [
+            "param5"
+          ],
+          "returnType": "AudioSignal",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        },
+        {
+          "id": "o4",
+          "type": "Operation",
+          "name": "balancePower",
+          "parameterIds": [
+            "param6"
+          ],
+          "returnType": "void",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        },
+        {
+          "id": "o5",
+          "type": "Operation",
+          "name": "encryptData",
+          "parameterIds": [
+            "param7"
+          ],
+          "returnType": "void",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        },
+        {
+          "id": "io1",
+          "type": "Operation",
+          "name": "transmit",
+          "parameterIds": [
+            "param8"
+          ],
+          "returnType": "void",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "param1",
+          "type": "Parameter",
+          "name": "temperature",
+          "parameterType": "Temperature",
+          "defaultValue": null
+        },
+        {
+          "id": "param2",
+          "type": "Parameter",
+          "name": "responseTime",
+          "parameterType": "ResponseTime",
+          "defaultValue": null
+        },
+        {
+          "id": "param3",
+          "type": "Parameter",
+          "name": "message",
+          "parameterType": "String",
+          "defaultValue": null
+        },
+        {
+          "id": "param4",
+          "type": "Parameter",
+          "name": "deviceId",
+          "parameterType": "Integer",
+          "defaultValue": null
+        },
+        {
+          "id": "param5",
+          "type": "Parameter",
+          "name": "inputSignal",
+          "parameterType": "AudioSignal",
+          "defaultValue": null
+        },
+        {
+          "id": "param6",
+          "type": "Parameter",
+          "name": "powerLevel",
+          "parameterType": "Power",
+          "defaultValue": null
+        },
+        {
+          "id": "param7",
+          "type": "Parameter",
+          "name": "data",
+          "parameterType": "String",
+          "defaultValue": null
+        },
+        {
+          "id": "param8",
+          "type": "Parameter",
+          "name": "payload",
+          "parameterType": "String",
+          "defaultValue": null
+        }
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "type": "Part",
+          "name": "signalProcessor",
+          "of": "b2"
+        },
+        {
+          "id": "p2",
+          "type": "Part",
+          "name": "powerManager",
+          "of": "b3"
+        },
+        {
+          "id": "p3",
+          "type": "Part",
+          "name": "commProtocol",
+          "of": "b4"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "c1",
+          "type": "Constraint",
+          "name": "EnvironmentalConstraints",
+          "specification": "self.operatingTemperature >= -40 and self.operatingTemperature <= 85 and self.responseTime <= 2",
+          "constrainedElementIds": [
+            "a1",
+            "a2"
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "id": "cmt1",
+          "type": "Comment",
+          "body": "Intercom System handles crew internal communications with clear signal processing",
+          "annotatedElementId": "b1"
+        },
+        {
+          "id": "cmt2",
+          "type": "Comment",
+          "body": "Subsystem of Cabin Communication System",
+          "annotatedElementId": "b1"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "Intercom System的所有信息和规格说明包括：Intercom System用于处理机组内部通信操作，确保清晰的信号处理；Intercom System是Cabin Communication System的一个子组件，用于支持机组内部通信服务；Intercom System的规格包括操作温度范围为-40°C至+85°C，响应时间要求在2秒以内，具有高效的功率平衡设计，以及建立了安全可靠的通信协议进行数据交换。",
+  "timestamp": "20250326_014040",
+  "provider": "dpsk"
+}

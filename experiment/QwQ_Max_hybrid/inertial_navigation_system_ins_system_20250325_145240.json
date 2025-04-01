@@ -1,0 +1,655 @@
+{
+  "system_id": "inertial_navigation_system_ins_system",
+  "system_name": "Inertial Navigation System (INS) System",
+  "specification": {
+    "designScenario": {
+      "name": "Inertial Navigation System",
+      "description": "The Inertial Navigation System (INS) is a critical avionics subsystem designed to compute real-time aircraft position, velocity, and attitude using an integrated Inertial Measurement Unit (IMU) and advanced sensor fusion algorithms. Operating independently of external navigation signals, the INS ensures uninterrupted navigation in GNSS-denied environments while supporting high-G maneuvers and seamless integration with flight control systems. The system employs advanced redundancy and cybersecurity measures to meet stringent aviation safety standards, ensuring reliability during all flight phases.",
+      "requirements": [
+        {
+          "title": "Accurate Real-Time Navigation Computation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Compute precise 3D position, velocity, and attitude using Kalman-filtered IMU data at a 2kHz update rate."
+            },
+            {
+              "description": "Provide a fully autonomous navigation solution capable of maintaining accuracy in GNSS-denied environments for missions exceeding 12 hours."
+            }
+          ]
+        },
+        {
+          "title": "High-Performance Data Processing",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Maintain an update frequency of 2kHz to support rapid flight control adjustments during turbulence or emergency maneuvers."
+            },
+            {
+              "description": "Achieve sub-5ms processing cycle time for sensor fusion to ensure instantaneous navigation updates."
+            }
+          ]
+        },
+        {
+          "title": "Fault Tolerance and Safety Assurance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement Quadruple Modular Redundancy (QMR) to enable continuous operation with automatic sensor error isolation."
+            },
+            {
+              "description": "Provide real-time health monitoring with immediate alerts for critical failures via the Central Flight Management System."
+            }
+          ]
+        },
+        {
+          "title": "Interoperability and Compliance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Adhere to DO-178C Level A and DO-254 standards for software and hardware safety certification."
+            },
+            {
+              "description": "Support seamless integration with autopilot systems via ARINC 429 data buses while maintaining <5W power consumption."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Inertial Navigation Unit",
+        "type": "Avionics Sensor",
+        "description": "Central subsystem providing inertial navigation calculations through sensor fusion and redundancy management.",
+        "subComponents": [
+          {
+            "name": "Inertial Measurement Unit (IMU)",
+            "type": "Sensor Array",
+            "description": "Combines triaxial accelerometers and fiber-optic gyroscopes for high-precision motion detection."
+          },
+          {
+            "name": "Kalman Filter Processor",
+            "type": "Signal Processor",
+            "description": "Applies Kalman filtering to IMU data to minimize sensor drift and measurement noise."
+          },
+          {
+            "name": "Sensor Fusion Engine",
+            "type": "Computational Core",
+            "description": "Integrates Kalman-filtered IMU data with inertial navigation algorithms to compute navigation parameters."
+          },
+          {
+            "name": "Health Monitoring System",
+            "type": "Diagnostic Module",
+            "description": "Monitors sensor health, redundancy status, and computational integrity with real-time failure analysis."
+          }
+        ]
+      },
+      {
+        "name": "Central Flight Management System",
+        "type": "Avionics Computer",
+        "description": "Integrates INS navigation data with flight path calculations and control systems.",
+        "subComponents": null
+      },
+      {
+        "name": "Autopilot Interface Module",
+        "type": "Control System",
+        "description": "Enables closed-loop feedback between INS navigation solutions and flight control actuators.",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Inertial Navigation Unit",
+        "target": "Inertial Measurement Unit (IMU)",
+        "relationshipType": "composition",
+        "description": "The IMU provides raw acceleration and angular rate measurements to the INS."
+      },
+      {
+        "source": "Inertial Navigation Unit",
+        "target": "Kalman Filter Processor",
+        "relationshipType": "composition",
+        "description": "The Kalman Filter processes IMU data to reduce sensor noise and drift."
+      },
+      {
+        "source": "Inertial Navigation Unit",
+        "target": "Sensor Fusion Engine",
+        "relationshipType": "association",
+        "description": "Sensor fusion combines Kalman-filtered data with inertial navigation algorithms."
+      },
+      {
+        "source": "Inertial Navigation Unit",
+        "target": "Central Flight Management System",
+        "relationshipType": "dependency",
+        "description": "Sends validated navigation data to CFMS for flight management."
+      },
+      {
+        "source": "Inertial Navigation Unit",
+        "target": "Autopilot Interface Module",
+        "relationshipType": "dependency",
+        "description": "Provides real-time navigation solutions to autopilot control loops."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "updateFrequency",
+        "type": "string",
+        "value": "2kHz",
+        "description": "Sampling rate for IMU data acquisition and navigation solution updates."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Quadruple Modular Redundancy",
+        "description": "Four independent sensor channels with automatic fault isolation."
+      },
+      {
+        "name": "processingCycleTime",
+        "type": "string",
+        "value": "5ms",
+        "description": "Maximum allowable time for completing sensor fusion calculations."
+      },
+      {
+        "name": "positionAccuracy",
+        "type": "string",
+        "value": "Within 1 meter RMS error",
+        "description": "Navigation solution accuracy under steady-state conditions."
+      },
+      {
+        "name": "driftRate",
+        "type": "string",
+        "value": "<0.1% per hour",
+        "description": "Long-term positional drift rate in GNSS-denied conditions."
+      },
+      {
+        "name": "securityProtocol",
+        "type": "string",
+        "value": "AES-256-GCM, RSA-3072, SHA-3-256",
+        "description": "End-to-end encryption and hashing for navigation data integrity."
+      },
+      {
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "-40°C to +85°C",
+        "description": "Environmental operating range compliant with MIL-STD-810G."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-ins-main",
+          "type": "Block",
+          "name": "InertialNavigationSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-ins-update-frequency",
+            "attr-ins-redundancy-level",
+            "attr-ins-processing-cycle-time",
+            "attr-ins-position-accuracy",
+            "attr-ins-drift-rate",
+            "attr-ins-security-protocol",
+            "attr-ins-operating-temp"
+          ],
+          "operationIds": [
+            "op-compute-navigation"
+          ],
+          "constraintIds": [
+            "constraint-ins-cycle-time"
+          ],
+          "partIds": [
+            "part-ins-imu",
+            "part-ins-kalman-filter",
+            "part-ins-sensor-fusion",
+            "part-ins-health-monitoring"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-ins-imu",
+          "type": "Block",
+          "name": "InertialMeasurementUnit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-imu-sensor-type"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": [
+            "part-ins-accelerometer",
+            "part-ins-gyroscope"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-ins-accelerometer",
+          "type": "Block",
+          "name": "AccelerometerModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-accelerometer-precision"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-ins-gyroscope",
+          "type": "Block",
+          "name": "GyroscopeModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-gyroscope-precision"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-ins-kalman-filter",
+          "type": "Block",
+          "name": "KalmanFilterProcessor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-kalman-implementation"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-ins-sensor-fusion",
+          "type": "Block",
+          "name": "SensorFusionEngine",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-fusion-algorithm"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-ins-health-monitoring",
+          "type": "Block",
+          "name": "HealthMonitoringSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-failure-detection"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-cfms",
+          "type": "Block",
+          "name": "CentralFlightManagementSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": null,
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-autopilot",
+          "type": "Block",
+          "name": "AutopilotInterfaceModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": null,
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "if-block-ins",
+          "type": "InterfaceBlock",
+          "name": "InertialNavigationInterface",
+          "attributeIds": null,
+          "operationIds": [
+            "op-provide-navigation-data"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-ins-data",
+          "type": "FlowSpecification",
+          "name": "NavigationDataFlow",
+          "flowType": "InformationFlow",
+          "dataType": "NavigationParameters",
+          "unit": null,
+          "attributeIds": null
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-ins-cycle-time",
+          "type": "ConstraintBlock",
+          "name": "ProcessingCycleConstraint",
+          "parameterIds": null,
+          "expression": "processingCycleTime <= 5ms",
+          "attributeIds": [
+            "attr-ins-processing-cycle-time"
+          ]
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-redundancy-level",
+          "type": "Enumeration",
+          "name": "RedundancyLevelEnum",
+          "literals": [
+            {
+              "id": "lit-single",
+              "name": "Single"
+            },
+            {
+              "id": "lit-dual",
+              "name": "Dual"
+            },
+            {
+              "id": "lit-triple",
+              "name": "Triple"
+            },
+            {
+              "id": "lit-quadruple",
+              "name": "Quadruple"
+            }
+          ],
+          "attributeIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-ins-output",
+          "type": "Port",
+          "name": "NavigationOutputPort",
+          "portType": "full",
+          "isConjugated": false,
+          "blockId": "block-ins-main",
+          "providedInterfaceIds": [
+            "if-block-ins"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": "flow-spec-ins-data",
+          "attributeIds": null
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-ins-imu",
+          "type": "Composition",
+          "name": "INS_IMUComposition",
+          "sourceId": "block-ins-main",
+          "targetId": "block-ins-imu",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "comp-ins-accelerometer",
+          "type": "Composition",
+          "name": "IMU_AccelerometerComposition",
+          "sourceId": "block-ins-imu",
+          "targetId": "block-ins-accelerometer",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "3"
+        },
+        {
+          "id": "comp-ins-gyroscope",
+          "type": "Composition",
+          "name": "IMU_GyroscopeComposition",
+          "sourceId": "block-ins-imu",
+          "targetId": "block-ins-gyroscope",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "3"
+        },
+        {
+          "id": "comp-ins-kalman",
+          "type": "Composition",
+          "name": "INS_KalmanFilterComposition",
+          "sourceId": "block-ins-main",
+          "targetId": "block-ins-kalman-filter",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "comp-ins-sensor-fusion",
+          "type": "Composition",
+          "name": "INS_SensorFusionComposition",
+          "sourceId": "block-ins-main",
+          "targetId": "block-ins-sensor-fusion",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "comp-ins-health",
+          "type": "Composition",
+          "name": "INS_HealthMonitorComposition",
+          "sourceId": "block-ins-main",
+          "targetId": "block-ins-health-monitoring",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-ins-to-cfms",
+          "type": "Dependency",
+          "name": "NavigationDataDependency",
+          "sourceId": "block-ins-main",
+          "targetId": "block-cfms",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "dep-ins-to-autopilot",
+          "type": "Dependency",
+          "name": "AutopilotControlDependency",
+          "sourceId": "block-ins-main",
+          "targetId": "block-autopilot",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-ins-update-frequency",
+          "type": "Property",
+          "name": "updateFrequency",
+          "propertyType": "String",
+          "value": "2kHz",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-ins-redundancy-level",
+          "type": "Property",
+          "name": "redundancyLevel",
+          "propertyType": "RedundancyLevelEnum",
+          "value": "Quadruple",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": "Quadruple",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-ins-processing-cycle-time",
+          "type": "Property",
+          "name": "processingCycleTime",
+          "propertyType": "TimeInMilliseconds",
+          "value": "5ms",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": "5ms",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-ins-position-accuracy",
+          "type": "Property",
+          "name": "positionAccuracy",
+          "propertyType": "String",
+          "value": "1m RMS",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-ins-drift-rate",
+          "type": "Property",
+          "name": "driftRate",
+          "propertyType": "String",
+          "value": "<0.1% per hour",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-ins-security-protocol",
+          "type": "Property",
+          "name": "securityProtocol",
+          "propertyType": "String",
+          "value": "AES-256-GCM, RSA-3072, SHA-3-256",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-ins-operating-temp",
+          "type": "Property",
+          "name": "operatingTemperature",
+          "propertyType": "String",
+          "value": "-40°C to 85°C",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-ins-overview",
+          "type": "Comment",
+          "body": "The Inertial Navigation System (INS) computes real-time navigation parameters using QMR architecture. Provides seamless integration with flight control systems while maintaining <5ms processing latency.",
+          "annotatedElementId": "block-ins-main"
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "value-type-time-ms",
+          "type": "ValueType",
+          "name": "TimeInMilliseconds",
+          "quantityKindId": "time",
+          "unitId": "ms",
+          "attributeIds": [
+            "attr-ins-processing-cycle-time"
+          ]
+        }
+      ]
+    }
+  },
+  "reference_system": "inertial_navigation_system",
+  "parent_system": null,
+  "timestamp": "20250325_145240",
+  "provider": "qwen"
+}

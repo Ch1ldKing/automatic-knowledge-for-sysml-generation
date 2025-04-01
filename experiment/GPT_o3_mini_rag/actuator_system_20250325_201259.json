@@ -1,0 +1,465 @@
+{
+  "system_id": "actuator_system",
+  "system_name": "Actuator System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Peak actuation force provided by the actuator, measured in kilonewtons. This value drives control surfaces, landing gear, and braking systems with high efficiency.",
+        "name": "maxForce",
+        "type": "string",
+        "value": "6-25 kN"
+      },
+      {
+        "description": "Time taken by the actuator to convert hydraulic input into mechanical motion. Critical for ensuring rapid and smooth control system response.",
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<0.45 sec"
+      },
+      {
+        "description": "The operational temperature range where the actuator maintains optimal performance under diverse atmospheric conditions.",
+        "name": "tempRange",
+        "type": "string",
+        "value": "-50°C to +90°C"
+      },
+      {
+        "description": "Indicates the degree of integration with the aircraft’s avionics and digital control systems for enhanced synchronization and diagnostics.",
+        "name": "integrationDegree",
+        "type": "string",
+        "value": "Ultra-High"
+      },
+      {
+        "description": "Maintenance interval expressed in flight cycles, ensuring long-term durability and operational reliability of the actuator system.",
+        "name": "serviceInterval",
+        "type": "string",
+        "value": "500 flight cycles"
+      }
+    ],
+    "designScenario": {
+      "description": "The Advanced Actuator System converts hydraulic energy into precise and controlled mechanical actions for critical flight operations including control surface modulation, landing gear deployment, and braking system actuation. Engineered with aerospace-grade materials and incorporating robust self-diagnostic capabilities, the system ensures rapid response, enhanced safety with redundant fail-safe mechanisms, and seamless integration with the aircraft’s avionics.",
+      "name": "Advanced Actuator System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The actuator system must precisely convert hydraulic pressure into mechanical motions for accurate positioning of control surfaces, landing gear, and brakes."
+            }
+          ],
+          "title": "Precision Actuation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The actuation mechanism must complete its movement in less than 0.45 seconds to enable high agility during rapid flight maneuvers."
+            }
+          ],
+          "title": "Rapid Response",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement redundant fail-safe protocols that default the actuators to a safe state during unexpected hydraulic pressure drops or system malfunctions."
+            }
+          ],
+          "title": "Redundant Fail-Safe",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate aerospace-grade materials and advanced self-diagnostic sensors to monitor system wear and alert maintenance teams proactively, ensuring extended durability under operational stress."
+            }
+          ],
+          "title": "Durability and Self-Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Advanced Actuator System relies on the Hydraulic Control Interface for the regulated delivery of hydraulic fluid necessary for precise actuation.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Control Interface",
+        "target": "Advanced Actuator Unit"
+      },
+      {
+        "description": "The Advanced Actuator Unit is composed of multiple subcomponents including the Precision Linear Actuator, ensuring integrated linear motion delivery.",
+        "relationshipType": "composition",
+        "source": "Advanced Actuator Unit",
+        "target": "Precision Linear Actuator"
+      },
+      {
+        "description": "The Advanced Actuator Unit is composed of the Torque Rotary Actuator to provide angular control necessary for directional adjustments in flight.",
+        "relationshipType": "composition",
+        "source": "Advanced Actuator Unit",
+        "target": "Torque Rotary Actuator"
+      },
+      {
+        "description": "The actuator system communicates performance data and status updates to the Aircraft Avionics Suite for continuous real-time monitoring and control loop adjustments.",
+        "relationshipType": "association",
+        "source": "Advanced Actuator Unit",
+        "target": "Aircraft Avionics Suite"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core module that transforms hydraulic pressure into controlled mechanical actions. It integrates subcomponents to deliver both linear and rotational movements essential for aircraft control.",
+        "name": "Advanced Actuator Unit",
+        "subComponents": [
+          {
+            "description": "Provides precise linear displacement for functions such as extending control surfaces and deploying landing gear.",
+            "name": "Precision Linear Actuator",
+            "type": "Hydraulic Linear Actuator"
+          },
+          {
+            "description": "Generates reliable angular motion for tasks including directional control and aileron adjustments.",
+            "name": "Torque Rotary Actuator",
+            "type": "Hydraulic Rotary Actuator"
+          }
+        ],
+        "type": "Actuation Module"
+      },
+      {
+        "description": "Module responsible for managing and regulating the flow of hydraulic fluid, ensuring that all actuator components receive stable and accurate pressure input.",
+        "name": "Hydraulic Control Interface",
+        "subComponents": null,
+        "type": "Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "Activity_Actuation",
+          "name": "Actuation Activity",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "High",
+          "id": "Attr_Precision",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Actuation Precision",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "High",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "20",
+          "id": "Attr_ResponseTime",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Response Time",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "20",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual",
+          "id": "Attr_Redundancy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Redundancy Level",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-55°C to +85°C",
+          "id": "Attr_OperatingTempRange",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Operating Temperature Range",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-55°C to +85°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "28V DC with redundant channels",
+          "id": "Attr_PowerSupply",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Power Supply",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "28V DC with redundant channels",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "Attr_Precision",
+            "Attr_ResponseTime",
+            "Attr_Redundancy",
+            "Attr_OperatingTempRange",
+            "Attr_PowerSupply"
+          ],
+          "constraintIds": [],
+          "id": "Block_ActuatorSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Actuator System",
+          "operationIds": [],
+          "partIds": [
+            "Part_FlightControlInterface",
+            "Part_MechanicalActuator"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "responseTime < 20 && (operatingTemp >= -55 && operatingTemp <= 85)",
+          "id": "ConstraintBlock_Performance",
+          "name": "Performance Constraints",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": [],
+          "id": "Interface_DigitalCommand",
+          "name": "Digital Command Interface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "Interface"
+        },
+        {
+          "attributeIds": [],
+          "id": "Interface_ElectricalPower",
+          "name": "Electrical Power Interface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "Part_FlightControlInterface",
+          "name": "Flight Control Computer Interface",
+          "of": "Block_ActuatorSystem",
+          "type": "Part"
+        },
+        {
+          "id": "Part_MechanicalActuator",
+          "name": "Mechanical Actuator",
+          "of": "Block_ActuatorSystem",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "Block_ActuatorSystem",
+          "flowSpecificationId": null,
+          "id": "Port_FlightCommand",
+          "isConjugated": false,
+          "name": "Flight Command Port",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "Interface_DigitalCommand"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "Block_ActuatorSystem",
+          "flowSpecificationId": null,
+          "id": "Port_PowerSupply",
+          "isConjugated": false,
+          "name": "Power Supply Port",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "Interface_ElectricalPower"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "Req_HighPrecision",
+          "name": "High Actuation Precision Requirement",
+          "reqId": "REQ_001",
+          "text": "The system shall achieve high precision in control surface actuation.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "Req_ResponseTime",
+          "name": "Flight Command Response Time",
+          "reqId": "REQ_002",
+          "text": "System response time must be under 20ms.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "Req_Redundancy",
+          "name": "Dual Redundancy Requirement",
+          "reqId": "REQ_003",
+          "text": "The system shall have dual redundant channels.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "Req_OperatingTemperature",
+          "name": "Operating Temperature Range",
+          "reqId": "REQ_004",
+          "text": "Operating temperature range must be -55°C to +85°C.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "Req_PowerSupply",
+          "name": "Power Supply Requirement",
+          "reqId": "REQ_005",
+          "text": "System power supply must be 28V DC regulated with redundant channels.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "State_Idle",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "State_Active",
+          "name": "Active",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "State_Fault",
+          "name": "Fault",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": "Activate actuator",
+          "guard": "Flight command received",
+          "id": "Transition_IdleToActive",
+          "name": "Idle to Active",
+          "sourceId": "State_Idle",
+          "targetId": "State_Active",
+          "trigger": "CommandEvent",
+          "type": "Transition"
+        },
+        {
+          "effect": "Initiate safe mode",
+          "guard": "Sensor anomaly",
+          "id": "Transition_ActiveToFault",
+          "name": "Active to Fault",
+          "sourceId": "State_Active",
+          "targetId": "State_Fault",
+          "trigger": "FaultDetected",
+          "type": "Transition"
+        }
+      ],
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Actuation System is a critical avionics subsystem responsible for converting digital flight commands from the Flight Control Computer into precise mechanical movements of the control surfaces. It has attributes such as high actuation precision, a response time under 20ms, dual redundant redundancy level, an operating temperature range of -55°C to +85°C, and a power supply of 28V DC regulated with redundant channels.",
+  "timestamp": "20250325_201259",
+  "provider": "gpt"
+}

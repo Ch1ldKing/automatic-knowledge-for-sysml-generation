@@ -1,0 +1,309 @@
+{
+  "system_id": "vhf_communication_system",
+  "system_name": "VHF Communication System",
+  "specification": {
+    "designScenario": {
+      "name": "V H F Radio",
+      "description": "The VHF Radio is a mission-critical avionics system enabling air-to-ground and air-to-air voice and data communication within the VHF aeronautical band (118-137 MHz). Designed for line-of-sight operations, it incorporates software-defined radio (SDR) technology for waveform flexibility, triple modular redundancy for fault tolerance, and digital signal enhancement to maintain clarity in high-noise environments. The system complies with next-generation CNS/ATM requirements and integrates with onboard datalink systems for enhanced situational awareness.",
+      "requirements": [
+        {
+          "title": "Multi-Mode Communication",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Support simultaneous analog AM voice and ACARS digital data transmission with automatic mode switching based on ATC coordination."
+            }
+          ]
+        },
+        {
+          "title": "Spectral Efficiency",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Maintain channel spacing accuracy of ±0.0025% across operating temperature range (-55°C to +70°C) to prevent adjacent channel interference."
+            }
+          ]
+        },
+        {
+          "title": "Fault-Tolerant Architecture",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement triple voting redundancy for transceiver chains with hot standby switching within 5ms of fault detection via BIT (Built-In Test)."
+            }
+          ]
+        },
+        {
+          "title": "Software Certification",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Achieve DAL-B certification per DO-178C for configurable waveform software and DO-331 model-based development compliance."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "SDR Transceiver Unit",
+        "type": "Software-Defined Radio Assembly",
+        "description": "Multi-channel SDR platform supporting simultaneous RX/TX operations with field-programmable RF front-end and baseband processing",
+        "subComponents": [
+          {
+            "name": "Wideband RF Frontend",
+            "type": "RF Hardware",
+            "description": "Covers 118-137 MHz with 100Hz frequency resolution using direct digital synthesis (DDS)"
+          },
+          {
+            "name": "Adaptive Equalizer",
+            "type": "DSP Module",
+            "description": "Mitigates multipath fading through real-time channel impulse response analysis"
+          }
+        ]
+      },
+      {
+        "name": "Crypto Management Module",
+        "type": "Security Hardware",
+        "description": "Provides AES-256 encryption for sensitive ATC datalink communications with key rotation mechanism",
+        "subComponents": null
+      },
+      {
+        "name": "Redundant Power Controller",
+        "type": "Power Distribution Unit",
+        "description": "Dual-redundant 28VDC input with automatic cross-tie switching and surge suppression to MIL-STD-704F",
+        "subComponents": [
+          {
+            "name": "Solid-State Power Relay",
+            "type": "Switching Device",
+            "description": "Galvanically isolated FET-based switch with <5μs failover time"
+          }
+        ]
+      },
+      {
+        "name": "Antenna Diversity System",
+        "type": "RF Subsystem",
+        "description": "Implements MIMO-like spatial diversity using top-mounted and belly antennas with automatic pattern optimization",
+        "subComponents": [
+          {
+            "name": "VSWR Monitor",
+            "type": "Diagnostic Module",
+            "description": "Continuously measures antenna impedance match with ±0.5:1 accuracy"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "SDR Transceiver Unit",
+        "target": "Crypto Management Module",
+        "relationshipType": "association",
+        "description": "Encrypted baseband I/Q samples transferred via secure DMA channel between SDR and crypto module"
+      },
+      {
+        "source": "Redundant Power Controller",
+        "target": "SDR Transceiver Unit",
+        "relationshipType": "composition",
+        "description": "Power controller contains dedicated voltage regulators specifically designed for SDR FPGA core voltages"
+      },
+      {
+        "source": "Antenna Diversity System",
+        "target": "SDR Transceiver Unit",
+        "relationshipType": "aggregation",
+        "description": "Antenna system provides spatially diverse RF inputs to SDR's multi-channel receiver stages"
+      },
+      {
+        "source": "Crypto Management Module",
+        "target": "Redundant Power Controller",
+        "relationshipType": "dependency",
+        "description": "Crypto module requires clean 5V reference from power controller's EMI-filtered auxiliary output"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "dynamicRange",
+        "type": "integer",
+        "value": ">90dB",
+        "description": "Receiver's ability to handle strong adjacent signals without desensitization"
+      },
+      {
+        "name": "channelSwitchTime",
+        "type": "string",
+        "value": "<100ms",
+        "description": "Maximum time to change frequencies including crypto resynchronization"
+      },
+      {
+        "name": "emcCompliance",
+        "type": "string",
+        "value": "RTCA DO-160G Section 21",
+        "description": "Immunity to HIRF environments up to 100V/m from 10kHz-18GHz"
+      },
+      {
+        "name": "mtbf",
+        "type": "string",
+        "value": ">50,000 hours",
+        "description": "Mean time between failures calculated per MIL-HDBK-217F"
+      },
+      {
+        "name": "dataIntegrity",
+        "type": "string",
+        "value": "BER <10^-6 @ -107dBm",
+        "description": "Bit error rate for digital modes under minimum usable signal level"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "VHF_System",
+          "type": "Block",
+          "name": "VHFCommunicationSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr1",
+            "attr2"
+          ],
+          "operationIds": [
+            "op1",
+            "op2"
+          ],
+          "constraintIds": [
+            "constraint1"
+          ],
+          "partIds": [
+            "part1",
+            "part2"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Transceiver",
+          "type": "Block",
+          "name": "VHFTransceiver",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr3",
+            "attr4"
+          ],
+          "operationIds": [
+            "op3",
+            "op4"
+          ],
+          "constraintIds": [
+            "constraint2"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB1",
+          "type": "InterfaceBlock",
+          "name": "RF_Interface",
+          "attributeIds": [],
+          "operationIds": [
+            "op5"
+          ],
+          "signalIds": [
+            "sig1"
+          ],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS1",
+          "type": "FlowSpecification",
+          "name": "RF_SignalFlow",
+          "flowType": "信息流",
+          "dataType": "RF_Signal",
+          "unit": "dBm",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB1",
+          "type": "ConstraintBlock",
+          "name": "PowerConstraint",
+          "parameterIds": [
+            "param1"
+          ],
+          "expression": "power <= 50W",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT1",
+          "type": "ValueType",
+          "name": "Frequency",
+          "quantityKindId": "QK1",
+          "unitId": "U1",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM1",
+          "type": "Enumeration",
+          "name": "ModulationType",
+          "literals": [
+            {
+              "id": "lit1",
+              "name": "AM"
+            },
+            {
+              "id": "lit2",
+              "name": "FM"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "P1",
+          "type": "FlowPort",
+          "name": "RF_Out",
+          "blockId": "Transceiver",
+          "flowSpecificationId": "FS1",
+          "isConjugated": false,
+          "attributeIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "COM1",
+          "type": "Comment",
+          "body": "Meets DO-178C Level C requirements",
+          "annotatedElementId": "VHF_System"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "COMP1",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "VHF_System",
+          "targetId": "Transceiver",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_150206",
+  "provider": "dpsk"
+}

@@ -1,0 +1,293 @@
+{
+  "system_id": "inertial_navigation_system_(ins)_system",
+  "system_name": "Inertial Navigation System (INS) System",
+  "specification": {
+    "designScenario": {
+      "name": "Inertial Navigation System (INS) System",
+      "description": "Basic description of Inertial Navigation System (INS) System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "packages": [
+        {
+          "id": "pkg-INS",
+          "type": "Package",
+          "name": "InertialNavigationSystem",
+          "elementImports": null,
+          "packageImports": null
+        }
+      ],
+      "blocks": [
+        {
+          "id": "blk-INS",
+          "type": "Block",
+          "name": "InertialNavigationSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-INS-Status",
+            "attr-INS-LastCalibration"
+          ],
+          "operationIds": [
+            "op-INS-Initialize",
+            "op-INS-Reset"
+          ],
+          "constraintIds": [
+            "constr-INS-Accuracy"
+          ],
+          "partIds": [
+            "prt-IMU",
+            "prt-NavComputer",
+            "prt-GPSInterface"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "blk-IMU",
+          "type": "Block",
+          "name": "InertialMeasurementUnit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-IMU-Accel",
+            "attr-IMU-Gyro"
+          ],
+          "operationIds": [
+            "op-IMU-Calibrate"
+          ],
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "blk-NavComputer",
+          "type": "Block",
+          "name": "NavigationComputer",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-Nav-Position",
+            "attr-Nav-Velocity"
+          ],
+          "operationIds": [
+            "op-Nav-Update",
+            "op-Nav-Output"
+          ],
+          "constraintIds": null,
+          "partIds": [
+            "prt-DataFusion"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "blk-GPSInterface",
+          "type": "Block",
+          "name": "GPSInterface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-GPS-FixQuality"
+          ],
+          "operationIds": [
+            "op-GPS-Receive"
+          ],
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifblk-NavData",
+          "type": "InterfaceBlock",
+          "name": "NavigationData_Interface",
+          "attributeIds": [
+            "ifattr-Nav-Pos"
+          ],
+          "operationIds": [
+            "ifop-Nav-SendData"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        },
+        {
+          "id": "ifblk-SensorData",
+          "type": "InterfaceBlock",
+          "name": "SensorData_Interface",
+          "attributeIds": [
+            "ifattr-Sensor-Data"
+          ],
+          "operationIds": [
+            "ifop-Sensor-Receive"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fspec-NavFlow",
+          "type": "FlowSpecification",
+          "name": "NavigationData_Flow",
+          "flowType": "information",
+          "dataType": "NavigationData_Type",
+          "unit": null,
+          "attributeIds": [
+            "fsattr-Nav-Stream"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constr-INS-Accuracy",
+          "type": "ConstraintBlock",
+          "name": "AccuracyConstraint",
+          "expression": "PositionError <= 0.1*Meter",
+          "parameterIds": [
+            "param-PositionError"
+          ],
+          "attributeIds": null
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-Status",
+          "type": "Enumeration",
+          "name": "SystemStatus",
+          "literals": [
+            {
+              "id": "lit-Status-Operational",
+              "name": "Operational"
+            },
+            {
+              "id": "lit-Status-Warning",
+              "name": "Warning"
+            },
+            {
+              "id": "lit-Status-Fault",
+              "name": "Fault"
+            }
+          ],
+          "attributeIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "prt-INS-NavOut",
+          "type": "ProxyPort",
+          "name": "NavigationOutputPort",
+          "blockId": "blk-INS",
+          "providedInterfaceIds": [
+            "ifblk-NavData"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": null,
+          "attributeIds": null
+        },
+        {
+          "id": "prt-INS-SensorIn",
+          "type": "FullPort",
+          "name": "SensorInputPort",
+          "blockId": "blk-INS",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": [
+            "ifblk-SensorData"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": null
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vtype-NavData",
+          "type": "ValueType",
+          "name": "NavigationData_Type",
+          "quantityKindId": "QuantityKind-Position",
+          "unitId": "Unit-Meter",
+          "attributeIds": [
+            "vattr-Pos",
+            "vattr-Vel"
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-INS-Status",
+          "type": "Property",
+          "name": "SystemStatus",
+          "propertyType": "Enumeration",
+          "value": "Operational",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "Operational",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "param-PositionError",
+          "type": "Property",
+          "name": "PositionError",
+          "propertyType": "Double",
+          "value": "0.0",
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "0.0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "comm-INS",
+          "type": "Comment",
+          "body": "Manages aircraft navigation using inertial sensors and GPS data fusion.",
+          "annotatedElementId": "blk-INS"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-INS-IMU",
+          "type": "Composition",
+          "name": "Contains",
+          "sourceId": "blk-INS",
+          "targetId": "blk-IMU",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": null,
+          "ownedEndIds": null
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_190150",
+  "provider": "qwen"
+}

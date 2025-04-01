@@ -1,0 +1,333 @@
+{
+  "system_id": "spoiler_system",
+  "system_name": "Spoiler System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the maximum deflection angle of the Spoilers under aerodynamic forces.",
+        "name": "deflectionAngle",
+        "type": "float",
+        "value": "45.0"
+      },
+      {
+        "description": "Defines the hydraulic pressure requirement for Spoilers&apos; efficient operation.",
+        "name": "hydraulicPressure",
+        "type": "float",
+        "value": "3000.0"
+      },
+      {
+        "description": "Specifies the operational temperature range ensuring material integrity.",
+        "name": "operationalTemperature",
+        "type": "range",
+        "value": "-55 to 85 °C"
+      }
+    ],
+    "designScenario": {
+      "description": "The Spoiler System is an integral part of an aircraft's flight control architecture. It is designed to alter the aerodynamic properties of the wings by increasing drag and reducing lift, which aids in descent, speed reduction, and enhanced braking during landing. The system emphasizes precision actuation, structural robustness, and operational reliability under extreme environmental conditions.",
+      "name": "Spoiler System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable effective airflow disruption to reduce lift and increase aerodynamic drag."
+            },
+            {
+              "description": "Provide differential activation to assist with roll control in conjunction with ailerons."
+            }
+          ],
+          "title": "Aerodynamic Efficiency",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Activate within 250 milliseconds to ensure seamless coordination with braking and other flight controls."
+            }
+          ],
+          "title": "Rapid Actuation Response",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Equip with fail-safe mechanisms to maintain control surface stability in the event of hydraulic failure."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Fabricate components using corrosion-resistant materials to ensure longevity."
+            },
+            {
+              "description": "Ensure easy replacement and maintenance access to hydraulic actuators."
+            }
+          ],
+          "title": "Durability and Maintenance Optimizations",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Hydraulic Actuator initiates the Spoilers' movement by hydraulic forces.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Actuator",
+        "target": "Spoiler Panels"
+      },
+      {
+        "description": "Spoiler Panels integrate into the wing assembly to function as lift-reducing devices.",
+        "relationshipType": "composition",
+        "source": "Wing Assembly",
+        "target": "Spoiler Panels"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Array of panels that extend to disturb airflow and manage lift and drag.",
+        "name": "Spoiler Panels",
+        "subComponents": [
+          {
+            "description": "Components that anchor the panels to the wing structure, enabling hinged motion.",
+            "name": "Spoiler Hinges",
+            "type": "Structural Component"
+          },
+          {
+            "description": "Motors powered hydraulically to actuate spoiler motion on command.",
+            "name": "Hydraulic Actuator",
+            "type": "Mechanical Actuator"
+          }
+        ],
+        "type": "Aerodynamic Device"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-wing-spoilers",
+          "memberEndIds": null,
+          "name": "SpoilersComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-wing-assembly",
+          "sourceMultiplicity": "1",
+          "targetId": "block-spoilers",
+          "targetMultiplicity": "1..*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-control-spoilers",
+          "memberEndIds": null,
+          "name": "ControlDependency",
+          "ownedEndIds": null,
+          "sourceId": "block-hydraulic-actuator",
+          "sourceMultiplicity": "1",
+          "targetId": "block-spoilers",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "45.0",
+          "id": "attr-max-deflection-angle",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "deflectionAngle",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "45.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "3000",
+          "id": "attr-hydraulic-pressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "hydraulicPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3000",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-55 to 85 °C",
+          "id": "attr-temperature-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operationalTemperature",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-55 to 85 °C",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-max-deflection-angle",
+            "attr-hydraulic-pressure",
+            "attr-temperature-range"
+          ],
+          "constraintIds": null,
+          "id": "block-spoiler-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "SpoilerSystem",
+          "operationIds": null,
+          "partIds": [
+            "block-spoilers"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-spoilers",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Spoilers",
+          "operationIds": null,
+          "partIds": [
+            "block-spoiler-hinges",
+            "block-hydraulic-actuator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-spoiler-system",
+          "body": "The \"SpoilerSystem\" block represents the functional control and actuation system for aircraft spoilers, ensuring high aerodynamic and operational performance.",
+          "id": "comment-spoiler-system-doc",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-spoilers-hinges",
+          "memberEndIds": null,
+          "name": "HingesComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-spoilers",
+          "sourceMultiplicity": "1",
+          "targetId": "block-spoiler-hinges",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "ActivationResponse < 250ms",
+          "id": "constraint-response-time",
+          "name": "ActuationResponseConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-actuator-to-spoiler",
+          "name": "ActuationDependency",
+          "sourceId": "block-hydraulic-actuator",
+          "sourceMultiplicity": "1",
+          "targetId": "block-spoilers",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [],
+      "ports": [],
+      "proxyPorts": [],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-aerodynamic-efficiency",
+          "name": "AerodynamicEfficiency",
+          "reqId": "REQ-SP-001",
+          "text": "Enable effective airflow disruption to reduce lift and increase aerodynamic drag.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": []
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250326_162728",
+  "provider": "gpt"
+}

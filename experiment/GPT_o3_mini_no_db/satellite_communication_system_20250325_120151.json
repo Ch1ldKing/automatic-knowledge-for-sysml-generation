@@ -1,0 +1,818 @@
+{
+  "system_id": "satellite_communication_system",
+  "system_name": "Satellite Communication System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operating frequency band used by the SATCOM Module for secure satellite communication links.",
+        "name": "operatingFrequency",
+        "type": "string",
+        "value": "Ku-band"
+      },
+      {
+        "description": "Maximum data transfer rate achievable by the module under peak conditions.",
+        "name": "dataRate",
+        "type": "string",
+        "value": "Up to 1.5 Mbps"
+      },
+      {
+        "description": "Redundancy configuration to ensure continuous operation even under hardware failure, featuring triple backup transceivers.",
+        "name": "redundancy",
+        "type": "string",
+        "value": "Triple redundant transceivers"
+      },
+      {
+        "description": "Encryption protocol used to secure data transmissions across the satellite network.",
+        "name": "encryptionProtocol",
+        "type": "string",
+        "value": "AES-256 with RSA key exchange"
+      },
+      {
+        "description": "Maximum allowable end-to-end communication latency for real-time operational requirements.",
+        "name": "latency",
+        "type": "string",
+        "value": "Less than 400ms"
+      }
+    ],
+    "designScenario": {
+      "description": "The SATCOM Module 2.0 is an advanced satellite communication system designed for next-generation passenger aircraft. It facilitates continuous, secure, and high-performance communication with satellite networks to support real-time flight data exchange, navigational updates, and dynamic weather information. The module integrates advanced encryption algorithms, triple redundancy in transceivers, and a high-gain antenna system that operates in the Ku-band to meet stringent aviation communication requirements.",
+      "name": "SATCOM Module 2.0",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable reliable bidirectional communication with multiple satellite systems to ensure uninterrupted connectivity for real-time flight updates."
+            },
+            {
+              "description": "Seamlessly integrate with onboard avionics to support operational commands and telemetry."
+            }
+          ],
+          "title": "Robust Satellite Communication",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve a data throughput of up to 1.5 Mbps even in high-demand scenarios."
+            },
+            {
+              "description": "Maintain an end-to-end latency of less than 400ms to support timely system responses."
+            }
+          ],
+          "title": "High Performance Communication",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement triple redundant transceivers and sophisticated error detection methods to mitigate potential failures."
+            },
+            {
+              "description": "Provide immediate alerts and fallback procedures to enhance flight safety in adverse conditions."
+            }
+          ],
+          "title": "Enhanced Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Adopt a modular architecture that supports ease of maintenance, scalability, and future system upgrades."
+            },
+            {
+              "description": "Ensure compliance with aviation electromagnetic interference standards and cybersecurity best practices."
+            }
+          ],
+          "title": "Modularity, Security, and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The SATCOM Module 2.0 is composed of several critical hardware components including an advanced antenna, redundant transceivers, a secure encryption unit, and a high-speed data interface.",
+        "relationshipType": "composition",
+        "source": "SATCOM Module 2.0",
+        "target": "Advanced SATCOM Antenna"
+      },
+      {
+        "description": "The module integrates multiple transceivers to ensure redundancy and continuous operation.",
+        "relationshipType": "composition",
+        "source": "SATCOM Module 2.0",
+        "target": "Dual Redundant Transceivers"
+      },
+      {
+        "description": "The Secure Encryption Unit is associated with the SATCOM Module 2.0 to provide end-to-end data encryption.",
+        "relationshipType": "association",
+        "source": "SATCOM Module 2.0",
+        "target": "Secure Encryption Unit V2"
+      },
+      {
+        "description": "The High-speed Data Interface module depends on the Central Avionics Processor to transmit processed communication data for onward usage.",
+        "relationshipType": "dependency",
+        "source": "High-speed Data Interface",
+        "target": "Central Avionics Processor"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The main satellite communication unit that integrates all subcomponents to provide advanced SATCOM functionalities for passenger aircraft.",
+        "name": "SATCOM Module 2.0",
+        "subComponents": [
+          {
+            "description": "A high-gain antenna system engineered to effectively transmit and receive satellite signals in the Ku-band.",
+            "name": "Advanced SATCOM Antenna",
+            "type": "Antenna Hardware"
+          },
+          {
+            "description": "A set of dual redundant transceivers with an additional standby unit to ensure uninterrupted communication.",
+            "name": "Dual Redundant Transceivers",
+            "type": "Communication Transceiver"
+          },
+          {
+            "description": "An enhanced encryption unit that employs AES-256 with RSA key exchange to secure all data transmissions in real-time.",
+            "name": "Secure Encryption Unit V2",
+            "type": "Encryption Hardware"
+          },
+          {
+            "description": "A high-speed data interface module that manages and relays communication data between the SATCOM Module and other avionics systems.",
+            "name": "High-speed Data Interface",
+            "type": "Interface Module"
+          }
+        ],
+        "type": "Communication Hardware"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "120.0",
+          "id": "attr_B_SatComm_Weight",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Weight",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "120.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "300.0",
+          "id": "attr_B_SatComm_Power",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Power Consumption",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "300.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "15.0",
+          "id": "attr_B_Antenna_Gain",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Antenna Gain",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "15.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "X-Band",
+          "id": "attr_B_Antenna_FrequencyRange",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Frequency Range",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "X-Band",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "250.0",
+          "id": "attr_B_Transmitter_OutputPower",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Output Power",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "250.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "8.4",
+          "id": "attr_B_Transmitter_Frequency",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Transmit Frequency",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "8.4",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-100.0",
+          "id": "attr_B_Receiver_Sensitivity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Receiver Sensitivity",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-100.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "20.0",
+          "id": "attr_B_Receiver_Bandwidth",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Bandwidth",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "20.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "100.0",
+          "id": "attr_B_Modem_DataRate",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Data Rate",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "100.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "28.0",
+          "id": "attr_B_PowerSupply_Voltage",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Voltage",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "28.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10.0",
+          "id": "attr_B_PowerSupply_Current",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Current",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "10.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "v1.2.3",
+          "id": "attr_B_ControlUnit_FirmwareVersion",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Firmware Version",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "v1.2.3",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_B_SatComm_Weight",
+            "attr_B_SatComm_Power"
+          ],
+          "constraintIds": null,
+          "id": "B_SatComm",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Satellite Communication System",
+          "operationIds": [
+            "op_B_SatComm_Init",
+            "op_B_SatComm_Transmit"
+          ],
+          "partIds": [
+            "B_Antenna",
+            "B_Transmitter",
+            "B_Receiver",
+            "B_Modem",
+            "B_PowerSupply",
+            "B_ControlUnit"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_B_Antenna_Gain",
+            "attr_B_Antenna_FrequencyRange"
+          ],
+          "constraintIds": null,
+          "id": "B_Antenna",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Communication Antenna",
+          "operationIds": [
+            "op_B_Antenna_AdjustOrientation"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_B_Transmitter_OutputPower",
+            "attr_B_Transmitter_Frequency"
+          ],
+          "constraintIds": null,
+          "id": "B_Transmitter",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Signal Transmitter",
+          "operationIds": [
+            "op_B_Transmitter_ModulateSignal"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_B_Receiver_Sensitivity",
+            "attr_B_Receiver_Bandwidth"
+          ],
+          "constraintIds": null,
+          "id": "B_Receiver",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Signal Receiver",
+          "operationIds": [
+            "op_B_Receiver_DemodulateSignal"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_B_Modem_DataRate"
+          ],
+          "constraintIds": null,
+          "id": "B_Modem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Communication Modem",
+          "operationIds": [
+            "op_B_Modem_Encode",
+            "op_B_Modem_Decode"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_B_PowerSupply_Voltage",
+            "attr_B_PowerSupply_Current"
+          ],
+          "constraintIds": null,
+          "id": "B_PowerSupply",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Power Supply Unit",
+          "operationIds": [
+            "op_B_PowerSupply_Stabilize"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_B_ControlUnit_FirmwareVersion"
+          ],
+          "constraintIds": null,
+          "id": "B_ControlUnit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Control Unit",
+          "operationIds": [
+            "op_B_ControlUnit_Monitor",
+            "op_B_ControlUnit_Control"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B_SatComm",
+          "body": "The Satellite Communication System integrates RF antennas, transmitters, receivers, modulators, power supply, and control units to support in-flight connectivity and satellite link communications.",
+          "id": "COM1",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B_Antenna",
+          "body": "Antenna block designed for X-Band frequency range, providing high gain and precise beam steering capabilities.",
+          "id": "COM2",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "C_SatComm_Assembly",
+          "memberEndIds": [
+            "B_Antenna"
+          ],
+          "name": "Satellite Communication Assembly",
+          "ownedEndIds": [
+            "B_Antenna"
+          ],
+          "sourceId": "B_SatComm",
+          "sourceMultiplicity": "1",
+          "targetId": "B_Antenna",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "C_SatComm_Transmitter",
+          "memberEndIds": [
+            "B_Transmitter"
+          ],
+          "name": "Transmitter Integration",
+          "ownedEndIds": [
+            "B_Transmitter"
+          ],
+          "sourceId": "B_SatComm",
+          "sourceMultiplicity": "1",
+          "targetId": "B_Transmitter",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "C_SatComm_Receiver",
+          "memberEndIds": [
+            "B_Receiver"
+          ],
+          "name": "Receiver Integration",
+          "ownedEndIds": [
+            "B_Receiver"
+          ],
+          "sourceId": "B_SatComm",
+          "sourceMultiplicity": "1",
+          "targetId": "B_Receiver",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "C_SatComm_Modem",
+          "memberEndIds": [
+            "B_Modem"
+          ],
+          "name": "Modem Integration",
+          "ownedEndIds": [
+            "B_Modem"
+          ],
+          "sourceId": "B_SatComm",
+          "sourceMultiplicity": "1",
+          "targetId": "B_Modem",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "C_SatComm_Power",
+          "memberEndIds": [
+            "B_PowerSupply"
+          ],
+          "name": "Power Supply Integration",
+          "ownedEndIds": [
+            "B_PowerSupply"
+          ],
+          "sourceId": "B_SatComm",
+          "sourceMultiplicity": "1",
+          "targetId": "B_PowerSupply",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "C_SatComm_Control",
+          "memberEndIds": [
+            "B_ControlUnit"
+          ],
+          "name": "Control Unit Integration",
+          "ownedEndIds": [
+            "B_ControlUnit"
+          ],
+          "sourceId": "B_SatComm",
+          "sourceMultiplicity": "1",
+          "targetId": "B_ControlUnit",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "OperatingTemperature >= -40 and OperatingTemperature <= 85",
+          "id": "CB1",
+          "name": "Operating Environment Constraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": [],
+          "id": "E1",
+          "literals": [
+            {
+              "id": "L1",
+              "name": "QPSK"
+            },
+            {
+              "id": "L2",
+              "name": "8PSK"
+            },
+            {
+              "id": "L3",
+              "name": "16QAM"
+            }
+          ],
+          "name": "ModulationScheme",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "DigitalData",
+          "flowType": "informationFlow",
+          "id": "FS_DataFlow",
+          "name": "Data Flow Specification",
+          "type": "FlowSpecification",
+          "unit": "bps"
+        },
+        {
+          "attributeIds": [],
+          "dataType": "AnalogSignal",
+          "flowType": "signalFlow",
+          "id": "FS_RFFlow",
+          "name": "RF Signal Flow Specification",
+          "type": "FlowSpecification",
+          "unit": "dBm"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": [],
+          "id": "I_SignalInterface",
+          "name": "Signal Interface",
+          "operationIds": [
+            "op_TransmitSignal",
+            "op_ReceiveSignal"
+          ],
+          "signalIds": [],
+          "type": "Interface"
+        },
+        {
+          "attributeIds": [],
+          "id": "I_ControlInterface",
+          "name": "Control Interface",
+          "operationIds": [
+            "op_SendCommand"
+          ],
+          "signalIds": [],
+          "type": "Interface"
+        },
+        {
+          "attributeIds": [],
+          "id": "I_RFSInterface",
+          "name": "RF Signal Interface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B_SatComm",
+          "flowSpecificationId": null,
+          "id": "P_SatComm_Data",
+          "isConjugated": false,
+          "name": "Data Exchange Port",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "I_SignalInterface"
+          ],
+          "requiredInterfaceIds": [
+            "I_ControlInterface"
+          ],
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B_Antenna",
+          "flowSpecificationId": null,
+          "id": "P_Antenna_RF",
+          "isConjugated": false,
+          "name": "RF Signal Port",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "I_RFSInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "B_ControlUnit",
+          "id": "P_Control",
+          "isConjugated": true,
+          "name": "Control Command Proxy Port",
+          "providedInterfaceIds": [
+            "I_ControlInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT1",
+          "name": "FrequencyValue",
+          "quantityKindId": "QK1",
+          "type": "ValueType",
+          "unitId": "U_GHz"
+        },
+        {
+          "attributeIds": [],
+          "id": "VT2",
+          "name": "PowerValue",
+          "quantityKindId": "QK2",
+          "type": "ValueType",
+          "unitId": "U_dBm"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_120151"
+}

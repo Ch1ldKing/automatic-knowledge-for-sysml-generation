@@ -1,0 +1,175 @@
+{
+  "system_id": "anti-icing_system",
+  "system_name": "Anti-Icing System",
+  "specification": {
+    "designScenario": {
+      "name": "Anti-Icing System",
+      "description": "Basic description of Anti-Icing System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "composite",
+          "defaultValue": null,
+          "id": "attr1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": true,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "AirflowTemperature",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "null",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "ON",
+          "id": "attr2",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "SystemStatus",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "null",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr1",
+            "attr2"
+          ],
+          "constraintIds": [
+            "cons1"
+          ],
+          "id": "block1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AntiIcingSystem",
+          "operationIds": [
+            "op1"
+          ],
+          "partIds": [
+            "part1",
+            "part2"
+          ],
+          "referenceIds": [
+            "ref1"
+          ],
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block1",
+          "body": "This block represents the Anti-Icing System for an aircraft.",
+          "id": "comm1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "AirflowTemperature>=50",
+          "id": "cons1",
+          "name": "MinOperationalTemperature",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part1",
+          "name": "Component1",
+          "of": "block1",
+          "type": "Part"
+        },
+        {
+          "id": "part2",
+          "name": "Component2",
+          "of": "block1",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "valueType1",
+          "name": "Real",
+          "quantityKindId": "quantity1",
+          "type": "ValueType",
+          "unitId": "unit1"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250326_181755",
+  "provider": "gpt"
+}

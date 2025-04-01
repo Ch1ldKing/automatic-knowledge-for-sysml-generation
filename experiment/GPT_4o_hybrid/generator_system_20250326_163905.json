@@ -1,0 +1,380 @@
+{
+  "system_id": "generator_system",
+  "system_name": "Generator System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Rated output power capacity for the Generator System.",
+        "name": "ratedPower",
+        "type": "string",
+        "value": "250 kW"
+      },
+      {
+        "description": "Efficiency during typical load operation.",
+        "name": "systemEfficiency",
+        "type": "string",
+        "value": "92%"
+      },
+      {
+        "description": "Operational frequency of generated current.",
+        "name": "outputFrequency",
+        "type": "string",
+        "value": "400 Hz"
+      },
+      {
+        "description": "The system compliance with aviation standards.",
+        "name": "compliance",
+        "type": "string",
+        "value": "DO-160, RTCA"
+      }
+    ],
+    "designScenario": {
+      "description": "The Generator System is responsible for providing reliable electrical power to the aircraft's electrical components throughout operational conditions, ensuring redundancy and compliance with aviation standards.",
+      "name": "Generator System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Generate electrical power on-demand matching the instantaneous load requirements."
+            }
+          ],
+          "title": "Power Generation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain output frequency stability even under varying load conditions."
+            }
+          ],
+          "title": "Frequency Stability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement protective measures against excess current or short circuit conditions."
+            }
+          ],
+          "title": "Safety Measures Implementation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Designed for minimal maintenance and maximum operational time."
+            }
+          ],
+          "title": "Maintenance Efficiency",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Unit monitors and manages the Generator module's operations.",
+        "relationshipType": "dependency",
+        "source": "Control Unit",
+        "target": "Generator Module"
+      },
+      {
+        "description": "The Drive System powers the Generator module to produce electricity.",
+        "relationshipType": "aggregation",
+        "source": "Drive System",
+        "target": "Generator Module"
+      },
+      {
+        "description": "The Cooling Assembly ensures the Generator Module remains within safe operational temperatures.",
+        "relationshipType": "association",
+        "source": "Cooling Assembly",
+        "target": "Generator Module"
+      },
+      {
+        "description": "The Connection Panel enables interaction of the generated power with the Electrical Distribution Unit.",
+        "relationshipType": "composition",
+        "source": "Connection Panel",
+        "target": "Generator Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core unit responsible for producing electrical power from mechanical input.",
+        "name": "Generator Module",
+        "subComponents": [
+          {
+            "description": "Rotor to create rotating magnetic fields.",
+            "name": "Rotor",
+            "type": "Rotating Mechanical Component"
+          },
+          {
+            "description": "Stator to convert magnetic flux to electrical current.",
+            "name": "Stator",
+            "type": "Stationary Electrical Component"
+          }
+        ],
+        "type": "Generation System"
+      },
+      {
+        "description": "Drives the mechanical input for the Generator.",
+        "name": "Drive System",
+        "subComponents": [
+          {
+            "description": "High-speed turbine for rotational drive.",
+            "name": "Turbine",
+            "type": "Mechanical Component"
+          }
+        ],
+        "type": "Mechanical Drive Unit"
+      },
+      {
+        "description": "Regulates operational parameters and monitors critical system metrics.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Processor managing operational logic.",
+            "name": "Logic Processor",
+            "type": "Controller"
+          },
+          {
+            "description": "Sensors to collect operational data.",
+            "name": "Data Sensors",
+            "type": "Sensing Unit"
+          }
+        ],
+        "type": "Monitoring and Control System"
+      },
+      {
+        "description": "Dissipates excess heat to ensure optimal performance of the Generator system.",
+        "name": "Cooling Assembly",
+        "subComponents": [
+          {
+            "description": "Heat exchanger transferring heat away.",
+            "name": "Heat Exchanger",
+            "type": "Thermal Management Component"
+          }
+        ],
+        "type": "Cooling System"
+      },
+      {
+        "description": "Interface unit connecting the generator output to the aircraft's electrical network.",
+        "name": "Connection Panel",
+        "subComponents": [
+          {
+            "description": "Circuit breakers for protection.",
+            "name": "Breaker Panel",
+            "type": "Electrical Safety Component"
+          }
+        ],
+        "type": "Electrical Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "aggregation-drive-generator",
+          "memberEndIds": null,
+          "name": "DriveToGeneratorModule",
+          "ownedEndIds": null,
+          "sourceId": "block-drive-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-generator-module",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-cooling-generator",
+          "memberEndIds": null,
+          "name": "CoolingToGeneratorModule",
+          "ownedEndIds": null,
+          "sourceId": "block-cooling-assembly",
+          "sourceMultiplicity": "1",
+          "targetId": "block-generator-module",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "250 kW",
+          "id": "attr-ratedPower",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Rated Power",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "250 kW",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-ratedPower"
+          ],
+          "constraintIds": null,
+          "id": "block-generator-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "GeneratorSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-drive-system",
+            "part-generator-module",
+            "part-cooling-assembly"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-generator-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "GeneratorModule",
+          "operationIds": null,
+          "partIds": [
+            "part-rotor",
+            "part-stator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-drive-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "DriveSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-turbine"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-cooling-assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CoolingAssembly",
+          "operationIds": null,
+          "partIds": [
+            "part-heat-exchanger"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-generator-system",
+          "body": "The Generator System is responsible for delivering reliable electric power while adhering to aviation standards and safety protocols.",
+          "id": "comment-generator-system",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [],
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": [],
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [],
+      "interfaceRealizations": null,
+      "interfaces": [],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-drive-system",
+          "name": "DriveSystem",
+          "of": "block-drive-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-generator-module",
+          "name": "GeneratorModule",
+          "of": "block-generator-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-cooling-assembly",
+          "name": "CoolingAssembly",
+          "of": "block-cooling-assembly",
+          "type": "Part"
+        }
+      ],
+      "ports": [],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-power-capacity",
+          "name": "PowerCapacity",
+          "quantityKindId": "quantityKind-power-capacity",
+          "type": "ValueType",
+          "unitId": "unit-kW"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "electrical_power_system",
+  "timestamp": "20250326_163905",
+  "provider": "gpt"
+}

@@ -1,0 +1,209 @@
+{
+  "system_id": "inertial_navigation_system_(ins)_system",
+  "system_name": "Inertial Navigation System (INS) System",
+  "specification": {
+    "designScenario": {
+      "name": "Inertial Navigation System (INS) System",
+      "description": "Basic description of Inertial Navigation System (INS) System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+
+      "diagramType": "BDD",
+      "elements": {
+        "blocks": [
+          {
+            "id": "INS_System",
+            "type": "Block",
+            "name": "InertialNavigationSystem",
+            "isAbstract": false,
+            "isActive": true,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "INS_001",
+              "INS_002"
+            ],
+            "operationIds": [
+              "OP_INS_001",
+              "OP_INS_002"
+            ],
+            "constraintIds": [
+              "C_INS_001"
+            ],
+            "partIds": [
+              "IMU_Sub",
+              "NavComp_Sub",
+              "Power_Sub"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "IMU_Sub",
+            "type": "Block",
+            "name": "InertialMeasurementUnit",
+            "isAbstract": false,
+            "isActive": true,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "IMU_001",
+              "IMU_002"
+            ],
+            "operationIds": [
+              "OP_IMU_001"
+            ],
+            "constraintIds": [
+              "C_IMU_001"
+            ],
+            "partIds": [
+              "ACC_Sub",
+              "GYRO_Sub"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "NavComp_Sub",
+            "type": "Block",
+            "name": "NavigationComputer",
+            "isAbstract": false,
+            "isActive": true,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "NC_001"
+            ],
+            "operationIds": [
+              "OP_NC_001",
+              "OP_NC_002"
+            ],
+            "constraintIds": [
+              "C_NC_001"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          }
+        ],
+        "interfaceBlocks": [
+          {
+            "id": "GPS_IF",
+            "type": "InterfaceBlock",
+            "name": "GPSInterface",
+            "attributeIds": [
+              "GPS_ATTR_001"
+            ],
+            "operationIds": [
+              "GPS_OP_001"
+            ],
+            "signalIds": [
+              "GPS_SIG_001"
+            ],
+            "constraintIds": []
+          }
+        ],
+        "flowSpecifications": [
+          {
+            "id": "FS_ANG",
+            "type": "FlowSpecification",
+            "name": "AngularRateData",
+            "flowType": "Information",
+            "dataType": "VT_RadPerSec",
+            "unit": "rad/s",
+            "attributeIds": []
+          }
+        ],
+        "constraintBlocks": [
+          {
+            "id": "C_INS_001",
+            "type": "ConstraintBlock",
+            "name": "PositionAccuracy",
+            "parameterIds": [
+              "P_ERR",
+              "MAX_ERR"
+            ],
+            "expression": "positionError <= maxAllowableError",
+            "attributeIds": []
+          }
+        ],
+        "valueTypes": [
+          {
+            "id": "VT_RadPerSec",
+            "type": "ValueType",
+            "name": "radians_per_second",
+            "quantityKindId": "AngularVelocity",
+            "unitId": "RAD_S",
+            "attributeIds": []
+          }
+        ],
+        "enumerations": [
+          {
+            "id": "EN_SensorStatus",
+            "type": "Enumeration",
+            "name": "SensorStatus",
+            "literals": [
+              {
+                "id": "LIT_ACTIVE",
+                "name": "ACTIVE"
+              },
+              {
+                "id": "LIT_CALIBRATING",
+                "name": "CALIBRATING"
+              }
+            ],
+            "attributeIds": []
+          }
+        ],
+        "ports": [
+          {
+            "id": "P_INS_GPS",
+            "type": "ProxyPort",
+            "name": "gpsDataInterface",
+            "isConjugated": false,
+            "blockId": "INS_System",
+            "providedInterfaceIds": [
+              "GPS_IF"
+            ],
+            "requiredInterfaceIds": [],
+            "attributeIds": []
+          },
+          {
+            "id": "P_IMU_DATA",
+            "type": "FlowPort",
+            "name": "inertialDataOut",
+            "isConjugated": false,
+            "blockId": "IMU_Sub",
+            "flowSpecificationId": "FS_ANG",
+            "attributeIds": []
+          }
+        ],
+        "compositions": [
+          {
+            "id": "COMP_INS_IMU",
+            "type": "Composition",
+            "name": null,
+            "sourceId": "INS_System",
+            "targetId": "IMU_Sub",
+            "sourceMultiplicity": "1",
+            "targetMultiplicity": "1",
+            "memberEndIds": [],
+            "ownedEndIds": []
+          }
+        ],
+        "comments": [
+          {
+            "id": "CMT_INS",
+            "type": "Comment",
+            "body": "Core navigation system using IMU data with GPS integration",
+            "annotatedElementId": "INS_System"
+          }
+        ]
+      }
+    
+  },
+  "timestamp": "20250325_145544",
+  "provider": "dpsk"
+}

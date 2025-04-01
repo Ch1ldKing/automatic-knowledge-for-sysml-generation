@@ -1,0 +1,511 @@
+{
+  "system_id": "rudder_system",
+  "system_name": "Rudder System",
+  "specification": {
+    "designScenario": {
+      "name": "Rudder",
+      "description": "The Rudder is a critical aerodynamic control surface responsible for managing an aircraft's yaw axis stability and directional control. It operates in concert with other flight control surfaces to counteract adverse yaw, maintain course accuracy during turns, and ensure responsiveness to pilot or autopilot inputs. The design prioritizes rapid actuation, precision deflection under varying load conditions, structural resilience against aerodynamic stresses, and fail-operational redundancy for enhanced safety. The system is engineered for minimal maintenance downtime and environmental durability across extreme operational envelopes.",
+      "requirements": [
+        {
+          "title": "Yaw Control Authority",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Provide proportional deflection in response to pilot/autopilot input to effectuate yaw adjustments across all flight regimes."
+            },
+            {
+              "description": "Integrate with flight control computers to modulate deflection based on airspeed, altitude, and crosswind conditions."
+            }
+          ]
+        },
+        {
+          "title": "Dynamic Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deflection within 30 milliseconds from command initiation during high-authority maneuvers."
+            },
+            {
+              "description": "Maintain deflection accuracy within ±0.05° under 200 knots indicated airspeed."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Control Systems",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual-redundant actuation pathways with cross-channel validation to prevent single-point failures."
+            },
+            {
+              "description": "Execute controlled deflection reversal to neutral position within 2 seconds upon detecting actuator failure."
+            }
+          ]
+        },
+        {
+          "title": "Environmental Robustness",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Withstand repeated exposure to icing conditions at -50°C and thermal cycling between -55°C and +95°C."
+            },
+            {
+              "description": "Maintain structural integrity after 10,000 cycles of full deflection under maximum design load."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Rudder Assembly",
+        "description": "Primary control surface assembly responsible for generating yaw control forces through aerodynamic deflection.",
+        "type": "Aerodynamic Control Surface",
+        "subComponents": [
+          {
+            "name": "Aeroelastic Rudder Panel",
+            "description": "Composite skin structure optimized for low drag and flutter resistance at Mach 0.85.",
+            "type": "Structural Component"
+          },
+          {
+            "name": "Ball Screw Actuator",
+            "description": "Precision linear actuator with integral position feedback to ensure repeatable deflection accuracy.",
+            "type": "Electromechanical Actuator"
+          },
+          {
+            "name": "Hinge Mechanism",
+            "description": "Low-friction pivot assembly with carbon fiber bearings to minimize deflection torque requirements.",
+            "type": "Kinematic Joint"
+          }
+        ]
+      },
+      {
+        "name": "Flight Control Electronics Module",
+        "description": "Computational unit responsible for translating pilot inputs into actuator commands and monitoring system health.",
+        "type": "Avionics Subsystem",
+        "subComponents": null
+      },
+      {
+        "name": "Hydraulic Power Unit",
+        "description": "Auxiliary power source providing backup actuation force in case of primary electrical system failure.",
+        "type": "Energy Subsystem",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Control Surfaces",
+        "target": "Rudder Assembly",
+        "relationshipType": "aggregation",
+        "description": "The rudder forms part of the integrated flight control system managing aircraft stability."
+      },
+      {
+        "source": "Flight Control Electronics Module",
+        "target": "Rudder Assembly",
+        "relationshipType": "dependency",
+        "description": "Electronic module provides actuation commands and monitors deflection position in real time."
+      },
+      {
+        "source": "Rudder Assembly",
+        "target": "Ball Screw Actuator",
+        "relationshipType": "composition",
+        "description": "Actuator forms integral part of the rudder's mechanical deflection mechanism."
+      },
+      {
+        "source": "Hydraulic Power Unit",
+        "target": "Ball Screw Actuator",
+        "relationshipType": "dependency",
+        "description": "Hydraulic system provides backup power for actuation under electrical failure conditions."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "Max Deflection Range",
+        "type": "string",
+        "value": "-30° to +30°",
+        "description": "Operating deflection limits to prevent structural overstress during aggressive maneuvers."
+      },
+      {
+        "name": "Actuation Force Capacity",
+        "type": "string",
+        "value": "4500 N continuous / 6000 N peak",
+        "description": "Force output capability of the primary actuator under normal and emergency conditions."
+      },
+      {
+        "name": "Material Fatigue Life",
+        "type": "string",
+        "value": "200,000 load cycles at 120% design load",
+        "description": "Certified fatigue life for composite components under cyclic aerodynamic loading."
+      },
+      {
+        "name": "Environmental Sealing",
+        "type": "string",
+        "value": "IP67 ingress protection",
+        "description": "Dust/water resistance rating for electronics and actuator components."
+      },
+      {
+        "name": "Deflection Hysteresis",
+        "type": "string",
+        "value": "≤0.02°",
+        "description": "Maximum allowable difference between commanded and actual deflection under steady-state conditions."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-rudder",
+          "type": "Block",
+          "name": "Rudder",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-deflection-range",
+            "attr-force-capacity",
+            "attr-material-fatigue",
+            "attr-environment-sealing",
+            "attr-hysteresis"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "constraint-actuation-speed"
+          ],
+          "partIds": [
+            "part-rudder-assembly",
+            "part-fcs-module",
+            "part-hydraulic-unit"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "part-rudder-assembly",
+          "type": "Block",
+          "name": "Rudder Assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-aero-optimization"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": [
+            "part-rudder-panel",
+            "part-actuator",
+            "part-hinge"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "part-rudder-panel",
+          "type": "Block",
+          "name": "Aeroelastic Rudder Panel",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-composite-strength"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "part-actuator",
+          "type": "Block",
+          "name": "Ball Screw Actuator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-actuator-precision"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "part-hinge",
+          "type": "Block",
+          "name": "Hinge Mechanism",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-friction-tolerance"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "part-fcs-module",
+          "type": "Block",
+          "name": "Flight Control Electronics Module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-computation-rate"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "part-hydraulic-unit",
+          "type": "Block",
+          "name": "Hydraulic Power Unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-hydraulic-pressure"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb-rudder-control",
+          "type": "InterfaceBlock",
+          "name": "RudderControlInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "op-deflection-command"
+          ],
+          "signalIds": [],
+          "constraintIds": null
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fspec-control-command",
+          "type": "FlowSpecification",
+          "name": "ControlCommandFlow",
+          "flowType": "InformationFlow",
+          "dataType": "ControlSignal",
+          "unit": "deg/s",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-actuation-speed",
+          "type": "ConstraintBlock",
+          "name": "ActuationSpeedConstraint",
+          "parameterIds": [
+            "param-deflection-time"
+          ],
+          "expression": "actuationTime <= 0.03",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-rudder-state",
+          "type": "Enumeration",
+          "name": "RudderOperationalState",
+          "literals": [
+            {
+              "id": "lit-normal",
+              "name": "Normal"
+            },
+            {
+              "id": "lit-fail-safe",
+              "name": "FailSafe"
+            },
+            {
+              "id": "lit-disabled",
+              "name": "Disabled"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-control-input",
+          "type": "FullPort",
+          "name": "ControlInputPort",
+          "blockId": "block-rudder",
+          "flowSpecificationId": "fspec-control-command",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "ifb-rudder-control"
+          ],
+          "requiredInterfaceIds": null
+        },
+        {
+          "id": "port-hydraulic-connection",
+          "type": "FlowPort",
+          "name": "HydraulicPowerPort",
+          "blockId": "part-hydraulic-unit",
+          "flowSpecificationId": "fspec-hydraulic-power",
+          "isConjugated": false
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-deflection-range",
+          "type": "Property",
+          "name": "DeflectionRange",
+          "propertyType": "String",
+          "value": "-30° to +30°",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-force-capacity",
+          "type": "Property",
+          "name": "ActuationForce",
+          "propertyType": "String",
+          "value": "4500 N continuous / 6000 N peak",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-material-fatigue",
+          "type": "Property",
+          "name": "MaterialFatigueLife",
+          "propertyType": "String",
+          "value": "200,000 load cycles at 120% design load",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-environment-sealing",
+          "type": "Property",
+          "name": "EnvironmentalSealing",
+          "propertyType": "String",
+          "value": "IP67 ingress protection",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-hysteresis",
+          "type": "Property",
+          "name": "DeflectionHysteresis",
+          "propertyType": "String",
+          "value": "≤0.02°",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-composite-strength",
+          "type": "Property",
+          "name": "CompositeStrength",
+          "propertyType": "String",
+          "value": "1800 MPa tensile strength",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-rudder-assembly",
+          "type": "Composition",
+          "name": "RudderAssemblyComposition",
+          "sourceId": "block-rudder",
+          "targetId": "part-rudder-assembly",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [
+            "part-rudder-assembly"
+          ],
+          "ownedEndIds": [
+            "part-rudder-assembly"
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-design",
+          "type": "Comment",
+          "body": "Critical aerodynamic control surface managing yaw stability with dual-redundant actuation pathways. Implements fail-operational mode via hydraulic backup system.",
+          "annotatedElementId": "block-rudder"
+        }
+      ]
+    }
+  },
+  "reference_system": "rudder",
+  "parent_system": null,
+  "timestamp": "20250325_104919"
+}

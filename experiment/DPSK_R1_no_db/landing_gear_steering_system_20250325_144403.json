@@ -1,0 +1,344 @@
+{
+  "system_id": "landing_gear_steering_system",
+  "system_name": "Landing Gear Steering System",
+  "specification": {
+    "designScenario": {
+      "name": "Landing Gear Steering System",
+      "description": "A critical system providing directional control of the aircraft's nose gear during ground operations, including taxi, takeoff, and landing. It integrates electromechanical actuation, hydraulic power (if applicable), and closed-loop control to ensure precise steering response, redundancy, and compliance with aviation safety standards. Designed to operate under extreme environmental conditions and mechanical stresses while maintaining fail-safe behavior.",
+      "requirements": [
+        {
+          "title": "Precise Nose Gear Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must convert pilot/autopilot steering commands into accurate nose gear angular displacement (±60° minimum) via electrical/hydraulic signals."
+            },
+            {
+              "description": "Provide dual redundant control signal paths to ensure operational continuity during single-channel failures."
+            }
+          ]
+        },
+        {
+          "title": "High Dynamic Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deflection from center to maximum steering angle (60°) in ≤ 0.4 seconds under 500 Nm load."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe Operation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Incorporate mechanical centering springs and hydraulic pressure relief valves to return nose gear to neutral position during power loss."
+            },
+            {
+              "description": "Implement torque-limiting couplings to prevent structural overloads during ground collisions."
+            }
+          ]
+        },
+        {
+          "title": "Environmental Resilience",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Operate reliably in temperatures from -55°C to +85°C with 95% relative humidity and resistance to de-icing fluids."
+            },
+            {
+              "description": "Meet DO-160G standards for vibration, shock, and electromagnetic interference."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Steering Control Unit (SCU)",
+        "description": "Primary electronic controller processing pilot inputs, autopilot commands, and feedback signals to generate actuator control signals.",
+        "type": "Avionics Module",
+        "subComponents": [
+          {
+            "name": "Command Processor",
+            "description": "FPGA-based module executing steering algorithms and redundancy management.",
+            "type": "Electronic Hardware"
+          },
+          {
+            "name": "Signal Conditioning Unit",
+            "description": "Isolates and amplifies control signals to mitigate EMI effects.",
+            "type": "Electronic Interface"
+          }
+        ]
+      },
+      {
+        "name": "Electro-Hydraulic Servo Actuator",
+        "description": "Converts electrical commands from SCU into hydraulic pressure to drive steering mechanism.",
+        "type": "Actuator Assembly",
+        "subComponents": [
+          {
+            "name": "Solenoid Valves",
+            "description": "Direct hydraulic fluid flow based on SCU commands.",
+            "type": "Hydraulic Component"
+          },
+          {
+            "name": "Torque Motor",
+            "description": "Generates proportional force to position servo valve spools.",
+            "type": "Electromechanical Device"
+          }
+        ]
+      },
+      {
+        "name": "Steering Feedback Sensor",
+        "description": "LVDT/RVDT-based sensor measuring actual nose gear position for closed-loop control.",
+        "type": "Sensor",
+        "subComponents": [
+          {
+            "name": "Signal Transmitter",
+            "description": "Converts angular displacement into analog/digital signals.",
+            "type": "Electronic Module"
+          }
+        ]
+      },
+      {
+        "name": "Hydraulic Power Pack",
+        "description": "Provides regulated hydraulic pressure (3000 psi) to servo actuators.",
+        "type": "Hydraulic System",
+        "subComponents": [
+          {
+            "name": "Priority Valve",
+            "description": "Ensures steering system receives priority flow during low-pressure conditions.",
+            "type": "Hydraulic Valve"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Steering Control Unit (SCU)",
+        "target": "Electro-Hydraulic Servo Actuator",
+        "relationshipType": "association",
+        "description": "SCU transmits validated steering commands to the actuator's torque motor via ARINC 429 data buses."
+      },
+      {
+        "source": "Electro-Hydraulic Servo Actuator",
+        "target": "Hydraulic Power Pack",
+        "relationshipType": "dependency",
+        "description": "Actuator requires continuous hydraulic pressure from the power pack to generate steering torque."
+      },
+      {
+        "source": "Steering Feedback Sensor",
+        "target": "Steering Control Unit (SCU)",
+        "relationshipType": "association",
+        "description": "Feedback sensor provides real-time nose gear position data to SCU for closed-loop control."
+      },
+      {
+        "source": "Hydraulic Power Pack",
+        "target": "Priority Valve",
+        "relationshipType": "composition",
+        "description": "Priority valve is an integral subcomponent ensuring hydraulic supply prioritization."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "maxSteeringAngle",
+        "type": "string",
+        "value": "±75°",
+        "description": "Maximum achievable nose gear deflection angle from neutral position."
+      },
+      {
+        "name": "systemResponseTime",
+        "type": "string",
+        "value": "< 0.35s",
+        "description": "Time delay between command input and 90% of target steering angle achievement."
+      },
+      {
+        "name": "hydraulicPressure",
+        "type": "string",
+        "value": "3000 ± 50 psi",
+        "description": "Operating pressure range for optimal actuator performance."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual-dual (2H/2S)",
+        "description": "Architecture providing two independent hydraulic channels and two signal paths."
+      },
+      {
+        "name": "MTBF",
+        "type": "string",
+        "value": "≥ 50,000 hours",
+        "description": "Mean Time Between Failures under specified operating conditions."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "LGSS_001",
+          "type": "Block",
+          "name": "LandingGearSteeringSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "LGSS_001_ATTR1",
+            "LGSS_001_ATTR2"
+          ],
+          "operationIds": [
+            "LGSS_001_OP1"
+          ],
+          "constraintIds": [
+            "LGSS_001_CONST1"
+          ],
+          "partIds": [
+            "ACT_001",
+            "CE_001",
+            "PS_001",
+            "SENS_001",
+            "ML_001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ACT_001",
+          "type": "Block",
+          "name": "SteeringActuation",
+          "isAbstract": false,
+          "isActive": true,
+          "attributeIds": [
+            "ACT_001_ATTR1",
+            "ACT_001_ATTR2"
+          ],
+          "operationIds": [
+            "ACT_001_OP1"
+          ],
+          "constraintIds": [
+            "ACT_001_CONST1"
+          ],
+          "partIds": [],
+          "referenceIds": []
+        },
+        {
+          "id": "CE_001",
+          "type": "Block",
+          "name": "ControlElectronics",
+          "isAbstract": false,
+          "isActive": true,
+          "attributeIds": [
+            "CE_001_ATTR1"
+          ],
+          "operationIds": [
+            "CE_001_OP1",
+            "CE_001_OP2"
+          ],
+          "constraintIds": [],
+          "partIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IFB_001",
+          "type": "InterfaceBlock",
+          "name": "FlightControlInterface",
+          "attributeIds": [
+            "IFB_001_ATTR1"
+          ],
+          "operationIds": [
+            "IFB_001_OP1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FLOW_001",
+          "type": "FlowSpecification",
+          "name": "HydraulicFlowSpec",
+          "flowType": "Hydraulic",
+          "dataType": "FluidFlowRate",
+          "unit": "L/min",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CONST_001",
+          "type": "ConstraintBlock",
+          "name": "SteeringTorqueConstraint",
+          "parameterIds": [
+            "PARAM_001"
+          ],
+          "expression": "torque <= maxTorque",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_001",
+          "type": "ValueType",
+          "name": "NewtonMeters",
+          "quantityKindId": "QK_001",
+          "unitId": "UNIT_001",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_001",
+          "type": "Enumeration",
+          "name": "SteeringState",
+          "literals": [
+            {
+              "id": "LIT1",
+              "name": "NEUTRAL"
+            },
+            {
+              "id": "LIT2",
+              "name": "TURNING_LEFT"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "PORT_001",
+          "type": "FlowPort",
+          "name": "hydraulicIn",
+          "blockId": "ACT_001",
+          "flowSpecificationId": "FLOW_001",
+          "isConjugated": false,
+          "attributeIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "COMM_001",
+          "type": "Comment",
+          "body": "Primary steering torque actuator",
+          "annotatedElementId": "ACT_001"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "COMP_001",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "LGSS_001",
+          "targetId": "ACT_001",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_144403",
+  "provider": "dpsk"
+}

@@ -1,0 +1,419 @@
+{
+  "system_id": "hf_communication_system",
+  "system_name": "HF Communication System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operational frequency range for optimal communication in various atmospheric conditions.",
+        "name": "Operating Frequency Range",
+        "type": "String",
+        "value": "3MHz to 30MHz"
+      },
+      {
+        "description": "Maximum allowable radiated power output for long-distance communication.",
+        "name": "Effective Radiated Power",
+        "type": "Number",
+        "value": "100W"
+      },
+      {
+        "description": "Latency during signal processing and transmission.",
+        "name": "Transmission Latency",
+        "type": "String",
+        "value": "<10ms"
+      },
+      {
+        "description": "Redundancy level for ensured communication availability in all circumstances.",
+        "name": "System Availability",
+        "type": "String",
+        "value": "99.999%"
+      }
+    ],
+    "designScenario": {
+      "description": "Development of the High Frequency (HF) Communication System engineered for aerial applications. This system facilitates long-range communication under varying atmospheric and operational scenarios, crucial for maintaining aircraft connectivity with ground stations and other aircraft.",
+      "name": "HF Communication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Ability to transmit and receive HF signals in the designated frequency range for uninterrupted connectivity."
+            }
+          ],
+          "title": "Signal Transmission and Reception",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure consistent performance under electromagnetic interference conditions typical in high-altitude environments."
+            }
+          ],
+          "title": "Performance Under Interference",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Function during power system failures utilizing redundant and backup power configurations."
+            }
+          ],
+          "title": "System Resilience",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "User interface to include real-time monitoring tools for transmission status with diagnostics."
+            }
+          ],
+          "title": "Operational Transparency",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Coordinates the signal modulation, and power regulation processes.",
+        "relationshipType": "composition",
+        "source": "Control Unit",
+        "target": "Transceiver Module"
+      },
+      {
+        "description": "Facilitates the integration of RF signals for amplification and demodulation.",
+        "relationshipType": "aggregation",
+        "source": "Antenna Array",
+        "target": "Signal Processor"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary unit responsible for orchestrating overall communication processes.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Monitors operational status and executes communication commands.",
+            "name": "Control Processor",
+            "type": "Processor"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Enables long-range RF communication by converting signal formats for transmission.",
+        "name": "Transceiver Module",
+        "subComponents": [
+          {
+            "description": "Modulates electrical signals into the required HF spectrum.",
+            "name": "HF Modulator",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Communication Module"
+      },
+      {
+        "description": "Supports long distance signal transit by transmitting and receiving HF waves.",
+        "name": "Antenna Array",
+        "subComponents": [
+          {
+            "description": "Main radiation element optimized for HF communication.",
+            "name": "Primary HF Antenna",
+            "type": "Antenna"
+          }
+        ],
+        "type": "Hardware Module"
+      },
+      {
+        "description": "Cleans and amplifies incoming signals for higher fidelity in received data.",
+        "name": "Signal Processor",
+        "subComponents": [
+          {
+            "description": "Applies signal amplification techniques.",
+            "name": "Input Signal Amplifier",
+            "type": "Amplifier"
+          }
+        ],
+        "type": "Processing Module"
+      },
+      {
+        "description": "Maintains backup power capabilities to guarantee continuous operation.",
+        "name": "Power System",
+        "subComponents": [
+          {
+            "description": "Power storage unit for emergency operations.",
+            "name": "Backup Battery Module",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Power Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "operating_frequency_range",
+            "effective_radiated_power",
+            "transmission_latency",
+            "system_availability"
+          ],
+          "constraintIds": null,
+          "id": "hf_communication_system_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HF Communication System",
+          "operationIds": null,
+          "partIds": [
+            "control_unit_part",
+            "transceiver_module_part",
+            "antenna_array_part",
+            "signal_processor_part",
+            "power_system_part"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "description"
+          ],
+          "constraintIds": null,
+          "id": "control_unit_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Control Unit",
+          "operationIds": null,
+          "partIds": [
+            "control_processor_part"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "description"
+          ],
+          "constraintIds": null,
+          "id": "transceiver_module_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Transceiver Module",
+          "operationIds": null,
+          "partIds": [
+            "hf_modulator_part"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "description"
+          ],
+          "constraintIds": null,
+          "id": "antenna_array_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Antenna Array",
+          "operationIds": null,
+          "partIds": [
+            "primary_hf_antenna_part"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "description"
+          ],
+          "constraintIds": null,
+          "id": "signal_processor_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Signal Processor",
+          "operationIds": null,
+          "partIds": [
+            "input_signal_amplifier_part"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "description"
+          ],
+          "constraintIds": null,
+          "id": "power_system_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Power System",
+          "operationIds": null,
+          "partIds": [
+            "backup_battery_module_part"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "control_unit_part",
+          "name": "control_unit",
+          "of": "hf_communication_system_block",
+          "type": "Part"
+        },
+        {
+          "id": "transceiver_module_part",
+          "name": "transceiver_module",
+          "of": "hf_communication_system_block",
+          "type": "Part"
+        },
+        {
+          "id": "antenna_array_part",
+          "name": "antenna_array",
+          "of": "hf_communication_system_block",
+          "type": "Part"
+        },
+        {
+          "id": "signal_processor_part",
+          "name": "signal_processor",
+          "of": "hf_communication_system_block",
+          "type": "Part"
+        },
+        {
+          "id": "power_system_part",
+          "name": "power_system",
+          "of": "hf_communication_system_block",
+          "type": "Part"
+        },
+        {
+          "id": "control_processor_part",
+          "name": "control_processor",
+          "of": "control_unit_block",
+          "type": "Part"
+        },
+        {
+          "id": "hf_modulator_part",
+          "name": "hf_modulator",
+          "of": "transceiver_module_block",
+          "type": "Part"
+        },
+        {
+          "id": "primary_hf_antenna_part",
+          "name": "primary_hf_antenna",
+          "of": "antenna_array_block",
+          "type": "Part"
+        },
+        {
+          "id": "input_signal_amplifier_part",
+          "name": "input_signal_amplifier",
+          "of": "signal_processor_block",
+          "type": "Part"
+        },
+        {
+          "id": "backup_battery_module_part",
+          "name": "backup_battery_module",
+          "of": "power_system_block",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req_signal_transmission_reception",
+          "name": "Signal Transmission and Reception",
+          "reqId": "FR_1",
+          "text": "Ability to transmit and receive HF signals in the designated frequency range for uninterrupted connectivity.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req_performance_interference",
+          "name": "Performance Under Interference",
+          "reqId": "PR_1",
+          "text": "Ensure consistent performance under electromagnetic interference conditions typical in high-altitude environments.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req_system_resilience",
+          "name": "System Resilience",
+          "reqId": "SR_1",
+          "text": "Function during power system failures utilizing redundant and backup configurations.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req_operational_transparency",
+          "name": "Operational Transparency",
+          "reqId": "NFR_1",
+          "text": "User interface to include real-time monitoring tools for transmission status with diagnostics.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": null,
+  "parent_system": "communication_system",
+  "timestamp": "20250326_171643",
+  "provider": "gpt"
+}

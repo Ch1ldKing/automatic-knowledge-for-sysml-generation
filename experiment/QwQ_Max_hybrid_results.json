@@ -1,0 +1,79 @@
+{
+  "results": {
+    "Structural Element Definition": {
+      "TP": 357,
+      "TN": 8,
+      "FP": 47,
+      "FN": 158
+    },
+    "Relationship Modeling": {
+      "TP": 95,
+      "TN": 63,
+      "FP": 31,
+      "FN": 134
+    },
+    "Attributes and Constraints": {
+      "TP": 211,
+      "TN": 47,
+      "FP": 34,
+      "FN": 89
+    },
+    "Interface and Connectivity Modeling": {
+      "TP": 79,
+      "TN": 0,
+      "FP": 5,
+      "FN": 202
+    },
+    "Requirements and Verification Modeling": {
+      "TP": 49,
+      "TN": 0,
+      "FP": 0,
+      "FN": 185
+    }
+  },
+  "metrics": {
+    "Structural Element Definition": {
+      "Precision": 0.8836633663366337,
+      "Recall": 0.6932038834951456,
+      "Accuracy": 0.6403508771929824,
+      "False_alarm": 0.8545454545454545,
+      "F1": 0.7769314472252449
+    },
+    "Relationship Modeling": {
+      "Precision": 0.753968253968254,
+      "Recall": 0.4148471615720524,
+      "Accuracy": 0.4891640866873065,
+      "False_alarm": 0.32978723404255317,
+      "F1": 0.5352112676056339
+    },
+    "Attributes and Constraints": {
+      "Precision": 0.8612244897959184,
+      "Recall": 0.7033333333333334,
+      "Accuracy": 0.6771653543307087,
+      "False_alarm": 0.41975308641975306,
+      "F1": 0.7743119266055047
+    },
+    "Interface and Connectivity Modeling": {
+      "Precision": 0.9404761904761905,
+      "Recall": 0.28113879003558717,
+      "Accuracy": 0.2762237762237762,
+      "False_alarm": 1.0,
+      "F1": 0.43287671232876707
+    },
+    "Requirements and Verification Modeling": {
+      "Precision": 1.0,
+      "Recall": 0.2094017094017094,
+      "Accuracy": 0.2094017094017094,
+      "False_alarm": 0,
+      "F1": 0.3462897526501767
+    },
+    "Overall": {
+      "Precision": 0.8711453744493393,
+      "Recall": 0.5073765234124439,
+      "Accuracy": 0.5066889632107023,
+      "False_alarm": 0.4978723404255319,
+      "F1": 0.6412646939602756
+    }
+  },
+  "timestamp": "2025-03-25 18:08:22"
+}

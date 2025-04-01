@@ -1,0 +1,353 @@
+{
+  "system_id": "landing_gear_braking_system",
+  "system_name": "Landing Gear Braking System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum deceleration force achievable by the Brake System under emergency conditions.",
+        "name": "maxDeceleration",
+        "type": "string",
+        "value": "4.5g"
+      },
+      {
+        "description": "The brake system's ability to rapidly dissipate heat during prolonged or repeated use.",
+        "name": "heatDissipation",
+        "type": "string",
+        "value": "High capacity with advanced cooling design"
+      },
+      {
+        "description": "Response time from activation command to full brake engagement.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Within 0.5 seconds"
+      },
+      {
+        "description": "Redundant hydraulic circuit design ensuring fail-safe operation in case of circuit failure.",
+        "name": "redundancy",
+        "type": "string",
+        "value": "Dual circuit design"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear Braking System is a vital component in the aircraft's landing gear that ensures rapid and effective deceleration upon touchdown. It integrates high-performance friction components, rapid response actuation systems, and redundant hydraulic circuits to provide safe, reliable performance in both normal and emergency conditions. The system is designed to meet rigorous aviation safety standards and is optimized for maintenance and compliance with aerospace regulations.",
+      "name": "Landing Gear Braking System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must deliver consistent braking force across varying aircraft loads and runway conditions."
+            },
+            {
+              "description": "It must interface accurately with the Wheel Assembly to manage deceleration forces throughout the landing gear."
+            }
+          ],
+          "title": "Functional Braking Performance",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The complete engagement of braking systems must occur within 0.5 seconds to ensure rapid deceleration during emergency landings."
+            },
+            {
+              "description": "Advanced heat dissipation mechanisms should maintain braking performance during continuous or repeated operations."
+            }
+          ],
+          "title": "Performance Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate dual hydraulic circuit redundancy to ensure the brake system remains fully operational in the event of a circuit failure."
+            },
+            {
+              "description": "Integrate system monitoring that alerts the flight crew to any abnormal condition in the braking operation."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design should support easy inspection, maintenance, and replacement procedures according to aviation maintenance protocols."
+            },
+            {
+              "description": "Materials and construction techniques must comply with environmental, endurance, and durability standards set for aerospace applications."
+            }
+          ],
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Brake System comprises Brake Calipers which actuate to apply pressure for friction generation.",
+        "relationshipType": "composition",
+        "source": "Brake System",
+        "target": "Brake Calipers"
+      },
+      {
+        "description": "Brake System comprises Brake Discs that provide the friction surfaces required for deceleration.",
+        "relationshipType": "composition",
+        "source": "Brake System",
+        "target": "Brake Discs"
+      },
+      {
+        "description": "Brake System is dependent on the Hydraulic System for hydraulic pressure to facilitate brake actuation.",
+        "relationshipType": "dependency",
+        "source": "Brake System",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "Brake System associates with the Wheel Assembly to transfer braking forces effectively to the landing gear.",
+        "relationshipType": "association",
+        "source": "Brake System",
+        "target": "Wheel Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Subsystem dedicated to providing deceleration through friction braking, integrated within the aircraft's landing gear architecture.",
+        "name": "Brake System",
+        "subComponents": [
+          {
+            "description": "Brake Calipers that actuate to apply hydraulic pressure, converting kinetic energy into frictional heat.",
+            "name": "Brake Calipers",
+            "type": "Actuator"
+          },
+          {
+            "description": "Brake Discs fashioned from high-friction materials to generate the necessary deceleration force.",
+            "name": "Brake Discs",
+            "type": "Friction Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Hydraulic system supplying controlled fluid pressure essential for the rapid actuation of the brake system.",
+        "name": "Hydraulic System",
+        "subComponents": null,
+        "type": "Subsystem"
+      },
+      {
+        "description": "Mechanical assembly that integrates the landing gear wheels with the braking system, ensuring effective force transmission during deceleration.",
+        "name": "Wheel Assembly",
+        "subComponents": null,
+        "type": "Mechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "ACT1",
+          "name": "Execute Braking Operation",
+          "type": "Activity"
+        }
+      ],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [],
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "BLS1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Landing Gear Braking System",
+          "operationIds": [],
+          "partIds": [
+            "P1",
+            "P2"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "BLS2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Brake Caliper",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "BLS3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Brake Disc",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [],
+      "compositions": [],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "μ >= 0.3",
+          "id": "CB1",
+          "name": "Friction Coefficient Constraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [],
+      "controlFlows": [],
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": [],
+      "generalizations": [],
+      "includes": [],
+      "instances": [
+        {
+          "classifierId": "BLS2",
+          "id": "P1",
+          "name": "Brake Caliper Part",
+          "slotIds": [],
+          "type": "Instance"
+        },
+        {
+          "classifierId": "BLS3",
+          "id": "P2",
+          "name": "Brake Disc Part",
+          "slotIds": [],
+          "type": "Instance"
+        }
+      ],
+      "interfaceBlocks": [],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [
+        {
+          "id": "P1",
+          "name": "Brake Caliper Part",
+          "of": "BLS2",
+          "type": "Part"
+        },
+        {
+          "id": "P2",
+          "name": "Brake Disc Part",
+          "of": "BLS3",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "BLS2",
+          "flowSpecificationId": null,
+          "id": "PORT1",
+          "isConjugated": false,
+          "name": "Caliper Control Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "REQ1",
+          "name": "Braking Performance Requirement",
+          "reqId": "BRK-REQ-001",
+          "text": "The system shall decelerate the wheel assembly safely upon touchdown.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [],
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "STATE1",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "STATE2",
+          "name": "Braking",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "STATE3",
+          "name": "Stopped",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": "Initiate braking sequence",
+          "guard": "Touchdown detected",
+          "id": "TRANS1",
+          "name": "Idle to Braking Transition",
+          "sourceId": "STATE1",
+          "targetId": "STATE2",
+          "trigger": "Touchdown event",
+          "type": "Transition"
+        },
+        {
+          "effect": "Complete brake application",
+          "guard": "Brake pressure stabilized",
+          "id": "TRANS2",
+          "name": "Braking to Stopped Transition",
+          "sourceId": "STATE2",
+          "targetId": "STATE3",
+          "trigger": "Brake fully applied",
+          "type": "Transition"
+        }
+      ],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": []
+    }
+  },
+  "rag_context": "The Landing Gear Braking System includes brake calipers that apply friction to slow down or halt the wheels and brake discs attached to wheel hubs. It is integrated into the wheel assembly for deceleration upon touchdown.",
+  "timestamp": "20250325_202636",
+  "provider": "gpt"
+}

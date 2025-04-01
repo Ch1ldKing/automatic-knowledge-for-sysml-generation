@@ -1,0 +1,440 @@
+{
+  "system_id": "oxygen_system",
+  "system_name": "Oxygen System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The regulated flow rate of oxygen delivered to the cabin measured in liters per minute.",
+        "name": "oxygenFlowRate",
+        "type": "string",
+        "value": "5-15 LPM"
+      },
+      {
+        "description": "Concentration of oxygen provided by the system to ensure passenger safety and comfort.",
+        "name": "oxygenConcentration",
+        "type": "string",
+        "value": "21%-25%"
+      },
+      {
+        "description": "Supply pressure maintained in the oxygen lines to ensure proper distribution to the cabin.",
+        "name": "supplyPressure",
+        "type": "string",
+        "value": "1.5 atm - 2.0 atm"
+      },
+      {
+        "description": "Response time for the oxygen system to react to deviations in oxygen levels.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 3 seconds"
+      },
+      {
+        "description": "Operating altitude range within which the oxygen system maintains optimal performance.",
+        "name": "operatingAltitude",
+        "type": "string",
+        "value": "Up to 35,000 ft"
+      }
+    ],
+    "designScenario": {
+      "description": "The Oxygen System is a critical component of the aircraft’s environmental control suite, responsible for regulating and delivering precise levels of oxygen to the passenger cabin. It integrates advanced sensor arrays, control units, and redundant delivery mechanisms to ensure consistent oxygen supply under all flight conditions. Designed using state-of-the-art aviation engineering principles, the system provides reliable performance, rapid response to oxygen level deviations, and robust safety features including emergency delivery modes. The design emphasizes modularity, maintainability, and integration with other onboard systems to ensure overall flight safety.",
+      "name": "Oxygen System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall maintain oxygen concentration levels between 21% and 25% using precision sensor networks and control valves."
+            }
+          ],
+          "title": "Oxygen Concentration Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "In the event of an emergency, the system shall activate a backup delivery mode to increase oxygen flow to allow rapid supplemental oxygen provision."
+            }
+          ],
+          "title": "Emergency Oxygen Delivery",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The Oxygen System shall respond to any deviation in oxygen parameters within 3 seconds to trigger corrective measures."
+            }
+          ],
+          "title": "Performance Response Time",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall include redundant components and fail-safe mechanisms, ensuring continued oxygen supply during sensor or actuator failures."
+            }
+          ],
+          "title": "Safety Redundancy and Fail-Safe Features",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design shall provide an intuitive user interface with graphical displays and remote monitoring capabilities to assist flight crew in system status evaluation."
+            }
+          ],
+          "title": "User Interface and Remote Monitoring",
+          "type": "nonFunctional"
+        },
+        {
+          "details": [
+            {
+              "description": "All components shall support modular upgrades and ease of maintenance in accordance with standard aviation practices."
+            }
+          ],
+          "title": "Modularity and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Oxygen Control Unit aggregates real-time data from the Oxygen Sensor Array to monitor oxygen levels.",
+        "relationshipType": "aggregation",
+        "source": "Oxygen Control Unit",
+        "target": "Oxygen Sensor Array"
+      },
+      {
+        "description": "The Oxygen Control Unit depends on the Oxygen Supply Line for regulated oxygen supply to the distribution manifold.",
+        "relationshipType": "dependency",
+        "source": "Oxygen Control Unit",
+        "target": "Oxygen Supply Line"
+      },
+      {
+        "description": "The Oxygen Sensor Array is associated with the Oxygen Control Unit for sensor feedback and system adjustments.",
+        "relationshipType": "association",
+        "source": "Oxygen Sensor Array",
+        "target": "Oxygen Control Unit"
+      },
+      {
+        "description": "The Oxygen Distribution Manifold is composed of various ducting and flow regulation components ensuring uniform oxygen delivery.",
+        "relationshipType": "composition",
+        "source": "Oxygen Distribution Manifold",
+        "target": "Oxygen Supply Line"
+      },
+      {
+        "description": "The Emergency Oxygen Delivery System is linked to the Oxygen Control Unit to enable rapid activation during critical conditions.",
+        "relationshipType": "association",
+        "source": "Emergency Oxygen Delivery System",
+        "target": "Oxygen Control Unit"
+      },
+      {
+        "description": "The Oxygen Supply Line aggregates conditioned oxygen for distribution to both standard and emergency subsystems.",
+        "relationshipType": "aggregation",
+        "source": "Oxygen Supply Line",
+        "target": "Oxygen Distribution Manifold"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central electronic module responsible for processing sensor data, managing oxygen flow regulation, and interfacing with cockpit displays.",
+        "name": "Oxygen Control Unit",
+        "subComponents": [
+          {
+            "description": "Graphical display and control interface for monitoring oxygen system parameters and alarms.",
+            "name": "User Interface Module",
+            "type": "Display Unit"
+          },
+          {
+            "description": "Communication module that facilitates data exchange between sensors and system controllers.",
+            "name": "Communication Module",
+            "type": "Network Interface"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Pipeline infrastructure that regulates the flow of oxygen from storage to distribution points.",
+        "name": "Oxygen Supply Line",
+        "subComponents": [
+          {
+            "description": "Flow regulator that adjusts the rate of oxygen delivery in response to system commands.",
+            "name": "Flow Regulator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Pressure valve to maintain required supply pressure and prevent over-pressurization in the lines.",
+            "name": "Pressure Valve",
+            "type": "Safety Device"
+          }
+        ],
+        "type": "Fluid Conduit"
+      },
+      {
+        "description": "A comprehensive array of sensors that continuously sample the oxygen concentration and other related parameters.",
+        "name": "Oxygen Sensor Array",
+        "subComponents": [
+          {
+            "description": "Sensor that accurately measures the concentration of oxygen in the supply line.",
+            "name": "Oxygen Concentration Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "System component responsible for distributing conditioned oxygen evenly throughout the passenger cabin.",
+        "name": "Oxygen Distribution Manifold",
+        "subComponents": [
+          {
+            "description": "Primary distribution duct that ensures balanced oxygen delivery to different cabin zones.",
+            "name": "Primary Manifold",
+            "type": "Conduit"
+          },
+          {
+            "description": "Secondary flow branches for regulated oxygen delivery to critical areas.",
+            "name": "Secondary Branches",
+            "type": "Conduit"
+          }
+        ],
+        "type": "Distribution Module"
+      },
+      {
+        "description": "Backup system designed to provide emergency oxygen delivery in case of primary system failure.",
+        "name": "Emergency Oxygen Delivery System",
+        "subComponents": [
+          {
+            "description": "Emergency mask deployment unit designed for rapid oxygen delivery to passengers.",
+            "name": "Emergency Mask Deployment",
+            "type": "Safety Device"
+          },
+          {
+            "description": "Backup oxygen storage tank ensuring availability of oxygen during system disruptions.",
+            "name": "Backup Supply Tank",
+            "type": "Storage Unit"
+          }
+        ],
+        "type": "Backup System"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": null,
+      "actors": null,
+      "aggregations": [],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [],
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "OShockID",
+            "OMaskID",
+            "OSensorID",
+            "OControlPID"
+          ],
+          "constraintIds": [
+            "OxygenOutputLimit"
+          ],
+          "id": "OxygenSystemID",
+          "isAbstract": null,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "OxygenSystem",
+          "operationIds": [],
+          "partIds": [
+            "SupplyModuleID",
+            "DistributionNetworkID",
+            "OxygenDeliveryID"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "TotalFlowRate"
+          ],
+          "constraintIds": [],
+          "id": "SupplyModuleID",
+          "isAbstract": null,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "OxygenSupplyModule",
+          "operationIds": [
+            "StartSupply",
+            "StopSupply"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "FlowNum"
+          ],
+          "constraintIds": [
+            "UniformFlow"
+          ],
+          "id": "DistributionNetworkID",
+          "isAbstract": null,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "OxygenDistributionSystem",
+          "operationIds": [
+            "SplitFlow"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ThroughPressure",
+            "SupplyOverrideStatus"
+          ],
+          "constraintIds": [],
+          "id": "OxygenDeliveryID",
+          "isAbstract": null,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "OxygenDeliveryAdapter",
+          "operationIds": [
+            "InitiateMask",
+            "ReleaseMask"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [],
+      "compositions": [
+        {
+          "id": "Comp1",
+          "memberEndIds": null,
+          "name": "Has",
+          "ownedEndIds": null,
+          "sourceId": "OxygenSystemID",
+          "sourceMultiplicity": "1",
+          "targetId": "SupplyModuleID",
+          "targetMultiplicity": "1..n",
+          "type": "Composition"
+        },
+        {
+          "id": "Comp2",
+          "memberEndIds": null,
+          "name": "Includes",
+          "ownedEndIds": null,
+          "sourceId": "OxygenSystemID",
+          "sourceMultiplicity": "1",
+          "targetId": "DistributionNetworkID",
+          "targetMultiplicity": "1..n",
+          "type": "Composition"
+        },
+        {
+          "id": "Comp3",
+          "memberEndIds": null,
+          "name": "AdaptsTo",
+          "ownedEndIds": null,
+          "sourceId": "OxygenSystemID",
+          "sourceMultiplicity": "1",
+          "targetId": "OxygenDeliveryID",
+          "targetMultiplicity": "1..n",
+          "type": "Composition"
+        }
+      ],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "TotalFlowRate <= MaxOxygenFlow ",
+          "id": "UniformFlow",
+          "name": "FlowUniformBranching",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": [],
+          "expression": "OxygenAvailable >= XOperational Need",
+          "id": "OxygenOutputLimit",
+          "name": "SupplyLimit",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [],
+      "controlFlows": null,
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [
+        {
+          "attributeIds": [],
+          "id": "DeliveryStatusEnumID",
+          "literals": [
+            {
+              "id": "ENGOxygen",
+              "name": "OxygenEngaged"
+            },
+            {
+              "id": "ENGMaintenance",
+              "name": "Maintainable"
+            },
+            {
+              "id": "StatusNormalIO",
+              "name": "GeneralIO"
+            }
+          ],
+          "name": "OperatingStatusParts",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": [],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": null,
+      "itemFlows": [],
+      "lifelines": null,
+      "links": [],
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "100Perc",
+          "id": "MaxPressureOxy",
+          "name": "Limit",
+          "parameterType": "int MaxPsi",
+          "type": "Parameter"
+        }
+      ],
+      "parts": [],
+      "ports": [],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": []
+    }
+  },
+  "timestamp": "20250326_181527",
+  "provider": "gpt"
+}

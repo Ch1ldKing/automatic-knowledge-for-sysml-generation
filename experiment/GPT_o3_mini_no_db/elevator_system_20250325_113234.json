@@ -1,0 +1,582 @@
+{
+  "system_id": "elevator_system",
+  "system_name": "Elevator System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Minimum time required to actuate the elevator surfaces upon receiving command signals.",
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<40ms"
+      },
+      {
+        "description": "High precision control of elevator deflection angles to secure accurate pitch adjustment.",
+        "name": "deflectionPrecision",
+        "type": "string",
+        "value": "±0.05°"
+      },
+      {
+        "description": "Specification of advanced materials ensuring structural integrity under high aerodynamic loads.",
+        "name": "materialIntegrity",
+        "type": "string",
+        "value": "Advanced titanium alloy with >1600 MPa tensile strength"
+      },
+      {
+        "description": "Operational environmental limits and protective measures against extreme temperatures and corrosion.",
+        "name": "environmentTolerance",
+        "type": "string",
+        "value": "-50°C to +90°C with advanced anti-corrosive treatments"
+      }
+    ],
+    "designScenario": {
+      "description": "The Elevators system is a critical aerodynamic control surface engineered to adjust the aircraft’s pitch with remarkable accuracy and speed. It transforms flight commands from the control module into precise mechanical movements via an integrated suite of actuators, sensors, and redundant safety mechanisms. This design emphasizes rapid actuation, synchronized control of paired surfaces, and advanced fail-safe protocols, ensuring reliability under diverse flight conditions while facilitating ease of maintenance and component replacement.",
+      "name": "Elevators",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Convert high-voltage digital flight commands into calibrated mechanical deflections for precise pitch adjustments."
+            },
+            {
+              "description": "Implement synchronized movement between left and right elevators to ensure balanced aerodynamic forces."
+            }
+          ],
+          "title": "Precise Aerodynamic Actuation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve a response time of less than 40 milliseconds from command initiation to physical movement."
+            },
+            {
+              "description": "Maintain consistent elevator performance across varying load conditions and flight regimes."
+            }
+          ],
+          "title": "Rapid Response and Stability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Integrate dual-sensor feedback and backup actuation systems to continuously monitor and adjust elevator positions."
+            },
+            {
+              "description": "Automatically engage emergency reversion protocols to a safe configuration upon detecting system anomalies."
+            }
+          ],
+          "title": "Enhanced Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Utilize lightweight, high-strength materials and composite coatings to maximize the durability and lifespan of the elevators."
+            },
+            {
+              "description": "Incorporate modular design principles to enable rapid replacement and maintenance, reducing system downtime."
+            }
+          ],
+          "title": "Optimized Durability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Flight Control Module issues digital commands to the Elevator Actuator subsystem, dictating precise pitch adjustments in real time.",
+        "relationshipType": "dependency",
+        "source": "Flight Control Module",
+        "target": "Elevators"
+      },
+      {
+        "description": "Elevators are a fundamental component of the Flight Control Surfaces assembly, functioning cohesively with rudders and ailerons to maintain flight stability.",
+        "relationshipType": "composition",
+        "source": "Flight Control Surfaces",
+        "target": "Elevators"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The core Flight Control Surface responsible for modulating airframe pitch, translating flight commands into mechanical movements.",
+        "name": "Elevators",
+        "subComponents": [
+          {
+            "description": "Left-side elevator that provides critical aerodynamic balance and pitch control.",
+            "name": "Left Elevator",
+            "type": "Control Surface"
+          },
+          {
+            "description": "Right-side elevator that operates synchronously with the left elevator to maintain symmetric pitch control.",
+            "name": "Right Elevator",
+            "type": "Control Surface"
+          },
+          {
+            "description": "Electromechanical actuator that converts digital signals into precise mechanical deflections of the elevators.",
+            "name": "Elevator Actuator",
+            "type": "Actuation System"
+          },
+          {
+            "description": "Sensor array that monitors the deflection angles, providing real-time feedback to ensure accurate control.",
+            "name": "Deflection Angle Sensor",
+            "type": "Sensor System"
+          },
+          {
+            "description": "A dedicated safety module that monitors system performance and triggers emergency protocols if discrepancies are detected.",
+            "name": "Fail-Safe Control Unit",
+            "type": "Control System"
+          }
+        ],
+        "type": "Control Surface"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "25",
+          "id": "ES_attr_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "maxDeflectionAngle",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "25",
+          "value": "25",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-25",
+          "id": "ES_attr_002",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "-25",
+          "name": "minDeflectionAngle",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "0",
+          "value": "-25",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "150",
+          "id": "ES_attr_003",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "systemWeight",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": null,
+          "value": "150",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "500",
+          "id": "AS_attr_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "actuatorForce",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": null,
+          "value": "500",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.05",
+          "id": "CS_attr_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "controlLatency",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": null,
+          "value": "0.05",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.1",
+          "id": "SS_attr_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "sensorAccuracy",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "0.1",
+          "value": "0.1",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "1200",
+          "id": "ML_attr_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "stiffnessCoefficient",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": null,
+          "value": "1200",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "ES_attr_001",
+            "ES_attr_002",
+            "ES_attr_003"
+          ],
+          "constraintIds": null,
+          "id": "ES_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Elevator System",
+          "operationIds": [
+            "ES_op_001"
+          ],
+          "partIds": [
+            "AS_001",
+            "CS_001",
+            "SS_001",
+            "ML_001"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "AS_attr_001"
+          ],
+          "constraintIds": null,
+          "id": "AS_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Elevator Actuator",
+          "operationIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "CS_attr_001"
+          ],
+          "constraintIds": null,
+          "id": "CS_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Elevator Controller",
+          "operationIds": [
+            "CS_op_001"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "SS_attr_001"
+          ],
+          "constraintIds": null,
+          "id": "SS_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Elevator Sensor",
+          "operationIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ML_attr_001"
+          ],
+          "constraintIds": null,
+          "id": "ML_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Mechanical Linkage",
+          "operationIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "ES_001",
+          "body": "Elevator System block includes actuator, controller, sensor, and mechanical linkage for precise elevator control in an aircraft.",
+          "id": "COM_001",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "CON_001",
+          "kind": "assembly",
+          "name": "Mechanical Connection",
+          "source": "AS_001",
+          "target": "ML_001",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "maxDeflectionAngle - minDeflectionAngle == 50",
+          "id": "CSTR_001",
+          "name": "Elevator Design Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "ENUM_ActuatorType",
+          "literals": [
+            {
+              "id": "ENUM_ActuatorType_1",
+              "name": "Electric"
+            },
+            {
+              "id": "ENUM_ActuatorType_2",
+              "name": "Hydraulic"
+            }
+          ],
+          "name": "ActuatorType",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "Angle",
+          "flowType": "information",
+          "id": "FS_001",
+          "name": "Deflection Command Flow",
+          "type": "FlowSpecification",
+          "unit": "deg"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "IB_001",
+          "name": "IElevatorControl",
+          "operationIds": [
+            "IB_op_001"
+          ],
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": null,
+          "id": "IF_001",
+          "name": "IElevatorControl",
+          "operationIds": [
+            "IB_op_001"
+          ],
+          "signalIds": null,
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "PART_001",
+          "name": "Elevator Actuator Part",
+          "of": "AS_001",
+          "type": "Part"
+        },
+        {
+          "id": "PART_002",
+          "name": "Elevator Controller Part",
+          "of": "CS_001",
+          "type": "Part"
+        },
+        {
+          "id": "PART_003",
+          "name": "Elevator Sensor Part",
+          "of": "SS_001",
+          "type": "Part"
+        },
+        {
+          "id": "PART_004",
+          "name": "Mechanical Linkage Part",
+          "of": "ML_001",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "ES_001",
+          "flowSpecificationId": null,
+          "id": "ES_port_001",
+          "isConjugated": false,
+          "name": "FCC Interface Port",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "IB_001"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "ES_001",
+          "flowSpecificationId": "FS_001",
+          "id": "ES_flow_001",
+          "isConjugated": false,
+          "name": "Deflection Command Flow Port",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "CS_001",
+          "flowSpecificationId": null,
+          "id": "CS_port_001",
+          "isConjugated": false,
+          "name": "Sensor Data Proxy Port",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "CS_001",
+          "id": "CS_proxy_001",
+          "isConjugated": false,
+          "name": "Controller Proxy Port",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": null,
+          "id": "UC_001",
+          "name": "Elevator Control Use Case",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT_Angle",
+          "name": "Angle",
+          "quantityKindId": "QK_Degree",
+          "type": "ValueType",
+          "unitId": "UNI_Deg"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_113234"
+}

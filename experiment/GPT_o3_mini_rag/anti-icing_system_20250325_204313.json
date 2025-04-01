@@ -1,0 +1,300 @@
+{
+  "system_id": "anti-icing_system",
+  "system_name": "Anti-Icing System",
+  "specification": {
+    "designScenario": {
+      "name": "Anti-Icing System",
+      "description": "Basic description of Anti-Icing System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "act_monitor_env",
+          "name": "Monitor Environment Activity",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "anti_ice_system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Anti-Ice and De-Ice System",
+          "operationIds": [],
+          "partIds": [
+            "part_heating_element",
+            "part_deicing_fluid",
+            "part_sensor_network",
+            "part_control_unit"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "heating_element_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Active Heating Element",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "deicing_fluid_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Controlled De-Icing Fluid System",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "sensor_network_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Advanced Sensor Network",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "control_unit_block",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Dual Redundant Control Unit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "OperatingTemp >= -20 and OperatingTemp <= 20",
+          "id": "constraint_temp_range",
+          "name": "Temperature Constraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "lifeline_system",
+          "name": "System Lifeline",
+          "represents": "anti_ice_system",
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part_heating_element",
+          "name": "Active Heating Element",
+          "of": "anti_ice_system",
+          "type": "Part"
+        },
+        {
+          "id": "part_deicing_fluid",
+          "name": "Controlled De-Icing Fluid System",
+          "of": "anti_ice_system",
+          "type": "Part"
+        },
+        {
+          "id": "part_sensor_network",
+          "name": "Advanced Sensor Network",
+          "of": "anti_ice_system",
+          "type": "Part"
+        },
+        {
+          "id": "part_control_unit",
+          "name": "Dual Redundant Control Unit",
+          "of": "anti_ice_system",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "anti_ice_system",
+          "flowSpecificationId": null,
+          "id": "port_sensor_data",
+          "isConjugated": false,
+          "name": "Sensor Data Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "anti_ice_system",
+          "flowSpecificationId": null,
+          "id": "port_control_cmd",
+          "isConjugated": false,
+          "name": "Control Command Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "anti_ice_system",
+          "flowSpecificationId": null,
+          "id": "port_power_supply",
+          "isConjugated": false,
+          "name": "Power Supply Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "req_temp_range",
+          "name": "Operating Temperature Range",
+          "reqId": "REQ-TEMP-001",
+          "text": "Operating temperature range is -20°C to +20°C.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req_response_time",
+          "name": "Response Time",
+          "reqId": "REQ-RESP-002",
+          "text": "Response time is less than 5 seconds.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req_energy",
+          "name": "Energy Type",
+          "reqId": "REQ-ENGY-003",
+          "text": "System utilizes Bleed Air / Electric energy sources.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req_certification",
+          "name": "Certification Standards",
+          "reqId": "REQ-CERT-004",
+          "text": "System complies with FAA and EASA anti-icing requirements.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req_redundancy",
+          "name": "Redundancy Level",
+          "reqId": "REQ-REDU-005",
+          "text": "Dual redundant control paths are implemented.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "state_idle",
+          "name": "Idle State",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "state_active",
+          "name": "Active Anti-Ice State",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "state_fault",
+          "name": "Fault State",
+          "type": "State"
+        }
+      ],
+      "transitions": null,
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": [],
+          "id": "usecase_anti_ice_operation",
+          "name": "Anti-Ice System Operation",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": null
+    }
+  },
+  "rag_context": "Anti-Ice and De-Ice System的系统ID是anti_ice_system，系统名称是Anti-Ice and De-Ice System。系统规格包括操作温度范围为-20°C至+20°C，响应时间小于5秒，能源类型为Bleed Air / Electric，认证标准符合FAA和EASA对防冰系统的要求，冗余级别为双冗余控制路径。设计情景描述了该系统旨在防止飞机关键部位如机翼、进气口和操纵面积积冰。系统利用主动加热元件、控制除冰液系统和先进传感器网络，确保冰雪不会影响飞机的空气动力学和安全性。此外，系统通过实时监测和使用温度和湿度数据的预测能力，主动参与防冰措施。",
+  "timestamp": "20250325_204313",
+  "provider": "gpt"
+}

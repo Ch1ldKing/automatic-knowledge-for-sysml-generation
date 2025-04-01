@@ -1,0 +1,368 @@
+{
+  "system_id": "anti-icing_system",
+  "system_name": "Anti-Icing System",
+  "specification": {
+    "designScenario": {
+      "name": "Anti-Icing System",
+      "description": "Basic description of Anti-Icing System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "26",
+          "id": "A1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": true,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "24",
+          "name": "systemVoltage",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": "28",
+          "value": "26",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "22",
+          "id": "A2",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": true,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "-20",
+          "name": "operatingTemperature",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": "50",
+          "value": "22",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "A1",
+            "A2"
+          ],
+          "constraintIds": [],
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "AntiIcingSystem",
+          "operationIds": [
+            "OP1"
+          ],
+          "partIds": [
+            "B2",
+            "B3",
+            "B4",
+            "B5",
+            "B6",
+            "B7"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HeatingElement",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FluidControlUnit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "IceDetectionSensor",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B5",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Controller",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B6",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ValveActuator",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B7",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Pump",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B1",
+          "body": "Anti-Icing System block represents the system responsible for removing ice accumulation on the aircraft surfaces, complying with aerospace engineering standards and best practices.",
+          "id": "CM1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "COMP1",
+          "memberEndIds": [
+            "B2",
+            "B3",
+            "B4",
+            "B5",
+            "B6",
+            "B7"
+          ],
+          "name": "AntiIcingComposition",
+          "ownedEndIds": [
+            "B2",
+            "B3",
+            "B4",
+            "B5",
+            "B6",
+            "B7"
+          ],
+          "sourceId": "B1",
+          "sourceMultiplicity": null,
+          "targetId": "B2",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "HeatingElement.temperature >= 5",
+          "id": "CB1",
+          "name": "TemperatureConstraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "B2"
+          ],
+          "id": "C1",
+          "name": "MinOperatingTemp",
+          "specification": "Temperature must be equal or greater than 5°C for effective anti-icing performance",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": [],
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [
+        {
+          "attributeIds": [],
+          "id": "E1",
+          "literals": [
+            {
+              "id": "L1",
+              "name": "ON"
+            },
+            {
+              "id": "L2",
+              "name": "OFF"
+            },
+            {
+              "id": "L3",
+              "name": "STANDBY"
+            }
+          ],
+          "name": "IcingStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "Boolean",
+          "flowType": "synchronous",
+          "id": "FS1",
+          "name": "IcingSignalFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": [],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "IB1",
+          "name": "AntiIcingInterface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": [],
+      "interfaces": [
+        {
+          "attributeIds": [],
+          "id": "I1",
+          "name": "IcingCommandInterface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "Interface"
+        },
+        {
+          "attributeIds": [],
+          "id": "I2",
+          "name": "IcingDataInterface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "P1",
+          "isConjugated": false,
+          "name": "CommandPort",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "I1"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B1",
+          "flowSpecificationId": "FS1",
+          "id": "P2",
+          "isConjugated": false,
+          "name": "DataPort",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "I2"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT1",
+          "name": "Temperature",
+          "quantityKindId": "Q1",
+          "type": "ValueType",
+          "unitId": "U1"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_120911"
+}

@@ -1,0 +1,246 @@
+{
+  "system_id": "pressurization_system",
+  "system_name": "Pressurization System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operating pressure range for crew and passenger comfort and safety.",
+        "name": "operationalPressureRange",
+        "type": "range",
+        "value": "0.8 atm - 1.1 atm"
+      },
+      {
+        "description": "Precision of the pressure monitoring system in atmospheric pressure units.",
+        "name": "pressureMeasurementAccuracy",
+        "type": "precision",
+        "value": "±0.01 atm"
+      },
+      {
+        "description": "Rate at which air pressure can be adjusted during ascent or descent.",
+        "name": "pressureAdjustmentRate",
+        "type": "rate",
+        "value": "500 ft/min"
+      },
+      {
+        "description": "Emergency pressure release threshold to maintain structural safety.",
+        "name": "emergencyPressureReliefThreshold",
+        "type": "threshold",
+        "value": "1.2 atm"
+      }
+    ],
+    "designScenario": {
+      "description": "The Pressurization System ensures the maintenance of a comfortable and safe cabin pressure environment for passengers and crew during all flight phases. Integrating state-of-the-art sensors and control algorithms, the system adapts to altitude fluctuations and ensures compliance with aviation regulations.",
+      "name": "Pressurization System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must maintain cabin pressure equivalent to an altitude of 8000 feet or lower at all cruising altitudes."
+            }
+          ],
+          "title": "Cabin Pressure Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Response time for cabin pressure adjustments should not exceed 3 seconds to altitude changes."
+            }
+          ],
+          "title": "Response Time",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "The system includes redundant pressure relief valves to handle over-pressurization emergencies effectively."
+            }
+          ],
+          "title": "Safety Measure",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The control interface for flight crew must be intuitive and provide real-time pressure information."
+            }
+          ],
+          "title": "User Interface",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The control unit manages inputs from the pressure sensors and commands the pressure regulation system.",
+        "relationshipType": "association",
+        "source": "Control Unit",
+        "target": "Pressure Sensors"
+      },
+      {
+        "description": "The pressure regulation unit is dependent on the air handling system to provide conditioned air for pressurization.",
+        "relationshipType": "dependency",
+        "source": "Pressure Regulation Unit",
+        "target": "Air Handling System"
+      },
+      {
+        "description": "The pressure monitoring system integrates data from multiple sensor modules to maintain accurate readings.",
+        "relationshipType": "composition",
+        "source": "Pressure Monitoring System",
+        "target": "Sensor Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The core unit responsible for centralized processing and system control.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Displays real-time cabin pressure and status alerts to the flight crew.",
+            "name": "User Interface Panel",
+            "type": "Interface Unit"
+          },
+          {
+            "description": "Processes data from sensors to make adjustments.",
+            "name": "Processing Module",
+            "type": "Processor"
+          }
+        ],
+        "type": "Central System"
+      },
+      {
+        "description": "Monitors internal cabin and external pressure levels.",
+        "name": "Pressure Sensors",
+        "subComponents": [
+          {
+            "description": "Measures ambient internal cabin pressure levels.",
+            "name": "Cabin Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Detects external atmospheric pressure for altitude reference.",
+            "name": "External Pressure Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Unit"
+      },
+      {
+        "description": "Manages the inflow and outflow of air for pressurization adjustments.",
+        "name": "Pressure Regulation Unit",
+        "subComponents": [
+          {
+            "description": "Air intake valve controlling the amount of air entering the cabin.",
+            "name": "Intake Valve",
+            "type": "Actuator"
+          },
+          {
+            "description": "Safety valve preventing over-pressurization.",
+            "name": "Relief Valve",
+            "type": "Safety Device"
+          }
+        ],
+        "type": "Regulation Mechanism"
+      },
+      {
+        "description": "Collects data from distributed sensors for analysis.",
+        "name": "Pressure Monitoring System",
+        "subComponents": null,
+        "type": "Monitoring Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr1",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": null,
+          "name": "OperationPressureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block1",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": null,
+          "name": "PressurizationSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "Pressurization System的所有信息和规格说明包括操作压力范围、响应时间、传感器精度和操作温度范围。",
+  "timestamp": "20250326_174409",
+  "provider": "gpt"
+}

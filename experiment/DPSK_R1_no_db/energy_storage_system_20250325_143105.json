@@ -1,0 +1,306 @@
+{
+  "system_id": "energy_storage_system",
+  "system_name": "Energy Storage System",
+  "specification": {
+    "designScenario": {
+      "name": "Advanced Hydraulic Accumulator System",
+      "description": "A next-generation hydraulic accumulator designed to optimize energy storage, pressure regulation, and transient response in modern aircraft. It integrates adaptive pressure management, smart health monitoring, and lightweight composite materials to enhance reliability under variable flight conditions (e.g., high-altitude operations, extreme temperature cycles). The system supports fly-by-wire controls, thrust reversers, and emergency systems while meeting AS9100D aerospace quality standards.",
+      "requirements": [
+        {
+          "title": "Adaptive Pressure Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The accumulator shall dynamically adjust gas pre-charge pressure (±5% accuracy) based on real-time hydraulic load demands using integrated pressure sensors and control algorithms."
+            }
+          ]
+        },
+        {
+          "title": "High-Velocity Energy Release",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system shall discharge 95% of stored hydraulic energy within 0.25 seconds during emergency braking scenarios, as per EASA CS-25.1435 transient response mandates."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Pressure Relief System",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Dual independent relief valves (mechanical + electronic) shall activate at 110% of maximum operating pressure (5500 psi) to prevent catastrophic failure during fluid thermal expansion events."
+            }
+          ]
+        },
+        {
+          "title": "Weight-Efficient Construction",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Accumulator assembly mass shall not exceed 8.5 kg while maintaining a 4:1 safety factor under maximum cyclic loading (MIL-STD-810H vibration profile)."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Composite Pressure Vessel",
+        "type": "Primary Energy Storage",
+        "description": "Carbon-fiber reinforced titanium liner structure rated for 6000 psi burst pressure with integrated strain gauges for structural health monitoring.",
+        "subComponents": [
+          {
+            "name": "Multi-Stage Separation Piston",
+            "description": "Dual-seal piston with PTFE coatings for minimal stiction, separating nitrogen charge from hydraulic fluid while accommodating thermal expansion",
+            "type": "Dynamic Interface Component"
+          },
+          {
+            "name": "Smart Charge Valve",
+            "description": "Electro-pneumatic valve maintaining gas pre-charge pressure through closed-loop control (0-5000 psi adjustable range)",
+            "type": "Pressure Management Unit"
+          }
+        ]
+      },
+      {
+        "name": "Health Monitoring Module",
+        "type": "Diagnostic Subsystem",
+        "description": "Embedded IoT-capable sensor suite monitoring accumulator integrity (vibration, temperature, pressure differential) with prognostic maintenance alerts",
+        "subComponents": [
+          {
+            "name": "MEMS Pressure Transducer Array",
+            "description": "Redundant micro-electromechanical sensors providing ±0.1% accuracy pressure measurements at 100Hz sampling rate",
+            "type": "Sensing Component"
+          },
+          {
+            "name": "Vibration Analysis Processor",
+            "description": "FPGA-based unit detecting abnormal harmonic patterns indicative of piston wear or gas leakage",
+            "type": "Diagnostic Component"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Control Computer",
+        "target": "Health Monitoring Module",
+        "relationshipType": "dependency",
+        "description": "Accumulator health data is transmitted via ARINC 664 protocol to central maintenance systems for condition-based servicing"
+      },
+      {
+        "source": "Hydraulic Actuation System",
+        "target": "Composite Pressure Vessel",
+        "relationshipType": "composition",
+        "description": "The pressure vessel is an integral subassembly within the aircraft's primary hydraulic power distribution network"
+      },
+      {
+        "source": "Emergency Power Unit",
+        "target": "Smart Charge Valve",
+        "relationshipType": "association",
+        "description": "EPU provides backup power to maintain gas pre-charge during electrical system failures per FAA AC 25.1309-1A"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "operatingTempRange",
+        "type": "string",
+        "value": "-65°C to 150°C",
+        "description": "Full operational temperature envelope covering ground operations to supersonic flight conditions"
+      },
+      {
+        "name": "cycleLife",
+        "type": "string",
+        "value": "50,000 pressure cycles",
+        "description": "Minimum fatigue life under maximum pressure differential (5000 psi Δ) with 99.9% reliability"
+      },
+      {
+        "name": "fluidViscosityRange",
+        "type": "string",
+        "value": "10-500 cSt",
+        "description": "Compatibility with MIL-PRF-83282 and Skydrol LD-4 hydraulic fluids across operational temperatures"
+      },
+      {
+        "name": "gasPermeationRate",
+        "type": "string",
+        "value": "<0.05 cc/hr",
+        "description": "Maximum allowable nitrogen leakage through piston seals at 5000 psi operating pressure"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "ESS_001",
+          "type": "Block",
+          "name": "EnergyStorageSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ESS_attr1",
+            "ESS_attr2"
+          ],
+          "operationIds": [
+            "ESS_op1",
+            "ESS_op2"
+          ],
+          "constraintIds": [
+            "ESS_constr1"
+          ],
+          "partIds": [
+            "ESS_part1",
+            "ESS_part2",
+            "ESS_part3",
+            "ESS_part4",
+            "ESS_part5"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "BATT_001",
+          "type": "Block",
+          "name": "BatteryArray",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "BATT_attr1",
+            "BATT_attr2"
+          ],
+          "operationIds": [
+            "BATT_op1"
+          ],
+          "constraintIds": [
+            "BATT_constr1"
+          ],
+          "partIds": [
+            "BATT_part1",
+            "BATT_part2"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB_001",
+          "type": "InterfaceBlock",
+          "name": "IPowerInterface",
+          "attributeIds": [
+            "IB_attr1"
+          ],
+          "operationIds": [
+            "IB_op1"
+          ],
+          "signalIds": [
+            "IB_sig1"
+          ],
+          "constraintIds": null
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_001",
+          "type": "FlowSpecification",
+          "name": "HighVoltagePowerFlow",
+          "flowType": "EnergyFlow",
+          "dataType": "ElectricalPower",
+          "unit": "kilowatt",
+          "attributeIds": [
+            "FS_attr1"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB_001",
+          "type": "ConstraintBlock",
+          "name": "ThermalConstraints",
+          "parameterIds": [
+            "CB_param1"
+          ],
+          "expression": "temperature <= max_operating_temp",
+          "attributeIds": [
+            "CB_attr1"
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_001",
+          "type": "ValueType",
+          "name": "Voltage",
+          "quantityKindId": "QK_001",
+          "unitId": "U_001",
+          "attributeIds": [
+            "VT_attr1"
+          ]
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_001",
+          "type": "Enumeration",
+          "name": "BatteryStatus",
+          "literals": [
+            {
+              "id": "LIT1",
+              "name": "CHARGING"
+            },
+            {
+              "id": "LIT2",
+              "name": "DISCHARGING"
+            }
+          ],
+          "attributeIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "P_001",
+          "type": "FlowPort",
+          "name": "powerOutput",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "ESS_001",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": "FS_001",
+          "attributeIds": [
+            "P_attr1"
+          ]
+        }
+      ],
+      "compositions": [
+        {
+          "id": "COMP_001",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "ESS_001",
+          "targetId": "BATT_001",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..4",
+          "memberEndIds": [
+            "ME1"
+          ],
+          "ownedEndIds": [
+            "OE1"
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "id": "CMT_001",
+          "type": "Comment",
+          "body": "Primary energy storage for emergency systems",
+          "annotatedElementId": "ESS_001"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_143105",
+  "provider": "dpsk"
+}

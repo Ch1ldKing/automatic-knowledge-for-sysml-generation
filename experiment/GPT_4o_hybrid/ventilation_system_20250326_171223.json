@@ -1,0 +1,357 @@
+{
+  "system_id": "ventilation_system",
+  "system_name": "Ventilation System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The optimal airflow rate for cabin environment.",
+        "name": "airflowRate",
+        "type": "string",
+        "value": "450 - 1500 CFM"
+      },
+      {
+        "description": "Operational noise level of the system.",
+        "name": "noiseLevel",
+        "type": "string",
+        "value": "50 - 70 dB"
+      },
+      {
+        "description": "Maximum operational capacity in terms of volume.",
+        "name": "capacity",
+        "type": "string",
+        "value": "75 cubic meters/minute"
+      },
+      {
+        "description": "System operating pressure range.",
+        "name": "pressureRange",
+        "type": "string",
+        "value": "30-50 psi"
+      }
+    ],
+    "designScenario": {
+      "description": "The Ventilation System is designed to ensure optimal airflow, temperature control, and air quality within the airplane cabin to enhance passenger comfort and safety. This system integrates advanced technology for energy efficiency, reliability, and seamless integration with other Environmental Control Systems.",
+      "name": "Ventilation System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall distribute conditioned air throughout the cabin uniformly."
+            }
+          ],
+          "title": "Air Distribution",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain a noise level below 70 dB during maximum operation."
+            }
+          ],
+          "title": "Operational Noise",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate redundant components to maintain consistent operation during subsystem failures."
+            }
+          ],
+          "title": "Fault Tolerance",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system will support scheduled maintenance without causing prolonged downtimes."
+            }
+          ],
+          "title": "Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Air Distribution Module receives conditioned air from the Ventilation Unit for regulated dispersal.",
+        "relationshipType": "dependency",
+        "source": "Air Distribution Module",
+        "target": "Ventilation Unit"
+      },
+      {
+        "description": "The Filtration Unit cleans the intake air before processing in the Ventilation Unit.",
+        "relationshipType": "association",
+        "source": "Filtration Unit",
+        "target": "Ventilation Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Processes and distributes filtered air throughout the airplane cabin.",
+        "name": "Ventilation Unit",
+        "subComponents": [
+          {
+            "description": "Fan responsible for air circulation.",
+            "name": "Air Circulation Fan",
+            "type": "Actuator"
+          },
+          {
+            "description": "Damping mechanism controlling airflow direction.",
+            "name": "Dampers",
+            "type": "Control Element"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Removes particulates and contaminants from the intake air.",
+        "name": "Filtration Unit",
+        "subComponents": [
+          {
+            "description": "Primary particle filter.",
+            "name": "Particle Filter",
+            "type": "Filter"
+          },
+          {
+            "description": "Carbon filter for odor neutralization.",
+            "name": "Carbon Filter",
+            "type": "Filter"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Distributes conditioned air evenly across the cabin.",
+        "name": "Air Distribution Module",
+        "subComponents": [
+          {
+            "description": "Network of ducts ensuring uniformity.",
+            "name": "Air Duct Network",
+            "type": "Conduit"
+          },
+          {
+            "description": "Outlets managing air disbursements.",
+            "name": "Air Outlet Vents",
+            "type": "Interface Element"
+          }
+        ],
+        "type": "Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-ventilation-air-distribution",
+          "memberEndIds": null,
+          "name": "VentilationAirDistributionAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-ventilation-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-air-distribution-module",
+          "targetMultiplicity": "*",
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-ventilation-filtration",
+          "memberEndIds": null,
+          "name": "VentilationFiltrationAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-ventilation-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-filtration-unit",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-filtration-ventilation",
+          "memberEndIds": null,
+          "name": "FiltrationToVentilation",
+          "ownedEndIds": null,
+          "sourceId": "block-filtration-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-ventilation-unit",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "450 - 1500 CFM",
+          "id": "attr-airflow-rate",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "airflowRate",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "450 - 1500 CFM",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "50 - 70 dB",
+          "id": "attr-noise-level",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "noiseLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "50 - 70 dB",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-airflow-rate",
+            "attr-noise-level"
+          ],
+          "constraintIds": null,
+          "id": "block-ventilation-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "VentilationSystem",
+          "operationIds": [],
+          "partIds": [
+            "part-ventilation-unit",
+            "part-air-distribution",
+            "part-filtration-unit"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-ventilation-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "VentilationUnit",
+          "operationIds": [],
+          "partIds": [
+            "part-air-circulation-fan",
+            "part-dampers"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-ventilation-system",
+          "body": "The ventilation system is vital for maintaining cabin air quality, integrating filtration, air distribution, and advanced sensors to ensure passenger well-being.",
+          "id": "comment-ventilation-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "if (airflowRate < 450 || airflowRate > 1500) then logAlert()",
+          "id": "constraint-airflow-rate",
+          "name": "AirflowRateConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-air-circulation-fan",
+          "name": "AirCirculationFan",
+          "of": "block-air-circulation-fan",
+          "type": "Part"
+        },
+        {
+          "id": "part-dampers",
+          "name": "Dampers",
+          "of": "block-dampers",
+          "type": "Part"
+        },
+        {
+          "id": "part-air-distribution",
+          "name": "AirDistribution",
+          "of": "block-air-distribution-module",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-air-distribution",
+          "name": "Uniform Air Distribution",
+          "reqId": null,
+          "text": "Ensure uniform air distribution across the cabin to enhance passenger comfort.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": null,
+  "parent_system": "environmental_control_system",
+  "timestamp": "20250326_171223",
+  "provider": "gpt"
+}

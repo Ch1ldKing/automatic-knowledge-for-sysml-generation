@@ -1,0 +1,768 @@
+{
+  "system_id": "collision_avoidance_system",
+  "system_name": "Collision Avoidance System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Cycle time required to update sensor outputs and process collision data in real-time.",
+        "name": "updateRate",
+        "type": "string",
+        "value": "10ms"
+      },
+      {
+        "description": "Detection range within which potential collision threats can be identified.",
+        "name": "detectionRange",
+        "type": "string",
+        "value": "50 nautical miles"
+      },
+      {
+        "description": "Sensor precision and accuracy parameters critical for collision detection.",
+        "name": "accuracy",
+        "type": "string",
+        "value": "±5% relative error in range estimation"
+      },
+      {
+        "description": "Redundant sensor configuration to ensure reliability during sensor failures.",
+        "name": "redundancy",
+        "type": "string",
+        "value": "Triple sensor redundancy"
+      },
+      {
+        "description": "Built-in self-test and reconfiguration capabilities to maintain fault tolerance.",
+        "name": "faultTolerance",
+        "type": "string",
+        "value": "Automatic fault detection and reconfiguration"
+      },
+      {
+        "description": "Operational temperature range for all avionics and sensor components within the system.",
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "-40°C to +85°C"
+      }
+    ],
+    "designScenario": {
+      "description": "The Collision Avoidance System is a state-of-the-art avionics solution engineered to identify, evaluate, and mitigate potential mid-air collision threats. Integrating a variety of advanced sensors (radar, ADS-B, Lidar), real-time data fusion, predictive analyses, and automated alert and evasive control functionalities, this system enhances flight safety by providing timely collision risk assessments and facilitating immediate corrective maneuvers. The system is designed to operate under extreme environmental and electromagnetic conditions typical in modern passenger airplanes.",
+      "name": "Collision Avoidance System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Continuously monitor the airspace around the aircraft using a network of sensors to identify possible collision threats."
+            },
+            {
+              "description": "Process real-time sensor data to detect critical near-infrared obstacles, aircraft, and non-cooperative targets."
+            }
+          ],
+          "title": "Real-Time Collision Detection",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Process sensor fusion within a 10ms cycle to ensure near instantaneous responsiveness to potential threats."
+            },
+            {
+              "description": "Maintain detection accuracy within ±5% relative error across the sensor array."
+            }
+          ],
+          "title": "High Performance Data Processing",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Automatically initiate alert and evasive maneuver protocols upon collision risk detection."
+            },
+            {
+              "description": "Ensure fail-safe operation through redundant configurations and automatic fault recovery mechanisms."
+            }
+          ],
+          "title": "Automated Safety Interventions",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Operate reliably under extreme temperatures (-40°C to +85°C) and high electromagnetic interference conditions."
+            },
+            {
+              "description": "Adhere to aerospace standards for durability, cybersecurity, and environmental stability."
+            }
+          ],
+          "title": "Robust Non-Functional Specifications",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Sensor Suite provides real-time environmental data to the Data Fusion Module for aggregating collision relevant inputs.",
+        "relationshipType": "dependency",
+        "source": "Sensor Suite",
+        "target": "Data Fusion Module"
+      },
+      {
+        "description": "The Data Fusion Module processes sensor inputs and forwards consolidated data to the Collision Prediction Engine.",
+        "relationshipType": "dependency",
+        "source": "Data Fusion Module",
+        "target": "Collision Prediction Engine"
+      },
+      {
+        "description": "The Collision Prediction Engine evaluates potential collision threats and triggers the Alert & Evasion Module for response actions.",
+        "relationshipType": "dependency",
+        "source": "Collision Prediction Engine",
+        "target": "Alert & Evasion Module"
+      },
+      {
+        "description": "The Alert & Evasion Module communicates with the Flight Control Computer to execute recommended evasive maneuvers.",
+        "relationshipType": "association",
+        "source": "Alert & Evasion Module",
+        "target": "Flight Control Computer"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A network of sensors and receivers that captures comprehensive environmental data including potential collision threats.",
+        "name": "Sensor Suite",
+        "subComponents": [
+          {
+            "description": "A high-resolution radar system, integral for detecting distant objects and tracking their trajectories.",
+            "name": "Collision Detection Radar",
+            "type": "Sensor"
+          },
+          {
+            "description": "An ADS-B receiver for real-time traffic monitoring and identification of cooperative aircraft.",
+            "name": "ADS-B Receiver",
+            "type": "Sensor"
+          },
+          {
+            "description": "A Lidar sensor providing precise range and relative speed measurements for close-range obstacles.",
+            "name": "Lidar Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensing Module"
+      },
+      {
+        "description": "A computing unit responsible for aggregating and fusing data from the sensor suite to deliver a coherent environmental picture.",
+        "name": "Data Fusion Module",
+        "subComponents": [
+          {
+            "description": "A sensor data aggregator that synchronizes inputs from multiple sensor types.",
+            "name": "Sensor Data Aggregator",
+            "type": "Computational Submodule"
+          }
+        ],
+        "type": "Computing Module"
+      },
+      {
+        "description": "A predictive analytics engine that calculates collision probabilities based on fused sensor data and aircraft trajectories.",
+        "name": "Collision Prediction Engine",
+        "subComponents": [
+          {
+            "description": "A trajectory analysis unit that evaluates flight paths to ascertain collision risks.",
+            "name": "Trajectory Analysis Unit",
+            "type": "Computational Submodule"
+          }
+        ],
+        "type": "Computational Module"
+      },
+      {
+        "description": "A control module that generates pilot alerts and commands the autopilot for evasive maneuvers when collision risks are detected.",
+        "name": "Alert & Evasion Module",
+        "subComponents": [
+          {
+            "description": "A pilot alert interface that provides visual and auditory warnings.",
+            "name": "Pilot Alert Interface",
+            "type": "Control Submodule"
+          },
+          {
+            "description": "An autopilot interface that transmits evasive maneuver commands to the flight management system.",
+            "name": "Autopilot Interface",
+            "type": "Control Submodule"
+          }
+        ],
+        "type": "Control Module"
+      },
+      {
+        "description": "The aircraft's central computing system that integrates inputs from multiple avionics and flight control subsystems.",
+        "name": "Flight Control Computer",
+        "subComponents": null,
+        "type": "Avionics"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-alert-to-flight-control",
+          "memberEndIds": [
+            "block-alert-evasion-module",
+            "block-flight-control-computer"
+          ],
+          "name": "AlertEvasion_to_FlightControl",
+          "ownedEndIds": null,
+          "sourceId": "block-alert-evasion-module",
+          "sourceMultiplicity": "1",
+          "targetId": "block-flight-control-computer",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "10ms",
+          "id": "attr-update-rate-cas",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "updateRate",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "10ms",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "50 nautical miles",
+          "id": "attr-detection-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "detectionRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "50 nautical miles",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "±15% relative error in range estimation",
+          "id": "attr-accuracy-cas",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "accuracy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "±15% relative error in range estimation",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Triple sensor redundancy",
+          "id": "attr-redundancy-cas",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Triple sensor redundancy",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Automatic fault detection and reconfiguration",
+          "id": "attr-fault-tolerance-cas",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "faultTolerance",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Automatic fault detection and reconfiguration",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-40°C to +85°C",
+          "id": "attr-operating-temperature-cas",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operatingTemperature",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-40°C to +85°C",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-update-rate-cas",
+            "attr-detection-range",
+            "attr-accuracy-cas",
+            "attr-redundancy-cas",
+            "attr-fault-tolerance-cas",
+            "attr-operating-temperature-cas"
+          ],
+          "constraintIds": null,
+          "id": "block-collision-avoidance-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "CollisionAvoidanceSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-sensor-suite-cas",
+            "part-data-fusion-module",
+            "part-collision-prediction-engine",
+            "part-alert-evasion-module",
+            "part-flight-control-computer"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-sensor-suite-cas",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Sensor Suite",
+          "operationIds": null,
+          "partIds": [
+            "part-collision-detection-radar",
+            "part-adsb-receiver",
+            "part-lidar-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-data-fusion-module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Data Fusion Module",
+          "operationIds": null,
+          "partIds": [
+            "part-sensor-data-aggregator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-collision-prediction-engine",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Collision Prediction Engine",
+          "operationIds": null,
+          "partIds": [
+            "part-trajectory-analysis-unit"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-alert-evasion-module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Alert & Evasion Module",
+          "operationIds": null,
+          "partIds": [
+            "part-pilot-alert-interface",
+            "part-autopilot-interface"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-flight-control-computer",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Flight Control Computer",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-collision-avoidance-system",
+          "body": "The Collision Avoidance System is a state‐of‐the‐art avionics solution integrating advanced sensors (radar, ADS-B, Lidar), real-time sensor fusion, predictive collision analytics, and automated alert/evasive control functionalities. It is engineered to operate under harsh environmental conditions and high electromagnetic interference to enhance flight safety.",
+          "id": "comment-cas-design",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-cas-sensor-suite",
+          "memberEndIds": null,
+          "name": "ComposesSensorSuite",
+          "ownedEndIds": null,
+          "sourceId": "block-collision-avoidance-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-sensor-suite-cas",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-cas-data-fusion",
+          "memberEndIds": null,
+          "name": "ComposesDataFusionModule",
+          "ownedEndIds": null,
+          "sourceId": "block-collision-avoidance-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-data-fusion-module",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-cas-collision-prediction",
+          "memberEndIds": null,
+          "name": "ComposesCollisionPredictionEngine",
+          "ownedEndIds": null,
+          "sourceId": "block-collision-avoidance-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-collision-prediction-engine",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-cas-alert-evasion",
+          "memberEndIds": null,
+          "name": "ComposesAlertEvasionModule",
+          "ownedEndIds": null,
+          "sourceId": "block-collision-avoidance-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-alert-evasion-module",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-cas-flight-control",
+          "memberEndIds": null,
+          "name": "ComposesFlightControlComputer",
+          "ownedEndIds": null,
+          "sourceId": "block-collision-avoidance-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-flight-control-computer",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "detectionRange >= '50 nautical miles'",
+          "id": "constraint-detection-range",
+          "name": "DetectionRangeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-sensor-suite-to-data-fusion",
+          "name": "SensorSuite_to_DataFusion",
+          "sourceId": "block-sensor-suite-cas",
+          "sourceMultiplicity": "1",
+          "targetId": "block-data-fusion-module",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        },
+        {
+          "id": "dep-data-fusion-to-collision-prediction",
+          "name": "DataFusion_to_CollisionPrediction",
+          "sourceId": "block-data-fusion-module",
+          "sourceMultiplicity": "1",
+          "targetId": "block-collision-prediction-engine",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        },
+        {
+          "id": "dep-collision-prediction-to-alert",
+          "name": "CollisionPrediction_to_AlertEvasion",
+          "sourceId": "block-collision-prediction-engine",
+          "sourceMultiplicity": "1",
+          "targetId": "block-alert-evasion-module",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-collision-avoidance-system",
+          "flowSpecificationId": "flow-spec-collision-data",
+          "id": "flowport-collision-data-out",
+          "isConjugated": false,
+          "name": "CollisionDataOutPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "CollisionData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-collision-data",
+          "name": "CollisionDataFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-collision-interface",
+          "name": "CollisionInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-sensor-suite-cas",
+          "name": "Sensor Suite",
+          "of": "block-sensor-suite-cas",
+          "type": "Part"
+        },
+        {
+          "id": "part-data-fusion-module",
+          "name": "Data Fusion Module",
+          "of": "block-data-fusion-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-collision-prediction-engine",
+          "name": "Collision Prediction Engine",
+          "of": "block-collision-prediction-engine",
+          "type": "Part"
+        },
+        {
+          "id": "part-alert-evasion-module",
+          "name": "Alert & Evasion Module",
+          "of": "block-alert-evasion-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-flight-control-computer",
+          "name": "Flight Control Computer",
+          "of": "block-flight-control-computer",
+          "type": "Part"
+        },
+        {
+          "id": "part-collision-detection-radar",
+          "name": "Collision Detection Radar",
+          "of": "block-sensor-suite-cas",
+          "type": "Part"
+        },
+        {
+          "id": "part-adsb-receiver",
+          "name": "ADS-B Receiver",
+          "of": "block-sensor-suite-cas",
+          "type": "Part"
+        },
+        {
+          "id": "part-lidar-sensor",
+          "name": "Lidar Sensor",
+          "of": "block-sensor-suite-cas",
+          "type": "Part"
+        },
+        {
+          "id": "part-sensor-data-aggregator",
+          "name": "Sensor Data Aggregator",
+          "of": "block-data-fusion-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-trajectory-analysis-unit",
+          "name": "Trajectory Analysis Unit",
+          "of": "block-collision-prediction-engine",
+          "type": "Part"
+        },
+        {
+          "id": "part-pilot-alert-interface",
+          "name": "Pilot Alert Interface",
+          "of": "block-alert-evasion-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-autopilot-interface",
+          "name": "Autopilot Interface",
+          "of": "block-alert-evasion-module",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-collision-avoidance-system",
+          "flowSpecificationId": "flow-spec-collision-data",
+          "id": "port-collision-data-out",
+          "isConjugated": false,
+          "name": "CollisionDataOutPort",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "ifb-collision-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-real-time-collision-detection",
+          "name": "Real-Time Collision Detection",
+          "reqId": "CAS-R1",
+          "text": "Continuously monitor the airspace using an array of sensors (radar, ADS-B, Lidar) to identify potential collision threats and detect near-infrared obstacles and aircraft in real time.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-high-performance-data-processing",
+          "name": "High Performance Data Processing",
+          "reqId": "CAS-R2",
+          "text": "Process sensor fusion within a 10ms cycle ensuring rapid responsiveness and maintain detection accuracy within ±15% error margins.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-automated-safety-interventions",
+          "name": "Automated Safety Interventions",
+          "reqId": "CAS-R3",
+          "text": "Automatically trigger alert and evasive maneuver protocols with integrated pilot and autopilot interfaces when collision risks are detected.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-robust-nonfunctional-spec",
+          "name": "Robust Non-Functional Specifications",
+          "reqId": "CAS-R4",
+          "text": "Operate reliably under extreme temperatures (-40°C to +85°C) and high electromagnetic interference, complying with aerospace durability and cybersecurity standards.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-nautical-miles",
+          "name": "NauticalMilesValue",
+          "quantityKindId": "quantity-distance",
+          "type": "ValueType",
+          "unitId": "unit-nautical-mile"
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-time",
+          "name": "TimeValue",
+          "quantityKindId": "quantity-time",
+          "type": "ValueType",
+          "unitId": "unit-milliseconds"
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-temperature",
+          "name": "TemperatureValue",
+          "quantityKindId": "quantity-temperature",
+          "type": "ValueType",
+          "unitId": "unit-celsius"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "sensor_suite",
+  "timestamp": "20250324_214311"
+}

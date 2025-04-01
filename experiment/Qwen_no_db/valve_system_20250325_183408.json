@@ -1,0 +1,412 @@
+{
+  "system_id": "valve_system",
+  "system_name": "Valve System",
+  "specification": {
+    "designScenario": {
+      "name": "Valve System",
+      "description": "The Valve System is designed to manage the precise routing of hydraulic fluid between the hydraulic pump and flight control components such as control surfaces, landing gear, and brakes. It ensures rapid, accurate actuation with fail-safe mechanisms, and integrates sensors and diagnostics for reliability in extreme operational conditions.",
+      "requirements": [
+        {
+          "title": "Flow Routing Functionality",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The valves shall accurately direct the hydraulic fluid between the hydraulic pump and the corresponding actuators to ensure controlled motion of flight surfaces."
+            }
+          ]
+        },
+        {
+          "title": "Rapid Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The valves shall exhibit a response time of less than 0.5 seconds to meet the rapid actuation demands during critical flight maneuvers."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe Operation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "A fail-safe mechanism must be incorporated into the valve design such that in the event of a malfunction, hydraulic fluid is safely rerouted to prevent loss of control."
+            }
+          ]
+        },
+        {
+          "title": "Durability and Diagnostics",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "The valve system shall be designed for enhanced durability with low maintenance requirements and self-diagnostic capabilities to detect performance anomalies or fluid contamination."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Directional Control Valves",
+        "type": "Control Unit",
+        "description": "The core component responsible for managing hydraulic fluid routing with precision control. This unit integrates both automated and manual control mechanisms to adapt to variable flight conditions.",
+        "subComponents": [
+          {
+            "name": "Solenoid Valves",
+            "type": "Electromechanical Valve",
+            "description": "Electromechanically actuated solenoid valves that provide rapid switching of hydraulic fluid paths in response to control commands."
+          },
+          {
+            "name": "Manual Override Valves",
+            "type": "Mechanical Valve",
+            "description": "Manually adjustable valves that allow fine-tuning of fluid distribution during maintenance or emergency operations."
+          }
+        ]
+      },
+      {
+        "name": "Hydraulic Pump",
+        "type": "Hydraulic Component",
+        "description": "Provides pressurized hydraulic fluid to the valve system, ensuring adequate flow and pressure for actuation requirements.",
+        "subComponents": null
+      },
+      {
+        "name": "Actuators",
+        "type": "Actuation Mechanism",
+        "description": "Hydraulic actuators responsible for moving flight control surfaces, landing gear, and braking systems in response to fluid pressure changes.",
+        "subComponents": null
+      },
+      {
+        "name": "Sensors",
+        "type": "Monitoring Sensors",
+        "description": "Integrated sensors monitor pressure, flow rate, and fluid quality, providing real-time data to the Central Monitoring Unit.",
+        "subComponents": null
+      },
+      {
+        "name": "Central Monitoring Unit",
+        "type": "Control System",
+        "description": "Centralized unit that receives sensor data, performs diagnostics, and oversees valve actuation commands to ensure system reliability and safety.",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Directional Control Valves",
+        "target": "Hydraulic Pump",
+        "relationshipType": "association",
+        "description": "Directional Control Valves regulate the flow of hydraulic fluid originating from the Hydraulic Pump to ensure proper actuation of flight control components."
+      },
+      {
+        "source": "Directional Control Valves",
+        "target": "Actuators",
+        "relationshipType": "association",
+        "description": "Directional Control Valves ensure proper hydraulic fluid routing to Actuators, enabling precise control of flight surfaces, landing gear, and brakes."
+      },
+      {
+        "source": "Sensors",
+        "target": "Directional Control Valves",
+        "relationshipType": "aggregation",
+        "description": "Sensors are integrated within the Directional Control Valves to monitor pressure and flow characteristics, providing critical data for system operation."
+      },
+      {
+        "source": "Sensors",
+        "target": "Central Monitoring Unit",
+        "relationshipType": "association",
+        "description": "Sensors transmit real-time data on hydraulic conditions to the Central Monitoring Unit for diagnostics and system oversight."
+      },
+      {
+        "source": "Central Monitoring Unit",
+        "target": "Directional Control Valves",
+        "relationshipType": "association",
+        "description": "The Central Monitoring Unit sends actuation commands to the Directional Control Valves based on sensor feedback and flight control inputs."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "1500-5000 psi",
+        "description": "Operating pressure range for the valves, ensuring robust performance under high hydraulic loads."
+      },
+      {
+        "name": "flowRate",
+        "type": "string",
+        "value": "Variable, based on load requirements",
+        "description": "Flow rate through the valves, adjustable based on actuation demands."
+      },
+      {
+        "name": "fluidType",
+        "type": "string",
+        "value": "Aerospace-grade hydraulic oil",
+        "description": "Hydraulic fluid type compatible with the valve's materials and performance requirements."
+      },
+      {
+        "name": "valveResponseTime",
+        "type": "string",
+        "value": "< 0.5 seconds",
+        "description": "Response time for valve actuation, critical for rapid control surface adjustments."
+      },
+      {
+        "name": "maintenanceCycle",
+        "type": "string",
+        "value": "600 flight hours or as specified by OEM",
+        "description": "Maintenance cycle designed to ensure long operational life and reliability in flight conditions."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "ValveSystem_001",
+          "type": "Block",
+          "name": "ValveSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_001",
+            "Attr_002",
+            "Attr_003"
+          ],
+          "operationIds": [
+            "Op_001",
+            "Op_002"
+          ],
+          "constraintIds": [
+            "Constraint_001"
+          ],
+          "partIds": [
+            "ValveAssembly_001",
+            "ControlModule_002",
+            "Actuator_003"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ValveAssembly_001",
+          "type": "Block",
+          "name": "ValveAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_004",
+            "Attr_005"
+          ],
+          "operationIds": [
+            "Op_003"
+          ],
+          "constraintIds": [
+            "Constraint_002"
+          ],
+          "partIds": [
+            "ValveBody_004",
+            "Seal_005"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ControlModule_002",
+          "type": "Block",
+          "name": "ControlModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_006",
+            "Attr_007"
+          ],
+          "operationIds": [
+            "Op_004",
+            "Op_005"
+          ],
+          "constraintIds": [
+            "Constraint_003"
+          ],
+          "partIds": [
+            "Sensor_006",
+            "ActuatorInterface_007"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Actuator_003",
+          "type": "Block",
+          "name": "Actuator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_008",
+            "Attr_009"
+          ],
+          "operationIds": [
+            "Op_006"
+          ],
+          "constraintIds": [
+            "Constraint_004"
+          ],
+          "partIds": [
+            "Motor_008",
+            "PositionSensor_009"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ControlInterface_010",
+          "type": "InterfaceBlock",
+          "name": "ControlInterface",
+          "attributeIds": [
+            "Attr_010"
+          ],
+          "operationIds": [
+            "Op_007"
+          ],
+          "signalIds": [
+            "Sig_001"
+          ],
+          "constraintIds": []
+        },
+        {
+          "id": "StatusInterface_011",
+          "type": "InterfaceBlock",
+          "name": "StatusInterface",
+          "attributeIds": [
+            "Attr_011"
+          ],
+          "operationIds": [
+            "Op_008"
+          ],
+          "signalIds": [
+            "Sig_002"
+          ],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FluidFlow_012",
+          "type": "FlowSpecification",
+          "name": "FluidFlow",
+          "flowType": "MaterialFlow",
+          "dataType": "Pressure",
+          "unit": "psi",
+          "attributeIds": [
+            "Attr_012"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "Constraint_001",
+          "type": "ConstraintBlock",
+          "name": "PressureConstraint",
+          "expression": "OperatingPressure >= 50 && OperatingPressure <= 3000",
+          "parameterIds": [
+            "Param_001"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ValveStateEnum_013",
+          "type": "Enumeration",
+          "name": "ValveState",
+          "literals": [
+            {
+              "id": "Lit_001",
+              "name": "OPEN"
+            },
+            {
+              "id": "Lit_002",
+              "name": "CLOSED"
+            },
+            {
+              "id": "Lit_003",
+              "name": "FAULT"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "Port_001",
+          "type": "FullPort",
+          "name": "ControlPort",
+          "blockId": "ValveSystem_001",
+          "providedInterfaceIds": [
+            "ControlInterface_010"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "Port_002",
+          "type": "FlowPort",
+          "name": "FluidInlet",
+          "blockId": "ValveAssembly_001",
+          "flowSpecificationId": "FluidFlow_012",
+          "attributeIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment_001",
+          "type": "Comment",
+          "body": "ValveSystem manages fluid flow through pressure-regulated actuation",
+          "annotatedElementId": "ValveSystem_001"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "Attr_001",
+          "name": "OperatingPressure",
+          "propertyType": "Double",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "Attr_010",
+          "name": "ControlSignal",
+          "propertyType": "Signal",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_183408",
+  "provider": "qwen"
+}

@@ -1,0 +1,464 @@
+{
+  "system_id": "temperature_control_system",
+  "system_name": "Temperature Control System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Temperature range that can be regulated by the system.",
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "15°C to 25°C"
+      },
+      {
+        "description": "Time taken to adjust cabin temperature within 1°C of the target value.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Within 4 seconds"
+      },
+      {
+        "description": "Variation limit in temperature measurement accuracy.",
+        "name": "measurementAccuracy",
+        "type": "string",
+        "value": "±0.3°C"
+      },
+      {
+        "description": "Precision of temperature adjustments performed by the system.",
+        "name": "controlPrecision",
+        "type": "string",
+        "value": "±0.1°C"
+      }
+    ],
+    "designScenario": {
+      "description": "The Temperature Control System manages cabin ambient temperature within specific parameters to ensure passenger comfort and system operational reliability. It employs modular heating and cooling units, a central processing controller, and robust sensor networks integrated into the overall Environmental Control System (ECS). This system adheres to aerospace standards and adapts dynamically to external conditions and passenger requirements.",
+      "name": "Temperature Control System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall maintain the cabin temperature between 15°C and 25°C to suit passenger preferences and comply with operational regulations."
+            }
+          ],
+          "title": "Temperature Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Temperature adjustments to deviations shall occur within 4 seconds to maintain steady and comfortable cabin environment."
+            }
+          ],
+          "title": "Performance Response Time",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Equipped with fail-safe mechanisms, the system shall continue operation even when primary components fail completely."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall provide user-friendly diagnostics and interface software for maintenance personnel to monitor its operational status."
+            }
+          ],
+          "title": "Maintenance and Interface",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The system relies on the Environmental Control System for external airflow adjustments.",
+        "relationshipType": "dependency",
+        "source": "Temperature Control System",
+        "target": "Environmental Control System"
+      },
+      {
+        "description": "The data and functioning of the system are reported to the Flight Systems Controller.",
+        "relationshipType": "association",
+        "source": "Temperature Control System",
+        "target": "Flight Systems Controller"
+      },
+      {
+        "description": "Temperature-modulated airflow from the system is delivered to the Cabin Airways Distribution System.",
+        "relationshipType": "aggregation",
+        "source": "Temperature Control System",
+        "target": "Cabin Airways Distribution System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Subsystem overseeing thermal control through mechanized components.",
+        "name": "Temperature Control Unit",
+        "subComponents": [
+          {
+            "description": "Element responsible for increasing cabin temperature when cooling is detected.",
+            "name": "Heater Unit",
+            "type": "Active"
+          },
+          {
+            "description": "Mechanisms responsible for expelling excess heat to efficiently reduce temperature.",
+            "name": "Coolant Circulation System",
+            "type": "Active"
+          },
+          {
+            "description": "Sensors distributed to measure cabin and external air exchange temperatures.",
+            "name": "Temperature Sensing Nodes",
+            "type": "Monitoring"
+          },
+          {
+            "description": "Central module making calculations on airflow heat energy and command adjustments.",
+            "name": "Temperature Regulation Controller",
+            "type": "Computation"
+          }
+        ],
+        "type": "Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-temp-control-cabin-distribution",
+          "memberEndIds": [],
+          "name": "DistributesCabinAir",
+          "ownedEndIds": [],
+          "sourceId": "block-temperature-control-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-cabin-airway-distribution",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-temp-control-flight-system",
+          "memberEndIds": [],
+          "name": "ReportsToFlightSystem",
+          "ownedEndIds": [],
+          "sourceId": "block-temperature-control-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-flight-system-controller",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "15°C to 25°C",
+          "id": "attr-temperature-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "temperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "15°C to 25°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Within 4 seconds",
+          "id": "attr-response-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Within 4 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "±0.1°C",
+          "id": "attr-control-precision",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "controlPrecision",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "±0.1°C",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-temperature-range",
+            "attr-response-time",
+            "attr-control-precision"
+          ],
+          "constraintIds": [],
+          "id": "block-temperature-control-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Temperature Control System",
+          "operationIds": [
+            "op-adjustTemperature"
+          ],
+          "partIds": [
+            "part-heater",
+            "part-cooling-unit",
+            "part-air-movement-controller",
+            "part-temperature-sensor-array",
+            "part-energy-system"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "block-heater",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Heating Unit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "block-cooling-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Cooling Unit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "block-airflow-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Air Movement System",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "block-energy-controller",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Energy Controller",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": [
+        {
+          "id": "comp-temp-heating-system",
+          "memberEndIds": [],
+          "name": "TempControl-Composes-Heating",
+          "ownedEndIds": [],
+          "sourceId": "block-temperature-control-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-heater",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-temp-cooling-system",
+          "memberEndIds": [],
+          "name": "TempControl-Composes-Cooling",
+          "ownedEndIds": [],
+          "sourceId": "block-temperature-control-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-cooling-unit",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "temperature >= 15°C and temperature <= 25°C",
+          "id": "constraint-temp-maintain",
+          "name": "MaintainTemperatureRange",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-temp-ECS",
+          "name": "DependsOnEnvironmentalControlSystem",
+          "sourceId": "block-temperature-control-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-environmental-control-system",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "block-temperature-control-system",
+          "flowSpecificationId": "flow-spec-temp-air",
+          "id": "flow-port-air-input",
+          "isConjugated": false,
+          "name": "AirInputFlowPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "AirflowData",
+          "flowType": "InputFlow",
+          "id": "flow-spec-temp-air",
+          "name": "AirInputFlow",
+          "type": "FlowSpecification",
+          "unit": "CFM"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "block-temperature-control-system",
+          "id": "full-port-sys-diagnostics",
+          "isConjugated": false,
+          "name": "SystemDiagnostics",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": [
+        {
+          "classifierId": "block-temperature-control-system",
+          "id": "instance-temp-control",
+          "name": "CompleteTemperatureSystem",
+          "slotIds": [],
+          "type": "Instance"
+        }
+      ],
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-energy-system",
+          "name": "EnergyController",
+          "of": "block-energy-controller",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-temperature-control-system",
+          "id": "proxy-port-temp-control-feedback",
+          "isConjugated": false,
+          "name": "ControlFeedbackOutput",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-maintain-temp",
+          "name": "Maintain Cabin Temperature",
+          "reqId": null,
+          "text": "Maintain cabin temperature within 15°-25°C under all operation scenarios.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-airflow",
+          "name": "AirflowRate",
+          "quantityKindId": "airflow",
+          "type": "ValueType",
+          "unitId": "unit-cfm"
+        }
+      ]
+    }
+  },
+  "reference_system": "temperature_control_system",
+  "parent_system": null,
+  "timestamp": "20250326_164319",
+  "provider": "gpt"
+}

@@ -1,0 +1,377 @@
+{
+  "system_id": "elevator_system",
+  "system_name": "Elevator System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the rapid deployment of the elevator system upon receiving control inputs.",
+        "name": "responseSpeed",
+        "type": "time",
+        "value": "<100ms"
+      },
+      {
+        "description": "Specifies the durability of the components exposed to environmental conditions.",
+        "name": "operationalDurability",
+        "type": "string",
+        "value": "High-capacity titanium alloy, tested for over 20 years of operational usage"
+      },
+      {
+        "description": "Indicates the redundancy ensuring uninterruptible functionality.",
+        "name": "redundancyCapability",
+        "type": "integer",
+        "value": "3"
+      },
+      {
+        "description": "Measures the precision of movement translation.",
+        "name": "movementAccuracy",
+        "type": "angle",
+        "value": "0.1 degrees"
+      }
+    ],
+    "designScenario": {
+      "description": "The Elevator mechanism ensures precise pitch control of the aircraft, translating pilot controls into varied elevator deflections to adjust the aircraft's ascent or descent behavior. Its design emphasizes redundancy, swift actuation, and minimal failure probability to guarantee stability under diverse flying conditions.",
+      "name": "Elevator System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable precise translation of control inputs into elevator motion to adjust aircraft pitch."
+            },
+            {
+              "description": "Employ high-precision actuators to meet aviation standards for dynamic response."
+            }
+          ],
+          "title": "Pitch Adjustment Capability",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain operations within 50ms latency from command receipt."
+            },
+            {
+              "description": "Operate unaffected under maximum aerodynamic pressure."
+            }
+          ],
+          "title": "Rapid Behavior Control",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Include backup systems to ensure functionality during primary system failure."
+            },
+            {
+              "description": "Provide alert feedback in case deviations are detected."
+            }
+          ],
+          "title": "Backup and Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design for operational reliability above 99.99% under continuous usage."
+            },
+            {
+              "description": "Incorporate corrosion-resistant protection for material longevity."
+            }
+          ],
+          "title": "Sustainability and Maintenance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Elevator system proximally interacts with the flight control system to receive electro-mechanical input.",
+        "relationshipType": "dependency",
+        "source": "Control System",
+        "target": "Elevator System"
+      },
+      {
+        "description": "The Elevator system integrates with navigation tools to measure angle and movement impact.",
+        "relationshipType": "association",
+        "source": "Navigation System",
+        "target": "Elevator System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Major actuating component responsible for operating elevator surfaces.",
+        "name": "Elevator Actuator",
+        "subComponents": [
+          {
+            "description": "Provides rotational movement needed for angle modulation.",
+            "name": "Rotary Engine",
+            "type": "Mechanic Component"
+          },
+          {
+            "description": "Assists in maintaining the stiffness of controlled movement.",
+            "name": "Torsional Support",
+            "type": "Structural Component"
+          }
+        ],
+        "type": "Mechanism"
+      },
+      {
+        "description": "Mechanical structure providing linked movement to left-right elevators.",
+        "name": "Elevator Linkage",
+        "subComponents": [
+          {
+            "description": "Component facilitating movement of the right elevator surface.",
+            "name": "Right Fork",
+            "type": "Connector"
+          },
+          {
+            "description": "Component aiding the deflection of left elevator.",
+            "name": "Left Fork",
+            "type": "Connector"
+          }
+        ],
+        "type": "Connector"
+      },
+      {
+        "description": "Surfaces adjusting the aerodynamic properties to move the nose-level of the aircraft.",
+        "name": "Elevator Surfaces",
+        "subComponents": [
+          {
+            "description": "Surface adjacent to ailerons for pitch control enhancement.",
+            "name": "Left Control Surface",
+            "type": "Panel"
+          },
+          {
+            "description": "Surface synchronized with its counterpart for navigational stability.",
+            "name": "Right Control Surface",
+            "type": "Panel"
+          }
+        ],
+        "type": "Flight Surfaces"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc1",
+          "memberEndIds": [
+            "ElevatorSystem-Component1",
+            "ElevatorSystem-Component2"
+          ],
+          "name": "System Components Association",
+          "ownedEndIds": null,
+          "sourceId": "ElevatorSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "Component1",
+          "targetMultiplicity": "*",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "composite",
+          "defaultValue": null,
+          "id": "attr1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "OperationalRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-40°C to 85°C",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr1"
+          ],
+          "constraintIds": null,
+          "id": "ElevatorSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ElevatorSystem",
+          "operationIds": null,
+          "partIds": [
+            "Part-DeflectionMechanism",
+            "Part-ControlElectronics"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "Block-SystemLevelConstraints"
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "ElevatorSystem",
+          "body": "The Elevator System is designed to meet demanding aerospace requirements including precision actuation and durability under extreme conditions.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp1",
+          "memberEndIds": [
+            "ElevatorSystem-Part1",
+            "ElevatorSystem-Part2"
+          ],
+          "name": "System Composition",
+          "ownedEndIds": null,
+          "sourceId": "ElevatorSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "Part1",
+          "targetMultiplicity": "*",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [
+            "SafetyConstraintId"
+          ],
+          "expression": "Maximum deflection change <= 0.1°",
+          "id": "EmergencyConstraints",
+          "name": "Safety Constraints",
+          "parameterIds": [
+            "Constraint-DeflectionRatio"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "SafetyConstraint"
+          ],
+          "id": "SystemConstraint-Accuracy",
+          "name": "Accuracy",
+          "specification": "±0.1°",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": [
+            "Performance"
+          ],
+          "id": "ComplianceRating",
+          "literals": [
+            {
+              "id": "Performance",
+              "name": "Precision Accuracy"
+            }
+          ],
+          "name": "Rating",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": [
+            "Flow-VibrationHandling"
+          ],
+          "blockId": "ComponentInterfaceAerospace",
+          "flowSpecificationId": "ComponentStepAConnectorId",
+          "id": "MechanismCommandPort",
+          "isConjugated": false,
+          "name": "ElevatorDynamicsFlow_AeroEID",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "G",
+          "id": "accelerationInfrequentParameterRate",
+          "name": "accelerationConditions",
+          "parameterType": "BoundaryValues",
+          "type": "Parameter"
+        }
+      ],
+      "parts": [
+        {
+          "id": "ExtremityPointBindingParameterSystemSubLevel",
+          "name": "RootLogicalSectionExpansionElevElectroModulR1",
+          "of": "ElevatorSystem",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [
+            "OperationalReq1"
+          ],
+          "id": "Req1",
+          "name": "Title-10.3 Balance Deflection Level Define body's physics Symbol",
+          "reqId": "V9",
+          "text": "Physics might IsOn elevatorSmokeSegment apply boundary demandsourcemotivecoverage Energyti resolution mechanics Gauge useful stability System",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [
+            "ChannelResistors_MechanicalTOEKMarks"
+          ],
+          "id": "MECHAdmisivQuantUnit_CnID_RatioSrlXCoordUnitIntegritySystemSmallMarginAdmisible",
+          "name": "Stability Margin",
+          "quantityKindId": "SID_UseAcceptance",
+          "type": "ValueType",
+          "unitId": "Rate_McmkcidrestriconecmConunittorsgroundqCoordMeter"
+        }
+      ]
+    }
+  },
+  "rag_context": "The Elevator System is a crucial flight control surface responsible for modulating the aircraft's pitch. It focuses on rapid actuation speed (<50ms), high precision in deflection accuracy (±0.1°), and structural durability with high-grade composites (>1500 MPa tensile strength). The system is designed to withstand operational environmental conditions from -40°C to +85°C with corrosion-resistant coatings. It converts precise electrical commands into mechanical deflections to achieve desired pitch attitudes, ensuring stability and maneuverability of the aircraft.",
+  "timestamp": "20250326_174328",
+  "provider": "gpt"
+}

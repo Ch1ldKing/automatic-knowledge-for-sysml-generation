@@ -1,0 +1,340 @@
+{
+  "system_id": "evacuation_system",
+  "system_name": "Evacuation System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum time to completely initiate the evacuation process after emergency detection.",
+        "name": "activationTime",
+        "type": "string",
+        "value": "5 seconds"
+      },
+      {
+        "description": "Temperature range the system can operate reliably in during all aircraft operating conditions.",
+        "name": "environmentalTolerance",
+        "type": "string",
+        "value": "-30°C to 80°C"
+      },
+      {
+        "description": "The redundancy approach deployed to ensure the system remains operational under single-point failure conditions.",
+        "name": "redundancyMechanism",
+        "type": "string",
+        "value": "Quadruple redundancy with majority-voting logic"
+      },
+      {
+        "description": "Operational uptime before failure during regular operations.",
+        "name": "systemReliability",
+        "type": "string",
+        "value": "25000 hours MTBF"
+      },
+      {
+        "description": "Energy dependency format including primary and alternative power sources.",
+        "name": "powerConfiguration",
+        "type": "string",
+        "value": "Primary grid with backup battery arrays"
+      }
+    ],
+    "designScenario": {
+      "description": "The Evacuation Control System is central to managing and executing emergency exits and route navigation protocols onboard passenger aircraft. Through an interconnected suite of automated mechanisms and sensors, this system ensures swift and orderly passenger evacuation during emergencies. It is designed to sustain operational reliability under stringent conditions and to interact seamlessly with related safety and control subsystems.",
+      "name": "Evacuation Control System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Using triggers from disaster detection units, the system should activate all emergency exit doors and illuminations."
+            },
+            {
+              "description": "Ensure compatibility with aircraft’s central processing architecture for signal reception."
+            }
+          ],
+          "title": "Evacuation Protocol Execution",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Guarantee subsystems respond and execute within specified timeliness post-activation signal."
+            },
+            {
+              "description": "Enable clear and uninterrupted feedback communication during operations."
+            }
+          ],
+          "title": "Timeliness and Interactivity",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Employ cybersecurity measures against potential software-induced malfunctions resulting from external threats."
+            },
+            {
+              "description": "Reliability against misactivation caused by hardware retirement stresses."
+            }
+          ],
+          "title": "Resilience and Cyber Protection",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Facilitate modular upgrades to system components for future-proofing."
+            },
+            {
+              "description": "Provide user-accessible diagnostic interfaces for routine checks and validations."
+            }
+          ],
+          "title": "Upgradability and Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Central processing linking commands for execution between the central avionics module and evacuation unit.",
+        "relationshipType": "dependency",
+        "source": "Central Control Coordinator",
+        "target": "Evacuation Activation Unit"
+      },
+      {
+        "description": "The illumination signals connected ensuring guided and visual representations during egress operations.",
+        "relationshipType": "composition",
+        "source": "Evacuation Activation Unit",
+        "target": "Guidance Display Array"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Handles signal interpretation, dispatches instructions to execute evacuation orders.",
+        "name": "Evacuation Activation Unit",
+        "subComponents": [
+          {
+            "description": "Electromechanical device instigating door functionality.",
+            "name": "Actuation Core",
+            "type": "Mechanical Subassembly"
+          },
+          {
+            "description": "Illuminated feedback circuitry ensuring biometric-sensitive egress.",
+            "name": "Edge Illumination Controller",
+            "type": "Signal Processor"
+          }
+        ],
+        "type": "Control Node"
+      },
+      {
+        "description": "Guidance units providing passengers clear directional signals to closest exits based on calculated solvency paths.",
+        "name": "Guidance Display Array",
+        "subComponents": [
+          {
+            "description": "LED boards communicating exact routing information.",
+            "name": "Exit Signal Boards",
+            "type": "Display System"
+          },
+          {
+            "description": "Interactive modules updating egress plans on detected blockages.",
+            "name": "Dynamic Direction Controllers",
+            "type": "Data Node"
+          }
+        ],
+        "type": "Assistive Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "Agg_01",
+          "memberEndIds": null,
+          "name": "Components of Evacuation System",
+          "ownedEndIds": null,
+          "sourceId": "Block_Evacuation_System",
+          "sourceMultiplicity": "1",
+          "targetId": "Block_Door_Control",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        },
+        {
+          "id": "Agg_02",
+          "memberEndIds": null,
+          "name": "Components of Evacuation System",
+          "ownedEndIds": null,
+          "sourceId": "Block_Evacuation_System",
+          "sourceMultiplicity": "1",
+          "targetId": "Block_Lighting_Module",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        },
+        {
+          "id": "Agg_03",
+          "memberEndIds": null,
+          "name": "Components of Evacuation System",
+          "ownedEndIds": null,
+          "sourceId": "Block_Evacuation_System",
+          "sourceMultiplicity": "1",
+          "targetId": "Block_Sensor_Circuit",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "Attr_01",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": "3",
+          "name": "Response Time",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "Attr_02",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": "-20",
+          "name": "Operating Temperature",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "70",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "Attr_01",
+            "Attr_02"
+          ],
+          "constraintIds": null,
+          "id": "Block_Evacuation_System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Evacuation System",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "Block_Door_Control",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Door Control Unit",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "Block_Lighting_Module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Lighting Module",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "Block_Sensor_Circuit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Sensor Circuit",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "Block_Evacuation_System",
+          "body": "The Evacuation System ensures safety during emergencies by managing evacuation protocols.",
+          "id": "Comment_01",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Evacuation Control System is designed to manage safe evacuation protocols by integrating advanced door control mechanisms and directional guidance systems. It ensures rapid activation, operational reliability, and robust fail-safe measures. The system interfaces seamlessly with the central control unit and emergency lighting modules to promptly trigger evacuation signals during critical situations. The system has specific attributes such as response time of 3 seconds, operating temperature range of -20°C to 70°C, triple modular redundancy for fault tolerance, MTBF of 20000 hours, and dual power supply with battery backup for energy requirements. Additionally, it has requirements related to evacuation activation, response performance, fail-safe and redundancy, and interface and maintainability. The system components include managing safe evacuation protocols, automated door release mechanisms, and redundant sensor and actuator circuits for operational integrity.",
+  "timestamp": "20250326_174443",
+  "provider": "gpt"
+}

@@ -1,0 +1,516 @@
+{
+  "system_id": "de-icing_system",
+  "system_name": "De-Icing System",
+  "specification": {
+    "designScenario": {
+      "name": "De-Icing System",
+      "description": "Basic description of De-Icing System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [
+        {
+          "attributeIds": null,
+          "id": "OP001",
+          "name": "initiateDeIcing",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": null,
+          "id": "OP002",
+          "name": "activateHeater",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": null,
+          "id": "OP003",
+          "name": "activateFluidSpray",
+          "type": "Activity"
+        }
+      ],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [
+        {
+          "id": "ASSOC001",
+          "memberEndIds": [
+            "IB001",
+            "B002"
+          ],
+          "name": "ControlInterfaceLink",
+          "ownedEndIds": null,
+          "sourceId": "IB001",
+          "sourceMultiplicity": null,
+          "targetId": "B002",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "101325",
+          "id": "ATTR001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operatingPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "101325",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "v1.0",
+          "id": "ATTR002",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "controlAlgorithmVersion",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "v1.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "5000",
+          "id": "ATTR003",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "heaterCapacity",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "5000",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10",
+          "id": "ATTR004",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "fluidFlowRate",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "10",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.95",
+          "id": "ATTR005",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "sensitivity",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "0.95",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.5",
+          "id": "ATTR006",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "actuationResponseTime",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "0.5",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "ATTR001"
+          ],
+          "constraintIds": null,
+          "id": "B001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "DeIcingSystem",
+          "operationIds": null,
+          "partIds": [
+            "B002",
+            "B003",
+            "B004",
+            "B005",
+            "B006"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR002"
+          ],
+          "constraintIds": null,
+          "id": "B002",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "DeIcingControlUnit",
+          "operationIds": [
+            "OP001"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR003"
+          ],
+          "constraintIds": null,
+          "id": "B003",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "HeatingUnit",
+          "operationIds": [
+            "OP002"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR004"
+          ],
+          "constraintIds": null,
+          "id": "B004",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "FluidSpraySystem",
+          "operationIds": [
+            "OP003"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR005"
+          ],
+          "constraintIds": null,
+          "id": "B005",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "IceDetectionSensor",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR006"
+          ],
+          "constraintIds": null,
+          "id": "B006",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ActuatorModule",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B001",
+          "body": "This block represents the overall airplane de-icing system, integrating heating, fluid spray, sensor, control, and actuation components.",
+          "id": "COMMENT001",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "REQ001",
+          "body": "De-Icing system must operate in ambient temperatures below 5°C.",
+          "id": "COMMENT002",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "COMP001",
+          "memberEndIds": null,
+          "name": "DeIcingSystem_Composition_ControlUnit",
+          "ownedEndIds": null,
+          "sourceId": "B001",
+          "sourceMultiplicity": null,
+          "targetId": "B002",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "COMP002",
+          "memberEndIds": null,
+          "name": "DeIcingSystem_Composition_HeatingUnit",
+          "ownedEndIds": null,
+          "sourceId": "B001",
+          "sourceMultiplicity": null,
+          "targetId": "B003",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "COMP003",
+          "memberEndIds": null,
+          "name": "DeIcingSystem_Composition_FluidSpraySystem",
+          "ownedEndIds": null,
+          "sourceId": "B001",
+          "sourceMultiplicity": null,
+          "targetId": "B004",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "COMP004",
+          "memberEndIds": null,
+          "name": "DeIcingSystem_Composition_SensorModule",
+          "ownedEndIds": null,
+          "sourceId": "B001",
+          "sourceMultiplicity": null,
+          "targetId": "B005",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "COMP005",
+          "memberEndIds": null,
+          "name": "DeIcingSystem_Composition_ActuatorModule",
+          "ownedEndIds": null,
+          "sourceId": "B001",
+          "sourceMultiplicity": null,
+          "targetId": "B006",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "Efficiency >= 90%",
+          "id": "CB001",
+          "name": "DeIcingEfficiencyConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [],
+      "controlFlows": [],
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "ENUM001",
+          "literals": [
+            {
+              "id": "LIT001",
+              "name": "Manual"
+            },
+            {
+              "id": "LIT002",
+              "name": "Automatic"
+            }
+          ],
+          "name": "DeIcingMode",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": [],
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "B005",
+          "flowSpecificationId": "FS001",
+          "id": "FP001",
+          "isConjugated": false,
+          "name": "SensorDataPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "Boolean",
+          "flowType": "information",
+          "id": "FS001",
+          "name": "ControlSignalFlowSpec",
+          "type": "FlowSpecification",
+          "unit": "ms"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "B001",
+          "id": "PORT001",
+          "isConjugated": false,
+          "name": "DeIcingCmdPort",
+          "providedInterfaceIds": [
+            "IB001"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "IB001",
+          "name": "DeIcingControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B001",
+          "flowSpecificationId": null,
+          "id": "PORT003",
+          "isConjugated": false,
+          "name": "MaintenancePort",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "B001",
+          "id": "PORT003",
+          "isConjugated": false,
+          "name": "MaintenancePort",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": [],
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "REQ001",
+          "name": "DeIcingOperationalRequirement",
+          "reqId": null,
+          "text": "De-Icing system must operate in ambient temperatures below 5°C.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT001",
+          "name": "Temperature",
+          "quantityKindId": "QK001",
+          "type": "ValueType",
+          "unitId": "U_TEMP"
+        },
+        {
+          "attributeIds": [],
+          "id": "VT002",
+          "name": "Pressure",
+          "quantityKindId": "QK002",
+          "type": "ValueType",
+          "unitId": "U_PRESS"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_121002"
+}

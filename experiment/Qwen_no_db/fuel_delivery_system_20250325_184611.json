@@ -1,0 +1,577 @@
+{
+  "system_id": "fuel_delivery_system",
+  "system_name": "Fuel Delivery System",
+  "specification": {
+    "designScenario": {
+      "name": "Advanced Aeronautical Fuel System",
+      "description": "The Advanced Aeronautical Fuel System is designed to optimize fuel storage, distribution, and management for long-haul and high-altitude aircraft. It integrates cryogenic fuel compatibility, real-time load balancing, and predictive maintenance features to enhance efficiency, safety, and operational flexibility. The system employs advanced materials and digital controls to ensure seamless fuel delivery under extreme temperatures, high G-forces, and varying flight profiles.",
+      "requirements": [
+        {
+          "title": "Fuel Management Optimization",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must dynamically adjust fuel distribution between wing and center tanks to maintain optimal aircraft balance during all flight phases."
+            },
+            {
+              "description": "Enable crossfeed functionality to transfer fuel between tanks to compensate for engine failures or uneven consumption."
+            }
+          ]
+        },
+        {
+          "title": "High-Pressure Fuel Delivery",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Fuel pumps must deliver a minimum flow rate of 1200 liters/minute at pressures up to 6 Bar during maximum engine demand."
+            },
+            {
+              "description": "Maintain fuel temperature within operational limits (-40°C to +60°C) using active cooling/heating systems."
+            }
+          ]
+        },
+        {
+          "title": "Cryogenic Fuel Safety",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement triple-redundant leak detection for liquid natural gas (LNG) storage tanks with automatic isolation of compromised sections."
+            },
+            {
+              "description": "Include fail-safe valves to prevent over-pressurization during rapid altitude changes."
+            }
+          ]
+        },
+        {
+          "title": "Predictive Maintenance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide real-time health monitoring of all components, with automated diagnostics and remaining useful life predictions for critical parts."
+            },
+            {
+              "description": "Ensure a mean time between failures (MTBF) exceeding 10,000 flight hours under normal operating conditions."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Cryogenic Fuel Tank",
+        "description": "Primary storage container for liquid natural gas (LNG), featuring vacuum-insulated walls and composite liners to maintain cryogenic temperatures.",
+        "type": "Container",
+        "subComponents": [
+          {
+            "name": "Cryogenic Insulation Layer",
+            "description": "Multi-layer insulation system with vacuum jacket to prevent heat ingress.",
+            "type": "Insulation"
+          },
+          {
+            "name": "Pressure Transducer",
+            "description": "High-precision sensor monitoring internal tank pressure down to 0.1 Bar.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Variable Displacement Pump",
+        "description": "Electrically driven pump with adaptive flow control to match engine demand across all flight regimes.",
+        "type": "Actuator",
+        "subComponents": [
+          {
+            "name": "Brushless Motor",
+            "description": "High-torque motor with integrated thermal protection for continuous operation.",
+            "type": "Motor"
+          },
+          {
+            "name": "Flow Meter",
+            "description": "Ultrasonic sensor measuring fuel flow rate in real time.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Fuel Management Computer",
+        "description": "Central control unit processing sensor data, executing fuel distribution algorithms, and interfacing with flight management systems.",
+        "type": "Electronic Module",
+        "subComponents": [
+          {
+            "name": "AI Processor",
+            "description": "Dedicated chip for predictive maintenance and load optimization calculations.",
+            "type": "Processor"
+          },
+          {
+            "name": "ARINC 429 Interface",
+            "description": "Avionics data bus for communication with aircraft systems.",
+            "type": "Interface Module"
+          }
+        ]
+      },
+      {
+        "name": "Crossfeed Valve Assembly",
+        "description": "Mechanical valve system enabling fuel transfer between left/right wing tanks and center tank.",
+        "type": "Control Component",
+        "subComponents": [
+          {
+            "name": "Solenoid Valve",
+            "description": "Electrically actuated valve with positional feedback sensors.",
+            "type": "Valve"
+          },
+          {
+            "name": "Emergency Shutoff Mechanism",
+            "description": "Mechanical backup to close valves in case of electrical failure.",
+            "type": "Safety Mechanism"
+          }
+        ]
+      },
+      {
+        "name": "Cryogenic Filter",
+        "description": "Filtration unit removing particulates and ice crystals from LNG before entering engine systems.",
+        "type": "Filter",
+        "subComponents": null
+      },
+      {
+        "name": "Leak Detection System",
+        "description": "Network of pressure and ultrasonic sensors monitoring fuel lines for breaches.",
+        "type": "Monitoring",
+        "subComponents": [
+          {
+            "name": "Ultrasonic Sensor Array",
+            "description": "Non-invasive sensors detecting fuel vapor leaks.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Alarm Annunciator",
+            "description": "Visual/auditory alert system for cockpit crew.",
+            "type": "Indicator"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Variable Displacement Pump",
+        "target": "Cryogenic Fuel Tank",
+        "relationshipType": "dependency",
+        "description": "The Pump requires fuel from the Cryogenic Fuel Tank to operate; tank failure disrupts pump functionality."
+      },
+      {
+        "source": "Fuel Management Computer",
+        "target": "Leak Detection System",
+        "relationshipType": "aggregation",
+        "description": "The Computer aggregates leak detection data from sensors to trigger safety protocols."
+      },
+      {
+        "source": "Fuel Management Computer",
+        "target": "Crossfeed Valve Assembly",
+        "relationshipType": "association",
+        "description": "The Computer controls valve actuation based on fuel distribution algorithms."
+      },
+      {
+        "source": "Crossfeed Valve Assembly",
+        "target": "Cryogenic Fuel Tank",
+        "relationshipType": "composition",
+        "description": "Valves are physically integrated within the tank structure for direct fuel line access."
+      },
+      {
+        "source": "Cryogenic Filter",
+        "target": "Variable Displacement Pump",
+        "relationshipType": "dependency",
+        "description": "The Filter must be installed upstream of the Pump to prevent contamination."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "fuelType",
+        "type": "string",
+        "value": "Jet A-1, JP-8, LNG",
+        "description": "Supported fuel types including conventional jet fuel and liquid natural gas."
+      },
+      {
+        "name": "tankCapacity",
+        "type": "string",
+        "value": "5000 liters",
+        "description": "Total fuel storage capacity across all tanks under standard conditions."
+      },
+      {
+        "name": "operatingPressureRange",
+        "type": "string",
+        "value": "1-6 Bar",
+        "description": "System operational pressure envelope for fuel delivery."
+      },
+      {
+        "name": "cryogenicSupport",
+        "type": "string",
+        "value": "Supported for LNG at -162°C",
+        "description": "Indicates compatibility with cryogenic fuels and their storage requirements."
+      },
+      {
+        "name": "filterEfficiency",
+        "type": "string",
+        "value": "99.99% particulate removal",
+        "description": "Cryogenic Filter efficiency rating for particles ≥ 5 microns."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple redundant pumps and valves",
+        "description": "Redundancy architecture for critical components to meet FAA Part 25 standards."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "BLK-FDS-001",
+          "type": "Block",
+          "name": "FuelDeliverySystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "PROP-FDS-Capacity",
+            "PROP-FDS-Tanks"
+          ],
+          "operationIds": [
+            "OP-FDS-Monitor",
+            "OP-FDS-Control"
+          ],
+          "constraintIds": [
+            "CB-FDS-Capacity"
+          ],
+          "partIds": [
+            "BLK-FuelTank-001",
+            "BLK-FuelPump-001",
+            "BLK-FuelValve-001",
+            "BLK-FuelGauge-001",
+            "BLK-FMC-001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "BLK-FuelTank-001",
+          "type": "Block",
+          "name": "FuelTank",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "PROP-FuelTank-Capacity",
+            "PROP-FuelTank-Level",
+            "PROP-FuelTank-Type"
+          ],
+          "operationIds": [
+            "OP-FuelTank-Refuel",
+            "OP-FuelTank-Drain"
+          ],
+          "constraintIds": [
+            "CB-FuelTank-Capacity"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "BLK-FuelPump-001",
+          "type": "Block",
+          "name": "FuelPump",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "PROP-FuelPump-Status",
+            "PROP-FuelPump-Pressure"
+          ],
+          "operationIds": [
+            "OP-FuelPump-Start",
+            "OP-FuelPump-Stop"
+          ],
+          "constraintIds": [
+            "CB-FuelPump-Pressure"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "BLK-FuelValve-001",
+          "type": "Block",
+          "name": "FuelValve",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "PROP-FuelValve-Position"
+          ],
+          "operationIds": [
+            "OP-FuelValve-Open",
+            "OP-FuelValve-Close"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "BLK-FuelGauge-001",
+          "type": "Block",
+          "name": "FuelGauge",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "PROP-FuelGauge-Reading"
+          ],
+          "operationIds": [
+            "OP-FuelGauge-Update"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "BLK-FMC-001",
+          "type": "Block",
+          "name": "FuelManagementController",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "PROP-FMC-Mode"
+          ],
+          "operationIds": [
+            "OP-FMC-Monitor",
+            "OP-FMC-Control"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "INT-FuelLevel-001",
+          "type": "InterfaceBlock",
+          "name": "FuelLevelInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "OP-FLI-GetLevel",
+            "OP-FLI-SetLevel"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "INT-PumpControl-001",
+          "type": "InterfaceBlock",
+          "name": "PumpControlInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "OP-PCI-Start",
+            "OP-PCI-Stop"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "INT-ValveControl-001",
+          "type": "InterfaceBlock",
+          "name": "ValveControlInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "OP-VCI-Open",
+            "OP-VCI-Close"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "PORT-FuelTank-FL-001",
+          "type": "FullPort",
+          "name": "FuelLevelPort",
+          "blockId": "BLK-FuelTank-001",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "INT-FuelLevel-001"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "PORT-FuelPump-PC-001",
+          "type": "ProxyPort",
+          "name": "PumpControlPort",
+          "blockId": "BLK-FuelPump-001",
+          "portType": "proxy",
+          "isConjugated": false,
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "INT-PumpControl-001"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "PORT-FuelValve-VC-001",
+          "type": "ProxyPort",
+          "name": "ValveControlPort",
+          "blockId": "BLK-FuelValve-001",
+          "portType": "proxy",
+          "isConjugated": false,
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "INT-ValveControl-001"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "FLOW-Port-Fuel-001",
+          "type": "FlowPort",
+          "name": "FuelFlowPort",
+          "blockId": "BLK-FuelTank-001",
+          "portType": "flow",
+          "isConjugated": false,
+          "flowSpecificationId": "FSP-Fuel-001",
+          "attributeIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FSP-Fuel-001",
+          "type": "FlowSpecification",
+          "name": "FuelFlowSpec",
+          "flowType": "material",
+          "dataType": "VT-FuelVolume-001",
+          "unit": "liters/second",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB-FuelTank-Capacity",
+          "type": "ConstraintBlock",
+          "name": "FuelTankCapacityConstraint",
+          "expression": "FuelTank.currentLevel <= FuelTank.capacity",
+          "parameterIds": [],
+          "attributeIds": []
+        },
+        {
+          "id": "CB-FuelPump-Pressure",
+          "type": "ConstraintBlock",
+          "name": "FuelPumpPressureConstraint",
+          "expression": "FuelPump.pressure BETWEEN 200 AND 400 psi",
+          "parameterIds": [],
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT-FuelVolume-001",
+          "type": "ValueType",
+          "name": "FuelVolume",
+          "quantityKindId": "QK-Volume",
+          "unitId": "UNIT-Liters",
+          "attributeIds": []
+        },
+        {
+          "id": "VT-Pressure-002",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "QK-Pressure",
+          "unitId": "UNIT-psi",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM-FuelType-001",
+          "type": "Enumeration",
+          "name": "FuelType",
+          "literals": [
+            {
+              "id": "LIT-JetA",
+              "name": "JetA"
+            },
+            {
+              "id": "LIT-Avgas",
+              "name": "Avgas"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "PROP-FuelTank-Capacity",
+          "type": "Property",
+          "name": "capacity",
+          "propertyType": "VT-FuelVolume-001",
+          "value": "0",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "PROP-FuelTank-Level",
+          "type": "Property",
+          "name": "currentLevel",
+          "propertyType": "VT-FuelVolume-001",
+          "value": "0",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "PROP-FuelTank-Type",
+          "type": "Property",
+          "name": "fuelType",
+          "propertyType": "ENUM-FuelType-001",
+          "value": "JetA",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "JetA",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_184611",
+  "provider": "qwen"
+}

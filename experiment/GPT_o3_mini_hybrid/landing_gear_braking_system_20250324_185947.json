@@ -1,0 +1,652 @@
+{
+  "system_id": "landing_gear_braking_system",
+  "system_name": "Landing Gear Braking System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum deceleration force achievable by the Brake System under emergency conditions.",
+        "name": "maxDeceleration",
+        "type": "string",
+        "value": "4.5g"
+      },
+      {
+        "description": "The brake system's ability to rapidly dissipate heat during prolonged or repeated use.",
+        "name": "heatDissipation",
+        "type": "string",
+        "value": "High capacity with advanced cooling design"
+      },
+      {
+        "description": "Response time from activation command to full brake engagement.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Within 0.5 seconds"
+      },
+      {
+        "description": "Redundant hydraulic circuit design ensuring fail-safe operation in case of circuit failure.",
+        "name": "redundancy",
+        "type": "string",
+        "value": "Dual circuit design"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear Braking System is a vital component in the aircraft's landing gear that ensures rapid and effective deceleration upon touchdown. It integrates high-performance friction components, rapid response actuation systems, and redundant hydraulic circuits to provide safe, reliable performance in both normal and emergency conditions. The system is designed to meet rigorous aviation safety standards and is optimized for maintenance and compliance with aerospace regulations.",
+      "name": "Landing Gear Braking System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must deliver consistent braking force across varying aircraft loads and runway conditions."
+            },
+            {
+              "description": "It must interface accurately with the Wheel Assembly to manage deceleration forces throughout the landing gear."
+            }
+          ],
+          "title": "Functional Braking Performance",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The complete engagement of braking systems must occur within 0.5 seconds to ensure rapid deceleration during emergency landings."
+            },
+            {
+              "description": "Advanced heat dissipation mechanisms should maintain braking performance during continuous or repeated operations."
+            }
+          ],
+          "title": "Performance Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate dual hydraulic circuit redundancy to ensure the brake system remains fully operational in the event of a circuit failure."
+            },
+            {
+              "description": "Integrate system monitoring that alerts the flight crew to any abnormal condition in the braking operation."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design should support easy inspection, maintenance, and replacement procedures according to aviation maintenance protocols."
+            },
+            {
+              "description": "Materials and construction techniques must comply with environmental, endurance, and durability standards set for aerospace applications."
+            }
+          ],
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Brake System comprises Brake Calipers which actuate to apply pressure for friction generation.",
+        "relationshipType": "composition",
+        "source": "Brake System",
+        "target": "Brake Calipers"
+      },
+      {
+        "description": "Brake System comprises Brake Discs that provide the friction surfaces required for deceleration.",
+        "relationshipType": "composition",
+        "source": "Brake System",
+        "target": "Brake Discs"
+      },
+      {
+        "description": "Brake System is dependent on the Hydraulic System for hydraulic pressure to facilitate brake actuation.",
+        "relationshipType": "dependency",
+        "source": "Brake System",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "Brake System associates with the Wheel Assembly to transfer braking forces effectively to the landing gear.",
+        "relationshipType": "association",
+        "source": "Brake System",
+        "target": "Wheel Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Subsystem dedicated to providing deceleration through friction braking, integrated within the aircraft's landing gear architecture.",
+        "name": "Brake System",
+        "subComponents": [
+          {
+            "description": "Brake Calipers that actuate to apply hydraulic pressure, converting kinetic energy into frictional heat.",
+            "name": "Brake Calipers",
+            "type": "Actuator"
+          },
+          {
+            "description": "Brake Discs fashioned from high-friction materials to generate the necessary deceleration force.",
+            "name": "Brake Discs",
+            "type": "Friction Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Hydraulic system supplying controlled fluid pressure essential for the rapid actuation of the brake system.",
+        "name": "Hydraulic System",
+        "subComponents": null,
+        "type": "Subsystem"
+      },
+      {
+        "description": "Mechanical assembly that integrates the landing gear wheels with the braking system, ensuring effective force transmission during deceleration.",
+        "name": "Wheel Assembly",
+        "subComponents": null,
+        "type": "Mechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-brake-wheel",
+          "memberEndIds": null,
+          "name": "BrakeToWheelAssembly",
+          "ownedEndIds": null,
+          "sourceId": "block-brake-system-spec",
+          "sourceMultiplicity": null,
+          "targetId": "block-wheel-assembly",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "4.5g",
+          "id": "attr-max-decel",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "maxDeceleration",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "4.5g",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "High capacity with advanced cooling design",
+          "id": "attr-heat-dissipation",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "heatDissipation",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "High capacity with advanced cooling design",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Within 0.5 seconds",
+          "id": "attr-response-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Within 0.5 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual circuit design",
+          "id": "attr-redundancy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual circuit design",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-max-decel",
+            "attr-heat-dissipation",
+            "attr-response-time",
+            "attr-redundancy"
+          ],
+          "constraintIds": null,
+          "id": "block-brake-system-spec",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Brake System",
+          "operationIds": null,
+          "partIds": [
+            "part-brake-calipers",
+            "part-brake-discs"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-brake-calipers",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Brake Calipers",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-brake-discs",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Brake Discs",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-landing-gear-braking-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Landing Gear Braking System",
+          "operationIds": null,
+          "partIds": [
+            "block-brake-system-spec",
+            "block-hydraulic-system",
+            "block-wheel-assembly"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-hydraulic-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Hydraulic System",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-wheel-assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Wheel Assembly",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-brake-system-spec",
+          "body": "Brake System is a critical safety and performance component integrated within the landing gear. It delivers rapid deceleration through high-friction components, advanced cooling for heat dissipation, and redundant hydraulic circuits ensuring failsafe operation.",
+          "id": "comment-brake-system",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block-brake-calipers",
+          "body": "Brake Calipers actuate to apply pressure on the brake discs, converting kinetic energy into heat.",
+          "id": "comment-brake-calipers",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block-brake-discs",
+          "body": "Brake Discs provide the necessary friction surface for deceleration upon contact with the calipers.",
+          "id": "comment-brake-discs",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block-landing-gear-braking-system",
+          "body": "Landing Gear Braking System integrates the Brake System, Hydraulic System, and Wheel Assembly to ensure safe, efficient deceleration. It meets rigorous aviation safety and maintainability standards.",
+          "id": "comment-landing-gear-braking-system",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-brake-calipers",
+          "memberEndIds": null,
+          "name": "BrakeSystemToCalipers",
+          "ownedEndIds": null,
+          "sourceId": "block-brake-system-spec",
+          "sourceMultiplicity": null,
+          "targetId": "block-brake-calipers",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-brake-discs",
+          "memberEndIds": null,
+          "name": "BrakeSystemToDiscs",
+          "ownedEndIds": null,
+          "sourceId": "block-brake-system-spec",
+          "sourceMultiplicity": null,
+          "targetId": "block-brake-discs",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-landing-gear-brake",
+          "memberEndIds": null,
+          "name": "LandingGearToBrakeSystem",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-braking-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-brake-system-spec",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-landing-gear-hydraulic",
+          "memberEndIds": null,
+          "name": "LandingGearToHydraulicSystem",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-braking-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-hydraulic-system",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-landing-gear-wheel",
+          "memberEndIds": null,
+          "name": "LandingGearToWheelAssembly",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-braking-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-wheel-assembly",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "responseTime <= 0.5s",
+          "id": "const-brake-response",
+          "name": "BrakeResponseConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "redundancy == 'Dual circuit design'",
+          "id": "const-brake-redundancy",
+          "name": "BrakeRedundancyConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-brake-hydraulic",
+          "name": "BrakeDependsOnHydraulic",
+          "sourceId": "block-brake-system-spec",
+          "sourceMultiplicity": null,
+          "targetId": "block-hydraulic-system",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-brake-status",
+          "literals": [
+            {
+              "id": "literal-normal",
+              "name": "Normal"
+            },
+            {
+              "id": "literal-emergency",
+              "name": "Emergency"
+            },
+            {
+              "id": "literal-fault",
+              "name": "Fault"
+            }
+          ],
+          "name": "BrakeStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "ElectricalSignal",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-brake-signal",
+          "name": "BrakeSignalFlow",
+          "type": "FlowSpecification",
+          "unit": "V"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-brake-control",
+          "name": "BrakeControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-brake-calipers",
+          "name": "Brake Calipers",
+          "of": "block-brake-calipers",
+          "type": "Part"
+        },
+        {
+          "id": "part-brake-discs",
+          "name": "Brake Discs",
+          "of": "block-brake-discs",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-brake-system-spec",
+          "flowSpecificationId": "flow-spec-brake-signal",
+          "id": "port-brake-command",
+          "isConjugated": false,
+          "name": "BrakeCommandPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-brake-control"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-brake-system-spec",
+          "flowSpecificationId": "flow-spec-brake-signal",
+          "id": "port-brake-feedback",
+          "isConjugated": false,
+          "name": "BrakeFeedbackPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-landing-gear-braking-system",
+          "flowSpecificationId": "flow-spec-brake-signal",
+          "id": "port-landing-gear-command",
+          "isConjugated": false,
+          "name": "LandingGearCommandPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-brake-control"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-landing-gear-braking-system",
+          "flowSpecificationId": "flow-spec-brake-signal",
+          "id": "port-landing-gear-feedback",
+          "isConjugated": false,
+          "name": "LandingGearFeedbackPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-func-braking-performance",
+          "name": "Functional Braking Performance",
+          "reqId": null,
+          "text": "The Brake System must deliver consistent braking force across varying aircraft weights and runway conditions. It should integrate seamlessly with the Wheel Assembly to provide precise deceleration.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-performance-efficiency",
+          "name": "Performance Efficiency",
+          "reqId": null,
+          "text": "The system must achieve full brake engagement within 0.5 seconds to ensure rapid response during emergencies and ensure efficient heat dissipation during repeated operations.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-safety-redundancy",
+          "name": "Safety and Redundancy",
+          "reqId": null,
+          "text": "Incorporate dual hydraulic circuit redundancy to maintain braking functionality in the event of a component failure. Sensors and control interfaces must alert the crew upon any deviation from normal braking parameters.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-maintainability-compliance",
+          "name": "Maintainability and Compliance",
+          "reqId": null,
+          "text": "The design should facilitate easy inspection, maintenance, and component replacement as per aviation maintenance protocols. All materials and construction methods must comply with aviation environmental and durability standards.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-decel",
+          "name": "DecelerationForceValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": "u_g"
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-time",
+          "name": "TimeValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": "u_seconds"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "brake_system",
+  "timestamp": "20250324_185947"
+}

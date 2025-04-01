@@ -1,0 +1,426 @@
+{
+  "system_id": "nose_landing_gear_system",
+  "system_name": "Nose Landing Gear System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum load capacity during impact absorbance by the Nose Landing Gear System.",
+        "name": "loadCapacity",
+        "type": "string",
+        "value": "Up to 60,000 lbs"
+      },
+      {
+        "description": "Time to fully deploy or retract the nose landing gear.",
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "< 4 seconds"
+      },
+      {
+        "description": "Durability of the nose wheel structure.",
+        "name": "durability",
+        "type": "string",
+        "value": "Certified for 30,000 landings"
+      }
+    ],
+    "designScenario": {
+      "description": "The Nose Landing Gear System ensures safe operation during landing and taxiing, includes shock absorption, steering, retraction, and deployment mechanisms.",
+      "name": "Nose Landing Gear System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Extend and lock the nose landing gear during landing and taxiing phases under all operational conditions."
+            }
+          ],
+          "title": "Deployment and Retraction",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Steering of nose landing gear must allow precise control within taxiways during ground operations."
+            }
+          ],
+          "title": "Steering Functions",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Shock absorber must dissipate kinetic energy effectively under various payload conditions."
+            }
+          ],
+          "title": "Impact Absorption",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Fail-safe measures must allow for mechanical deployment in case of hydraulic failures."
+            }
+          ],
+          "title": "Emergency Mechanisms",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "System must accommodate maintenance accessibility and monitoring to reduce turn-around time."
+            }
+          ],
+          "title": "Maintenance and Inspection",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Actuation System controls the deployment and retraction of the Nose Landing Gear.",
+        "relationshipType": "association",
+        "source": "Actuation System",
+        "target": "Control Unit"
+      },
+      {
+        "description": "The Hydraulic System powers the Actuation System for physical operations.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic System",
+        "target": "Actuation System"
+      },
+      {
+        "description": "The Sensor Module provides real-time status to the Control Unit.",
+        "relationshipType": "aggregation",
+        "source": "Sensor Module",
+        "target": "Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Hydraulic mechanism enabling the extension of the nose landing gear.",
+        "name": "Hydraulic System",
+        "subComponents": [
+          {
+            "description": "Structure that handles fluid regulation and pressure control.",
+            "name": "Hydraulic Reservoir",
+            "type": "Component"
+          },
+          {
+            "description": "Pump that generates hydraulic pressure.",
+            "name": "Hydraulic Pump",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Device managing the sequencing and operation procedures.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Computational core processing operational feedback.",
+            "name": "Processor Module",
+            "type": "Component"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Sensor systems for monitoring and operational diagnostics.",
+        "name": "Sensor Module",
+        "subComponents": [
+          {
+            "description": "Detects and confirms the position of gear systems.",
+            "name": "Position Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring System"
+      },
+      {
+        "description": "Mechanical assembly providing structural integrity, including the suspensions.",
+        "name": "Landing Strut Assembly",
+        "subComponents": [
+          {
+            "description": "Primary load-handling structure.",
+            "name": "Main Strut",
+            "type": "Structural Component"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-sensor-control",
+          "memberEndIds": [
+            "port-position-sensor",
+            "port-control-unit"
+          ],
+          "name": "SensorControlAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-sensor-module",
+          "sourceMultiplicity": "1",
+          "targetId": "block-control-unit",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-actuation-control",
+          "memberEndIds": [
+            "port-actuation-command",
+            "port-control-unit"
+          ],
+          "name": "ActuationControlAssociation",
+          "ownedEndIds": null,
+          "sourceId": "block-actuation-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-control-unit",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "None",
+          "id": "attr-load-capacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": true,
+          "isOrdered": false,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "LoadCapacity",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Up to 60,000 lbs",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-load-capacity"
+          ],
+          "constraintIds": [
+            "const-shock-absorber"
+          ],
+          "id": "block-nose-landing-gear",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "NoseLandingGearSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-actuation-system",
+            "part-control-unit"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-nose-landing-gear",
+          "body": "It ensures deployment, steering, and absorption functionalities.",
+          "id": "comment-nose-landing-gear",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-hydraulic-system",
+          "memberEndIds": null,
+          "name": "HydraulicSystemSubassembly",
+          "ownedEndIds": null,
+          "sourceId": "block-nose-landing-gear",
+          "sourceMultiplicity": "1",
+          "targetId": "block-hydraulic-system",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": [
+        {
+          "id": "connector-actuation-to-control",
+          "kind": "assembly",
+          "name": "ActuationToControlConnector",
+          "source": " port-actuation-command",
+          "target": "port-control-unit",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "deploymentTime ≤ 4s",
+          "id": "const-shock-absorber",
+          "name": "DeploymentTimeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "attr-load-capacity"
+          ],
+          "id": "constraint-load-adequacy",
+          "name": "LoadCapacityAdequacy",
+          "specification": "LoadCapacity >= 60000lbs",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-hydraulic-to-system",
+          "name": "HydraulicToSystemDependency",
+          "sourceId": "block-hydraulic-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-nose-landing-gear",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-control-unit",
+          "flowSpecificationId": "flow-spec-command",
+          "id": "port-control-command",
+          "isConjugated": false,
+          "name": "ControlCommandPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "CommandData",
+          "flowType": "Command",
+          "id": "flow-spec-command",
+          "name": "CommandDataFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-system-management",
+          "name": "SystemManagementInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": [
+        {
+          "flowSpecificationId": "flow-spec-command",
+          "id": "item-nose-gear-command",
+          "itemPropertyIds": null,
+          "name": "GearCommandFlow",
+          "sourceId": "block-control-unit",
+          "targetId": "block-actuation-system",
+          "type": "ItemFlow"
+        }
+      ],
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-nose-gear-system",
+          "name": "NoseGearSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": [
+        {
+          "defaultValue": "4 seconds",
+          "id": "param-deployment-time",
+          "name": "DeploymentTime",
+          "parameterType": "Real",
+          "type": "Parameter"
+        }
+      ],
+      "parts": [
+        {
+          "id": "part-actuation-system",
+          "name": "ActuationSystem",
+          "of": "block-actuation-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-control-unit",
+          "name": "ControlUnit",
+          "of": "block-control-unit",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-deployment-mechanism",
+          "name": "DeploymentMechanism",
+          "reqId": "REQ-01",
+          "text": "Ensure functional landing gear deployment and retraction.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": [
+        {
+          "id": "use-hydraulics",
+          "name": "HydraulicsToSystemUsage",
+          "sourceId": "block-nose-landing-gear",
+          "targetId": "block-hydraulic-system",
+          "type": "Usage"
+        }
+      ],
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": null,
+  "parent_system": "landing_gear_system",
+  "timestamp": "20250326_165930",
+  "provider": "gpt"
+}

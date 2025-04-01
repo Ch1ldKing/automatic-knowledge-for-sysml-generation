@@ -1,0 +1,422 @@
+{
+  "system_id": "collision_avoidance_system",
+  "system_name": "Collision Avoidance System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Processing speed for real-time collision evaluation.",
+        "name": "processingSpeed",
+        "type": "string",
+        "value": "10 ms per cycle"
+      },
+      {
+        "description": "Precision of detection in identifying potential collision courses.",
+        "name": "detectionPrecision",
+        "type": "string",
+        "value": "Within ±10 meters"
+      },
+      {
+        "description": "Ensures the system operates under harsh flight conditions.",
+        "name": "environmentalAdaptability",
+        "type": "string",
+        "value": "Operational between -50°C to +60°C"
+      },
+      {
+        "description": "Self-monitoring and recovery capabilities for continuous function.",
+        "name": "faultTolerance",
+        "type": "string",
+        "value": "Automatic component failover and re-initialization mechanisms"
+      }
+    ],
+    "designScenario": {
+      "description": "The Collision Avoidance System ensures aircraft safety by providing timely alerts and evasion guidance to prevent aerial collisions. By processing inputs from onboard sensors, radar, and secure communications with neighboring aircraft, it predicts potential collisions and advises maneuvering strategies.",
+      "name": "Collision Avoidance System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Must process data inputs from radar, GPS, and onboard sensors in real-time."
+            },
+            {
+              "description": "Provide collision warning alerts at least 10 seconds prior to a potential impact."
+            }
+          ],
+          "title": "Real-time Collision Prediction",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Operate continuously with an evaluation cycle of 10 milliseconds."
+            },
+            {
+              "description": "Maintain processing latency below 50 milliseconds under full operation."
+            }
+          ],
+          "title": "High-Performance Processing",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure operation redundancy to handle system component failure without degradation of service."
+            },
+            {
+              "description": "Provide clear alert signals distinguishable from other cockpit notifications."
+            }
+          ],
+          "title": "Fail-Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Comply with international aviation standards for electronic flight systems."
+            },
+            {
+              "description": "Operate reliably across diverse environmental and weather conditions."
+            }
+          ],
+          "title": "Regulatory Compliance and Environmental Adaptability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Radar system transmits real-time spatial data to the collision detection module for evaluation.",
+        "relationshipType": "association",
+        "source": "Radar",
+        "target": "Collision Detection Module"
+      },
+      {
+        "description": "The collision detection module directs instructions to the alert system to notify pilots.",
+        "relationshipType": "dependency",
+        "source": "Collision Detection Module",
+        "target": "Alert System"
+      },
+      {
+        "description": "Communications device exchanges position and trajectory data with nearby aircraft systems.",
+        "relationshipType": "aggregation",
+        "source": "Communication Device",
+        "target": "Collision Detection Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Primary analytics unit processes spatial and kinematic data for identifying collision threats.",
+        "name": "Collision Detection Module",
+        "subComponents": [
+          {
+            "description": "Core computational subsystem for evaluating potential collisions based on collected data.",
+            "name": "Processing Core",
+            "type": "Subsystem"
+          },
+          {
+            "description": "Data fusion engine integrating inputs from radar, sensors, and communication devices.",
+            "name": "Data Integration Unit",
+            "type": "Subsystem"
+          }
+        ],
+        "type": "Core Module"
+      },
+      {
+        "description": "Detection instrument providing range and relative bearing to nearby aircraft.",
+        "name": "Radar",
+        "subComponents": null,
+        "type": "Sensor"
+      },
+      {
+        "description": "Communication interface for airplane-to-airplane and control tower data sharing.",
+        "name": "Communication Device",
+        "subComponents": null,
+        "type": "Interface"
+      },
+      {
+        "description": "Notification component delivering visual and auditory warnings to pilots.",
+        "name": "Alert System",
+        "subComponents": null,
+        "type": "Control Device"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-radar-detection",
+          "memberEndIds": [
+            "radar",
+            "collisionDetection"
+          ],
+          "name": "RadarToDetection",
+          "ownedEndIds": [
+            "radarDetectionEnd"
+          ],
+          "sourceId": "radar",
+          "sourceMultiplicity": "1",
+          "targetId": "collisionDetection",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "10 ms per cycle",
+          "id": "attr-processingSpeed",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "processingSpeed",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "10 ms per cycle",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Within ±10 meters",
+          "id": "attr-detectionPrecision",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "detectionPrecision",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Within ±10 meters",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Operational between -50°C to +60°C",
+          "id": "attr-environmentalAdaptability",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "environmentalAdaptability",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Operational between -50°C to +60°C",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-processingSpeed",
+            "attr-detectionPrecision",
+            "attr-environmentalAdaptability"
+          ],
+          "constraintIds": [
+            "const-cycle-time"
+          ],
+          "id": "block-collision-avoidance-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Collision Avoidance System",
+          "operationIds": null,
+          "partIds": [
+            "part-radar",
+            "part-communication-system",
+            "part-alert-device"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-radar",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Radar",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-communication-device",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Communication Device",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-alert-device",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Alert Device",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-collision-avoidance-system",
+          "body": "The Collision Avoidance System integrates advanced avionics ensuring safe air traffic management under diverse operational scenarios.",
+          "id": "comment-system-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-collision-radar",
+          "memberEndIds": null,
+          "name": "ComposesRadar",
+          "ownedEndIds": null,
+          "sourceId": "block-collision-avoidance-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-radar",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-collision-communication",
+          "memberEndIds": null,
+          "name": "ComposesCommunicationDevice",
+          "ownedEndIds": null,
+          "sourceId": "block-collision-avoidance-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-communication-device",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-collision-alert",
+          "memberEndIds": null,
+          "name": "ComposesAlertDevice",
+          "ownedEndIds": null,
+          "sourceId": "block-collision-avoidance-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-alert-device",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "cycleTime <= 10 ms",
+          "id": "const-cycle-time",
+          "name": "CycleTimeRequirement",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-radar",
+          "name": "RadarInstance",
+          "of": "block-radar",
+          "type": "Part"
+        },
+        {
+          "id": "part-communication-system",
+          "name": "CommunicationInstance",
+          "of": "block-communication-device",
+          "type": "Part"
+        },
+        {
+          "id": "part-alert-device",
+          "name": "AlertInstance",
+          "of": "block-alert-device",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-10ms-cycle",
+          "name": "Cycle Time Constraint",
+          "reqId": "RCT001",
+          "text": "Ensures the system cycle time does not exceed 10 ms.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": null,
+  "parent_system": "sensor_suite",
+  "timestamp": "20250326_171951",
+  "provider": "gpt"
+}

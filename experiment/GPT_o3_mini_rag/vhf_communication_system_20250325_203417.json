@@ -1,0 +1,481 @@
+{
+  "system_id": "vhf_communication_system",
+  "system_name": "VHF Communication System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the refined VHF frequency range optimized for aero-communications.",
+        "name": "operationalFrequencyRange",
+        "type": "string",
+        "value": "120-136 MHz"
+      },
+      {
+        "description": "Defines the maximum transmission power ensuring extended range and robust signal strength.",
+        "name": "transmissionPowerOutput",
+        "type": "string",
+        "value": "30W"
+      },
+      {
+        "description": "Indicates the minimum detectable signal strength for effective reception in challenging conditions.",
+        "name": "receiverSensitivityLevel",
+        "type": "string",
+        "value": "-105 dBm"
+      },
+      {
+        "description": "Specifies an advanced triple modular redundancy approach to improve fault tolerance and system reliability.",
+        "name": "redundancyDesign",
+        "type": "string",
+        "value": "Triple modular redundancy"
+      },
+      {
+        "description": "Measures the time delay in signal processing to support nearly instantaneous voice interactions.",
+        "name": "communicationLatency",
+        "type": "string",
+        "value": "Below 40ms"
+      },
+      {
+        "description": "Ensures the system meets updated aviation safety certification requirements.",
+        "name": "certificationStandard",
+        "type": "string",
+        "value": "DO-178C / DO-254"
+      }
+    ],
+    "designScenario": {
+      "description": "The V H F Radio system is an advanced avionics communication unit designed for seamless two-way voice communication between aircraft and air traffic control. It incorporates dynamic frequency synthesis, advanced redundancy, and real-time signal processing capabilities. This system provides critical command and control integration, ensuring reliable, low-latency communication while meeting stringent modern aviation safety standards.",
+      "name": "V H F Radio",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Ensure robust bidirectional voice communications within the VHF spectrum to support clear and reliable exchanges between cockpit and ATC."
+            }
+          ],
+          "title": "Voice Communication",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain signal processing latency below 40ms to support near-instantaneous pilot-ATC interactions."
+            }
+          ],
+          "title": "Low Latency Operation",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Utilize redundant signal paths, self-monitoring diagnostics, and fail-safe protocols to maintain continuous communication even during component failures."
+            }
+          ],
+          "title": "Enhanced Safety Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure integration with existing cockpit management systems and adherence to updated DO-178C/DO-254 certification standards for streamlined maintenance and regulatory compliance."
+            }
+          ],
+          "title": "Integration and Certification",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The VHF Transceiver Unit communicates with the Control and Monitoring Module for signal processing and system diagnostics.",
+        "relationshipType": "association",
+        "source": "VHF Transceiver Unit",
+        "target": "Control and Monitoring Module"
+      },
+      {
+        "description": "The VHF Transceiver Unit aggregates with the Antenna Interface to convert digital signals into RF transmissions.",
+        "relationshipType": "aggregation",
+        "source": "VHF Transceiver Unit",
+        "target": "Antenna Interface"
+      },
+      {
+        "description": "The Control and Monitoring Module depends on the Auxiliary Power Supply Unit to provide stable energy for real-time operations.",
+        "relationshipType": "dependency",
+        "source": "Control and Monitoring Module",
+        "target": "Auxiliary Power Supply Unit"
+      },
+      {
+        "description": "The Audio Signal Processor is associated with the VHF Transceiver Unit to facilitate optimal modulation and demodulation of voice signals.",
+        "relationshipType": "association",
+        "source": "Audio Signal Processor",
+        "target": "VHF Transceiver Unit"
+      },
+      {
+        "description": "The RF Power Amplifier is composed with the Digital Frequency Synthesizer for accurate frequency tuning and adequate power amplification necessary for robust transmission.",
+        "relationshipType": "composition",
+        "source": "RF Power Amplifier",
+        "target": "Digital Frequency Synthesizer"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core module responsible for generating, transmitting, and receiving VHF signals; integrates multiple subcomponents for signal amplification, frequency synthesis, and signal conditioning.",
+        "name": "VHF Transceiver Unit",
+        "subComponents": [
+          {
+            "description": "Boosts radio frequency signals to the required output levels for effective communication.",
+            "name": "RF Power Amplifier",
+            "type": "Amplifier Module"
+          },
+          {
+            "description": "Generates precise tuning frequencies across the VHF band with programmable settings.",
+            "name": "Digital Frequency Synthesizer",
+            "type": "Frequency Generator"
+          },
+          {
+            "description": "Applies filtering and error correction algorithms to maintain signal integrity.",
+            "name": "Signal Conditioning Unit",
+            "type": "DSP Unit"
+          }
+        ],
+        "type": "Radio Transceiver Hardware"
+      },
+      {
+        "description": "Handles digital control logic, system diagnostics, and processing of communication data to ensure responsive operations under varying conditions.",
+        "name": "Control and Monitoring Module",
+        "subComponents": [
+          {
+            "description": "Executes software algorithms for system control, fault detection, and real-time diagnostics.",
+            "name": "Microprocessor Core",
+            "type": "CPU"
+          }
+        ],
+        "type": "Processor Module"
+      },
+      {
+        "description": "Facilitates connection between the transceiver and the external antenna system, ensuring efficient conversion of digital signals to RF energy.",
+        "name": "Antenna Interface",
+        "subComponents": null,
+        "type": "Interface Hardware"
+      },
+      {
+        "description": "Provides stable and redundant power to ensure uninterrupted operation of the V H F Radio system.",
+        "name": "Auxiliary Power Supply Unit",
+        "subComponents": null,
+        "type": "Power Electronics"
+      },
+      {
+        "description": "Manages modulation and demodulation of audio signals to optimize clarity and fidelity of communications.",
+        "name": "Audio Signal Processor",
+        "subComponents": null,
+        "type": "DSP Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": null,
+          "id": "ACT1",
+          "name": "Process Voice Communication",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "VHF Communication System",
+          "operationIds": null,
+          "partIds": [
+            "P1",
+            "P2",
+            "P3"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Radio Transmitter",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Radio Receiver",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Dual Redundant Circuitry",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "TransmissionPower = 25W; FrequencyRange = 118-137MHz; Latency < 50ms",
+          "id": "CB1",
+          "name": "VHF Parametric Constraints",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "ST_LINE1",
+          "name": "System Lifeline",
+          "represents": "B1",
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "118-137MHz",
+          "id": "PAR1",
+          "name": "Frequency Range",
+          "parameterType": "String",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "25W",
+          "id": "PAR2",
+          "name": "Transmission Power",
+          "parameterType": "String",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "±1dB",
+          "id": "PAR3",
+          "name": "Receiver Sensitivity Accuracy",
+          "parameterType": "String",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "<50ms",
+          "id": "PAR4",
+          "name": "Communication Latency",
+          "parameterType": "String",
+          "type": "Parameter"
+        }
+      ],
+      "parts": [
+        {
+          "id": "P1",
+          "name": "Transmitter Part",
+          "of": "B1",
+          "type": "Part"
+        },
+        {
+          "id": "P2",
+          "name": "Receiver Part",
+          "of": "B1",
+          "type": "Part"
+        },
+        {
+          "id": "P3",
+          "name": "Redundant Circuitry Part",
+          "of": "B1",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": "FS1",
+          "id": "PORT1",
+          "isConjugated": false,
+          "name": "Network Interface Port",
+          "portType": "full",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "REQ1",
+          "name": "Frequency Band Requirement",
+          "reqId": "REQ-FREQ",
+          "text": "The system shall operate within the VHF frequency band of 118-137 MHz.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "REQ2",
+          "name": "Transmission Power Requirement",
+          "reqId": "REQ-PWR",
+          "text": "The system shall provide a transmission power of 25W.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "REQ3",
+          "name": "Receiver Sensitivity Requirement",
+          "reqId": "REQ-SENS",
+          "text": "The receiver sensitivity shall be within 1dB accuracy.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "REQ4",
+          "name": "Communication Latency Requirement",
+          "reqId": "REQ-LAT",
+          "text": "The communication latency shall be below 50ms.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "REQ5",
+          "name": "Redundancy Requirement",
+          "reqId": "REQ-RED",
+          "text": "The design shall include dual redundant circuitry for safety and reliability.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "REQ6",
+          "name": "Standards Compliance Requirement",
+          "reqId": "REQ-STD",
+          "text": "The system shall comply with critical aviation standards such as DO-178 and DO-254.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": null,
+          "id": "ST1",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "ST2",
+          "name": "Active Communication",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "ST3",
+          "name": "Fault",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": "Initiate Radio Transmission",
+          "guard": "System ready and no fault detected",
+          "id": "TRANS1",
+          "name": "Idle to Active",
+          "sourceId": "ST1",
+          "targetId": "ST2",
+          "trigger": "Voice Communication Initiation",
+          "type": "Transition"
+        },
+        {
+          "effect": "Enter Fault Mode",
+          "guard": "Redundancy failure or parameter deviation",
+          "id": "TRANS2",
+          "name": "Active to Fault",
+          "sourceId": "ST2",
+          "targetId": "ST3",
+          "trigger": "Fault Detected",
+          "type": "Transition"
+        },
+        {
+          "effect": "Reset System",
+          "guard": "Fault cleared",
+          "id": "TRANS3",
+          "name": "Fault to Idle",
+          "sourceId": "ST3",
+          "targetId": "ST1",
+          "trigger": "System Reset Command",
+          "type": "Transition"
+        }
+      ],
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": null,
+          "id": "UC1",
+          "name": "Short Range Voice Communication",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The VHF Communication System operates on the VHF frequency band of 118-137 MHz, with a transmission power of 25W. It has a receiver sensitivity within 1dB accuracy and a communication latency below 50ms. The system design includes dual redundant circuitry for reliability and compliance with critical aviation standards such as DO-178/DO-254. It is designed for short-range voice communication between aircraft and air traffic control, ensuring real-time communication, safety-critical redundancy, and seamless integration with the aircraft's communication network to support flight operations and operational safety.",
+  "timestamp": "20250325_203417",
+  "provider": "gpt"
+}

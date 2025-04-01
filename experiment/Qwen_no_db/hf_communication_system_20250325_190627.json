@@ -1,0 +1,541 @@
+{
+  "system_id": "hf_communication_system",
+  "system_name": "HF Communication System",
+  "specification": {
+    "designScenario": {
+      "name": "HF Communication System",
+      "description": "Design an advanced HF Communication System engineered for secure, reliable, and robust long-range voice and data transmission in hazardous environments. The system integrates HF radio technology with modern avionics standards, ensuring electromagnetic compatibility and interference rejection. It serves as the primary communication backbone for air, land, and maritime platforms, prioritizing mission-critical data integrity and redundancy.",
+      "requirements": [
+        {
+          "title": "Multi-Modal Communication",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall support HF voice communication, telex, and data transmission (e.g., weather, navigation, and tactical data) analogous to aircraft HF radio systems."
+            },
+            {
+              "description": "Enable interoperability with legacy HF systems and modern digital modes (e.g., SSB, VHF, and digital HF modems)."
+            }
+          ]
+        },
+        {
+          "title": "Performance Metrics",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve reliable communication within the HF spectrum (3–30 MHz) with latency under 500 milliseconds for voice and 2 seconds for data bursts."
+            },
+            {
+              "description": "Ensure data throughput of 12–24 kbps for digital HF modes, maintaining performance in ionospheric noise and multipath interference."
+            }
+          ]
+        },
+        {
+          "title": "Safety and Security Requirements",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement AES-256 encryption for data and scrambler-based voice security to prevent eavesdropping, mirroring military-grade HF communication protocols."
+            },
+            {
+              "description": "Provide automatic frequency hopping and redundancy via multiple transceivers to ensure uninterrupted communication during solar flare-induced blackouts."
+            }
+          ]
+        },
+        {
+          "title": "Non Functional Requirements",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "User interface must display frequency status, signal strength, and encryption status on a cockpit-style monitor, with tactile controls for emergency overrides."
+            },
+            {
+              "description": "Support over-the-air firmware updates for HF modem parameters and encryption keys via a secure, low-bandwidth channel."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Control Unit",
+        "type": "Electronic Module",
+        "description": "Central processor managing HF communication protocols, frequency allocation, and system diagnostics, analogous to an aircraft's mission computer.",
+        "subComponents": null
+      },
+      {
+        "name": "HF Transceiver Module",
+        "type": "Communication Module",
+        "description": "Handles HF signal modulation/demodulation (SSB, AM, FM), frequency tuning, and power amplification for long-range transmission.",
+        "subComponents": [
+          {
+            "name": "HF Modulator",
+            "type": "Actuator",
+            "description": "Converts digital data to analog HF signals using SSB or digital HF modem techniques."
+          },
+          {
+            "name": "Power Amplifier",
+            "type": "Amplifier",
+            "description": "Boosts signal strength for HF transmission up to 1 kW output, ensuring global range."
+          }
+        ]
+      },
+      {
+        "name": "Antenna Array",
+        "type": "Hardware Module",
+        "description": "Directional and omnidirectional antennas for HF reception/transmission, mitigating ionospheric noise and jamming.",
+        "subComponents": [
+          {
+            "name": "Vertical Antenna",
+            "type": "Antenna",
+            "description": "Primary antenna for omnidirectional HF coverage."
+          },
+          {
+            "name": "Loop Antenna",
+            "type": "Antenna",
+            "description": "Directional antenna for reducing interference and improving signal directionality."
+          }
+        ]
+      },
+      {
+        "name": "Signal Processor",
+        "type": "Processing Module",
+        "description": "Filters HF noise, corrects signal distortion, and prepares data for encryption.",
+        "subComponents": [
+          {
+            "name": "Noise Filter",
+            "type": "Filter",
+            "description": "Removes atmospheric and man-made noise from received HF signals."
+          },
+          {
+            "name": "Digital Signal Converter",
+            "type": "Processor",
+            "description": "Converts analog HF signals to digital for processing and encryption."
+          }
+        ]
+      },
+      {
+        "name": "Encryption Module",
+        "type": "Security Module",
+        "description": "Secures HF transmissions via AES-256 for data and scrambler-based voice encryption.",
+        "subComponents": [
+          {
+            "name": "AES-256 Encryptor",
+            "type": "Encryption Unit",
+            "description": "Encrypts digital HF data streams using AES-256."
+          },
+          {
+            "name": "Voice Scrambler",
+            "type": "Encryption Unit",
+            "description": "Applies frequency inversion and phase shift for secure voice communication."
+          }
+        ]
+      },
+      {
+        "name": "Power Supply",
+        "type": "Subsystem",
+        "description": "Redundant power supply ensuring uninterrupted operation during primary power loss.",
+        "subComponents": [
+          {
+            "name": "DC Power Converter",
+            "type": "Power Unit",
+            "description": "Converts aircraft DC power to regulated voltage for HF subsystems."
+          },
+          {
+            "name": "Emergency Battery",
+            "type": "Power Unit",
+            "description": "Backup battery providing 2 hours of operation during power failure."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "HF Transceiver Module",
+        "target": "Antenna Array",
+        "relationshipType": "association",
+        "description": "The HF Transceiver Module transmits/receives signals via the Antenna Array, similar to aircraft HF radio-antenna coupling."
+      },
+      {
+        "source": "Signal Processor",
+        "target": "Encryption Module",
+        "relationshipType": "aggregation",
+        "description": "The Signal Processor forwards processed HF signals to the Encryption Module for security."
+      },
+      {
+        "source": "Encryption Module",
+        "target": "Signal Processor",
+        "relationshipType": "dependency",
+        "description": "The Encryption Module depends on the Signal Processor for clean, noise-free signals before encryption."
+      },
+      {
+        "source": "Control Unit",
+        "target": "HF Transceiver Module",
+        "relationshipType": "composition",
+        "description": "The Control Unit orchestrates HF frequency selection and transmission power levels via the HF Transceiver Module."
+      },
+      {
+        "source": "All Components",
+        "target": "Power Supply",
+        "relationshipType": "dependency",
+        "description": "All components rely on the Power Supply for regulated DC power and redundancy."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "communicationChannels",
+        "type": "string",
+        "value": "HF, Digital HF",
+        "description": "Operates on HF radio bands (3–30 MHz) and modern digital HF modes (e.g., SSB, HFDL)."
+      },
+      {
+        "name": "frequencyRange",
+        "type": "string",
+        "value": "3 MHz - 30 MHz",
+        "description": "Adheres to international HF aviation bands for global coverage and regulatory compliance."
+      },
+      {
+        "name": "encryptionProtocol",
+        "type": "string",
+        "value": "AES-256, Voice Scrambler",
+        "description": "AES-256 for data and scrambler-based encryption for voice, ensuring security comparable to military HF systems."
+      },
+      {
+        "name": "performanceMetrics",
+        "type": "string",
+        "value": "Latency < 500ms (voice), Throughput 12–24 kbps (data)",
+        "description": "Balances HF propagation delays with reliable data throughput for tactical and weather updates."
+      },
+      {
+        "name": "redundancy",
+        "type": "string",
+        "value": "Dual transceivers and backup power",
+        "description": "Two HF transceivers and an emergency battery ensure operation during single-point failures."
+      }
+    ]
+  },
+  "model": {
+      "diagramType": "BDD",
+      "elements": {
+        "blocks": [
+          {
+            "id": "BLK_HF_Communication_System",
+            "type": "Block",
+            "name": "HF Communication System",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "PROP_HF_System_Power",
+              "PROP_HF_System_Status"
+            ],
+            "operationIds": [
+              "OP_Initiate_Communication",
+              "OP_Terminate_Communication"
+            ],
+            "constraintIds": [
+              "CNST_Frequency_Range",
+              "CNST_Power_Output"
+            ],
+            "partIds": [
+              "BLK_HF_Transceiver",
+              "BLK_HF_Antenna",
+              "BLK_HF_Controller",
+              "BLK_HF_Power_Supply",
+              "BLK_HF_Signal_Processor"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "BLK_HF_Transceiver",
+            "type": "Block",
+            "name": "HF Transceiver",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "PROP_Transceiver_Frequency",
+              "PROP_Transmitter_Power",
+              "PROP_Receiver_Sensitivity"
+            ],
+            "operationIds": [
+              "OP_Transmit",
+              "OP_Receive"
+            ],
+            "constraintIds": [
+              "CNST_Frequency_Range",
+              "CNST_Power_Output"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "BLK_HF_Antenna",
+            "type": "Block",
+            "name": "HF Antenna",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "PROP_Antenna_Impedance",
+              "PROP_Antenna_Gain"
+            ],
+            "operationIds": [],
+            "constraintIds": [
+              "CNST_Antenna_Resistance"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "BLK_HF_Controller",
+            "type": "Block",
+            "name": "HF Controller",
+            "isAbstract": false,
+            "isActive": true,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "PROP_Controller_Mode",
+              "PROP_Bit_Rate"
+            ],
+            "operationIds": [
+              "OP_Configure_Settings",
+              "OP_Monitor_Status"
+            ],
+            "constraintIds": [
+              "CNST_Supported_Modes"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "BLK_HF_Power_Supply",
+            "type": "Block",
+            "name": "HF Power Supply",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "PROP_Power_Output",
+              "PROP_Voltage"
+            ],
+            "operationIds": [
+              "OP_Power_On",
+              "OP_Power_Off"
+            ],
+            "constraintIds": [
+              "CNST_Power_Output"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "BLK_HF_Signal_Processor",
+            "type": "Block",
+            "name": "HF Signal Processor",
+            "isAbstract": false,
+            "isActive": true,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "PROP_Processing_Latency",
+              "PROP_Error_Rate"
+            ],
+            "operationIds": [
+              "OP_Filter_Signal",
+              "OP_Encode_Data"
+            ],
+            "constraintIds": [
+              "CNST_Latency_Requirement"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          }
+        ],
+        "interfaceBlocks": [
+          {
+            "id": "IF_HF_Data_Interface",
+            "type": "InterfaceBlock",
+            "name": "HF Data Interface",
+            "attributeIds": [
+              "PROP_Data_Format",
+              "PROP_Bit_Rate"
+            ],
+            "operationIds": [
+              "OP_Send_Data",
+              "OP_Receive_Data"
+            ],
+            "signalIds": [],
+            "constraintIds": [
+              "CNST_Max_Bit_Rate"
+            ]
+          },
+          {
+            "id": "IF_HF_Control_Interface",
+            "type": "InterfaceBlock",
+            "name": "HF Control Interface",
+            "attributeIds": [
+              "PROP_Control_Command",
+              "PROP_Status_Message"
+            ],
+            "operationIds": [
+              "OP_Send_Command",
+              "OP_Get_Status"
+            ],
+            "signalIds": [],
+            "constraintIds": [
+              "CNST_Command_Protocol"
+            ]
+          },
+          {
+            "id": "IF_HF_Power_Interface",
+            "type": "InterfaceBlock",
+            "name": "HF Power Interface",
+            "attributeIds": [
+              "PROP_Voltage_Level",
+              "PROP_Current_Limit"
+            ],
+            "operationIds": [],
+            "signalIds": [],
+            "constraintIds": [
+              "CNST_Power_Spec"
+            ]
+          },
+          {
+            "id": "IF_HF_RF_Interface",
+            "type": "InterfaceBlock",
+            "name": "HF RF Interface",
+            "attributeIds": [
+              "PROP_RF_Frequency",
+              "PROP_RF_Power"
+            ],
+            "operationIds": [
+              "OP_Transmit_RF",
+              "OP_Receive_RF"
+            ],
+            "signalIds": [],
+            "constraintIds": [
+              "CNST_RF_Safety"
+            ]
+          }
+        ],
+        "ports": [
+          {
+            "id": "PORT_HF_Data_Port",
+            "type": "FullPort",
+            "name": "HF Data Port",
+            "blockId": "BLK_HF_Communication_System",
+            "providedInterfaceIds": [
+              "IF_HF_Data_Interface"
+            ],
+            "requiredInterfaceIds": [],
+            "flowSpecificationId": null,
+            "attributeIds": []
+          },
+          {
+            "id": "PORT_HF_Control_Port",
+            "type": "ProxyPort",
+            "name": "HF Control Port",
+            "blockId": "BLK_HF_Controller",
+            "providedInterfaceIds": [
+              "IF_HF_Control_Interface"
+            ],
+            "requiredInterfaceIds": [],
+            "flowSpecificationId": null,
+            "attributeIds": []
+          },
+          {
+            "id": "PORT_HF_RF_Output",
+            "type": "FullPort",
+            "name": "HF RF Output",
+            "blockId": "BLK_HF_Transceiver",
+            "providedInterfaceIds": [
+              "IF_HF_RF_Interface"
+            ],
+            "requiredInterfaceIds": [],
+            "flowSpecificationId": null,
+            "attributeIds": []
+          },
+          {
+            "id": "PORT_HF_Power_Input",
+            "type": "FlowPort",
+            "name": "HF Power Input",
+            "blockId": "BLK_HF_Power_Supply",
+            "flowSpecificationId": "FSPEC_Power_Flow",
+            "attributeIds": []
+          }
+        ],
+        "flowSpecifications": [
+          {
+            "id": "FSPEC_Power_Flow",
+            "type": "FlowSpecification",
+            "name": "Power Flow",
+            "flowType": "Energy Flow",
+            "dataType": "Electrical Power",
+            "unit": "Watt",
+            "attributeIds": []
+          }
+        ],
+        "constraintBlocks": [
+          {
+            "id": "CNST_Frequency_Range",
+            "type": "ConstraintBlock",
+            "name": "Frequency Range Constraint",
+            "expression": "frequency BETWEEN 3 MHz AND 30 MHz",
+            "parameterIds": [
+              "PARAM_Frequency"
+            ],
+            "attributeIds": []
+          },
+          {
+            "id": "CNST_Power_Output",
+            "type": "ConstraintBlock",
+            "name": "Power Output Constraint",
+            "expression": "power <= 2500 W",
+            "parameterIds": [
+              "PARAM_Power"
+            ],
+            "attributeIds": []
+          }
+        ],
+        "enumerations": [
+          {
+            "id": "ENUM_Communication_Mode",
+            "type": "Enumeration",
+            "name": "Communication Mode",
+            "literals": [
+              {
+                "id": "ENUM_LIT_AM",
+                "name": "AM"
+              },
+              {
+                "id": "ENUM_LIT_SSB",
+                "name": "SSB"
+              },
+              {
+                "id": "ENUM_LIT_FM",
+                "name": "FM"
+              }
+            ],
+            "attributeIds": []
+          }
+        ],
+        "comments": [
+          {
+            "id": "COMMENT_HF_System_Design",
+            "type": "Comment",
+            "body": "HF Communication System must comply with ITU Radio Regulations and MIL-STD-188-141A",
+            "annotatedElementId": "BLK_HF_Communication_System"
+          }
+        ]
+      }
+    
+  },
+  "timestamp": "20250325_190627",
+  "provider": "qwen"
+}

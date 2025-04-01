@@ -1,0 +1,372 @@
+{
+  "system_id": "vhf_communication_system",
+  "system_name": "VHF Communication System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Utilizes advanced RF and optical communication channels for diverse transmission requirements.",
+        "name": "communicationChannels",
+        "type": "string",
+        "value": "RF, Optical"
+      },
+      {
+        "description": "Frequency range designed to comply with aviation standards for secure operation.",
+        "name": "frequencyRange",
+        "type": "string",
+        "value": "1.5GHz - 5.8GHz, with dedicated optical sub-bands"
+      },
+      {
+        "description": "Encrypts transmissions with state-of-the-art algorithms.",
+        "name": "encryptionProtocol",
+        "type": "string",
+        "value": "AES-512, Elliptic Curve Cryptography (ECC)"
+      },
+      {
+        "description": "Performance metrics for efficient and uninterrupted communication.",
+        "name": "performanceMetrics",
+        "type": "string",
+        "value": "Latency < 40ms, Throughput > 200Mbps"
+      },
+      {
+        "description": "Integrated redundancy in power and signal paths to ensure system reliability.",
+        "name": "redundancy",
+        "type": "string",
+        "value": "Triple power sources with optional regenerative batteries"
+      }
+    ],
+    "designScenario": {
+      "description": "Design a next-generation Communication System tailored for airplane avionics, ensuring reliable, secure, and high-performance communication.",
+      "name": "Advanced Communication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable diverse communication, including voice, video, telemetry, and data streaming."
+            }
+          ],
+          "title": "Versatile Communication",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure operational reliability with secure encryption and interference mitigation."
+            }
+          ],
+          "title": "Reliability and Security",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Real-time communication capabilities with sub-40 millisecond latency."
+            },
+            {
+              "description": "Throughputs exceeding 200 Mbps to handle high-density data."
+            }
+          ],
+          "title": "High Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide self-diagnosis and automatic system recovery options."
+            },
+            {
+              "description": "Intuitively designed interfaces for streamlined operator usage."
+            }
+          ],
+          "title": "Enhanced Usability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Unit manages and synchronizes communication workflows.",
+        "relationshipType": "composition",
+        "source": "Control Unit",
+        "target": "Signal Processor"
+      },
+      {
+        "description": "Interconnect between antennas and signal modules for data transmission.",
+        "relationshipType": "association",
+        "source": "Antenna Array",
+        "target": "Transceiver"
+      },
+      {
+        "description": "Signal Processor integrates functions for transmission and encryption preparation.",
+        "relationshipType": "aggregation",
+        "source": "Signal Processor",
+        "target": "Encryption Unit"
+      },
+      {
+        "description": "Power Supply supports uninterrupted operations.",
+        "relationshipType": "dependency",
+        "source": "Power Unit",
+        "target": "Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central hub for managing and directing communication processes.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Subsystem to aggregate transmission data for dispatch.",
+            "name": "Data Coordinator",
+            "type": "Electronic Subsystem"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Subsystem for converting signals for hardware interface integration.",
+        "name": "Signal Processor",
+        "subComponents": [
+          {
+            "description": "Manages signal intensification for improved clarity.",
+            "name": "Signal Amplification Unit",
+            "type": "Processor"
+          }
+        ],
+        "type": "Processing Unit"
+      },
+      {
+        "description": "Submodule equipped to ensure encrypted secure transmissions.",
+        "name": "Encryption Unit",
+        "subComponents": [
+          {
+            "description": "Handles advanced AES-512 encoding processes.",
+            "name": "Crypto Encoder",
+            "type": "Encryption Processor"
+          }
+        ],
+        "type": "Security Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-comm-system-signal-processor",
+          "memberEndIds": null,
+          "name": "CommSystemAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-communication-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-signal-processor",
+          "targetMultiplicity": "*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-antenna-transceiver",
+          "memberEndIds": null,
+          "name": "AntennaTransceiverAssociation",
+          "ownedEndIds": null,
+          "sourceId": "block-antenna-array",
+          "sourceMultiplicity": "1..*",
+          "targetId": "block-transceiver-unit",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "1.5GHz - 5.8GHz",
+          "id": "attr-frequency-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": true,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "frequencyRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-frequency-range"
+          ],
+          "constraintIds": null,
+          "id": "block-communication-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "CommunicationSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-control-unit",
+            "part-signal-processor",
+            "part-encryption-module"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-control-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ControlUnit",
+          "operationIds": null,
+          "partIds": [
+            "part-task-manager"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-communication-system",
+          "body": "This Communication System Block covers all fundamental components and interfaces required for avionics applications.",
+          "id": "comment-comm-system",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-comm-system-control-unit",
+          "memberEndIds": null,
+          "name": "CommSystemControlUnitComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-communication-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-control-unit",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "latency <= 40",
+          "id": "constraintblock-low-latency",
+          "name": "LowLatencyConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "attr-frequency-range"
+          ],
+          "id": "const-frequency-limitation",
+          "name": "FrequencyLimitation",
+          "specification": "1.5GHz <= frequencyRange <= 5.8GHz",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-encryption-type",
+          "literals": [
+            {
+              "id": "enc-AES512",
+              "name": "AES512"
+            },
+            {
+              "id": "enc-ECC",
+              "name": "ECC"
+            }
+          ],
+          "name": "EncryptionType",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-communication-system",
+          "flowSpecificationId": "flow-spec-signal",
+          "id": "fp-signal-comm",
+          "isConjugated": false,
+          "name": "SignalPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "Signal",
+          "flowType": "Information",
+          "id": "flow-spec-signal",
+          "name": "SignalFlowSpec",
+          "type": "FlowSpecification",
+          "unit": "Mbps"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-control-unit",
+          "name": "ControlUnit",
+          "of": "block-control-unit",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": "communication_system",
+  "parent_system": null,
+  "timestamp": "20250326_165308",
+  "provider": "gpt"
+}

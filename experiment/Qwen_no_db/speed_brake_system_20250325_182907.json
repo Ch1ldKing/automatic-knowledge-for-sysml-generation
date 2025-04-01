@@ -1,0 +1,482 @@
+{
+  "system_id": "speed_brake_system",
+  "system_name": "Speed Brake System",
+  "specification": {
+    "designScenario": {
+      "name": "Speed Brake System",
+      "description": "The Speed Brake System is designed to provide controlled drag enhancement for deceleration, altitude control, and load alleviation during flight phases such as descent, landing, and heavy turbulence. The system deploys aerodynamic spoilers or speed brakes to modulate airflow separation, generating additional drag while maintaining aircraft stability. It interfaces with flight control systems to ensure synchronized operation with other control surfaces, emphasizing rapid deployment/retraction, structural integrity under high aerodynamic loads, and fail-safe operation. The design prioritizes precise actuation, environmental resilience, and compatibility with aircraft weight and balance requirements.",
+      "requirements": [
+        {
+          "title": "Drag Force Generation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Deploy speed brakes to generate specified drag coefficients in response to pilot input or automated flight control commands."
+            },
+            {
+              "description": "Synchronize brake deployment with wing flaps and ailerons to prevent adverse yaw or lift imbalance."
+            }
+          ]
+        },
+        {
+          "title": "Rapid Deployment and Retraction",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deployment/retraction of speed brakes within <200ms under nominal conditions."
+            },
+            {
+              "description": "Maintain actuation speed across a range of hydraulic pressures (2000–3500 psi)."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe Operation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement hydraulic pressure redundancy to prevent unintended deployment during system faults."
+            },
+            {
+              "description": "Automatically retract speed brakes if flight control input is lost or exceeds safe deflection limits."
+            }
+          ]
+        },
+        {
+          "title": "Environmental and Structural Durability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Withstand repeated deployment cycles (≥10,000 cycles) without structural fatigue or actuator wear."
+            },
+            {
+              "description": "Operate reliably in temperatures from -54°C to +90°C and at altitudes up to 45,000 ft."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Speed Brake Assembly",
+        "type": "Aerodynamic Control Mechanism",
+        "description": "Primary component responsible for aerodynamic drag modulation throughSpoiler panels or speed brakes mounted on the wing or fuselage.",
+        "subComponents": [
+          {
+            "name": "Speed Brake Actuators",
+            "type": "Hydraulic Actuator",
+            "description": "Linear actuators driven by hydraulic pressure to position speed brake panels."
+          },
+          {
+            "name": "Control Valves",
+            "type": "Hydraulic Valve",
+            "description": "Regulate hydraulic fluid flow to actuators based on flight control signals."
+          },
+          {
+            "name": "Brake Surfaces",
+            "type": "Aerodynamic Surface",
+            "description": "Deployable panels fabricated from composite materials to create controlled airflow disruption."
+          },
+          {
+            "name": "Position Sensors",
+            "type": "Linear Displacement Sensor",
+            "description": "Monitor real-time deflection of speed brake panels to confirm actuation accuracy."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Speed Brake Assembly",
+        "target": "Speed Brake Actuators",
+        "relationshipType": "aggregation",
+        "description": "The Speed Brake Assembly aggregates actuators to physically move the brake surfaces."
+      },
+      {
+        "source": "Speed Brake Assembly",
+        "target": "Control Valves",
+        "relationshipType": "dependency",
+        "description": "Control Valves modulate hydraulic pressure to the actuators, dictating deployment speed and force."
+      },
+      {
+        "source": "Speed Brake Assembly",
+        "target": "Brake Surfaces",
+        "relationshipType": "composition",
+        "description": "Brake Surfaces are integral components of the Speed Brake Assembly, directly affecting drag output."
+      },
+      {
+        "source": "Speed Brake Assembly",
+        "target": "Position Sensors",
+        "relationshipType": "dependency",
+        "description": "Position Sensors provide feedback to the flight control system to validate brake surface position."
+      },
+      {
+        "source": "Speed Brake System",
+        "target": "Flight Control System",
+        "relationshipType": "dependency",
+        "description": "The Flight Control System issues deployment/retraction commands to the Speed Brake Assembly."
+      },
+      {
+        "source": "Speed Brake System",
+        "target": "Hydraulic Power System",
+        "relationshipType": "dependency",
+        "description": "The Hydraulic Power System supplies the required pressure to operate actuators and valves."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "deploymentSpeed",
+        "type": "string",
+        "value": "<200ms",
+        "description": "Maximum time to achieve full speed brake deployment from command initiation."
+      },
+      {
+        "name": "deflectionAccuracy",
+        "type": "string",
+        "value": "±1.5°",
+        "description": "Precision tolerance for speed brake surface positioning under steady-state conditions."
+      },
+      {
+        "name": "materialStrength",
+        "type": "string",
+        "value": "Carbon-fiber reinforced polymer with >1200 MPa tensile strength",
+        "description": "Composite material specifications ensuring structural integrity during high G-load maneuvers."
+      },
+      {
+        "name": "environmentResistance",
+        "type": "string",
+        "value": "-54°C to +90°C; UV-resistant coatings",
+        "description": "Operational temperature range and environmental resistance to icing, moisture, and UV exposure."
+      },
+      {
+        "name": "actuationForce",
+        "type": "string",
+        "value": "5000–8000 N",
+        "description": "Hydraulic force range required to deploy/retract speed brake panels against aerodynamic loads."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "SpeedBrakeSystem_1",
+          "type": "Block",
+          "name": "Speed Brake System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "SysBrakePosition_1",
+            "HydraulicPressure_1"
+          ],
+          "operationIds": [
+            "DeployBrakes_1",
+            "RetractBrakes_1"
+          ],
+          "constraintIds": [
+            "PressureConstraint_1"
+          ],
+          "partIds": [
+            "Actuator_1",
+            "ControlComp_1",
+            "Sensor_1",
+            "HydraulicIF_1"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SpeedBrakeActuator_1",
+          "type": "Block",
+          "name": "Speed Brake Actuator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "ActuatorPosition_1",
+            "ActuatorForce_1"
+          ],
+          "operationIds": [
+            "Extend_1",
+            "Retract_1"
+          ],
+          "constraintIds": [
+            "PositionLimit_1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ControlComputer_1",
+          "type": "Block",
+          "name": "Control Computer",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ControlMode_1",
+            "BrakeCmd_1"
+          ],
+          "operationIds": [
+            "ProcessInputs_1",
+            "GenerateCommands_1"
+          ],
+          "constraintIds": [
+            "CmdFrequency_1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PositionSensor_1",
+          "type": "Block",
+          "name": "Position Sensor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "MeasuredPosition_1"
+          ],
+          "operationIds": [
+            "ReadPosition_1"
+          ],
+          "constraintIds": [
+            "SensorAccuracy_1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "HydraulicInterface_1",
+          "type": "Block",
+          "name": "Hydraulic Interface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "FluidPressure_1",
+            "FlowRate_1"
+          ],
+          "operationIds": [
+            "SupplyPressure_1",
+            "ReturnFluid_1"
+          ],
+          "constraintIds": [
+            "PressureRange_1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ControlCommands_1",
+          "type": "InterfaceBlock",
+          "name": "Control Commands",
+          "attributeIds": [
+            "BrakeCmd_1"
+          ],
+          "operationIds": [
+            "Deploy_1",
+            "Retract_1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "PositionFeedback_1",
+          "type": "InterfaceBlock",
+          "name": "Position Feedback",
+          "attributeIds": [
+            "PositionStatus_1"
+          ],
+          "operationIds": [
+            "ReportPosition_1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "CtrlPort_1",
+          "type": "FullPort",
+          "name": "ControlPort",
+          "blockId": "SpeedBrakeSystem_1",
+          "providedInterfaceIds": [
+            "ControlCommands_1"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "SensorPort_1",
+          "type": "ProxyPort",
+          "name": "SensorPort",
+          "blockId": "SpeedBrakeSystem_1",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "PositionFeedback_1"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "HydraulicPort_1",
+          "type": "FlowPort",
+          "name": "HydraulicPort",
+          "blockId": "HydraulicInterface_1",
+          "flowSpecificationId": "HydraulicFlow_1",
+          "attributeIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "HydraulicFlow_1",
+          "type": "FlowSpecification",
+          "name": "Hydraulic Fluid Flow",
+          "flowType": "fluid",
+          "dataType": "PressureFlow",
+          "unit": "psi",
+          "attributeIds": [
+            "Pressure_1",
+            "VolumeFlow_1"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "PressureConstraint_1",
+          "type": "ConstraintBlock",
+          "name": "Hydraulic Pressure Constraint",
+          "expression": "HydraulicPressure_1 >= 2000 AND HydraulicPressure_1 <= 4000",
+          "parameterIds": [
+            "HydraulicPressure_1"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "BrakePositionEnum_1",
+          "type": "Enumeration",
+          "name": "BrakePosition",
+          "literals": [
+            {
+              "id": "Deployed",
+              "name": "Deployed"
+            },
+            {
+              "id": "Retracted",
+              "name": "Retracted"
+            },
+            {
+              "id": "Intermediate",
+              "name": "Intermediate"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "SysBrakePosition_1",
+          "type": "Property",
+          "name": "SystemBrakePosition",
+          "propertyType": "Enumeration",
+          "value": "Retracted",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "Retracted",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "ActuatorPosition_1",
+          "type": "Property",
+          "name": "ActuatorPosition",
+          "propertyType": "Enumeration",
+          "value": "Retracted",
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "Retracted",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "HydraulicPressure_1",
+          "type": "Property",
+          "name": "HydraulicPressure",
+          "propertyType": "Double",
+          "value": "3000",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "3000",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment_1",
+          "type": "Comment",
+          "body": "Primary actuator responsible for physical brake deployment",
+          "annotatedElementId": "SpeedBrakeActuator_1"
+        }
+      ],
+      "associations": [
+        {
+          "id": "CtrlCompAssoc_1",
+          "type": "Composition",
+          "name": "ControlComposition",
+          "sourceId": "SpeedBrakeSystem_1",
+          "targetId": "ControlComputer_1",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "CtrlReal_1",
+          "type": "InterfaceRealization",
+          "name": "CtrlImplementation",
+          "sourceId": "ControlComputer_1",
+          "targetId": "ControlCommands_1"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_182907",
+  "provider": "qwen"
+}

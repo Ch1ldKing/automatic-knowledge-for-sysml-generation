@@ -1,0 +1,808 @@
+{
+  "system_id": "pressurization_system",
+  "system_name": "Pressurization System",
+  "specification": {
+    "designScenario": {
+      "name": "Pressurization System",
+      "description": "The Pressurization System maintains safe and comfortable cabin pressure levels by regulating airflow and pressure differentials during all flight phases. It dynamically adjusts cabin altitude to simulate near-sea-level conditions (typically ≤8,000 ft) despite external atmospheric changes. The system integrates with the Environmental Control System (ECS) to manage outflow valves, monitor pressure sensors, and activate safety mechanisms during rapid decompression events. It ensures structural integrity of the airframe while prioritizing passenger comfort and compliance with aviation safety regulations.",
+      "requirements": [
+        {
+          "title": "Cabin Pressure Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Automatically maintain cabin pressure between 0.8 atm and 1.2 atm using closed-loop control of outflow valves and air supply inputs."
+            }
+          ]
+        },
+        {
+          "title": "Altitude Rate Limiting",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Limit cabin altitude change rates to ≤500 ft/min during ascent/descent to prevent passenger discomfort."
+            }
+          ]
+        },
+        {
+          "title": "Pressure Differential Safety",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement redundant pressure relief valves to prevent cabin-to-external pressure differentials exceeding 9.0 psi (airframe limit)."
+            }
+          ]
+        },
+        {
+          "title": "Decompression Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Detect rapid decompression events and initiate corrective actions (oxygen mask deployment, emergency descent) within 2 seconds."
+            }
+          ]
+        },
+        {
+          "title": "Sensor Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Provide triple-redundant pressure sensor arrays with voting logic to prevent single-point failures."
+            }
+          ]
+        },
+        {
+          "title": "Maintenance Diagnostics",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Include built-in test equipment (BITE) for valve actuation tests and leak rate calculations during ground maintenance."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Pressure Control Unit",
+        "description": "Central controller processing sensor data and executing pressurization schedules via PID algorithms.",
+        "type": "Avionics Computer",
+        "subComponents": [
+          {
+            "name": "Flight Phase Scheduler",
+            "description": "Generates target pressure schedules based on aircraft altitude and flight phase (climb, cruise, descent).",
+            "type": "Software Module"
+          },
+          {
+            "name": "Valve Actuator Controller",
+            "description": "Converts pressure error signals into precise valve position commands.",
+            "type": "Control Hardware"
+          }
+        ]
+      },
+      {
+        "name": "Outflow Valve Assembly",
+        "description": "Electro-mechanically actuated valve modulating cabin exhaust airflow to control pressure.",
+        "type": "Mechanical Subsystem",
+        "subComponents": [
+          {
+            "name": "Valve Actuator",
+            "description": "Electric motor or pneumatic actuator providing torque for valve positioning.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Valve Position Sensor",
+            "description": "LVDT or rotary encoder providing real-time valve angle feedback.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Cabin Pressure Sensors",
+        "description": "Redundant absolute pressure transducers measuring cabin altitude equivalent pressure.",
+        "type": "Sensor Array",
+        "subComponents": [
+          {
+            "name": "Primary Pressure Transducer",
+            "description": "High-accuracy piezoresistive sensor with temperature compensation.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Backup Capacitive Sensor",
+            "description": "Secondary measurement using diaphragm capacitance technique.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Safety Relief Valves",
+        "description": "Passive mechanical valves opening automatically at preset differential pressures.",
+        "type": "Safety Device",
+        "subComponents": null
+      },
+      {
+        "name": "Air Supply Duct",
+        "description": "Bleed air conduit delivering compressed air from engines/APU for pressurization.",
+        "type": "Pneumatic Conduit",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Pressure Control Unit",
+        "target": "Cabin Pressure Sensors",
+        "relationshipType": "aggregation",
+        "description": "Control unit aggregates data from all cabin pressure sensors for differential voting"
+      },
+      {
+        "source": "Pressure Control Unit",
+        "target": "Outflow Valve Assembly",
+        "relationshipType": "dependency",
+        "description": "Valve positioning commands from control unit directly drive actuator movements"
+      },
+      {
+        "source": "Safety Relief Valves",
+        "target": "Outflow Valve Assembly",
+        "relationshipType": "composition",
+        "description": "Safety valves are physically integrated into outflow valve housing as fail-safe mechanism"
+      },
+      {
+        "source": "Air Supply Duct",
+        "target": "Pressure Control Unit",
+        "relationshipType": "association",
+        "description": "Control unit monitors bleed air supply pressure via dedicated transducers in duct"
+      },
+      {
+        "source": "Pressure Control Unit",
+        "target": "Environmental Control System",
+        "relationshipType": "association",
+        "description": "Integrated with ECS for coordinated temperature/pressure management through shared data bus"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "pressureRange",
+        "type": "string",
+        "value": "0.8 atm - 1.2 atm",
+        "description": "Operational cabin pressure range simulating ≤8,000 ft equivalent altitude"
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "<2 seconds",
+        "description": "Maximum allowed latency between pressure deviation detection and control surface adjustment"
+      },
+      {
+        "name": "valveActuationTime",
+        "type": "string",
+        "value": "0.5-5 sec (full travel)",
+        "description": "Outflow valve actuation speed range from closed to fully open positions"
+      },
+      {
+        "name": "sensorAccuracy",
+        "type": "string",
+        "value": "±0.01 atm",
+        "description": "Maximum permissible error in pressure transducers across operating envelope"
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple modular redundancy",
+        "description": "Architecture ensuring continued operation with two concurrent sensor failures"
+      },
+      {
+        "name": "maxPressureDifferential",
+        "type": "string",
+        "value": "9.0 psi",
+        "description": "Absolute maximum pressure difference between cabin and external environment before safety valve actuation"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "b1",
+          "type": "Block",
+          "name": "PressurizationSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a1",
+            "a2",
+            "a3",
+            "a4"
+          ],
+          "operationIds": [
+            "o1",
+            "o2"
+          ],
+          "constraintIds": [
+            "c1"
+          ],
+          "partIds": [
+            "p1",
+            "p2",
+            "p3"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b2",
+          "type": "Block",
+          "name": "CabinPressureController",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a5"
+          ],
+          "operationIds": [
+            "o3"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b3",
+          "type": "Block",
+          "name": "OutflowValve",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a6"
+          ],
+          "operationIds": [
+            "o4"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b4",
+          "type": "Block",
+          "name": "PressureSensor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a7"
+          ],
+          "operationIds": [
+            "o5"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ib1",
+          "type": "InterfaceBlock",
+          "name": "IPressureControl",
+          "attributeIds": [],
+          "operationIds": [
+            "io1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "ib2",
+          "type": "InterfaceBlock",
+          "name": "IPressureData",
+          "attributeIds": [],
+          "operationIds": [
+            "io2"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fs1",
+          "type": "FlowSpecification",
+          "name": "AirFlow",
+          "flowType": "material",
+          "dataType": "Real",
+          "unit": "kg/s",
+          "attributeIds": []
+        },
+        {
+          "id": "fs2",
+          "type": "FlowSpecification",
+          "name": "PressureSignal",
+          "flowType": "information",
+          "dataType": "Real",
+          "unit": "Pa",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "cb1",
+          "type": "ConstraintBlock",
+          "name": "PressureRangeConstraint",
+          "parameterIds": [
+            "pr1"
+          ],
+          "expression": "pressure >= minPressure && pressure <= maxPressure",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt1",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "qk1",
+          "unitId": "u1",
+          "attributeIds": []
+        },
+        {
+          "id": "vt2",
+          "type": "ValueType",
+          "name": "Temperature",
+          "quantityKindId": "qk2",
+          "unitId": "u2",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "e1",
+          "type": "Enumeration",
+          "name": "ValveState",
+          "literals": [
+            {
+              "id": "l1",
+              "name": "OPEN"
+            },
+            {
+              "id": "l2",
+              "name": "CLOSED"
+            },
+            {
+              "id": "l3",
+              "name": "PARTIAL"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "pt1",
+          "type": "Port",
+          "name": "airInlet",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b1",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs1",
+          "attributeIds": []
+        },
+        {
+          "id": "pt2",
+          "type": "Port",
+          "name": "controlInterface",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "b1",
+          "providedInterfaceIds": [
+            "ib1"
+          ],
+          "requiredInterfaceIds": [
+            "ib2"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "proxyPorts": [
+        {
+          "id": "pp1",
+          "type": "ProxyPort",
+          "name": "sensorInterface",
+          "isConjugated": false,
+          "blockId": "b4",
+          "providedInterfaceIds": [
+            "ib2"
+          ],
+          "requiredInterfaceIds": [],
+          "attributeIds": []
+        }
+      ],
+      "fullPorts": [
+        {
+          "id": "fp1",
+          "type": "FullPort",
+          "name": "valveActuator",
+          "isConjugated": false,
+          "blockId": "b3",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "ib1"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "flowPorts": [
+        {
+          "id": "flp1",
+          "type": "FlowPort",
+          "name": "airOutlet",
+          "isConjugated": true,
+          "blockId": "b3",
+          "flowSpecificationId": "fs1",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp1",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b2",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp2",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b3",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..2",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp3",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b4",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2..4",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "ir1",
+          "type": "InterfaceRealization",
+          "name": "ctrlRealization",
+          "sourceId": "b2",
+          "targetId": "ib1"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "a1",
+          "type": "Property",
+          "name": "operatingPressureRange",
+          "propertyType": "Real",
+          "value": "75-85 kPa",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a2",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "Real",
+          "value": "<5 sec",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a3",
+          "type": "Property",
+          "name": "sensorAccuracy",
+          "propertyType": "Real",
+          "value": "±0.5%",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a4",
+          "type": "Property",
+          "name": "operatingTempRange",
+          "propertyType": "Real",
+          "value": "-55 to +85 °C",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a5",
+          "type": "Property",
+          "name": "controlAlgorithm",
+          "propertyType": "String",
+          "value": "PID",
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a6",
+          "type": "Property",
+          "name": "valvePosition",
+          "propertyType": "String",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": "CLOSED",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a7",
+          "type": "Property",
+          "name": "measurementError",
+          "propertyType": "Real",
+          "value": "0.0",
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": true,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "o1",
+          "type": "Property",
+          "name": "maintainCabinPressure",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "o2",
+          "type": "Property",
+          "name": "emergencyDepressurize",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "o3",
+          "type": "Property",
+          "name": "calculateValvePosition",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "o4",
+          "type": "Property",
+          "name": "adjustValve",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "o5",
+          "type": "Property",
+          "name": "getPressureReading",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "io1",
+          "type": "Property",
+          "name": "setTargetPressure",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "io2",
+          "type": "Property",
+          "name": "transmitPressureData",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "constraints": [
+        {
+          "id": "c1",
+          "type": "Constraint",
+          "name": "ValidPressureRange",
+          "specification": "pressure >= 75kPa && pressure <= 85kPa",
+          "constrainedElementIds": [
+            "b1"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "id": "pr1",
+          "type": "Parameter",
+          "name": "pressure",
+          "parameterType": "Real",
+          "defaultValue": null
+        }
+      ],
+      "comments": [
+        {
+          "id": "cm1",
+          "type": "Comment",
+          "body": "System must maintain cabin pressure equivalent to 8000ft altitude max",
+          "annotatedElementId": "b1"
+        },
+        {
+          "id": "cm2",
+          "type": "Comment",
+          "body": "Outflow valve must respond within 2 seconds to commands",
+          "annotatedElementId": "b3"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "Pressurization System的所有信息和规格说明包括操作压力范围、响应时间、传感器精度和操作温度范围。",
+  "timestamp": "20250326_013811",
+  "provider": "dpsk"
+}

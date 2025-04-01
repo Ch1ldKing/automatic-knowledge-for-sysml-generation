@@ -1,0 +1,729 @@
+{
+  "system_id": "fuel_storage_system",
+  "system_name": "Fuel Storage System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the type of fuel that can be used by the system. Supports conventional Jet-A1 and certified biofuel blends for optimized engine performance.",
+        "name": "fuelType",
+        "type": "string",
+        "value": "Jet-A1, BioFuel Blend"
+      },
+      {
+        "description": "Indicates the maximum fuel capacity stored in the reinforced fuel cells, ensuring sufficient supply under extended flight and reserve conditions.",
+        "name": "tankCapacity",
+        "type": "string",
+        "value": "3500 liters"
+      },
+      {
+        "description": "Defines the fuel pump's operational flow rate required for rapid engine responsiveness and optimal fuel management.",
+        "name": "pumpFlowRate",
+        "type": "string",
+        "value": "500 liters/min"
+      },
+      {
+        "description": "Specifies the operating pressure range maintained by the fuel pump assembly, ensuring stable fuel delivery during all flight phases.",
+        "name": "pumpPressure",
+        "type": "string",
+        "value": "3-6 Bar"
+      },
+      {
+        "description": "Describes the particulate filtration efficiency to guarantee that only clean fuel reaches the engine, significantly minimizing wear and risk of contamination.",
+        "name": "filterPerformance",
+        "type": "string",
+        "value": "99.95% particulate removal"
+      },
+      {
+        "description": "Indicates the redundancy level incorporated in critical fuel system components to enhance reliability and safety during flight operations.",
+        "name": "systemRedundancy",
+        "type": "string",
+        "value": "Triple redundant design"
+      }
+    ],
+    "designScenario": {
+      "description": "The Advanced Fuel System is engineered for modern passenger airplanes, integrating state-of-the-art fuel storage, pump mechanisms, and control modules. This system is designed to ensure precise fuel management, optimized performance during varying flight conditions, and enhanced safety measures via redundant designs and advanced monitoring. The system is built to integrate seamlessly with other airplane subsystems while complying with rigorous aviation standards.",
+      "name": "Advanced Fuel System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall accurately control fuel delivery to meet engine demands across phases such as takeoff, cruise, and landing."
+            }
+          ],
+          "title": "Optimized Fuel Delivery",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The fuel pump assembly must deliver fuel at a consistent pressure of 3-6 Bar with a flow rate of 500 liters/min to support rapid engine response and efficiency."
+            }
+          ],
+          "title": "High Pump Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Integrate advanced safety features including leak detection sensors, emergency shutdown valves, and redundant pumping systems to mitigate fuel-related hazards."
+            }
+          ],
+          "title": "Enhanced Safety Features",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must emphasize ease of maintenance and high reliability, featuring modular components that allow for rapid in-field replacement and periodic inspection cycles."
+            }
+          ],
+          "title": "Maintenance and Reliability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Fuel Pump Assembly depends on the Fuel Storage Cell to maintain a consistent supply of fuel; any disruption in storage will affect pump performance.",
+        "relationshipType": "dependency",
+        "source": "Fuel Pump Assembly",
+        "target": "Fuel Storage Cell"
+      },
+      {
+        "description": "The Fuel Distribution Controller is associated with the Fuel Pump Assembly to regulate the routing of fuel based on engine demands and sensor feedback.",
+        "relationshipType": "association",
+        "source": "Fuel Distribution Controller",
+        "target": "Fuel Pump Assembly"
+      },
+      {
+        "description": "The Fuel Filter Element is composed within the Fuel Distribution Controller, ensuring only clean fuel is delivered to the engines.",
+        "relationshipType": "composition",
+        "source": "Fuel Distribution Controller",
+        "target": "Fuel Filter Element"
+      },
+      {
+        "description": "The Sensor Array aggregates real-time data from both the Fuel Storage Cell and Fuel Pump Assembly to monitor fuel quality, pressure, and temperature.",
+        "relationshipType": "aggregation",
+        "source": "Sensor Array",
+        "target": "Fuel Storage Cell"
+      },
+      {
+        "description": "The Sensor Array also provides monitoring information to the Fuel Distribution Controller to facilitate dynamic fuel routing adjustments during flight.",
+        "relationshipType": "aggregation",
+        "source": "Sensor Array",
+        "target": "Fuel Pump Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A reinforced tank designed to safely store fuel under varying atmospheric and flight conditions, equipped with internal systems to monitor pressure and fuel integrity.",
+        "name": "Fuel Storage Cell",
+        "subComponents": [
+          {
+            "description": "A protective lining system to prevent contamination and chemical interactions which may compromise fuel quality.",
+            "name": "Reinforced Tank Lining",
+            "type": "Protective Layer"
+          },
+          {
+            "description": "An integrated pressure gauge providing real-time monitoring of internal tank conditions.",
+            "name": "Internal Pressure Gauge",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Container"
+      },
+      {
+        "description": "A high-performance assembly responsible for pumping fuel from storage to the control modules and ultimately to the engines.",
+        "name": "Fuel Pump Assembly",
+        "subComponents": [
+          {
+            "description": "A hydraulic booster designed for efficient fuel transfer during high-demand flight maneuvers.",
+            "name": "Hydraulic Booster",
+            "type": "Actuator"
+          },
+          {
+            "description": "An electronic control module that regulates pump operation based on dynamic sensor inputs.",
+            "name": "Electronic Control Module",
+            "type": "Controller"
+          }
+        ],
+        "type": "Actuator"
+      },
+      {
+        "description": "An intelligent module that directs the distribution of fuel, coordinating valve operations and integrating sensor data for optimal fuel routing.",
+        "name": "Fuel Distribution Controller",
+        "subComponents": [
+          {
+            "description": "A valve control unit ensuring precise operation of distribution valves based on system commands.",
+            "name": "Valve Control Unit",
+            "type": "Controller"
+          },
+          {
+            "description": "A backup manual valve that can be activated in emergencies to override automatic controls.",
+            "name": "Backup Manual Valve",
+            "type": "Control Valve"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "A dedicated filtration component ensuring that fuel is free from particulate contaminants before reaching engine systems.",
+        "name": "Fuel Filter Element",
+        "subComponents": null,
+        "type": "Filter"
+      },
+      {
+        "description": "A network of sensors distributed throughout the system to continuously monitor fuel parameters, contributing data to maintain optimal system performance.",
+        "name": "Sensor Array",
+        "subComponents": [
+          {
+            "description": "A sensor that measures fuel levels within storage, providing real-time data for fuel management.",
+            "name": "Fuel Level Measurement Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "A sensor dedicated to monitoring fuel pressure across the system, ensuring stability during dynamic operations.",
+            "name": "Pressure Monitoring Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "A specialized unit for tracking fuel temperature, critical in preventing thermal degradation during extended flights.",
+            "name": "Temperature Sensing Unit",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "10000",
+          "id": "ATTR_SYS_CAP_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "systemCapacity",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "10000",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10000",
+          "id": "ATTR_TCAP_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "tankCapacity",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "10000",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "500",
+          "id": "ATTR_FLOWRATE_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "flowRate",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "500",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "closed",
+          "id": "ATTR_VALVESTATE_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "valveState",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "closed",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.0",
+          "id": "ATTR_FUELLEVEL_001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "fuelLevel",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "0.0",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "ATTR_SYS_CAP_001"
+          ],
+          "constraintIds": null,
+          "id": "FSYS001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Fuel Storage System",
+          "operationIds": [
+            "OP_MONITOR_FUEL_LEVEL"
+          ],
+          "partIds": [
+            "FUELTANK001",
+            "FUELPUMP001",
+            "FUELVALVE001",
+            "FUELSENSOR001"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR_TCAP_001"
+          ],
+          "constraintIds": null,
+          "id": "FUELTANK001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Fuel Tank",
+          "operationIds": [
+            "OP_CHECK_TANK_INTEGRITY"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR_FLOWRATE_001"
+          ],
+          "constraintIds": null,
+          "id": "FUELPUMP001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Fuel Pump",
+          "operationIds": [
+            "OP_START_PUMP",
+            "OP_STOP_PUMP"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR_VALVESTATE_001"
+          ],
+          "constraintIds": null,
+          "id": "FUELVALVE001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Fuel Valve",
+          "operationIds": [
+            "OP_SWITCH_VALVE"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR_FUELLEVEL_001"
+          ],
+          "constraintIds": null,
+          "id": "FUELSENSOR001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Fuel Sensor",
+          "operationIds": [
+            "OP_MEASURE_FUEL"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "FSYS001",
+          "body": "This SysML model represents the Fuel Storage System for an aircraft. It includes the primary components: Fuel Tank, Fuel Pump, Fuel Valve, and Fuel Sensor, along with their interactions, data flows, and control operations in accordance with aerospace engineering standards.",
+          "id": "COMM_001",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "CONN_001",
+          "kind": "assembly",
+          "name": "Tank-to-Pump Connector",
+          "source": "FUELTANK001",
+          "target": "FUELPUMP001",
+          "type": "Connector"
+        },
+        {
+          "id": "CONN_002",
+          "kind": "assembly",
+          "name": "Pump-to-Valve Connector",
+          "source": "FUELPUMP001",
+          "target": "FUELVALVE001",
+          "type": "Connector"
+        },
+        {
+          "id": "CONN_003",
+          "kind": "delegation",
+          "name": "Sensor Data Connector",
+          "source": "FUELSENSOR001",
+          "target": "FSYS001",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "FuelTank.capacity <= maxCapacity",
+          "id": "CB_FUELCAP_001",
+          "name": "FuelCapacityConstraintBlock",
+          "parameterIds": [
+            "PARAM_MAX_CAPACITY"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": [
+        {
+          "guard": "if fuelLevel < threshold",
+          "id": "CF_001",
+          "name": "Control Fuel Pump",
+          "sourceId": "FUELSENSOR001",
+          "targetId": "FUELPUMP001",
+          "type": "ControlFlow"
+        }
+      ],
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "ENUM_FUELTYPE_001",
+          "literals": [
+            {
+              "id": "LIT_JETA",
+              "name": "JetA"
+            },
+            {
+              "id": "LIT_AVGAS",
+              "name": "Avgas"
+            },
+            {
+              "id": "LIT_BIOFUEL",
+              "name": "Biofuel"
+            }
+          ],
+          "name": "FuelTypeEnum",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "FUELTANK001",
+          "flowSpecificationId": "FFSPEC001",
+          "id": "FP_FUEL_001",
+          "isConjugated": false,
+          "name": "fuelFlowPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "Liquid",
+          "flowType": "fluid",
+          "id": "FFSPEC001",
+          "name": "Fuel Flow Specification",
+          "type": "FlowSpecification",
+          "unit": "liters/minute"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "FSYS001",
+          "id": "FP_CONTROL_001",
+          "isConjugated": false,
+          "name": "controlPort",
+          "providedInterfaceIds": [
+            "IF_MONITOR"
+          ],
+          "requiredInterfaceIds": [
+            "IF_COMMAND"
+          ],
+          "type": "FullPort"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "FSYS001",
+          "id": "FP_DATA_001",
+          "isConjugated": false,
+          "name": "dataPort",
+          "providedInterfaceIds": [
+            "IF_DATA"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "IFB_FUEL_001",
+          "name": "Fuel Interface Block",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": null,
+          "id": "IF_MONITOR",
+          "name": "Fuel Monitoring Interface",
+          "operationIds": [
+            "OP_MONITOR_FUEL_LEVEL"
+          ],
+          "signalIds": null,
+          "type": "Interface"
+        },
+        {
+          "attributeIds": null,
+          "id": "IF_COMMAND",
+          "name": "Fuel Control Command Interface",
+          "operationIds": [
+            "OP_START_PUMP",
+            "OP_STOP_PUMP",
+            "OP_SWITCH_VALVE"
+          ],
+          "signalIds": null,
+          "type": "Interface"
+        },
+        {
+          "attributeIds": null,
+          "id": "IF_DATA",
+          "name": "Fuel Data Interface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "LIFELINE_001",
+          "name": "Fuel System Lifeline",
+          "represents": "FSYS001",
+          "type": "Lifeline"
+        }
+      ],
+      "links": [
+        {
+          "associationId": null,
+          "id": "LINK_001",
+          "instance1Id": "FUELTANK001",
+          "instance2Id": "FUELPUMP001",
+          "name": "Tank Pump Link",
+          "type": "Link"
+        }
+      ],
+      "messages": null,
+      "objectFlows": [
+        {
+          "guard": null,
+          "id": "OBJFLOW_001",
+          "name": "Fuel Delivery Flow",
+          "sourceId": "FUELTANK001",
+          "targetId": "FSYS001",
+          "type": "ObjectFlow"
+        }
+      ],
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "10000",
+          "id": "PARAM_MAX_CAPACITY",
+          "name": "maxCapacity",
+          "parameterType": "Integer",
+          "type": "Parameter"
+        }
+      ],
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "FSYS001",
+          "flowSpecificationId": null,
+          "id": "PORT_PROXY_001",
+          "isConjugated": false,
+          "name": "proxyControlPort",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": [
+            "IF_COMMAND"
+          ],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "FSYS001",
+          "id": "PP_FUEL_001",
+          "isConjugated": false,
+          "name": "fuelProxyPort",
+          "providedInterfaceIds": [
+            "IF_DATA"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "REQ_FUEL_001",
+          "name": "Req_Fuel_Capacity",
+          "reqId": "REQ-5000L",
+          "text": "The fuel storage system must support a minimum fuel capacity of 5000 liters.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": null,
+          "id": "STATE_VALVE_OPEN",
+          "name": "ValveOpen",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "STATE_VALVE_CLOSED",
+          "name": "ValveClosed",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": "Switch valve state",
+          "guard": "currentState == ValveClosed",
+          "id": "TRANSITION_001",
+          "name": "Open Valve Transition",
+          "sourceId": "STATE_VALVE_CLOSED",
+          "targetId": "STATE_VALVE_OPEN",
+          "trigger": "command: openValve",
+          "type": "Transition"
+        }
+      ],
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": null,
+          "id": "USECASE_FUEL_MONITORING",
+          "name": "Fuel Monitoring UseCase",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": [
+        {
+          "attributeIds": [
+            "ATTR_SYS_CAP_001"
+          ],
+          "id": "VT_VOLUME_001",
+          "name": "Volume",
+          "quantityKindId": "QK_LITER",
+          "type": "ValueType",
+          "unitId": "UNIT_LITER"
+        },
+        {
+          "attributeIds": [],
+          "id": "VT_PRESSURE_001",
+          "name": "Pressure",
+          "quantityKindId": "QK_PSI",
+          "type": "ValueType",
+          "unitId": "UNIT_PSI"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_114612"
+}

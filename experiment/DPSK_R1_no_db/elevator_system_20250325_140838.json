@@ -1,0 +1,307 @@
+{
+  "system_id": "elevator_system",
+  "system_name": "Elevator System",
+  "specification": {
+    "designScenario": {
+      "name": "Elevators",
+      "description": "The Elevators system is a primary flight control surface responsible for aircraft pitch modulation via deflection adjustments. Integrated with fly-by-wire systems, it translates electronic commands from the Flight Control Computer into aerodynamic forces. The design emphasizes ultra-responsive actuation, fault-tolerant redundancy, adaptive load compensation, and real-time health monitoring. Constructed with advanced composites, the system operates in extreme environmental conditions while maintaining precise control authority during high-stress maneuvers such as takeoff, turbulence, and landing.",
+      "requirements": [
+        {
+          "title": "Fly-by-Wire Signal Conversion",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Convert digital flight control commands into calibrated hydraulic/pneumatic actuator movements for elevator deflection."
+            },
+            {
+              "description": "Adjust deflection angles in real time using aerodynamic load and airspeed data to optimize control surface effectiveness."
+            }
+          ]
+        },
+        {
+          "title": "High-Fidelity Dynamic Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve actuation response time ≤40 ms from command input to full deflection at cruise aerodynamic loads."
+            },
+            {
+              "description": "Maintain angular positioning accuracy of ±0.05° under vibrational loads up to 15G."
+            }
+          ]
+        },
+        {
+          "title": "Dual-Channel Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement cross-monitored primary and backup actuation channels with automatic failover during hydraulic/electrical faults."
+            },
+            {
+              "description": "Engage mechanical lock mechanism to stabilize elevators in neutral position upon critical system failure."
+            }
+          ]
+        },
+        {
+          "title": "Condition-Based Maintenance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Integrate strain gauges and wear sensors to predict component fatigue and schedule proactive maintenance."
+            },
+            {
+              "description": "Use corrosion-resistant titanium alloys for hinge mechanisms to ensure 50,000+ flight cycle lifespan."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Elevators",
+        "type": "Flight Control Surface",
+        "description": "Dual-panel horizontal stabilizers providing pitch control authority through symmetric or asymmetric deflection.",
+        "subComponents": [
+          {
+            "name": "Left Elevator Panel",
+            "type": "Aerodynamic Surface",
+            "description": "Portside control surface with carbon-fiber composite core and anti-icing conductive layers."
+          },
+          {
+            "name": "Right Elevator Panel",
+            "type": "Aerodynamic Surface",
+            "description": "Starboard control surface mirroring left panel's construction, synchronized via control linkage."
+          },
+          {
+            "name": "Electro-Hydraulic Actuator Assembly",
+            "type": "Actuation System",
+            "description": "Dual-redundant servo actuators converting electrical signals into mechanical force via closed-loop hydraulic pressure."
+          },
+          {
+            "name": "Position Feedback Encoder",
+            "type": "Sensor System",
+            "description": "Fault-tolerant resolver-based sensors providing real-time deflection angle measurement to 0.01° resolution."
+          },
+          {
+            "name": "Elevator Control Unit (ECU)",
+            "type": "Avionics",
+            "description": "Triple-redundant microprocessor managing actuator commands, surface synchronization, and fault detection."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Control Computer",
+        "target": "Elevator Control Unit (ECU)",
+        "relationshipType": "dependency",
+        "description": "Transmits real-time pitch control commands and receives health status data via ARINC 429 digital bus."
+      },
+      {
+        "source": "Flight Control Surfaces",
+        "target": "Elevators",
+        "relationshipType": "composition",
+        "description": "Integral sub-system within the aircraft's complete flight control surface architecture."
+      },
+      {
+        "source": "Electro-Hydraulic Actuator Assembly",
+        "target": "Position Feedback Encoder",
+        "relationshipType": "dependency",
+        "description": "Actuators rely on encoder feedback for closed-loop position control and oscillation damping."
+      },
+      {
+        "source": "Emergency Power System",
+        "target": "Elevator Control Unit (ECU)",
+        "relationshipType": "dependency",
+        "description": "Provides backup power during electrical failures to maintain minimal pitch control capability."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "actuationResponseTime",
+        "type": "string",
+        "value": "≤40ms",
+        "description": "Maximum latency from control input to 95% of commanded elevator deflection at 500kt airspeed."
+      },
+      {
+        "name": "deflectionPrecision",
+        "type": "string",
+        "value": "±0.05°",
+        "description": "Angular positioning accuracy maintained across -50°C to +70°C operational temperature range."
+      },
+      {
+        "name": "materialStrength",
+        "type": "string",
+        "value": "Carbon-fiber reinforced polymer with 2200 MPa tensile strength",
+        "description": "Composite structure rated for 2.5x maximum expected aerodynamic loads with fatigue life ≥100,000 cycles."
+      },
+      {
+        "name": "environmentResistance",
+        "type": "string",
+        "value": "-55°C to +125°C; MIL-STD-810H salt fog compliance",
+        "description": "Operational capability in extreme weather with erosion-resistant leading edge treatment."
+      },
+      {
+        "name": "loadTolerance",
+        "type": "string",
+        "value": "±3500 Nm hinge moment @ Mach 0.85",
+        "description": "Maximum torsional load capacity during high-speed maneuvers with safety factor of 1.5."
+      },
+      {
+        "name": "operationalLifespan",
+        "type": "string",
+        "value": "50,000 flight hours MTBF",
+        "description": "Mean time between functional failures assuming scheduled maintenance per MRO guidelines."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "ES_001",
+          "type": "Block",
+          "name": "ElevatorSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ES_ATTR_001",
+            "ES_ATTR_002"
+          ],
+          "operationIds": [
+            "ES_OP_001"
+          ],
+          "constraintIds": [
+            "ES_CONST_001"
+          ],
+          "partIds": [
+            "ES_PART_001",
+            "ES_PART_002"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ES_002",
+          "type": "Block",
+          "name": "ControlSurface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "CS_ATTR_001"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "CS_CONST_001"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB_001",
+          "type": "InterfaceBlock",
+          "name": "FCInterface",
+          "attributeIds": [
+            "IB_ATTR_001"
+          ],
+          "operationIds": [
+            "IB_OP_001"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_001",
+          "type": "FlowSpecification",
+          "name": "ControlSignalFlow",
+          "flowType": "Information",
+          "dataType": "ControlSignal",
+          "unit": null,
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB_001",
+          "type": "ConstraintBlock",
+          "name": "ResponseTimeConstraint",
+          "parameterIds": [
+            "CB_PARAM_001"
+          ],
+          "expression": "responseTime <= 150 ms",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_001",
+          "type": "ValueType",
+          "name": "degrees",
+          "quantityKindId": "QK_ANGLE",
+          "unitId": "UNIT_DEG",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_001",
+          "type": "Enumeration",
+          "name": "ActuatorState",
+          "literals": [
+            {
+              "id": "LIT_001",
+              "name": "ACTIVE"
+            },
+            {
+              "id": "LIT_002",
+              "name": "STANDBY"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "P_001",
+          "type": "ProxyPort",
+          "name": "ctrlInterface",
+          "blockId": "ES_001",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "IB_001"
+          ],
+          "requiredInterfaceIds": [],
+          "attributeIds": []
+        }
+      ],
+      "generalizations": [
+        {
+          "id": "GEN_001",
+          "type": "Generalization",
+          "name": "CtrlSurfaceGeneralization",
+          "sourceId": "ES_002",
+          "targetId": "ES_001",
+          "isSubstitutable": true
+        }
+      ],
+      "comments": [
+        {
+          "id": "CMT_001",
+          "type": "Comment",
+          "body": "Implements ARP4754 safety requirements",
+          "annotatedElementId": "ES_001"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_140838",
+  "provider": "dpsk"
+}

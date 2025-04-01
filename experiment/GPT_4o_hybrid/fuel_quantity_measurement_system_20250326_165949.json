@@ -1,0 +1,484 @@
+{
+  "system_id": "fuel_quantity_measurement_system",
+  "system_name": "Fuel Quantity Measurement System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Accuracy of the fuel measurement system.",
+        "name": "measurementAccuracy",
+        "type": "percentage",
+        "value": "±0.5%"
+      },
+      {
+        "description": "Operational temperature range of the system components.",
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "-50°C to +85°C"
+      },
+      {
+        "description": "Communication protocol used for data exchange.",
+        "name": "communicationProtocol",
+        "type": "string",
+        "value": "ARINC 429"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fuel Quantity Measurement System (FQMS) is designed to accurately and continuously monitor and report the available fuel quantity within the aircraft's tanks. It ensures that pilots and onboard systems are provided with real-time data critical for safe flight operation and fuel management.",
+      "name": "Fuel Quantity Measurement System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Measure the quantity of fuel in various tanks using capacitive sensors and output the data digitally."
+            },
+            {
+              "description": "Transmit data to the cockpit display unit and onboard computer systems seamlessly."
+            }
+          ],
+          "title": "Fuel Measurement Capability",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain accuracy of fuel measurements under all normal and extreme conditions."
+            }
+          ],
+          "title": "Measurement Accuracy and Reliability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure the system detects and reports any anomalies in sensor or system operations promptly to maintain operational safety."
+            }
+          ],
+          "title": "System Safety and Anomaly Detection",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design the system to meet standard mounting interfaces and integrate with diverse aircraft types."
+            }
+          ],
+          "title": "Modularity and Interoperability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Fuel Gauge Assembly is the input provider for the central Processing Unit.",
+        "relationshipType": "composition",
+        "source": "Processing Unit",
+        "target": "Fuel Gauge Assembly"
+      },
+      {
+        "description": "The Fuel Data Transmitter relays information to the cockpit display.",
+        "relationshipType": "association",
+        "source": "Processing Unit",
+        "target": "Cockpit Display"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central processing component of the FQMS responsible for computation and data transmission.",
+        "name": "Processing Unit",
+        "subComponents": [
+          {
+            "description": "Electronic unit for handling sensor signals.",
+            "name": "Signal Processor",
+            "type": "Electronics"
+          },
+          {
+            "description": "Stores the calibration data for measurement adjustment.",
+            "name": "Calibration Memory",
+            "type": "Memory"
+          }
+        ],
+        "type": "Electronics Module"
+      },
+      {
+        "description": "Sensor assembly measuring fuel levels using capacitive technology.",
+        "name": "Fuel Gauge Assembly",
+        "subComponents": [
+          {
+            "description": "Capacitive sensors placed in fuel tanks.",
+            "name": "Fuel Probes",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Array"
+      },
+      {
+        "description": "Communication device transmitting processed data to cockpit and systems.",
+        "name": "Fuel Data Transmitter",
+        "subComponents": [
+          {
+            "description": "Transmits data using ARINC 429 protocol.",
+            "name": "Data Interface",
+            "type": "Communication Interface"
+          }
+        ],
+        "type": "Communication Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-fqms-processing-unit",
+          "memberEndIds": null,
+          "name": "FuelQuantityProcessingUnitAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-fqms",
+          "sourceMultiplicity": "1",
+          "targetId": "block-processing-unit",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-fqms-sensor-array",
+          "memberEndIds": null,
+          "name": "FuelQuantitySensorArrayAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-fqms",
+          "sourceMultiplicity": "1",
+          "targetId": "block-fuel-gauge-assembly",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-fqms-cockpit-display",
+          "memberEndIds": null,
+          "name": "FuelDataTransmissionAssociation",
+          "ownedEndIds": null,
+          "sourceId": "block-processing-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-fuel-data-transmitter",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        },
+        {
+          "id": "assoc-processing-unit-fuel-sensor",
+          "memberEndIds": null,
+          "name": "ProcessingUnitToSensorAssociation",
+          "ownedEndIds": null,
+          "sourceId": "block-processing-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-fuel-gauge-assembly",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "±0.5%",
+          "id": "attr-accuracy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "measurementAccuracy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "±0.5%",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-50°C to +85°C",
+          "id": "attr-temperatureRange",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "temperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-50°C to +85°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "ARINC 429",
+          "id": "attr-communicationProtocol",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "communicationProtocol",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "ARINC 429",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-accuracy",
+            "attr-temperatureRange",
+            "attr-communicationProtocol"
+          ],
+          "constraintIds": [],
+          "id": "block-fqms",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Fuel Quantity Measurement System",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "block-processing-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Processing Unit",
+          "operationIds": [],
+          "partIds": [
+            "part-signal-processor",
+            "part-calibration-memory"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "block-fuel-gauge-assembly",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Fuel Gauge Assembly",
+          "operationIds": [],
+          "partIds": [
+            "part-fuel-probes"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "block-fuel-data-transmitter",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Fuel Data Transmitter",
+          "operationIds": [],
+          "partIds": [
+            "part-data-interface"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-fqms",
+          "body": "The Fuel Quantity Measurement System (FQMS) is designed for continuous and accurate monitoring of fuel levels within the aircraft's tanks. It ensures real-time data provision for efficient fuel management and operational safety.",
+          "id": "comment-fqms",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block-fuel-gauge-assembly",
+          "body": "The Fuel Gauge Assembly utilizes capacitive sensing technology to determine fuel levels in tanks, essential for accurate and reliable measurements.",
+          "id": "comment-fuel-gauge-assembly",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-processing-unit-signal-processor",
+          "memberEndIds": null,
+          "name": "SignalProcessorComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-processing-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "part-signal-processor",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-processing-unit-calibration-memory",
+          "memberEndIds": null,
+          "name": "CalibrationMemoryComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-processing-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "part-calibration-memory",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-fuel-gauge-fuel-probes",
+          "memberEndIds": null,
+          "name": "FuelProbeComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-fuel-gauge-assembly",
+          "sourceMultiplicity": "1",
+          "targetId": "part-fuel-probes",
+          "targetMultiplicity": "0..*",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-fuel-data-data-interface",
+          "memberEndIds": null,
+          "name": "DataInterfaceComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-fuel-data-transmitter",
+          "sourceMultiplicity": "1",
+          "targetId": "part-data-interface",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "measurementAccuracy <= ±0.5%",
+          "id": "constraint-accuracy",
+          "name": "AccuracyConstraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-signal-processor",
+          "name": "Signal Processor",
+          "of": "block-processing-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-calibration-memory",
+          "name": "Calibration Memory",
+          "of": "block-processing-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-fuel-probes",
+          "name": "Fuel Probes",
+          "of": "block-fuel-gauge-assembly",
+          "type": "Part"
+        },
+        {
+          "id": "part-data-interface",
+          "name": "Data Interface",
+          "of": "block-fuel-data-transmitter",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": [],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-fuel-measurement-capability",
+          "name": "Fuel Measurement Capability",
+          "reqId": "REQ-001",
+          "text": "Measure the quantity of fuel in various tanks using capacitive sensors and provide the data digitally.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-accuracy-reliability",
+          "name": "Measurement Accuracy and Reliability",
+          "reqId": "REQ-002",
+          "text": "Maintain accuracy of fuel measurements under normal and extreme conditions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-system-safety",
+          "name": "System Safety and Anomaly Detection",
+          "reqId": "REQ-003",
+          "text": "Ensure prompt detection and reporting of sensor anomalies.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-modularity-interoperability",
+          "name": "Modularity and Interoperability",
+          "reqId": "REQ-004",
+          "text": "Design to fit standard mounting interfaces and integrate with diverse aircraft types.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": null,
+  "parent_system": "engine_control_computer",
+  "timestamp": "20250326_165949",
+  "provider": "gpt"
+}

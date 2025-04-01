@@ -1,0 +1,552 @@
+{
+  "system_id": "gps_system",
+  "system_name": "GPS System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the overall positional accuracy achieved by integrating multi-sensor data, ensuring precise flight navigation.",
+        "name": "positionalAccuracy",
+        "type": "string",
+        "value": "±2 meters"
+      },
+      {
+        "description": "Data update frequency ensuring real-time sensor fusion and control responsiveness during flight operations.",
+        "name": "dataUpdateRate",
+        "type": "string",
+        "value": "20 Hz"
+      },
+      {
+        "description": "Level of redundancy provided through dual-system backup and failover mechanisms to ensure system reliability.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual Redundancy"
+      },
+      {
+        "description": "Communication frequency bands used for GNSS signals and external data links, guaranteeing robust data reception.",
+        "name": "communicationFrequencies",
+        "type": "string",
+        "value": "L1 C/A, L2C for GNSS; VHF Data Link for telemetry"
+      },
+      {
+        "description": "Maximum system latency measured from sensor input to command output to ensure timely navigational decisions.",
+        "name": "systemLatency",
+        "type": "string",
+        "value": "≤50 ms"
+      }
+    ],
+    "designScenario": {
+      "description": "Develop an advanced Navigation System that leverages state-of-the-art multi-sensor fusion technology, incorporating Global Navigation Satellite System (GNSS), Inertial Navigation System (INS), and Real-Time Kinematic (RTK) corrections. The system is designed for modern aircraft, emphasizing high accuracy, rapid data processing, and robust fail-safe mechanisms to meet both operational and safety standards. This design facilitates precise route calculation, dynamic trajectory adjustments, and seamless communication with external data sources.",
+      "name": "Navigation System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must integrate data from GNSS, INS, and RTK modules to achieve continuous, real-time aircraft positioning."
+            },
+            {
+              "description": "Enable dynamic route recalculations using live meteorological and aeronautical data."
+            }
+          ],
+          "title": "Multi-Sensor Data Fusion",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve a data processing update rate of 20 Hz with a system latency not exceeding 50 milliseconds."
+            },
+            {
+              "description": "Ensure accurate position tracking with a maximum error margin of ±2 meters."
+            }
+          ],
+          "title": "High Performance and Responsiveness",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement dual redundant systems with automatic failover to safeguard against sensor or module failures."
+            },
+            {
+              "description": "Provide self-check routines and emergency alert features in case of data discrepancies."
+            }
+          ],
+          "title": "Robust Safety and Fail-Safe Operations",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design an intuitive pilot interface with synthetic vision and touch controls, ensuring minimal distraction and ease of operation."
+            },
+            {
+              "description": "Streamline maintenance procedures with embedded diagnostics and remote troubleshooting capabilities."
+            }
+          ],
+          "title": "Enhanced Usability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Flight Navigation Computer aggregates sensor data from both the GNSS Receiver Unit and the Inertial Navigation Unit for comprehensive data fusion.",
+        "relationshipType": "aggregation",
+        "source": "Flight Navigation Computer",
+        "target": "GNSS Receiver Unit"
+      },
+      {
+        "description": "The Flight Navigation Computer aggregates inertial data from the Inertial Navigation Unit to support dead reckoning and supplementary positioning.",
+        "relationshipType": "aggregation",
+        "source": "Flight Navigation Computer",
+        "target": "Inertial Navigation Unit"
+      },
+      {
+        "description": "The Flight Navigation Computer integrates correction data from the RTK Correction Module to refine positioning accuracy.",
+        "relationshipType": "aggregation",
+        "source": "Flight Navigation Computer",
+        "target": "RTK Correction Module"
+      },
+      {
+        "description": "The Flight Navigation Computer depends on the Digital Map and Terrain Database for updated aeronautical and geographic data required for route planning.",
+        "relationshipType": "dependency",
+        "source": "Flight Navigation Computer",
+        "target": "Digital Map and Terrain Database"
+      },
+      {
+        "description": "The External Communications Interface is composed within the Flight Navigation Computer, facilitating external data exchange and software updates.",
+        "relationshipType": "composition",
+        "source": "Flight Navigation Computer",
+        "target": "External Communications Interface"
+      },
+      {
+        "description": "The Pilot Display Interface is associated with the Flight Navigation Computer to visualize navigation data and alerts for the flight crew.",
+        "relationshipType": "association",
+        "source": "Flight Navigation Computer",
+        "target": "Pilot Display Interface"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central processing unit that fuses multi-sensor data, computes flight paths, and controls navigation outputs.",
+        "name": "Flight Navigation Computer",
+        "subComponents": [
+          {
+            "description": "Dedicated data fusion engine responsible for real-time integration of sensor inputs.",
+            "name": "Data Fusion Engine",
+            "type": "Processing Module"
+          },
+          {
+            "description": "High-performance computation unit executing complex navigational algorithms.",
+            "name": "Computation Unit",
+            "type": "Processing Module"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Receives and processes satellite signals to provide primary positioning data.",
+        "name": "GNSS Receiver Unit",
+        "subComponents": [
+          {
+            "description": "Multi-band GNSS antenna designed for optimal signal acquisition.",
+            "name": "GNSS Antenna",
+            "type": "Antenna"
+          },
+          {
+            "description": "Signal demodulator converting raw satellite data into digital information.",
+            "name": "Signal Demodulator",
+            "type": "Processing Unit"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Captures inertial data through advanced MEMS sensors to supplement satellite navigation.",
+        "name": "Inertial Navigation Unit",
+        "subComponents": [
+          {
+            "description": "High-precision MEMS accelerometers measuring linear movements.",
+            "name": "MEMS Accelerometer",
+            "type": "Sensor"
+          },
+          {
+            "description": "MEMS gyroscopes capturing angular rotations to enhance inertial measurements.",
+            "name": "MEMS Gyroscope",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Processes correction signals received in real-time to enhance the accuracy of positional data.",
+        "name": "RTK Correction Module",
+        "subComponents": [
+          {
+            "description": "Data link transceiver that receives RTK correction streams from ground stations or satellites.",
+            "name": "Data Link Transceiver",
+            "type": "Communications Hardware"
+          }
+        ],
+        "type": "Correction Module"
+      },
+      {
+        "description": "Maintains a comprehensive digital database of aeronautical charts, terrain, and obstacles for navigation computations.",
+        "name": "Digital Map and Terrain Database",
+        "subComponents": null,
+        "type": "Data Module"
+      },
+      {
+        "description": "Facilitates external communications, receiving updates such as weather and air traffic advisories.",
+        "name": "External Communications Interface",
+        "subComponents": [
+          {
+            "description": "VHF Data Link module for real-time transmission of aeronautical messages.",
+            "name": "VHF Data Link",
+            "type": "Communications Hardware"
+          },
+          {
+            "description": "Satcom module providing satellite-based connectivity for remote updates.",
+            "name": "Satcom Module",
+            "type": "Communications Hardware"
+          }
+        ],
+        "type": "Communication Module"
+      },
+      {
+        "description": "Displays navigational data, synthetic vision, and system alerts in a pilot-friendly format for enhanced situational awareness.",
+        "name": "Pilot Display Interface",
+        "subComponents": [
+          {
+            "description": "Synthetic Vision Display offering a 3D representation of the terrain and flight path.",
+            "name": "Synthetic Vision Display",
+            "type": "Display"
+          },
+          {
+            "description": "Multi-function touch controller for interactive system management.",
+            "name": "Touch Controller",
+            "type": "Input Device"
+          }
+        ],
+        "type": "Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [],
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "blk_gps_sys",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "GPS System",
+          "operationIds": [],
+          "partIds": [
+            "part_gps_ant",
+            "part_gps_recv",
+            "part_gps_proc",
+            "part_psm",
+            "part_data_if",
+            "part_clk_sync"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_frequency_range"
+          ],
+          "constraintIds": [],
+          "id": "blk_gps_ant",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "GPS Antenna",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_signal_sensitivity"
+          ],
+          "constraintIds": [],
+          "id": "blk_gps_recv",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "GPS Receiver",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_processing_power"
+          ],
+          "constraintIds": [],
+          "id": "blk_gps_proc",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "GPS Processor",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_voltage_level"
+          ],
+          "constraintIds": [],
+          "id": "blk_psm",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Power Supply Module",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_interface_speed"
+          ],
+          "constraintIds": [],
+          "id": "blk_data_if",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Data Interface Unit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_clock_accuracy"
+          ],
+          "constraintIds": [],
+          "id": "blk_clk_sync",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Clock Synchronization Module",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "blk_gps_sys",
+          "body": "The GPS System provides real-time position information and precise time synchronization for the airplane. It integrates multiple subsystems including antenna, receiver, processor, power supply, data interface, and clock synchronization modules.",
+          "id": "cmt_gps_doc",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "accuracy <= 5.0",
+          "id": "cb_gps_accuracy",
+          "name": "GPS Accuracy Constraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [],
+      "controlFlows": [],
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [
+        {
+          "attributeIds": [],
+          "id": "enum_gps_status",
+          "literals": [
+            {
+              "id": "lit_active",
+              "name": "Active"
+            },
+            {
+              "id": "lit_standby",
+              "name": "Standby"
+            },
+            {
+              "id": "lit_fault",
+              "name": "Fault"
+            }
+          ],
+          "name": "GPS Status Enum",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "vt_position",
+          "flowType": "information",
+          "id": "fs_gps_data",
+          "name": "GPS Data Flow",
+          "type": "FlowSpecification",
+          "unit": "meters"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "blk_gps_sys",
+          "id": "prt_gps_data",
+          "isConjugated": false,
+          "name": "GPS Data Port",
+          "providedInterfaceIds": [
+            "if_gps_data"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [],
+      "interfaceRealizations": [],
+      "interfaces": [
+        {
+          "attributeIds": [],
+          "id": "if_gps_data",
+          "name": "IGPSData",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [
+        {
+          "id": "part_gps_ant",
+          "name": "GPS Antenna Part",
+          "of": "blk_gps_ant",
+          "type": "Part"
+        },
+        {
+          "id": "part_gps_recv",
+          "name": "GPS Receiver Part",
+          "of": "blk_gps_recv",
+          "type": "Part"
+        },
+        {
+          "id": "part_gps_proc",
+          "name": "GPS Processor Part",
+          "of": "blk_gps_proc",
+          "type": "Part"
+        },
+        {
+          "id": "part_psm",
+          "name": "Power Supply Module Part",
+          "of": "blk_psm",
+          "type": "Part"
+        },
+        {
+          "id": "part_data_if",
+          "name": "Data Interface Unit Part",
+          "of": "blk_data_if",
+          "type": "Part"
+        },
+        {
+          "id": "part_clk_sync",
+          "name": "Clock Synchronization Module Part",
+          "of": "blk_clk_sync",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "blk_gps_sys",
+          "flowSpecificationId": null,
+          "id": "prt_gps_ctrl",
+          "isConjugated": true,
+          "name": "GPS Control Proxy Port",
+          "portType": "proxy",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "if_gps_control"
+          ],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "blk_gps_sys",
+          "id": "prt_gps_ctrl",
+          "isConjugated": true,
+          "name": "GPS Control Proxy Port",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "if_gps_control"
+          ],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": [],
+      "requirements": [],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "vt_position",
+          "name": "Position",
+          "quantityKindId": "qk_position",
+          "type": "ValueType",
+          "unitId": "unit_degree"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_115732"
+}

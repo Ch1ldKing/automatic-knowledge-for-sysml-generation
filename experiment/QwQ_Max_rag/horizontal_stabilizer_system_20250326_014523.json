@@ -1,0 +1,432 @@
+{
+  "system_id": "horizontal_stabilizer_system",
+  "system_name": "Horizontal Stabilizer System",
+  "specification": {
+    "designScenario": {
+      "name": "Horizontal Stabilizer System",
+      "description": "The Horizontal Stabilizer System is designed to maintain pitch stability and control the aircraft's longitudinal axis during flight. It provides precise pitch control through elevator deflection and trim adjustments, ensuring stability under varying flight conditions, load distributions, and external disturbances. The system integrates structural integrity, aerodynamic efficiency, and redundant actuation mechanisms to ensure safe operation across the aircraft's flight envelope.",
+      "requirements": [
+        {
+          "title": "Pitch Stability Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Maintain aircraft pitch equilibrium by adjusting elevator deflection in response to flight control inputs and aerodynamic forces."
+            },
+            {
+              "description": "Enable automatic trim adjustments to reduce pilot workload during steady-state flight conditions."
+            }
+          ]
+        },
+        {
+          "title": "Rapid Deflection Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve elevator deflection within 100 milliseconds of receiving actuation commands from the flight control system."
+            },
+            {
+              "description": "Ensure smooth and continuous deflection adjustments during dynamic maneuvers."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Actuation and Failure Mitigation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant actuators with independent power sources to prevent single-point failures."
+            },
+            {
+              "description": "Trigger automatic pitch trim override and alert systems in case of actuator or sensor malfunction."
+            }
+          ]
+        },
+        {
+          "title": "Structural and Environmental Robustness",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Withstand aerodynamic loads up to 3.5g positive and -1.5g negative load factors during extreme maneuvers."
+            },
+            {
+              "description": "Resist environmental degradation via corrosion-resistant coatings and composite materials rated for -55°C to +90°C operational range."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Horizontal Stabilizer Assembly",
+        "type": "Structural Assembly",
+        "description": "The primary structural component integrating the stabilizer structure, elevators, and actuation systems to control pitch.",
+        "subComponents": [
+          {
+            "name": "Stabilizer Structure",
+            "type": "Aerodynamic Structure",
+            "description": "The fixed airfoil section providing longitudinal stability and mounting base for movable elevator surfaces."
+          },
+          {
+            "name": "Elevator Control Surfaces",
+            "type": "Control Surface",
+            "description": "Movable surfaces attached to the stabilizer structure, deflecting upward or downward to adjust aircraft pitch."
+          },
+          {
+            "name": "Trim Tab",
+            "type": "Trimming Mechanism",
+            "description": "Small adjustable surface on the elevator to fine-tune pitch trim and reduce pilot control forces."
+          },
+          {
+            "name": "Actuator System",
+            "type": "Mechanical Actuator",
+            "description": "Hydraulic/pneumatic/electric actuators providing the force to deflect elevator surfaces and trim tabs."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Horizontal Stabilizer Assembly",
+        "target": "Stabilizer Structure",
+        "relationshipType": "aggregation",
+        "description": "The Horizontal Stabilizer Assembly aggregates the Stabilizer Structure as its fixed structural base."
+      },
+      {
+        "source": "Horizontal Stabilizer Assembly",
+        "target": "Elevator Control Surfaces",
+        "relationshipType": "aggregation",
+        "description": "The Horizontal Stabilizer Assembly integrates the Elevator Control Surfaces for pitch control functionality."
+      },
+      {
+        "source": "Elevator Control Surfaces",
+        "target": "Trim Tab",
+        "relationshipType": "composition",
+        "description": "The Elevator Control Surfaces compositionally include the Trim Tab for trim adjustments."
+      },
+      {
+        "source": "Actuator System",
+        "target": "Flight Control Computer",
+        "relationshipType": "dependency",
+        "description": "The Actuator System depends on the Flight Control Computer for real-time actuation commands and trim adjustments."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<100ms",
+        "description": "Maximum time required for elevator deflection from command initiation to full movement."
+      },
+      {
+        "name": "deflectionAccuracy",
+        "type": "string",
+        "value": "±0.5°",
+        "description": "Precision of elevator angular displacement relative to commanded positions."
+      },
+      {
+        "name": "materialStrength",
+        "type": "string",
+        "value": "High-modulus carbon fiber composites with 1800 MPa tensile strength",
+        "description": "Structural material specification for aerodynamic load resistance and weight optimization."
+      },
+      {
+        "name": "environmentResistance",
+        "type": "string",
+        "value": "-55°C to +90°C; epoxy-based corrosion protection",
+        "description": "Operating temperature range and protective coatings against icing and saltwater exposure."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "HSYS",
+          "type": "Block",
+          "name": "HorizontalStabilizerSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "HSYS_ANGLE",
+            "HSYS_STATUS"
+          ],
+          "operationIds": [
+            "setStabilizerAngle",
+            "getStabilizerStatus"
+          ],
+          "constraintIds": [
+            "ANG_CONSTRAINT",
+            "ACTUATOR_CONSTRAINT"
+          ],
+          "partIds": [
+            "MECH_SUBSYS",
+            "CTRL_SUBSYS",
+            "SENSOR_SUBSYS"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "MECH_SUBSYS",
+          "type": "Block",
+          "name": "StabilizerMechanicalSubsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ACTUATOR_POWER",
+            "STABILIZER_DEFLECTION"
+          ],
+          "operationIds": [
+            "actuate"
+          ],
+          "constraintIds": [
+            "ACTUATOR_CONSTRAINT"
+          ],
+          "partIds": [
+            "ACTUATOR",
+            "STABILIZER"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "CTRL_SUBSYS",
+          "type": "Block",
+          "name": "StabilizerControlSubsystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "CONTROL_SIGNAL",
+            "FEEDBACK"
+          ],
+          "operationIds": [
+            "processFeedback",
+            "generateCommand"
+          ],
+          "constraintIds": [
+            "ANG_CONSTRAINT"
+          ],
+          "partIds": [
+            "PID_CONTROLLER"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SENSOR_SUBSYS",
+          "type": "Block",
+          "name": "StabilizerSensorSubsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ANGLE_SENSOR",
+            "LOAD_SENSOR"
+          ],
+          "operationIds": [
+            "measure"
+          ],
+          "constraintIds": [
+            "SENSOR_ACCURACY"
+          ],
+          "partIds": [
+            "LVDT",
+            "LOADCELL"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "CTRL_IF",
+          "type": "InterfaceBlock",
+          "name": "ControlSignalInterface",
+          "attributeIds": [
+            "SIG_TYPE"
+          ],
+          "operationIds": [
+            "sendSignal"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "POWER_IF",
+          "type": "InterfaceBlock",
+          "name": "PowerInterface",
+          "attributeIds": [
+            "VOLTAGE",
+            "CURRENT"
+          ],
+          "operationIds": [
+            "supplyPower"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "HSYS_CTRL_PORT",
+          "type": "FullPort",
+          "name": "ControlInput",
+          "blockId": "HSYS",
+          "providedInterfaceIds": [
+            "CTRL_IF"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "isConjugated": false,
+          "attributeIds": []
+        },
+        {
+          "id": "MECH_PWR_PORT",
+          "type": "FlowPort",
+          "name": "ActuatorPower",
+          "blockId": "MECH_SUBSYS",
+          "flowSpecificationId": "ELECTRIC_FLOW",
+          "isConjugated": false,
+          "attributeIds": []
+        },
+        {
+          "id": "SENSOR_DATA_PORT",
+          "type": "ProxyPort",
+          "name": "SensorFeedback",
+          "blockId": "SENSOR_SUBSYS",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "CTRL_IF"
+          ],
+          "flowSpecificationId": null,
+          "isConjugated": true,
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "ANGLE_VALUE",
+          "type": "ValueType",
+          "name": "AngleValue",
+          "quantityKindId": "ANGLE",
+          "unitId": "DEGREE",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "STATUS_ENUM",
+          "type": "Enumeration",
+          "name": "StabilizerStatus",
+          "literals": [
+            {
+              "id": "STAT_NORMAL",
+              "name": "Normal"
+            },
+            {
+              "id": "STAT_FAULT",
+              "name": "Fault"
+            },
+            {
+              "id": "STAT_STALLED",
+              "name": "Stalled"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "ANG_CONSTRAINT",
+          "type": "ConstraintBlock",
+          "name": "AngleConstraint",
+          "expression": "current_angle <= max_angle && current_angle >= min_angle",
+          "parameterIds": [
+            "MAX_ANGLE",
+            "MIN_ANGLE"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "ACTUATOR_CONSTRAINT",
+          "type": "ConstraintBlock",
+          "name": "ActuatorConstraint",
+          "expression": "actuator_speed <= max_speed",
+          "parameterIds": [
+            "MAX_SPEED"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "HSYS_COMPO",
+          "type": "Composition",
+          "name": "SystemComposition",
+          "sourceId": "HSYS",
+          "targetId": "MECH_SUBSYS",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "HSYS_COMPO_CTRL",
+          "type": "Composition",
+          "sourceId": "HSYS",
+          "targetId": "CTRL_SUBSYS",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "comments": [
+        {
+          "id": "HSYS_COMMENT",
+          "type": "Comment",
+          "body": "Manages pitch stability via stabilizer deflection. Interfaces with flight control system",
+          "annotatedElementId": "HSYS"
+        },
+        {
+          "id": "ANG_CONSTRAINT_COMMENT",
+          "type": "Comment",
+          "body": "Enforces physical deflection limits (-25° to +25°)",
+          "annotatedElementId": "ANG_CONSTRAINT"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "HSYS_ANGLE",
+          "type": "Property",
+          "name": "currentAngle",
+          "propertyType": "AngleValue",
+          "value": "0.0",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "0.0"
+        },
+        {
+          "id": "HSYS_STATUS",
+          "type": "Property",
+          "name": "status",
+          "propertyType": "Enumeration#STATUS_ENUM",
+          "value": "Normal",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "Normal"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Horizontal Stabilizer System is not mentioned in the provided context information.",
+  "timestamp": "20250326_014523",
+  "provider": "qwen"
+}

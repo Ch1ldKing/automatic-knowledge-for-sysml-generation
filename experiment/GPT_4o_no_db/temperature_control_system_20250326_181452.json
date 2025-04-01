@@ -1,0 +1,379 @@
+{
+  "system_id": "temperature_control_system",
+  "system_name": "Temperature Control System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defined thermal envelope for automatic cabin climate control to optimize passenger comfort.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "19°C - 25°C"
+      },
+      {
+        "description": "Maximum time allowed to correct any deviation from the established temperature range.",
+        "name": "correctionResponseTime",
+        "type": "string",
+        "value": "Under 4 seconds"
+      },
+      {
+        "description": "Accuracy of the temperature sensors ensuring precise readings during flight operation.",
+        "name": "sensorAccuracy",
+        "type": "string",
+        "value": "±0.3°C"
+      },
+      {
+        "description": "Resolution of control adjustments available via the temperature regulation circuitry.",
+        "name": "controlResolution",
+        "type": "string",
+        "value": "±0.1°C"
+      }
+    ],
+    "designScenario": {
+      "description": "The Temperature Control System (TCS) is designed as a dedicated subsystem within the airplane’s environmental control system. It autonomously regulates cabin temperature by leveraging a network of precision sensors, robust actuators, and an intelligent control module. TCS ensures that the internal climate remains within the optimal thermal envelope by coordinating with the air conditioning system and the central avionics control module. It is engineered for rapid response to environmental fluctuations and integrates multiple layers of redundancy to meet strict aviation safety standards. The TCS is scalable and incorporates real-time diagnostics and remote monitoring capabilities, making it adaptable for both current and next-generation aircraft architectures.",
+      "name": "Temperature Control System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall continually monitor and adjust the cabin temperature between 19°C and 25°C using integrated heating and cooling assemblies controlled by a dedicated microprocessor."
+            }
+          ],
+          "title": "Automated Temperature Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must detect and correct any thermal deviation within 4 seconds to guarantee passenger comfort during in-flight conditions."
+            }
+          ],
+          "title": "Rapid Response Time",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Dual-redundant sensor arrays and actuator circuits shall be implemented to ensure fail-safe operations in the event of component malfunction."
+            }
+          ],
+          "title": "System Redundancy and Safety",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The subsystem shall include a user-friendly diagnostic interface and facilitate remote maintenance support, enhancing troubleshooting and system upgrades."
+            }
+          ],
+          "title": "Enhanced Maintainability and Monitoring",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Environmental Control Unit (ECU) supplies conditioned air which is further regulated by the Temperature Control System.",
+        "relationshipType": "aggregation",
+        "source": "Environmental Control Unit",
+        "target": "Temperature Control System"
+      },
+      {
+        "description": "The Temperature Control System depends on power and data inputs from the Central Avionics Unit to synchronize environmental management functions.",
+        "relationshipType": "dependency",
+        "source": "Temperature Control System",
+        "target": "Central Avionics Unit"
+      },
+      {
+        "description": "Real-time temperature and operational status data is communicated from the Temperature Control System to the Flight Management System for integrated monitoring.",
+        "relationshipType": "association",
+        "source": "Temperature Control System",
+        "target": "Flight Management System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core subsystem responsible for processing sensor data and distributing commands to regulate cabin temperature.",
+        "name": "Temperature Control Module",
+        "subComponents": [
+          {
+            "description": "High-precision sensor array for continuous ambient temperature monitoring within the cabin.",
+            "name": "Precision Temperature Sensors",
+            "type": "Sensor"
+          },
+          {
+            "description": "Digital control unit that processes sensor inputs and calculates required adjustments.",
+            "name": "Digital Control Unit",
+            "type": "Controller"
+          },
+          {
+            "description": "Embedded firmware executing control algorithms for thermal regulation.",
+            "name": "Control Firmware",
+            "type": "Software"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Heating assembly designed to elevate cabin temperature when ambient conditions fall below set thresholds.",
+        "name": "Heating Assembly",
+        "subComponents": [
+          {
+            "description": "Electric heaters with rapid warm-up capabilities tailored for in-flight environment control.",
+            "name": "Electric Heater",
+            "type": "Actuator"
+          },
+          {
+            "description": "Thermal distribution network ensuring even heat dispersion across the cabin.",
+            "name": "Heat Distribution Ducting",
+            "type": "Structural Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Cooling assembly tasked with reducing cabin temperature by extracting excess heat.",
+        "name": "Cooling Assembly",
+        "subComponents": [
+          {
+            "description": "Air-conditioning compressor integrated with refrigerant circuits for effective cooling.",
+            "name": "Compressor Unit",
+            "type": "Actuator"
+          },
+          {
+            "description": "Cooling coils and associated piping for absorbing and dissipating heat.",
+            "name": "Cooling Coils",
+            "type": "Structural Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Diagnostic and monitoring subsystem providing real-time system health checks and remote access capabilities.",
+        "name": "Diagnostics Module",
+        "subComponents": [
+          {
+            "description": "On-board data acquisition module collecting operational metrics for performance analysis.",
+            "name": "Data Logger",
+            "type": "Sensor"
+          },
+          {
+            "description": "Interface unit for remote connectivity and troubleshooting support.",
+            "name": "Remote Diagnostic Interface",
+            "type": "Controller"
+          }
+        ],
+        "type": "Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_TCS_Temperature",
+            "attr_TCS_Pressure"
+          ],
+          "constraintIds": [
+            "const_TCS_OperTemperature"
+          ],
+          "id": "block_TemperatureControlSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "TemperatureControlSystem",
+          "operationIds": [
+            "op_TCS_Initialize",
+            "op_TCS_Calibrate"
+          ],
+          "partIds": [
+            "part_Sensor",
+            "part_Controller",
+            "part_Valve"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_Sensor_Temperature"
+          ],
+          "constraintIds": null,
+          "id": "block_Sensor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Sensor",
+          "operationIds": [
+            "op_Sensor_Read"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_Controller_SetPoint"
+          ],
+          "constraintIds": null,
+          "id": "block_Controller",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Controller",
+          "operationIds": [
+            "op_Controller_Adjust",
+            "op_Controller_Analyze"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_Valve_Position"
+          ],
+          "constraintIds": null,
+          "id": "block_Valve",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Valve",
+          "operationIds": [
+            "op_Valve_Open",
+            "op_Valve_Close"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": [
+        {
+          "id": "comp_TCS_Sensor",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block_TemperatureControlSystem",
+          "sourceMultiplicity": "1..1",
+          "targetId": "block_Sensor",
+          "targetMultiplicity": "*",
+          "type": "Composition"
+        },
+        {
+          "id": "comp_TCS_Controller",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block_TemperatureControlSystem",
+          "sourceMultiplicity": "1..1",
+          "targetId": "block_Controller",
+          "targetMultiplicity": "1..1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "attr_TCS_Temperature"
+          ],
+          "id": "const_TCS_OperTemperature",
+          "name": "OperatingTemperature",
+          "specification": "[min 15 ºC, max 25 ºC]",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum_Mode",
+          "literals": [
+            {
+              "id": "lit_Automatic",
+              "name": "Automatic"
+            },
+            {
+              "id": "lit_Manual",
+              "name": "Manual"
+            }
+          ],
+          "name": "Mode",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block_Controller",
+          "id": "port_ControllerInput",
+          "isConjugated": null,
+          "name": "ControllerInput",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": [],
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [],
+      "parameters": [],
+      "parts": null,
+      "ports": [],
+      "proxyPorts": [],
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "valType_Temperature",
+          "name": "Temperature",
+          "quantityKindId": "qty_Temperature",
+          "type": "ValueType",
+          "unitId": "unit_Celsius"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250326_181452",
+  "provider": "gpt"
+}

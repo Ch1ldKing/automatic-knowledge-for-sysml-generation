@@ -1,0 +1,457 @@
+{
+  "system_id": "aileron_system",
+  "system_name": "Aileron System",
+  "specification": {
+    "designScenario": {
+      "name": "Aileron System",
+      "description": "The Aileron System is designed to provide precise roll control by asymmetrically deflecting control surfaces on the aircraft's wings. It interfaces with the Flight Surfaces system to translate actuator commands into rapid, accurate deflections. The design prioritizes aerodynamic efficiency, structural integrity under high cyclic loads, and fail-safe mechanisms to ensure safe operation during extreme maneuvers. Emphasis is placed on minimizing weight while maintaining rigidity and resistance to environmental stressors.",
+      "requirements": [
+        {
+          "title": "Asymmetric Roll Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Enable differential deflection of left and right ailerons to induce aircraft roll in response to pilot input."
+            },
+            {
+              "description": "Synchronize aileron movement with other control surfaces (e.g., spoilers) during coordinated turns."
+            }
+          ]
+        },
+        {
+          "title": "High-Frequency Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full aileron deflection within 30 milliseconds of receiving actuator commands."
+            },
+            {
+              "description": "Maintain ±0.05° deflection accuracy under aerodynamic loads exceeding 1000 N/m²."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe Deflection Limits",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement mechanical stops and redundant sensors to prevent over-deflection beyond ±30°."
+            },
+            {
+              "description": "Trigger automatic neutral deflection if actuator command signal is lost for >500ms."
+            }
+          ]
+        },
+        {
+          "title": "Corrosion and Fatigue Resistance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Use aerospace-grade aluminum alloys with anodized coatings to withstand saltwater exposure."
+            },
+            {
+              "description": "Design hinge mechanisms for 10,000+ deflection cycles without wear-related performance degradation."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Aileron Assembly",
+        "type": "Mechanical Assembly",
+        "description": "Primary structural component housing control surfaces, hinges, and linkages.",
+        "subComponents": [
+          {
+            "name": "Control Surface",
+            "type": "Aerodynamic Surface",
+            "description": "Deflectable wing section made of carbon-fiber-reinforced polymer (CFRP)."
+          },
+          {
+            "name": "Hinge Mechanism",
+            "type": "Rotary Joint",
+            "description": "Ball-race hinge providing low-friction rotation with built-in deflection encoders."
+          },
+          {
+            "name": "Linkage System",
+            "type": "Kinematic Chain",
+            "description": "Rigid titanium alloy linkages connecting actuators to control surfaces."
+          }
+        ]
+      },
+      {
+        "name": "Actuator Subsystem",
+        "type": "Actuation Subsystem",
+        "description": "Electrically powered mechanism driving aileron deflection.",
+        "subComponents": [
+          {
+            "name": "Electric Motor",
+            "type": "Brushless DC Motor",
+            "description": "High-torque motor with 20,000 RPM capability for rapid actuation."
+          },
+          {
+            "name": "Position Sensor",
+            "type": "Hall-Effect Sensor",
+            "description": "Non-contact sensor providing 0.1° resolution deflection feedback."
+          }
+        ]
+      },
+      {
+        "name": "Sensing Subsystem",
+        "type": "Sensing Subsystem",
+        "description": "Monitors aerodynamic loads and deflection position.",
+        "subComponents": [
+          {
+            "name": "Load Sensor",
+            "type": "Strain Gauge",
+            "description": "Measures bending moments up to 5000 Nm with ±1% accuracy."
+          },
+          {
+            "name": "Limit Switch",
+            "type": "Mechanical Limit",
+            "description": "Physical stop with microswitch triggering at ±30° deflection."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Aileron Assembly",
+        "target": "Actuator Subsystem",
+        "relationshipType": "dependency",
+        "description": "Actuators provide motive force for deflecting the aileron assembly."
+      },
+      {
+        "source": "Actuator Subsystem",
+        "target": "Sensing Subsystem",
+        "relationshipType": "dependency",
+        "description": "Sensor data is used to close the actuation feedback loop."
+      },
+      {
+        "source": "Aileron Assembly",
+        "target": "Hinge Mechanism",
+        "relationshipType": "composition",
+        "description": "Hinge mechanism is an integral part of the aileron assembly."
+      },
+      {
+        "source": "Flight Surfaces",
+        "target": "Aileron System",
+        "relationshipType": "aggregation",
+        "description": "Aileron system is a subsystem of the broader flight surfaces assembly."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<30ms",
+        "description": "Maximum time required to achieve full deflection from neutral position."
+      },
+      {
+        "name": "deflectionAccuracy",
+        "type": "string",
+        "value": "±0.05°",
+        "description": "Maximum allowable deviation from commanded deflection angle under load."
+      },
+      {
+        "name": "materialStrength",
+        "type": "string",
+        "value": "Carbon-fiber-reinforced polymer with 1800 MPa tensile strength",
+        "description": "Primary material for control surfaces providing high stiffness-to-weight ratio."
+      },
+      {
+        "name": "environmentalResistance",
+        "type": "string",
+        "value": "-55°C to +125°C; anodized 6061-T6 aluminum",
+        "description": "Operational temperature range and corrosion protection for hinge mechanisms."
+      },
+      {
+        "name": "wearLife",
+        "type": "string",
+        "value": "10,000 cycles",
+        "description": "Expected service life before hinge mechanism requires maintenance."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-aileron-system",
+          "type": "Block",
+          "name": "AileronSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-actuationSpeed",
+            "attr-deflectionAccuracy",
+            "attr-materialStrength",
+            "attr-environmentalResistance",
+            "attr-wearLife"
+          ],
+          "operationIds": null,
+          "constraintIds": [
+            "constraint-deflection-limit",
+            "constraint-actuation-speed"
+          ],
+          "partIds": [
+            "block-aileron-assembly",
+            "block-actuator-subsystem",
+            "block-sensing-subsystem"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-aileron-assembly",
+          "type": "Block",
+          "name": "AileronAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-control-surface-material",
+            "attr-hinge-mechanism-type"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": [
+            "block-control-surface",
+            "block-hinge-mechanism",
+            "block-linkage-system"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-actuator-subsystem",
+          "type": "Block",
+          "name": "ActuatorSubsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-motor-type",
+            "attr-sensor-resolution"
+          ],
+          "operationIds": null,
+          "constraintIds": [
+            "constraint-actuator-torque"
+          ],
+          "partIds": [
+            "block-electric-motor",
+            "block-position-sensor"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-sensing-subsystem",
+          "type": "Block",
+          "name": "SensingSubsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-load-sensor-range",
+            "attr-limit-switch-type"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": [
+            "block-load-sensor",
+            "block-limit-switch"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-aileron-actuation-in",
+          "type": "FlowPort",
+          "name": "ActuationCommandInPort",
+          "blockId": "block-aileron-system",
+          "isConjugated": false,
+          "flowSpecificationId": "flow-spec-actuation-command",
+          "attributeIds": null
+        },
+        {
+          "id": "port-aileron-sensor-out",
+          "type": "FlowPort",
+          "name": "SensorFeedbackOutPort",
+          "blockId": "block-aileron-system",
+          "isConjugated": false,
+          "flowSpecificationId": "flow-spec-sensor-data",
+          "attributeIds": null
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-actuation-command",
+          "type": "FlowSpecification",
+          "name": "ActuationCommandFlow",
+          "flowType": "InformationFlow",
+          "dataType": "ControlCommand",
+          "unit": "ms",
+          "attributeIds": null
+        },
+        {
+          "id": "flow-spec-sensor-data",
+          "type": "FlowSpecification",
+          "name": "SensorDataFlow",
+          "flowType": "InformationFlow",
+          "dataType": "SensorReading",
+          "unit": "°",
+          "attributeIds": null
+        }
+      ],
+      "constraints": [
+        {
+          "id": "constraint-deflection-limit",
+          "type": "Constraint",
+          "name": "DeflectionLimitConstraint",
+          "specification": "deflectionAngle <= 30 AND deflectionAngle >= -30",
+          "constrainedElementIds": [
+            "block-aileron-assembly"
+          ]
+        },
+        {
+          "id": "constraint-actuator-torque",
+          "type": "Constraint",
+          "name": "ActuatorTorqueConstraint",
+          "specification": "motorTorque > 150 Nm",
+          "constrainedElementIds": [
+            "block-electric-motor"
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-actuationSpeed",
+          "type": "Property",
+          "name": "actuationSpeed",
+          "propertyType": "String",
+          "value": "<30ms",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-deflectionAccuracy",
+          "type": "Property",
+          "name": "deflectionAccuracy",
+          "propertyType": "String",
+          "value": "±0.05°",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-control-surface-material",
+          "type": "Property",
+          "name": "controlSurfaceMaterial",
+          "propertyType": "String",
+          "value": "Carbon-fiber-reinforced polymer",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-environmentalResistance",
+          "type": "Property",
+          "name": "environmentalResistance",
+          "propertyType": "String",
+          "value": "-55°C to +125°C; anodized 6061-T6 aluminum",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-control-surface-condition",
+          "type": "Enumeration",
+          "name": "ControlSurfaceCondition",
+          "literals": [
+            {
+              "id": "literal-nominal",
+              "name": "Nominal"
+            },
+            {
+              "id": "literal-warning",
+              "name": "Warning"
+            },
+            {
+              "id": "literal-failure",
+              "name": "Failure"
+            }
+          ],
+          "attributeIds": null
+        }
+      ],
+      "associations": [
+        {
+          "id": "agg-aileron-to-flightsurfaces",
+          "type": "Aggregation",
+          "name": "AggregatesAileron",
+          "sourceId": "block-flight-surfaces-new",
+          "targetId": "block-aileron-system",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": null,
+          "ownedEndIds": null
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-aileron-design",
+          "type": "Comment",
+          "body": "Aileron System implements precise roll control via asymmetric deflection. Ensures ±0.05° accuracy under 1000 N/m² loads and fail-safe deflection limits of ±30°.",
+          "annotatedElementId": "block-aileron-system"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250325_103845"
+}

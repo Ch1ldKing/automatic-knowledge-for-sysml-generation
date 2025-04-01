@@ -1,0 +1,375 @@
+{
+  "system_id": "ignition_system",
+  "system_name": "Ignition System",
+  "specification": {
+    "designScenario": {
+      "name": "Ignition System",
+      "description": "The Ignition System is responsible for initiating and sustaining combustion in the aircraft engine under all operational conditions. It interfaces with the Engine Control Computer to receive timing and sequencing commands, ensures reliable spark generation across multiple igniter units, and monitors flame stability. Designed for redundancy and fault tolerance, it operates in extreme environmental conditions while maintaining synchronization with engine rotational speed, fuel flow, and altitude parameters.",
+      "requirements": [
+        {
+          "title": "Spark Generation and Timing Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Generate high-energy sparks across igniter units with precise timing synchronized to engine RPM and compressor stages."
+            },
+            {
+              "description": "Automatically adjust ignition frequency and duration based on inputs from the Engine Control Computer during start-up, climb, and relight scenarios."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy and Fault Isolation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Maintain dual independent ignition channels with cross-channel monitoring to ensure continuous operation during single-channel failures."
+            },
+            {
+              "description": "Implement arc fault detection and automatic deactivation of faulty igniter circuits to prevent system-wide failures."
+            }
+          ]
+        },
+        {
+          "title": "High-Altitude Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Deliver spark energies ≥ 4 joules per ignition event to ensure reliable combustion at altitudes above 40,000 feet."
+            },
+            {
+              "description": "Maintain ignition timing accuracy within ±0.5 milliseconds across -40°C to +200°C operational temperature ranges."
+            }
+          ]
+        },
+        {
+          "title": "Maintenance Diagnostics",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide capacitive discharge counters and spark energy degradation metrics through the aircraft's central maintenance system."
+            },
+            {
+              "description": "Support on-wing testing of ignition exciters without engine rotation via built-in test equipment (BITE)."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Ignition Control Unit",
+        "description": "Primary controller managing spark timing, energy output, and health monitoring of ignition channels.",
+        "type": "Electronic Ignition Controller",
+        "subComponents": [
+          {
+            "name": "Spark Timing Controller",
+            "description": "FPGA-based module processing engine position signals and calculating ignition advance angles.",
+            "type": "Timing Processor"
+          },
+          {
+            "name": "Redundant Controller Module",
+            "description": "Backup control path with independent power supply and signal processing chain.",
+            "type": "Failover Controller"
+          }
+        ]
+      },
+      {
+        "name": "High-Energy Igniter Units",
+        "description": "Capacitive discharge-based spark generators mounted on engine combustor casing.",
+        "type": "Ignition Exciters",
+        "subComponents": [
+          {
+            "name": "Pulse Transformer",
+            "description": "Steps up input voltage to 20kV range for spark generation.",
+            "type": "Voltage Amplifier"
+          },
+          {
+            "name": "Semiconductor Switching Stack",
+            "description": "Thyristor-based array controlling discharge timing and energy.",
+            "type": "Power Electronics"
+          }
+        ]
+      },
+      {
+        "name": "Flame Detection Sensors",
+        "description": "UV/IR-based sensors monitoring combustion stability in the turbine section.",
+        "type": "Optical Sensors",
+        "subComponents": [
+          {
+            "name": "Photodiode Array",
+            "description": "Multi-spectral sensor array detecting flame signature wavelengths.",
+            "type": "Optical Receiver"
+          },
+          {
+            "name": "Signal Processor",
+            "description": "Filters and amplifies raw sensor data for flame presence determination.",
+            "type": "Signal Conditioning Module"
+          }
+        ]
+      },
+      {
+        "name": "Ignition Power Supply",
+        "description": "Dual-redundant 28VDC-to-400VDC converters for exciter capacitor charging.",
+        "type": "Power Conversion Unit",
+        "subComponents": [
+          {
+            "name": "High-Voltage Capacitor Bank",
+            "description": "Energy storage system for spark discharge events.",
+            "type": "Energy Storage"
+          },
+          {
+            "name": "Voltage Regulation Circuit",
+            "description": "Maintains stable charging voltage across temperature variations.",
+            "type": "Power Management"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Ignition System",
+        "target": "Engine Control Computer",
+        "relationshipType": "composition",
+        "description": "The Ignition System operates as a subordinate module within the Engine Control Computer architecture."
+      },
+      {
+        "source": "Ignition Control Unit",
+        "target": "Spark Timing Controller",
+        "relationshipType": "composition",
+        "description": "Spark Timing Controller is an integral sub-component of the Ignition Control Unit."
+      },
+      {
+        "source": "Ignition Control Unit",
+        "target": "Engine Sensor Interface",
+        "relationshipType": "association",
+        "description": "Receives engine speed and phase reference signals from the Engine Sensor Interface."
+      },
+      {
+        "source": "Ignition Control Unit",
+        "target": "High-Energy Igniter Units",
+        "relationshipType": "aggregation",
+        "description": "Manages and monitors multiple igniter units distributed around the engine combustor."
+      },
+      {
+        "source": "Ignition Control Unit",
+        "target": "Ignition Power Supply",
+        "relationshipType": "dependency",
+        "description": "Requires stable high-voltage input from the Ignition Power Supply for operation."
+      },
+      {
+        "source": "Flame Detection Sensors",
+        "target": "Diagnostic Interface",
+        "relationshipType": "association",
+        "description": "Transmits combustion stability data to the central diagnostic system for performance monitoring."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "sparkEnergy",
+        "type": "integer",
+        "value": "4 Joules",
+        "description": "Minimum energy per spark event required for high-altitude ignition assurance"
+      },
+      {
+        "name": "ignitionTimingAccuracy",
+        "type": "float",
+        "value": "±0.5 ms",
+        "description": "Maximum allowable timing deviation from commanded ignition instant"
+      },
+      {
+        "name": "operatingAltitude",
+        "type": "string",
+        "value": "0-50,000 ft",
+        "description": "Certified operational altitude range with maintained performance"
+      },
+      {
+        "name": "redundantChannels",
+        "type": "integer",
+        "value": "2",
+        "description": "Number of independent ignition paths for fault tolerance"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "IS001",
+          "type": "Block",
+          "name": "IgnitionSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR_IS_001",
+            "ATTR_IS_002"
+          ],
+          "operationIds": [
+            "OP_IS_001",
+            "OP_IS_002"
+          ],
+          "constraintIds": [
+            "CONST_IS_001"
+          ],
+          "partIds": [
+            "ICU001",
+            "EXC001",
+            "HVC001",
+            "IGN001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ICU001",
+          "type": "Block",
+          "name": "IgnitionControlUnit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR_ICU_001"
+          ],
+          "operationIds": [
+            "OP_ICU_001"
+          ],
+          "constraintIds": [
+            "CONST_ICU_001"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "EXC001",
+          "type": "Block",
+          "name": "IgnitionExciter",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "ATTR_EXC_001"
+          ],
+          "operationIds": [
+            "OP_EXC_001"
+          ],
+          "constraintIds": [
+            "CONST_EXC_001"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB001",
+          "type": "InterfaceBlock",
+          "name": "EngineControlInterface",
+          "attributeIds": [
+            "ATTR_IB_001"
+          ],
+          "operationIds": [
+            "OP_IB_001"
+          ],
+          "signalIds": [
+            "SIG_IB_001"
+          ],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS001",
+          "type": "FlowSpecification",
+          "name": "HighVoltageFlow",
+          "flowType": "Energy",
+          "dataType": "HV_Current",
+          "unit": "Ampere",
+          "attributeIds": [
+            "ATTR_FS_001"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB001",
+          "type": "ConstraintBlock",
+          "name": "VoltageConstraint",
+          "parameterIds": [
+            "PARAM_CB_001"
+          ],
+          "expression": "outputVoltage >= minimumOperatingVoltage",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT001",
+          "type": "ValueType",
+          "name": "Volts",
+          "quantityKindId": "QK001",
+          "unitId": "U001",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM001",
+          "type": "Enumeration",
+          "name": "IgnitionState",
+          "literals": [
+            {
+              "id": "LIT001",
+              "name": "STANDBY"
+            },
+            {
+              "id": "LIT002",
+              "name": "ACTIVE"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "P001",
+          "type": "ProxyPort",
+          "name": "ctrlInterface",
+          "isConjugated": false,
+          "blockId": "IS001",
+          "providedInterfaceIds": [
+            "IB001"
+          ],
+          "requiredInterfaceIds": [],
+          "attributeIds": []
+        }
+      ],
+      "directedCompositions": [
+        {
+          "id": "DC001",
+          "type": "DirectedComposition",
+          "name": null,
+          "sourceId": "IS001",
+          "targetId": "ICU001",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "COM001",
+          "type": "Comment",
+          "body": "Meets FAA 14 CFR §33.37 ignition system requirements",
+          "annotatedElementId": "IS001"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_150703",
+  "provider": "dpsk"
+}

@@ -1,0 +1,682 @@
+{
+  "system_id": "actuator_system",
+  "system_name": "Actuator System",
+  "specification": {
+    "designScenario": {
+      "name": "Actuators",
+      "description": "The Actuators system is a hybrid electro-hydraulic and electro-mechanical module responsible for precise control of flight surfaces, landing gear deployment/retraction, and braking systems. It combines hydraulic reliability with electric redundancy to meet modern aviation safety standards. The system integrates adaptive control algorithms, self-diagnostic capabilities, and fault-tolerant architectures to ensure operational integrity under extreme aerodynamic loads, temperature variations, and partial system failures.",
+      "requirements": [
+        {
+          "title": "Hybrid Actuation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Provide dual-mode actuation (hydraulic primary, electric backup) for flight control surfaces to ensure continuous operation during hydraulic system degradation."
+            }
+          ]
+        },
+        {
+          "title": "Dynamic Load Adaptation",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Adjust actuation force output (15-25 kN) in real-time based on aerodynamic load sensors to prevent surface flutter while maintaining ±0.1° positional accuracy."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Control Pathways",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement triple-redundant control signal processing with voting logic to isolate and bypass faulty actuator commands within 50ms."
+            }
+          ]
+        },
+        {
+          "title": "Condition-Based Maintenance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Embed vibration analysis and fluid particulate sensors to predict bearing wear and seal degradation, enabling maintenance intervals up to 1,200 flight hours."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Electro-Hydrostatic Actuator (EHA)",
+        "type": "Primary Actuation Unit",
+        "description": "Self-contained hydraulic actuator with local electric pump for redundant operation, eliminating centralized hydraulic dependency for critical flight surfaces.",
+        "subComponents": [
+          {
+            "name": "Variable Displacement Pump",
+            "description": "Electronically controlled swashplate pump regulating fluid flow based on flight control computer demands",
+            "type": "Hydraulic Component"
+          },
+          {
+            "name": "Solenoid Override Valve",
+            "description": "Fail-safe valve isolating actuator from central hydraulic system during EHA mode activation",
+            "type": "Control Valve"
+          }
+        ]
+      },
+      {
+        "name": "Electro-Mechanical Actuator (EMA)",
+        "type": "Backup Actuation System",
+        "description": "All-electric secondary actuation system with harmonic drive gearing for high-torque applications in flight control surfaces.",
+        "subComponents": [
+          {
+            "name": "Torque Limiter",
+            "description": "Mechanical slip clutch preventing jamming scenarios by decoupling motor during overload conditions",
+            "type": "Safety Mechanism"
+          }
+        ]
+      },
+      {
+        "name": "Actuator Control Unit (ACU)",
+        "type": "Embedded Controller",
+        "description": "Triple-channel FPGA-based controller implementing MIL-STD-1553B interfaces for command processing and health monitoring.",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Control Computer",
+        "target": "Actuators",
+        "relationshipType": "association",
+        "description": "Transmits surface deflection commands via redundant ARINC 825 networks to actuator control units"
+      },
+      {
+        "source": "Actuators",
+        "target": "Central Hydraulic System",
+        "relationshipType": "dependency",
+        "description": "Primary hydraulic power source for normal operation mode, with automatic isolation during backup activation"
+      },
+      {
+        "source": "Actuators",
+        "target": "EMA",
+        "relationshipType": "composition",
+        "description": "EMA units are integral subcomponents providing backup actuation capacity within the Actuators module"
+      },
+      {
+        "source": "Actuators",
+        "target": "Aircraft Health Management System",
+        "relationshipType": "aggregation",
+        "description": "Streams actuator performance metrics and prognostic data for fleet-wide maintenance optimization"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "forceDynamicRange",
+        "type": "string",
+        "value": "15-25 kN",
+        "description": "Adjustable force output range accommodating varying aerodynamic loads during different flight regimes"
+      },
+      {
+        "name": "transitionLatency",
+        "type": "string",
+        "value": "<100ms",
+        "description": "Maximum allowable delay when switching between hydraulic primary and electric backup actuation modes"
+      },
+      {
+        "name": "shockTolerance",
+        "type": "string",
+        "value": "50g, 11ms duration",
+        "description": "Mechanical resilience to sudden impact loads during hard landings or turbulence"
+      },
+      {
+        "name": "powerDensity",
+        "type": "string",
+        "value": "2.4 kW/kg",
+        "description": "Power-to-weight ratio for EMA subsystems, critical for minimizing parasitic mass in flight surfaces"
+      },
+      {
+        "name": "EMIRating",
+        "type": "string",
+        "value": "DO-160G Section 21",
+        "description": "Electromagnetic interference immunity level ensuring operation in high-radiation environments"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "AS_001",
+          "type": "Block",
+          "name": "ActuatorSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "AS_001_ATTR_001",
+            "AS_001_ATTR_002",
+            "AS_001_ATTR_003",
+            "AS_001_ATTR_004",
+            "AS_001_ATTR_005"
+          ],
+          "operationIds": [
+            "AS_001_OP_001",
+            "AS_001_OP_002"
+          ],
+          "constraintIds": [
+            "AS_001_CONST_001"
+          ],
+          "partIds": [
+            "AS_001_PART_001",
+            "AS_001_PART_002",
+            "AS_001_PART_003"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "AS_001_PART_001",
+          "type": "Block",
+          "name": "ActuatorController",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "AC_ATTR_001",
+            "AC_ATTR_002"
+          ],
+          "operationIds": [
+            "AC_OP_001"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "AS_001_PART_002",
+          "type": "Block",
+          "name": "PowerSupply",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "PS_ATTR_001",
+            "PS_ATTR_002"
+          ],
+          "operationIds": [
+            "PS_OP_001"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "AS_001_PART_003",
+          "type": "Block",
+          "name": "MechanicalActuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "MA_ATTR_001",
+            "MA_ATTR_002"
+          ],
+          "operationIds": [
+            "MA_OP_001"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB_001",
+          "type": "InterfaceBlock",
+          "name": "IFlightControlInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "IB_001_OP_001"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "IB_002",
+          "type": "InterfaceBlock",
+          "name": "IPowerInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "IB_002_OP_001"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "IB_003",
+          "type": "InterfaceBlock",
+          "name": "IMechanicalInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "IB_003_OP_001"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_001",
+          "type": "FlowSpecification",
+          "name": "ControlSignalFlow",
+          "flowType": "information",
+          "dataType": "DigitalSignal",
+          "unit": null,
+          "attributeIds": []
+        },
+        {
+          "id": "FS_002",
+          "type": "FlowSpecification",
+          "name": "PowerFlow",
+          "flowType": "energy",
+          "dataType": "ElectricalPower",
+          "unit": "Watt",
+          "attributeIds": []
+        },
+        {
+          "id": "FS_003",
+          "type": "FlowSpecification",
+          "name": "MechanicalMovementFlow",
+          "flowType": "material",
+          "dataType": "MechanicalDisplacement",
+          "unit": "mm",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "AS_001_CONST_001",
+          "type": "ConstraintBlock",
+          "name": "ResponseTimeConstraint",
+          "parameterIds": [
+            "AS_001_CONST_001_PARAM_001"
+          ],
+          "expression": "responseTime < 20ms",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_001",
+          "type": "ValueType",
+          "name": "Milliseconds",
+          "quantityKindId": "QK_Time",
+          "unitId": "U_MS",
+          "attributeIds": []
+        },
+        {
+          "id": "VT_002",
+          "type": "ValueType",
+          "name": "Voltage",
+          "quantityKindId": "QK_ElectricPotential",
+          "unitId": "U_V",
+          "attributeIds": []
+        },
+        {
+          "id": "VT_003",
+          "type": "ValueType",
+          "name": "Temperature",
+          "quantityKindId": "QK_ThermodynamicTemperature",
+          "unitId": "U_C",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_001",
+          "type": "Enumeration",
+          "name": "RedundancyLevel",
+          "literals": [
+            {
+              "id": "ENUM_001_LIT_001",
+              "name": "SINGLE"
+            },
+            {
+              "id": "ENUM_001_LIT_002",
+              "name": "DUAL"
+            },
+            {
+              "id": "ENUM_001_LIT_003",
+              "name": "TRIPLE"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "AS_001_PORT_001",
+          "type": "ProxyPort",
+          "name": "flightControlIn",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "AS_001",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "IB_001"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "AS_001_PORT_002",
+          "type": "FullPort",
+          "name": "powerIn",
+          "portType": "full",
+          "isConjugated": false,
+          "blockId": "AS_001",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "IB_002"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "AS_001_PORT_003",
+          "type": "FlowPort",
+          "name": "mechanicalOut",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "AS_001",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "FS_003",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "COMP_001",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "AS_001",
+          "targetId": "AS_001_PART_001",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "COMP_002",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "AS_001",
+          "targetId": "AS_001_PART_002",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "COMP_003",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "AS_001",
+          "targetId": "AS_001_PART_003",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "IR_001",
+          "type": "InterfaceRealization",
+          "name": "FlightControlRealization",
+          "sourceId": "AS_001_PART_001",
+          "targetId": "IB_001"
+        },
+        {
+          "id": "IR_002",
+          "type": "InterfaceRealization",
+          "name": "PowerRealization",
+          "sourceId": "AS_001_PART_002",
+          "targetId": "IB_002"
+        },
+        {
+          "id": "IR_003",
+          "type": "InterfaceRealization",
+          "name": "MechanicalRealization",
+          "sourceId": "AS_001_PART_003",
+          "targetId": "IB_003"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "AS_001_ATTR_001",
+          "type": "Property",
+          "name": "actuationPrecision",
+          "propertyType": "Double",
+          "value": "high",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "AS_001_ATTR_002",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "Milliseconds",
+          "value": "20",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "AS_001_ATTR_003",
+          "type": "Property",
+          "name": "redundancyLevel",
+          "propertyType": "RedundancyLevel",
+          "value": "DUAL",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "AS_001_ATTR_004",
+          "type": "Property",
+          "name": "operatingTemperatureRange",
+          "propertyType": "Temperature",
+          "value": "-55..85",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "-55",
+          "upperValue": "85",
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "AS_001_ATTR_005",
+          "type": "Property",
+          "name": "powerSupply",
+          "propertyType": "Voltage",
+          "value": "28",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "AC_ATTR_001",
+          "type": "Property",
+          "name": "controlAlgorithm",
+          "propertyType": "String",
+          "value": "PID",
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "PS_ATTR_001",
+          "type": "Property",
+          "name": "voltage",
+          "propertyType": "Voltage",
+          "value": "28",
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "MA_ATTR_001",
+          "type": "Property",
+          "name": "strokeLength",
+          "propertyType": "Double",
+          "value": "50.0",
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "AS_001_OP_001",
+          "type": "Operation",
+          "name": "convertCommandToMovement",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "AS_001_OP_002",
+          "type": "Operation",
+          "name": "monitorHealthStatus",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "constraints": [
+        {
+          "id": "AS_001_CONST_001_PARAM_001",
+          "type": "Parameter",
+          "name": "responseTime",
+          "parameterType": "Milliseconds",
+          "defaultValue": "20"
+        }
+      ],
+      "comments": [
+        {
+          "id": "COMM_001",
+          "type": "Comment",
+          "body": "Actuator System converts digital flight commands into mechanical movements",
+          "annotatedElementId": "AS_001"
+        },
+        {
+          "id": "COMM_002",
+          "type": "Comment",
+          "body": "Dual redundant power supply for fault tolerance",
+          "annotatedElementId": "AS_001_PART_002"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Actuation System is a critical avionics subsystem responsible for converting digital flight commands from the Flight Control Computer into precise mechanical movements of the control surfaces. It has attributes such as high actuation precision, a response time under 20ms, dual redundant redundancy level, an operating temperature range of -55°C to +85°C, and a power supply of 28V DC regulated with redundant channels.",
+  "timestamp": "20250326_013416",
+  "provider": "dpsk"
+}

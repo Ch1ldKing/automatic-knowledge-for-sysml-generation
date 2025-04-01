@@ -1,0 +1,486 @@
+{
+  "system_id": "reservoir_system",
+  "system_name": "Reservoir System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Pressure range required for fluid storage and delivery.",
+        "name": "pressureRange",
+        "type": "string",
+        "value": "2000-4500 psi"
+      },
+      {
+        "description": "The material type used in constructing the reservoir body.",
+        "name": "materialType",
+        "type": "string",
+        "value": "Lightweight aerospace-grade alloy"
+      },
+      {
+        "description": "Capacity to store hydraulic fluid for extended operations.",
+        "name": "storageCapacity",
+        "type": "string",
+        "value": "30 liters"
+      },
+      {
+        "description": "The level of operational vibration resistance supported.",
+        "name": "vibrationResistanceLevel",
+        "type": "string",
+        "value": "High"
+      },
+      {
+        "description": "Designed service lifespan of the reservoir component.",
+        "name": "serviceLifespan",
+        "type": "string",
+        "value": "10,000 operational hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fluid Reservoir is a key component within an airplane's hydraulic network, tasked with securely housing the hydraulic fluid necessary for critical systems to operate under various conditions. Design emphasizes robustness, high-pressure withstandability, and contamination-free operations.",
+      "name": "Fluid Reservoir",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Store and provide hydraulic fluid while maintaining required pressure levels under varying loads."
+            }
+          ],
+          "title": "Hydraulic Fluid Storage",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Withstand and operate efficiently under high operational pressures up to 4500 psi."
+            }
+          ],
+          "title": "Pressure Resistance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate filtering systems to prevent contamination from compromising system reliability."
+            }
+          ],
+          "title": "Fluid Purity Assurance",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Utilize long-lasting materials and minimized maintenance requirements to ensure operational efficiency."
+            }
+          ],
+          "title": "Durability and Efficiency",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Fluid Reservoir provides pressurized fluid to the hydraulic pump for distribution.",
+        "relationshipType": "aggregation",
+        "source": "Fluid Reservoir",
+        "target": "Hydraulic Pump"
+      },
+      {
+        "description": "The hydraulic return lines connect to the reservoir for fluid recycling.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Actuators",
+        "target": "Fluid Reservoir"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Principal component to house and manage hydraulic fluid.",
+        "name": "Fluid Reservoir",
+        "subComponents": [
+          {
+            "description": "Tank crafted from lightweight alloys for safe fluid storage.",
+            "name": "Reservoir Housing",
+            "type": "Tank"
+          },
+          {
+            "description": "Ensures hydraulic fluid maintains purity by filtering contaminants.",
+            "name": "Filtration Assembly",
+            "type": "Filter"
+          }
+        ],
+        "type": "Core Storage Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-fluidreservoir-subsystems",
+          "memberEndIds": [
+            "part-reservoir",
+            "part-filtration"
+          ],
+          "name": "FluidReservoirSubsystemAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-fluidreservoir",
+          "sourceMultiplicity": null,
+          "targetId": "block-fluidreservoir",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "dep-hydrauliccomponents-to-reservoir",
+          "memberEndIds": null,
+          "name": "HydraulicComponentsToReservoirDependency",
+          "ownedEndIds": null,
+          "sourceId": "block-hydrauliccomponents",
+          "sourceMultiplicity": null,
+          "targetId": "block-fluidreservoir",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "2000-4500 psi",
+          "id": "attr-pressure-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "PressureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "2000-4500 psi",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Lightweight aerospace-grade alloy",
+          "id": "attr-material-type",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "MaterialType",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Lightweight aerospace-grade alloy",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "30 liters",
+          "id": "attr-storage-capacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "StorageCapacity",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "30 liters",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "High",
+          "id": "attr-vibration-resistant-level",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "VibrationResistanceLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "High",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10,000 operational hours",
+          "id": "attr-service-lifespan",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "ServiceLifespan",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "10,000 operational hours",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-pressure-range",
+            "attr-material-type",
+            "attr-storage-capacity",
+            "attr-vibration-resistant-level",
+            "attr-service-lifespan"
+          ],
+          "constraintIds": null,
+          "id": "block-fluidreservoir",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "FluidReservoir",
+          "operationIds": null,
+          "partIds": [
+            "part-reservoir",
+            "part-filtration"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-reservoir",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Reservoir",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-filtration",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Filtration",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-fluidreservoir",
+          "body": "This model represents a Fluid Reservoir system designed for airplane hydraulic networks with functionality for fluid storage, pressure regulation, and contaminant filtration subsystems.",
+          "id": "comment-fluidreservoir-system",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-reservoir-components",
+          "memberEndIds": [
+            "part-reservoir",
+            "part-filtration"
+          ],
+          "name": "ReservoirSubsystemComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-fluidreservoir",
+          "sourceMultiplicity": null,
+          "targetId": "block-fluidreservoir",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [
+            "attr-pressure-range"
+          ],
+          "expression": "2000 <= PressureRange <= 4500",
+          "id": "constraint-pressurerange-validity",
+          "name": "PressureRangeValidity",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "block-fluidreservoir"
+          ],
+          "id": "constraint-sustained-pressure",
+          "name": "SustainedPressureValidation",
+          "specification": "Fluid Reservoir must fully operate without pressure drops or leaks within the specified pressure range.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-fluidreservoir",
+          "flowSpecificationId": "flow-spec-fluiddelivery",
+          "id": "port-outflow",
+          "isConjugated": false,
+          "name": "OutFlowPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": [
+            "attr-pressure-range"
+          ],
+          "dataType": "HydraulicFluid",
+          "flowType": "Material",
+          "id": "flow-spec-fluiddelivery",
+          "name": "FluidDeliverySpecification",
+          "type": "FlowSpecification",
+          "unit": "psi"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "interface-fluidmanagement",
+          "name": "FluidManagementInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-reservoir",
+          "name": "ReservoirPart",
+          "of": "block-reservoir",
+          "type": "Part"
+        },
+        {
+          "id": "part-filtration",
+          "name": "FiltrationSystemPart",
+          "of": "block-filtration",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-fluidreservoir",
+          "flowSpecificationId": "flow-spec-fluiddelivery",
+          "id": "port-delivery",
+          "isConjugated": false,
+          "name": "DeliveryPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-fluidreservoir",
+          "id": "proxy-port-monitoring",
+          "isConjugated": false,
+          "name": "MonitoringProxyPort",
+          "providedInterfaceIds": [
+            "interface-fluidmanagement"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-fluid-storage",
+          "name": "Fluid Storage Functionality",
+          "reqId": null,
+          "text": "Enable secure hydraulic fluid storage supporting operational conditions.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": null,
+          "id": "usecase-fluid-pumping",
+          "name": "FluidPumpingOperationalScenario",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-pressure-range",
+          "name": "PressureRangeValue",
+          "quantityKindId": "psi",
+          "type": "ValueType",
+          "unitId": "psi"
+        }
+      ]
+    }
+  },
+  "reference_system": "fluid_reservoir",
+  "parent_system": null,
+  "timestamp": "20250326_161120",
+  "provider": "gpt"
+}

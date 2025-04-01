@@ -1,0 +1,267 @@
+{
+  "system_id": "conversion_system",
+  "system_name": "Conversion System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Aircraft standard AC voltage input reference with enhanced regulation capabilities for variable flight conditions.",
+        "name": "inputVoltage",
+        "type": "string",
+        "value": "AC 400V"
+      },
+      {
+        "description": "Provides a well-regulated DC voltage output to ensure stable power supply for critical avionics systems.",
+        "name": "outputVoltage",
+        "type": "string",
+        "value": "DC 28V"
+      },
+      {
+        "description": "High conversion efficiency achieved through advanced digital processing and optimized power electronics.",
+        "name": "conversionEfficiency",
+        "type": "string",
+        "value": "97%"
+      },
+      {
+        "description": "Operational temperature range designed to support high-altitude and extreme environmental conditions.",
+        "name": "operatingAltitudeTemperature",
+        "type": "string",
+        "value": "-50°C to +100°C"
+      },
+      {
+        "description": "Regulatory and industry standards compliance ensuring robust aerospace certification and integration.",
+        "name": "standards",
+        "type": "string",
+        "value": "MIL-STD-704, DO-160, ARP4754A"
+      }
+    ],
+    "designScenario": {
+      "description": "A C- D C Converter is an advanced power supply unit engineered for modern passenger aircraft. It converts high-voltage alternating current (AC) into a precise, low-voltage direct current (DC) using state-of-the-art digital control algorithms and integrated safety protocols. The converter is designed with modular robustness, ensuring seamless integration with redundant power systems, reliable operation under transient conditions, and minimized electromagnetic interference. Its smart diagnostics and proactive fault management make it ideal for both routine operations and emergency scenarios.",
+      "name": "A C- D C Converter",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Must convert an AC input, within aircraft voltage standards, to a strictly regulated DC output for critical systems."
+            },
+            {
+              "description": "Ensure redundant power pathways for fail-safe operations during power anomalies."
+            }
+          ],
+          "title": "AC to DC Conversion Accuracy",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve a conversion efficiency of at least 97% across varying load conditions."
+            },
+            {
+              "description": "Maintain rapid transient response to abrupt changes in electrical load."
+            }
+          ],
+          "title": "High Conversion Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Integrate multi-tier safeguards including over-voltage, over-current, surge protection, and thermal shutdown mechanisms."
+            },
+            {
+              "description": "Implement real-time diagnostics and self-recovery protocols to mitigate fault propagation."
+            }
+          ],
+          "title": "Advanced Safety Features",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate a modular architecture to facilitate quick maintenance, component upgrade, and system scalability."
+            },
+            {
+              "description": "Minimize electromagnetic interference (EMI) to prevent disruptions to sensitive avionics systems."
+            }
+          ],
+          "title": "Reliability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The DC Conversion Core relies on the AC Conditioning Module to provide a stabilized AC signal necessary for effective rectification.",
+        "relationshipType": "dependency",
+        "source": "AC Conditioning Module",
+        "target": "DC Conversion Core"
+      },
+      {
+        "description": "The DC Conversion Core requires thermal regulation from the Thermal Management Unit to ensure optimal performance during high-power operation.",
+        "relationshipType": "dependency",
+        "source": "DC Conversion Core",
+        "target": "Thermal Management Unit"
+      },
+      {
+        "description": "The Monitoring and Protection System aggregates operational and performance data from the DC Conversion Core for system-wide diagnostics.",
+        "relationshipType": "aggregation",
+        "source": "Monitoring and Protection System",
+        "target": "DC Conversion Core"
+      },
+      {
+        "description": "Within the Monitoring and Protection System, the Fault Detection Sensor Network composes the Protective Circuitry responsible for executing immediate corrective actions.",
+        "relationshipType": "composition",
+        "source": "Fault Detection Sensor Network",
+        "target": "Protective Circuitry"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Prepares and stabilizes the incoming AC signal for conversion by removing noise and protecting against surges.",
+        "name": "AC Conditioning Module",
+        "subComponents": [
+          {
+            "description": "Filters high-frequency noise and provides surge protection for a clean and stable AC input.",
+            "name": "Input Filter and Surge Protector",
+            "type": "Filter"
+          },
+          {
+            "description": "Regulates and adjusts the voltage levels to meet the requirements of the DC conversion stage.",
+            "name": "Voltage Regulation Pre-Stage",
+            "type": "Regulator"
+          }
+        ],
+        "type": "Power Unit"
+      },
+      {
+        "description": "Central unit that transforms conditioned AC power into stable DC power utilizing digital control and precision electronics.",
+        "name": "DC Conversion Core",
+        "subComponents": [
+          {
+            "description": "Converts the conditioned AC into a pulsating DC waveform and filters out imperfections to smooth the output.",
+            "name": "Rectification and Filtering Unit",
+            "type": "Converter"
+          },
+          {
+            "description": "Monitors and adjusts the conversion process in real time, ensuring optimal power regulation under all load conditions.",
+            "name": "Digital Control Module",
+            "type": "Controller"
+          }
+        ],
+        "type": "Power Unit"
+      },
+      {
+        "description": "Manages thermal dissipation to maintain system integrity during peak operations and adverse flight conditions.",
+        "name": "Thermal Management Unit",
+        "subComponents": [
+          {
+            "description": "Employs active cooling methods such as forced-air or liquid cooling to dissipate excess heat.",
+            "name": "Active Cooling System",
+            "type": "Cooling System"
+          },
+          {
+            "description": "Continuously monitors temperature across critical system components and feeds data to the control module.",
+            "name": "Thermal Sensors Array",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Support Unit"
+      },
+      {
+        "description": "Provides real-time monitoring of electrical parameters and initiates protective actions during fault conditions.",
+        "name": "Monitoring and Protection System",
+        "subComponents": [
+          {
+            "description": "A network of sensors that detect electrical anomalies including over-current and short-circuits.",
+            "name": "Fault Detection Sensor Network",
+            "type": "Sensor"
+          },
+          {
+            "description": "Enacts automatic interruption and remediation measures when abnormal electrical conditions are detected.",
+            "name": "Protective Circuitry",
+            "type": "Protector"
+          }
+        ],
+        "type": "Control Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-conv-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Conversion System",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-conv-system",
+          "body": "This block represents the top-level structure of the Conversion System of the airplane.",
+          "id": "comment-conv-system",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "timestamp": "20250326_181306",
+  "provider": "gpt"
+}

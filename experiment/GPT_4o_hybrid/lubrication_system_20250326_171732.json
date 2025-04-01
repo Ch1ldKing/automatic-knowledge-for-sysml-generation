@@ -1,0 +1,385 @@
+{
+  "system_id": "lubrication_system",
+  "system_name": "Lubrication System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the capacity of the lubrication system's oil reservoir to ensure sustained operation.",
+        "name": "oilReservoirCapacity",
+        "type": "integer",
+        "value": "15"
+      },
+      {
+        "description": "Defines the operational pressure range of the pump ensuring consistent oil flow.",
+        "name": "operationalPressure",
+        "type": "integer",
+        "value": "60"
+      },
+      {
+        "description": "Indicates the oil temperature range for optimal system performance.",
+        "name": "oilTemperatureRange",
+        "type": "string",
+        "value": "50°C-150°C"
+      },
+      {
+        "description": "Specifies the service life of the filters under standard operating conditions.",
+        "name": "filterServiceLife",
+        "type": "integer",
+        "value": "500"
+      }
+    ],
+    "designScenario": {
+      "description": "The Lubrication System ensures the delivery of oil to engine components for reducing friction, cooling, and maintaining component integrity.",
+      "name": "Lubrication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Circulate lubricating oil effectively to all moving engine parts for friction reduction."
+            }
+          ],
+          "title": "Lubrication Delivery",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide consistent oil flow rate within operational pressure of 60 psi."
+            }
+          ],
+          "title": "Performance Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure redundant pipelines and monitors to prevent flow disruption and mitigate failures."
+            }
+          ],
+          "title": "System Resilience",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement easy access for maintenance such as filter replacement."
+            }
+          ],
+          "title": "Maintenance Accessibility",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Pump circulates lubricating oil to the Distribution Manifold.",
+        "relationshipType": "dependency",
+        "source": "Pump",
+        "target": "Distribution Manifold"
+      },
+      {
+        "description": "The Oil Reservoir supplies oil directly to the Pump.",
+        "relationshipType": "composition",
+        "source": "Oil Reservoir",
+        "target": "Pump"
+      },
+      {
+        "description": "Filters ensure the cleanliness of the oil before entering the system.",
+        "relationshipType": "association",
+        "source": "Filters",
+        "target": "Oil Pathways"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Stores lubricating oil for the system.",
+        "name": "Oil Reservoir",
+        "subComponents": null,
+        "type": "Storage Unit"
+      },
+      {
+        "description": "A mechanical pump creating oil flow within the system.",
+        "name": "Pump",
+        "subComponents": [
+          {
+            "description": "Controls the pump operation for optimal flow rate.",
+            "name": "Pump Controller",
+            "type": "Control Unit"
+          }
+        ],
+        "type": "Mechanical Component"
+      },
+      {
+        "description": "Delivers oil to specific engine parts.",
+        "name": "Distribution Manifold",
+        "subComponents": null,
+        "type": "Distribution Network"
+      },
+      {
+        "description": "High-performance filters maintaining oil cleanliness.",
+        "name": "Filters",
+        "subComponents": null,
+        "type": "Filtration Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-pump-distribution-manifold",
+          "memberEndIds": null,
+          "name": "PumpToDistributionManifold",
+          "ownedEndIds": null,
+          "sourceId": "block-pump",
+          "sourceMultiplicity": "1",
+          "targetId": "block-distribution-manifold",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        },
+        {
+          "id": "assoc-filters-oil-pathways",
+          "memberEndIds": null,
+          "name": "FiltersToOilPathways",
+          "ownedEndIds": null,
+          "sourceId": "block-filters",
+          "sourceMultiplicity": "1",
+          "targetId": "block-oil-pathways",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "15",
+          "id": "attr-oil-reservoir-capacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "oilReservoirCapacity",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "15",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "60",
+          "id": "attr-operational-pressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operationalPressure",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "60",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "50°C-150°C",
+          "id": "attr-oil-temperature-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "oilTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "50°C-150°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "500",
+          "id": "attr-filter-service-life",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "filterServiceLife",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "500",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-oil-reservoir-capacity",
+            "attr-operational-pressure",
+            "attr-oil-temperature-range",
+            "attr-filter-service-life"
+          ],
+          "constraintIds": null,
+          "id": "block-lubrication-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Lubrication System",
+          "operationIds": null,
+          "partIds": [
+            "part-oil-reservoir",
+            "part-pump",
+            "part-distribution-manifold",
+            "part-filters"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-oil-reservoir",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Oil Reservoir",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-pump",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Pump",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-distribution-manifold",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Distribution Manifold",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-filters",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Filters",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-lubrication-system",
+          "body": "The Lubrication System is designed to ensure effective oil distribution for engine cooling, lubrication, and maintenance of mechanical integrity.",
+          "id": "comment-lubrication-system",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-oil-reservoir-pump",
+          "memberEndIds": null,
+          "name": "OilReservoirToPump",
+          "ownedEndIds": null,
+          "sourceId": "block-oil-reservoir",
+          "sourceMultiplicity": "1",
+          "targetId": "block-pump",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": null,
+  "parent_system": "engine_core",
+  "timestamp": "20250326_171732",
+  "provider": "gpt"
+}

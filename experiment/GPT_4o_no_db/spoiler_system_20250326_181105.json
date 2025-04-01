@@ -1,0 +1,196 @@
+{
+  "system_id": "spoiler_system",
+  "system_name": "Spoiler System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the rapid actuation speed for the spoiler deployment to ensure prompt aerodynamic response.",
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<50ms"
+      },
+      {
+        "description": "Specifies the precision of the angular deflection of the spoilers to guarantee effective lift reduction.",
+        "name": "deflectionAccuracy",
+        "type": "string",
+        "value": "±0.1°"
+      },
+      {
+        "description": "Indicates the structural integrity and material strength used in the spoilers to withstand aerodynamic loads.",
+        "name": "materialStrength",
+        "type": "string",
+        "value": "High-grade composites with >1500 MPa tensile strength"
+      },
+      {
+        "description": "Operational environmental resistance of the spoiler system including temperature range and corrosion resistance.",
+        "name": "environmentResistance",
+        "type": "string",
+        "value": "-40°C to +85°C; corrosion-resistant coatings applied"
+      }
+    ],
+    "designScenario": {
+      "description": "The Spoiler System is engineered to optimize aircraft deceleration and roll control by deploying spoilers on the wing surfaces. It functions as an aerodynamic brake and a roll control enhancer, interacting with the flight control system to modulate lift during landing and various in-flight maneuvers. Emphasis is placed on rapid response, precise angular deployment, and fail-safe operations under extreme aerodynamic loads. The design incorporates material durability, modularity for maintainability, and robust environmental resistance.",
+      "name": "Spoiler System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Translate flight control commands into precise mechanical deployment of spoilers to modulate lift and drag."
+            },
+            {
+              "description": "Coordinate with other flight control systems for seamless integration in overall aircraft performance."
+            }
+          ],
+          "title": "Functional Deployment Control",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve deployment and retraction within 50 milliseconds to ensure timely aerodynamic adjustments."
+            },
+            {
+              "description": "Ensure minimal lag between command input and physical deflection."
+            }
+          ],
+          "title": "Rapid Response Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate redundant sensors and control circuits to detect malfunctions or over-deployment."
+            },
+            {
+              "description": "Automatically revert to a safe state upon failure detection to prevent inadvertent aerodynamic disturbances."
+            }
+          ],
+          "title": "Safety and Fail-Safe Mechanisms",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure design modularity for ease of maintenance and rapid replacement of degraded components."
+            },
+            {
+              "description": "Utilize corrosion-resistant materials and coatings to prolong system life in harsh environments."
+            }
+          ],
+          "title": "Maintainability and Durability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Flight Control Module issues commands to the Spoiler System, dictating the deployment and retraction of spoilers to control aerodynamic lift and drag.",
+        "relationshipType": "dependency",
+        "source": "Flight Control Module",
+        "target": "Spoiler System"
+      },
+      {
+        "description": "The Spoiler System aggregates multiple subcomponents, including the Inboard and Outboard Spoilers, to form a cohesive aerodynamic control assembly.",
+        "relationshipType": "aggregation",
+        "source": "Spoiler System",
+        "target": "Inboard Spoilers, Outboard Spoilers"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary aerodynamic assembly that integrates the spoiler control surfaces to adjust lift and drag characteristics during flight.",
+        "name": "Spoiler System",
+        "subComponents": [
+          {
+            "description": "Inboard Spoilers are located closer to the wing root and contribute to roll control and lift reduction during deployment.",
+            "name": "Inboard Spoilers",
+            "type": "Control Surface"
+          },
+          {
+            "description": "Outboard Spoilers, positioned near the wing tips, provide refined aerodynamic braking and enhance roll stability.",
+            "name": "Outboard Spoilers",
+            "type": "Control Surface"
+          },
+          {
+            "description": "Actuator Module controls the precise deployment and retraction of both inboard and outboard spoilers based on command inputs.",
+            "name": "Actuator Module",
+            "type": "Control Actuator"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "spoiler-system-001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Spoiler System",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "timestamp": "20250326_181105",
+  "provider": "gpt"
+}

@@ -1,0 +1,555 @@
+{
+  "system_id": "oxygen_system",
+  "system_name": "Oxygen System",
+  "specification": {
+    "designScenario": {
+      "name": "Oxygen Supply and Regulation System",
+      "description": "This design outlines an Oxygen System intended for aviation applications, integrated within the Environmental Control System (ECS). The system ensures continuous delivery of breathable air at safe oxygen concentrations, maintains pressure stability, and provides emergency oxygen supply during cabin depressurization. It employs redundant oxygen sources, precise monitoring, and automated control to adhere to aviation safety standards.",
+      "requirements": [
+        {
+          "title": "Oxygen Concentration Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Maintain cabin oxygen concentration between 19.5% and 23.5% by volume using oxygen generators and distribution systems."
+            }
+          ]
+        },
+        {
+          "title": "Pressure Stability",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Ensure oxygen delivery pressure matches cabin pressure to prevent leakage and maintain consistent supply."
+            }
+          ]
+        },
+        {
+          "title": "Emergency Oxygen Provision",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Automatically deploy emergency oxygen masks and activate auxiliary oxygen sources within 2 seconds of cabin depressurization."
+            }
+          ]
+        },
+        {
+          "title": "Response Time to Oxygen Depletion",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system shall detect oxygen levels below 19.5% and initiate corrective actions within 3 seconds."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy and Fail-Safety",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual oxygen generation units and independent distribution pathways to ensure uninterrupted supply during single-point failures."
+            }
+          ]
+        },
+        {
+          "title": "Modular Design",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All components must support rapid replacement and maintenance in accordance with FAA-approved modular standards."
+            }
+          ]
+        },
+        {
+          "title": "User Interface Integration",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide real-time oxygen level displays and fault diagnostics on the ECS control panel."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Oxygen Generation Unit",
+        "type": "Subsystem",
+        "description": "Generates and regulates oxygen supply using onboard sources or bleed air.",
+        "subComponents": [
+          {
+            "name": "Oxygen Concentrator",
+            "description": "Extracts and purifies oxygen from cabin air via pressure swing adsorption technology.",
+            "type": "Mechanical Device"
+          },
+          {
+            "name": "Pressure Regulator",
+            "description": "Maintains consistent oxygen delivery pressure matching cabin pressure requirements.",
+            "type": "Valve Assembly"
+          },
+          {
+            "name": "Filter Module",
+            "description": "Removes particulates and contaminants from oxygen supply.",
+            "type": "Filter"
+          }
+        ]
+      },
+      {
+        "name": "Distribution Network",
+        "type": "Subsystem",
+        "description": "Distributes oxygen to cabin zones via ducts and outlets.",
+        "subComponents": [
+          {
+            "name": "Oxygen Ducts",
+            "description": "High-pressure conduits for oxygen transport.",
+            "type": "Conduit"
+          },
+          {
+            "name": "Outlet Valves",
+            "description": "Regulates oxygen flow to individual passenger and crew zones.",
+            "type": "Actuator"
+          }
+        ]
+      },
+      {
+        "name": "Oxygen Monitoring System",
+        "type": "Subsystem",
+        "description": "Continuously measures oxygen levels and triggers alarms for deviations.",
+        "subComponents": [
+          {
+            "name": "Oxygen Sensor Array",
+            "description": "Electrochemical sensors distributed across cabin zones.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Alarm Module",
+            "description": "Audible/visual alerts for low oxygen levels and system faults.",
+            "type": "Indicator"
+          }
+        ]
+      },
+      {
+        "name": "Emergency Oxygen Supply",
+        "type": "Subsystem",
+        "description": "Stores and deploys emergency oxygen masks and auxiliary oxygen canisters.",
+        "subComponents": [
+          {
+            "name": "Emergency Canister Bank",
+            "description": "High-pressure oxygen canisters for rapid deployment.",
+            "type": "Storage Unit"
+          },
+          {
+            "name": "Mask Deployment Mechanism",
+            "description": "Automatically releases oxygen masks from overhead panels.",
+            "type": "Actuator"
+          }
+        ]
+      },
+      {
+        "name": "Control Unit Interface",
+        "type": "Electronic Module",
+        "description": "Manages oxygen system operations and interfaces with the ECS control panel.",
+        "subComponents": [
+          {
+            "name": "Oxygen Control Module",
+            "description": "Processes sensor data and sends control signals to actuators.",
+            "type": "Controller"
+          },
+          {
+            "name": "Status Display",
+            "description": "Graphical interface showing real-time oxygen parameters.",
+            "type": "Display Unit"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Oxygen Generation Unit",
+        "target": "Distribution Network",
+        "relationshipType": "aggregation",
+        "description": "The Oxygen Generation Unit provides oxygen to the Distribution Network for cabin delivery."
+      },
+      {
+        "source": "Oxygen Monitoring System",
+        "target": "Control Unit Interface",
+        "relationshipType": "association",
+        "description": "Sensors in the Oxygen Monitoring System send data to the Control Unit Interface for analysis."
+      },
+      {
+        "source": "Emergency Oxygen Supply",
+        "target": "Control Unit Interface",
+        "relationshipType": "dependency",
+        "description": "The Emergency Oxygen Supply activates based on commands from the Control Unit Interface during depressurization."
+      },
+      {
+        "source": "Oxygen Generation Unit",
+        "target": "Oxygen Concentrator",
+        "relationshipType": "composition",
+        "description": "The Oxygen Concentrator is a core component of the Oxygen Generation Unit."
+      },
+      {
+        "source": "Distribution Network",
+        "target": "Outlet Valves",
+        "relationshipType": "aggregation",
+        "description": "Outlet Valves are integrated into the Distribution Network to regulate zone-specific oxygen flow."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "oxygenConcentrationRange",
+        "type": "string",
+        "value": "19.5% - 23.5%",
+        "description": "Safe oxygen concentration levels maintained within the cabin."
+      },
+      {
+        "name": "deliveryPressureRange",
+        "type": "string",
+        "value": "1.0 atm - 1.5 atm",
+        "description": "Pressure range of oxygen supplied to cabin outlets."
+      },
+      {
+        "name": "emergencyResponseTime",
+        "type": "string",
+        "value": "Under 3 seconds",
+        "description": "Maximum time to deploy emergency oxygen during depressurization events."
+      },
+      {
+        "name": "oxygenStorageCapacity",
+        "type": "string",
+        "value": "120 minutes supply",
+        "description": "Minimum emergency oxygen reserve capacity for all passengers and crew."
+      },
+      {
+        "name": "sensorRefreshRate",
+        "type": "string",
+        "value": "10 Hz",
+        "description": "Rate at which oxygen sensors sample cabin oxygen levels."
+      }
+    ]
+  },
+  "model": {
+
+      "diagramType": "BDD",
+      "elements": {
+        "blocks": [
+          {
+            "id": "OxygenSystem_1",
+            "type": "Block",
+            "name": "OxygenSystem",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "Attr_001",
+              "Attr_002"
+            ],
+            "operationIds": [
+              "Op_001"
+            ],
+            "constraintIds": [
+              "Con_001",
+              "Con_002"
+            ],
+            "partIds": [
+              "Part_001",
+              "Part_002",
+              "Part_003",
+              "Part_004",
+              "Part_005"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "OxygenSourceSubsystem_2",
+            "type": "Block",
+            "name": "OxygenSourceSubsystem",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "Attr_003",
+              "Attr_004"
+            ],
+            "operationIds": [
+              "Op_002"
+            ],
+            "constraintIds": [
+              "Con_003"
+            ],
+            "partIds": [
+              "Part_006",
+              "Part_007"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "DistributionSubsystem_3",
+            "type": "Block",
+            "name": "DistributionSubsystem",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "Attr_005",
+              "Attr_006"
+            ],
+            "operationIds": [
+              "Op_003"
+            ],
+            "constraintIds": [
+              "Con_004"
+            ],
+            "partIds": [
+              "Part_008",
+              "Part_009"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "UserInterfaceSubsystem_4",
+            "type": "Block",
+            "name": "UserInterfaceSubsystem",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "Attr_007"
+            ],
+            "operationIds": [
+              "Op_004"
+            ],
+            "constraintIds": [
+              "Con_005"
+            ],
+            "partIds": [
+              "Part_010",
+              "Part_011"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "ControllerSubsystem_5",
+            "type": "Block",
+            "name": "ControllerSubsystem",
+            "isAbstract": false,
+            "isActive": true,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "Attr_008",
+              "Attr_009"
+            ],
+            "operationIds": [
+              "Op_005"
+            ],
+            "constraintIds": [
+              "Con_006"
+            ],
+            "partIds": [
+              "Part_012",
+              "Part_013"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "SafetySubsystem_6",
+            "type": "Block",
+            "name": "SafetySubsystem",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "Attr_010"
+            ],
+            "operationIds": [
+              "Op_006"
+            ],
+            "constraintIds": [
+              "Con_007"
+            ],
+            "partIds": [
+              "Part_014",
+              "Part_015"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          }
+        ],
+        "interfaceBlocks": [
+          {
+            "id": "CtrlInterface_7",
+            "type": "InterfaceBlock",
+            "name": "ControlInterface",
+            "attributeIds": [
+              "Attr_011",
+              "Attr_012"
+            ],
+            "operationIds": [
+              "Op_007"
+            ],
+            "signalIds": [],
+            "constraintIds": []
+          },
+          {
+            "id": "SensInterface_8",
+            "type": "InterfaceBlock",
+            "name": "SensorInterface",
+            "attributeIds": [
+              "Attr_013"
+            ],
+            "operationIds": [],
+            "signalIds": [],
+            "constraintIds": []
+          }
+        ],
+        "flowSpecifications": [
+          {
+            "id": "OxygenFlowSpec_9",
+            "type": "FlowSpecification",
+            "name": "OxygenFlow",
+            "flowType": "MaterialFlow",
+            "dataType": "Gas",
+            "unit": "m³/min",
+            "attributeIds": [
+              "Attr_014"
+            ]
+          }
+        ],
+        "constraintBlocks": [
+          {
+            "id": "Con_001",
+            "type": "ConstraintBlock",
+            "name": "PressureConstraint",
+            "expression": "systemPressure <= 185 psi AND systemPressure >= 150 psi",
+            "parameterIds": [
+              "Param_001"
+            ]
+          },
+          {
+            "id": "Con_002",
+            "type": "ConstraintBlock",
+            "name": "ConcentrationConstraint",
+            "expression": "oxygenConcentration >= 93%",
+            "parameterIds": [
+              "Param_002"
+            ]
+          }
+        ],
+        "ports": [
+          {
+            "id": "Port_001",
+            "type": "FlowPort",
+            "name": "OxygenOutputPort",
+            "blockId": "OxygenSourceSubsystem_2",
+            "flowSpecificationId": "OxygenFlowSpec_9",
+            "isConjugated": false,
+            "attributeIds": []
+          },
+          {
+            "id": "Port_002",
+            "type": "FullPort",
+            "name": "CtrlInputPort",
+            "blockId": "ControllerSubsystem_5",
+            "providedInterfaceIds": [
+              "CtrlInterface_7"
+            ],
+            "requiredInterfaceIds": [],
+            "isConjugated": false,
+            "attributeIds": []
+          },
+          {
+            "id": "Port_003",
+            "type": "ProxyPort",
+            "name": "PressureSensorPort",
+            "blockId": "SafetySubsystem_6",
+            "providedInterfaceIds": [
+              "SensInterface_8"
+            ],
+            "requiredInterfaceIds": [],
+            "isConjugated": true,
+            "attributeIds": []
+          }
+        ],
+        "enumerations": [
+          {
+            "id": "Enum_001",
+            "type": "Enumeration",
+            "name": "SystemStatus",
+            "literals": [
+              {
+                "id": "Lit_001",
+                "name": "ON"
+              },
+              {
+                "id": "Lit_002",
+                "name": "STANDBY"
+              },
+              {
+                "id": "Lit_003",
+                "name": "FAULT"
+              }
+            ],
+            "attributeIds": []
+          }
+        ],
+        "attributes": [
+          {
+            "id": "Attr_001",
+            "type": "Property",
+            "name": "systemPressure",
+            "propertyType": "Double",
+            "value": "165",
+            "visibility": "public",
+            "aggregation": "none",
+            "lowerValue": "1",
+            "upperValue": "1",
+            "defaultValue": "150",
+            "isReadOnly": false
+          },
+          {
+            "id": "Attr_010",
+            "type": "Property",
+            "name": "status",
+            "propertyType": "Enumeration",
+            "value": "ON",
+            "visibility": "public",
+            "aggregation": "none",
+            "lowerValue": "1",
+            "upperValue": "1",
+            "defaultValue": "STANDBY",
+            "isID": true
+          }
+        ],
+        "comments": [
+          {
+            "id": "Cmt_001",
+            "type": "Comment",
+            "body": "OxygenSourceSubsystem provides high-pressure oxygen storage and regulation",
+            "annotatedElementId": "OxygenSourceSubsystem_2"
+          }
+        ],
+        "associations": [
+          {
+            "id": "Assoc_001",
+            "type": "Association",
+            "sourceId": "OxygenSystem_1",
+            "targetId": "OxygenSourceSubsystem_2",
+            "sourceMultiplicity": "1",
+            "targetMultiplicity": "1",
+            "memberEndIds": [
+              "Attr_001",
+              "Attr_003"
+            ]
+          }
+        ]
+      
+    }
+  },
+  "timestamp": "20250325_185926",
+  "provider": "qwen"
+}

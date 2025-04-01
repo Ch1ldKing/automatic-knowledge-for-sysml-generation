@@ -1,0 +1,400 @@
+{
+  "system_id": "leading_edge_device_system",
+  "system_name": "Leading Edge Device System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Time required to fully extend or retract the leading edge devices for optimal aerodynamic performance.",
+        "name": "extensionSpeed",
+        "type": "string",
+        "value": "<100ms"
+      },
+      {
+        "description": "Precision in the positioning of the deployed devices to ensure the intended lift and stall margin improvements.",
+        "name": "deploymentAccuracy",
+        "type": "string",
+        "value": "±0.1°"
+      },
+      {
+        "description": "Utilization of high-grade composite materials to ensure structural durability under aerodynamic loads.",
+        "name": "materialDurability",
+        "type": "string",
+        "value": "High-grade composites with >1500 MPa tensile strength"
+      },
+      {
+        "description": "Environmental operating range including temperature extremes and corrosion resistance features.",
+        "name": "operatingEnv",
+        "type": "string",
+        "value": "-40°C to +85°C; corrosion-resistant coatings applied"
+      }
+    ],
+    "designScenario": {
+      "description": "The Leading Edge Device System is designed to enhance the aerodynamic efficiency of the aircraft during critical low-speed phases such as takeoff and landing. This system integrates deployable slats and Krueger flaps along the wing's leading edge to optimize lift, delay stall, and maintain controllability. The design emphasizes rapid actuation, precise deployment, and robust fail-safe mechanisms through the integration of advanced actuator modules, sensors, and control interfaces. It addresses the challenges of varying aerodynamic loads and harsh environmental conditions using durable materials and redundant control to ensure maximum safety and performance.",
+      "name": "Leading Edge Device System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Deploy and retract leading edge devices (slats and flaps) in synchronization with cockpit commands to optimize lift and stall performance."
+            }
+          ],
+          "title": "Functional Deployment",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve actuation and deployment within less than 100 milliseconds to ensure rapid aerodynamic response during critical flight phases."
+            }
+          ],
+          "title": "Rapid Actuation Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate redundant sensors and actuator mechanisms to ensure safe operation and a fail-safe reversion mode in the event of system faults."
+            }
+          ],
+          "title": "Redundancy and Fail-Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Utilize corrosion-resistant materials and modular design to minimize maintenance downtime and ensure long-term durability."
+            }
+          ],
+          "title": "Durability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Interface Module issues deployment commands and receives feedback from the Leading Edge Device Assembly to ensure synchronized actuation with overall flight control systems.",
+        "relationshipType": "dependency",
+        "source": "Control Interface Module",
+        "target": "Leading Edge Device Assembly"
+      },
+      {
+        "description": "The Leading Edge Device Assembly aggregates multiple aerodynamic devices and control units (Left Slat, Right Slat, Krueger Flap, and Actuation Module) to function as a cohesive high-lift system.",
+        "relationshipType": "aggregation",
+        "source": "Leading Edge Device Assembly",
+        "target": "Left Slat, Right Slat, Krueger Flap, Actuation Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary assembly responsible for the controlled deployment and retraction of aerodynamically optimized devices along the wing's leading edge, crucial for enhancing lift characteristics.",
+        "name": "Leading Edge Device Assembly",
+        "subComponents": [
+          {
+            "description": "Left Slat enhances lift by extending the leading edge surface on the left wing, reducing airflow separation and delaying stall.",
+            "name": "Left Slat",
+            "type": "Aerodynamic Device"
+          },
+          {
+            "description": "Right Slat provides increased lift and improved airflow management on the right wing, ensuring balanced aerodynamic performance.",
+            "name": "Right Slat",
+            "type": "Aerodynamic Device"
+          },
+          {
+            "description": "Krueger Flap deploys inward from the wing leading edge to further augment lift during low-speed operations, particularly during takeoff and landing.",
+            "name": "Krueger Flap",
+            "type": "Aerodynamic Device"
+          },
+          {
+            "description": "Actuation Module integrates sensors and electromechanical actuators to control the precise timing and positioning of the leading edge devices.",
+            "name": "Actuation Module",
+            "type": "Control System"
+          }
+        ],
+        "type": "High Lift Assembly"
+      },
+      {
+        "description": "The module that interfaces with the aircraft's flight control computer, translating pilot inputs into actuation commands for the Leading Edge Device Assembly.",
+        "name": "Control Interface Module",
+        "subComponents": null,
+        "type": "Control Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "ACT_LEDS_SystemOp",
+          "name": "System Operation Activity",
+          "type": "Activity"
+        }
+      ],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [],
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_LEDS_001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "LeadingEdgeDeviceSystem",
+          "operationIds": [],
+          "partIds": [
+            "P_LEDS_Sensor",
+            "P_LEDS_Controller",
+            "P_LEDS_Actuator",
+            "P_LEDS_PowerSupply"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_LEDS_Sensor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Sensor Module",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_LEDS_Controller",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Controller Module",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_LEDS_Actuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Actuator Module",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_LEDS_PowerSupply",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Power Supply Module",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [],
+      "compositions": [],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "PowerConsumption <= 50W && TemperatureWithinLimits",
+          "id": "CB_LEDS_Parametric",
+          "name": "System Parametric Constraints",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [],
+          "id": "CONS_LEDS_PowerConstraint",
+          "name": "Power Consumption Constraint",
+          "specification": "Total power consumption shall not exceed 50W under nominal operating conditions.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": [],
+      "dependencies": [
+        {
+          "id": "DEP_LEDS_ReqToDesign",
+          "name": "Requirement to Design Dependency",
+          "sourceId": "REQ_LEDS_Performance",
+          "sourceMultiplicity": null,
+          "targetId": "B_LEDS_001",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": [],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [
+        {
+          "id": "P_LEDS_Sensor",
+          "name": "Sensor",
+          "of": "B_LEDS_Sensor",
+          "type": "Part"
+        },
+        {
+          "id": "P_LEDS_Controller",
+          "name": "Controller",
+          "of": "B_LEDS_Controller",
+          "type": "Part"
+        },
+        {
+          "id": "P_LEDS_Actuator",
+          "name": "Actuator",
+          "of": "B_LEDS_Actuator",
+          "type": "Part"
+        },
+        {
+          "id": "P_LEDS_PowerSupply",
+          "name": "PowerSupply",
+          "of": "B_LEDS_PowerSupply",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B_LEDS_001",
+          "flowSpecificationId": null,
+          "id": "PORT_LEDS_Data",
+          "isConjugated": false,
+          "name": "DataPort",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_LEDS_001",
+          "flowSpecificationId": null,
+          "id": "PORT_LEDS_Power",
+          "isConjugated": false,
+          "name": "PowerPort",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "REQ_LEDS_Performance",
+          "name": "Performance Requirement",
+          "reqId": "R-LED-001",
+          "text": "The Leading Edge Device System shall operate within defined aerospace performance limits and environmental conditions.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [],
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "STATE_LEDS_Idle",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "STATE_LEDS_Active",
+          "name": "Active",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "STATE_LEDS_Fault",
+          "name": "Fault",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": "Activate system modules",
+          "guard": "System ready for operation",
+          "id": "TRANS_LEDS_IdleToActive",
+          "name": "Idle to Active",
+          "sourceId": "STATE_LEDS_Idle",
+          "targetId": "STATE_LEDS_Active",
+          "trigger": "start",
+          "type": "Transition"
+        },
+        {
+          "effect": "Trigger safety protocols",
+          "guard": "Detection of error condition",
+          "id": "TRANS_LEDS_ActiveToFault",
+          "name": "Active to Fault",
+          "sourceId": "STATE_LEDS_Active",
+          "targetId": "STATE_LEDS_Fault",
+          "trigger": "error",
+          "type": "Transition"
+        },
+        {
+          "effect": "Reset system procedures executed",
+          "guard": "System reset initiated",
+          "id": "TRANS_LEDS_FaultToIdle",
+          "name": "Fault to Idle",
+          "sourceId": "STATE_LEDS_Fault",
+          "targetId": "STATE_LEDS_Idle",
+          "trigger": "reset",
+          "type": "Transition"
+        }
+      ],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": []
+    }
+  },
+  "rag_context": "Leading Edge Device System的所有信息和规格说明不在提供的上下文信息中。",
+  "timestamp": "20250325_200519",
+  "provider": "gpt"
+}

@@ -1,0 +1,380 @@
+{
+  "system_id": "aileron_system",
+  "system_name": "Aileron System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines rapid actuation speed for the aileron deflection to respond promptly to flight command signals.",
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<50ms"
+      },
+      {
+        "description": "Specifies the precision of the aileron angular deflection to achieve accurate roll control.",
+        "name": "deflectionAccuracy",
+        "type": "string",
+        "value": "±0.1°"
+      },
+      {
+        "description": "Indicates the structural durability of the aileron components under aerodynamic loads using high-grade composite materials.",
+        "name": "materialStrength",
+        "type": "string",
+        "value": "High-grade composites with >1500 MPa tensile strength"
+      },
+      {
+        "description": "Ensures the system performs reliably in extreme temperatures and resists corrosion through specialized coatings.",
+        "name": "environmentResistance",
+        "type": "string",
+        "value": "-40°C to +85°C; corrosion-resistant coatings applied"
+      }
+    ],
+    "designScenario": {
+      "description": "The Aileron System is a dedicated subsystem of the aircraft's control surfaces engineered to provide precise roll maneuvering. It translates flight control commands into differential mechanical deflections of the left and right ailerons, ensuring effective roll moments and overall aircraft stability. The design emphasizes rapid response, precise deflection accuracy, robust structural integrity, and fail-safe operation with redundant feedback loops to maintain safe performance under variable aerodynamic loads and harsh environmental conditions.",
+      "name": "Aileron System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Convert flight control signals into precise differential mechanical deflections for both the left and right ailerons to induce the desired roll moment."
+            },
+            {
+              "description": "Ensure synchronization between the left and right surfaces to maintain aerodynamic balance."
+            }
+          ],
+          "title": "Differential Actuation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve a mechanical response with a deflection time under 50 milliseconds after receiving commands."
+            },
+            {
+              "description": "Maintain high angular precision of aileron deflections within ±0.1°."
+            }
+          ],
+          "title": "Rapid Response Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate redundant actuation and sensor feedback mechanisms to detect and counteract system anomalies."
+            },
+            {
+              "description": "Implement automatic reversion to backup systems in the event of primary actuator or sensor failure."
+            }
+          ],
+          "title": "Fail-Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design the subsystem with modular components to facilitate routine inspection, maintenance, and rapid replacement."
+            },
+            {
+              "description": "Utilize corrosion-resistant materials and coatings to extend the operational service life under harsh environmental conditions."
+            }
+          ],
+          "title": "Maintainability and Durability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Aileron System is controlled by the Flight Control Computer, which sends precise actuator commands to modulate deflection angles.",
+        "relationshipType": "dependency",
+        "source": "Flight Control Computer",
+        "target": "Aileron System"
+      },
+      {
+        "description": "The Aileron Assembly aggregates subcomponents such as Left Aileron, Right Aileron, Aileron Actuator, and Deflection Sensor to form a cohesive roll control mechanism.",
+        "relationshipType": "aggregation",
+        "source": "Aileron System",
+        "target": "Aileron Assembly"
+      },
+      {
+        "description": "The Aileron Actuator depends on feedback from the Deflection Sensor to adjust the deflection angles and achieve precise movement.",
+        "relationshipType": "dependency",
+        "source": "Deflection Sensor",
+        "target": "Aileron Actuator"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary mechanical assembly that integrates actuation, structural support, and sensor elements for roll control.",
+        "name": "Aileron Assembly",
+        "subComponents": [
+          {
+            "description": "Provides roll control on the left wing by modulating aerodynamic lift.",
+            "name": "Left Aileron",
+            "type": "Control Surface"
+          },
+          {
+            "description": "Provides roll control on the right wing by modulating aerodynamic lift.",
+            "name": "Right Aileron",
+            "type": "Control Surface"
+          },
+          {
+            "description": "Converts electrical flight control signals into mechanical deflections for the ailerons.",
+            "name": "Aileron Actuator",
+            "type": "Actuation Module"
+          },
+          {
+            "description": "Monitors the angular deflection of the ailerons to provide real-time feedback for control adjustments.",
+            "name": "Deflection Sensor",
+            "type": "Sensor Module"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg_aileron_mechanics",
+          "memberEndIds": null,
+          "name": "Aileron Mechanics Aggregation",
+          "ownedEndIds": null,
+          "sourceId": "block_aileron_system",
+          "sourceMultiplicity": "1..1",
+          "targetId": "block_aileron_mechanics",
+          "targetMultiplicity": "1..1",
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg_controller_interfaces",
+          "memberEndIds": null,
+          "name": "Control Interfaces Aggregation",
+          "ownedEndIds": null,
+          "sourceId": "block_aileron_system",
+          "sourceMultiplicity": "1..1",
+          "targetId": "block_control_interfaces",
+          "targetMultiplicity": "1..1",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block_aileron_system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Aileron System",
+          "operationIds": null,
+          "partIds": [
+            "part_controller",
+            "part_mechanicalLinkages"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "val_position"
+          ]
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block_aileron_mechanics",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Aileron Mechanics",
+          "operationIds": null,
+          "partIds": [
+            "part_gears",
+            "part_controlSurfaces"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block_control_interfaces",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Control Interfaces",
+          "operationIds": null,
+          "partIds": [
+            "part_actuator",
+            "part_sensors"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block_aileron_system",
+          "body": "The Aileron System is responsible for controlling the airplane's roll movement about the longitudinal axis.",
+          "id": "comment_aileron_system",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block_aileron_mechanics",
+          "body": "The Aileron Mechanics includes the physical components such as control surfaces and mechanical linkages.",
+          "id": "comment_aileron_mechanics",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block_control_interfaces",
+          "body": "The Control Interfaces encompasses actuators and sensors providing feedback and actuation control.",
+          "id": "comment_control_interfaces",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "position >= -30 AND position <= 30",
+          "id": "constraint_aileron_position_limits",
+          "name": "Position Limits",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum_position_state",
+          "literals": [
+            {
+              "id": "literal_left_deflection",
+              "name": "Left Deflection"
+            },
+            {
+              "id": "literal_neutral",
+              "name": "Neutral"
+            },
+            {
+              "id": "literal_right_deflection",
+              "name": "Right Deflection"
+            }
+          ],
+          "name": "Deflection States",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block_aileron_system",
+          "flowSpecificationId": "flow_spec_voltage",
+          "id": "port_control_signal",
+          "isConjugated": false,
+          "name": "Control Signal Port",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "double",
+          "flowType": "information",
+          "id": "flow_spec_voltage",
+          "name": "Voltage Specification",
+          "type": "FlowSpecification",
+          "unit": "V"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block_control_interfaces",
+          "id": "port_position_feedback",
+          "isConjugated": false,
+          "name": "Position Feedback Port",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part_controller",
+          "name": "Controller",
+          "of": "block_control_interfaces",
+          "type": "Part"
+        },
+        {
+          "id": "part_mechanicalLinkages",
+          "name": "Mechanical Linkages",
+          "of": "block_aileron_mechanics",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req_rollControl",
+          "name": "Roll Control Capability",
+          "reqId": "REQ-001",
+          "text": "The system should provide effective roll control within the specified limits.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "val_position",
+          "name": "Aileron Position",
+          "quantityKindId": "length_measurement",
+          "type": "ValueType",
+          "unitId": "degree"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250326_181027",
+  "provider": "gpt"
+}

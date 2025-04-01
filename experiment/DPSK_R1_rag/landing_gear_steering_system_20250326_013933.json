@@ -1,0 +1,721 @@
+{
+  "system_id": "landing_gear_steering_system",
+  "system_name": "Landing Gear Steering System",
+  "specification": {
+    "designScenario": {
+      "name": "Landing Gear Steering System",
+      "description": "A critical system providing directional control of the aircraft's nose gear during ground operations, including taxi, takeoff, and landing. It integrates electromechanical actuation, hydraulic power (if applicable), and closed-loop control to ensure precise steering response, redundancy, and compliance with aviation safety standards. Designed to operate under extreme environmental conditions and mechanical stresses while maintaining fail-safe behavior.",
+      "requirements": [
+        {
+          "title": "Precise Nose Gear Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must convert pilot/autopilot steering commands into accurate nose gear angular displacement (±60° minimum) via electrical/hydraulic signals."
+            },
+            {
+              "description": "Provide dual redundant control signal paths to ensure operational continuity during single-channel failures."
+            }
+          ]
+        },
+        {
+          "title": "High Dynamic Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deflection from center to maximum steering angle (60°) in ≤ 0.4 seconds under 500 Nm load."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe Operation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Incorporate mechanical centering springs and hydraulic pressure relief valves to return nose gear to neutral position during power loss."
+            },
+            {
+              "description": "Implement torque-limiting couplings to prevent structural overloads during ground collisions."
+            }
+          ]
+        },
+        {
+          "title": "Environmental Resilience",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Operate reliably in temperatures from -55°C to +85°C with 95% relative humidity and resistance to de-icing fluids."
+            },
+            {
+              "description": "Meet DO-160G standards for vibration, shock, and electromagnetic interference."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Steering Control Unit (SCU)",
+        "description": "Primary electronic controller processing pilot inputs, autopilot commands, and feedback signals to generate actuator control signals.",
+        "type": "Avionics Module",
+        "subComponents": [
+          {
+            "name": "Command Processor",
+            "description": "FPGA-based module executing steering algorithms and redundancy management.",
+            "type": "Electronic Hardware"
+          },
+          {
+            "name": "Signal Conditioning Unit",
+            "description": "Isolates and amplifies control signals to mitigate EMI effects.",
+            "type": "Electronic Interface"
+          }
+        ]
+      },
+      {
+        "name": "Electro-Hydraulic Servo Actuator",
+        "description": "Converts electrical commands from SCU into hydraulic pressure to drive steering mechanism.",
+        "type": "Actuator Assembly",
+        "subComponents": [
+          {
+            "name": "Solenoid Valves",
+            "description": "Direct hydraulic fluid flow based on SCU commands.",
+            "type": "Hydraulic Component"
+          },
+          {
+            "name": "Torque Motor",
+            "description": "Generates proportional force to position servo valve spools.",
+            "type": "Electromechanical Device"
+          }
+        ]
+      },
+      {
+        "name": "Steering Feedback Sensor",
+        "description": "LVDT/RVDT-based sensor measuring actual nose gear position for closed-loop control.",
+        "type": "Sensor",
+        "subComponents": [
+          {
+            "name": "Signal Transmitter",
+            "description": "Converts angular displacement into analog/digital signals.",
+            "type": "Electronic Module"
+          }
+        ]
+      },
+      {
+        "name": "Hydraulic Power Pack",
+        "description": "Provides regulated hydraulic pressure (3000 psi) to servo actuators.",
+        "type": "Hydraulic System",
+        "subComponents": [
+          {
+            "name": "Priority Valve",
+            "description": "Ensures steering system receives priority flow during low-pressure conditions.",
+            "type": "Hydraulic Valve"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Steering Control Unit (SCU)",
+        "target": "Electro-Hydraulic Servo Actuator",
+        "relationshipType": "association",
+        "description": "SCU transmits validated steering commands to the actuator's torque motor via ARINC 429 data buses."
+      },
+      {
+        "source": "Electro-Hydraulic Servo Actuator",
+        "target": "Hydraulic Power Pack",
+        "relationshipType": "dependency",
+        "description": "Actuator requires continuous hydraulic pressure from the power pack to generate steering torque."
+      },
+      {
+        "source": "Steering Feedback Sensor",
+        "target": "Steering Control Unit (SCU)",
+        "relationshipType": "association",
+        "description": "Feedback sensor provides real-time nose gear position data to SCU for closed-loop control."
+      },
+      {
+        "source": "Hydraulic Power Pack",
+        "target": "Priority Valve",
+        "relationshipType": "composition",
+        "description": "Priority valve is an integral subcomponent ensuring hydraulic supply prioritization."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "maxSteeringAngle",
+        "type": "string",
+        "value": "±75°",
+        "description": "Maximum achievable nose gear deflection angle from neutral position."
+      },
+      {
+        "name": "systemResponseTime",
+        "type": "string",
+        "value": "< 0.35s",
+        "description": "Time delay between command input and 90% of target steering angle achievement."
+      },
+      {
+        "name": "hydraulicPressure",
+        "type": "string",
+        "value": "3000 ± 50 psi",
+        "description": "Operating pressure range for optimal actuator performance."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual-dual (2H/2S)",
+        "description": "Architecture providing two independent hydraulic channels and two signal paths."
+      },
+      {
+        "name": "MTBF",
+        "type": "string",
+        "value": "≥ 50,000 hours",
+        "description": "Mean Time Between Failures under specified operating conditions."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block_LandingGearSteeringSystem",
+          "type": "Block",
+          "name": "LandingGearSteeringSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr_maxRotationalRange",
+            "attr_responseTime",
+            "attr_powerConsumption",
+            "attr_operationalTempRange"
+          ],
+          "operationIds": [
+            "op_receiveSteeringCommand",
+            "op_monitorSteeringAngle"
+          ],
+          "constraintIds": [
+            "constraint_operationalTemp"
+          ],
+          "partIds": [
+            "part_SteeringActuator",
+            "part_SteeringPositionSensor"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block_SteeringActuator",
+          "type": "Block",
+          "name": "SteeringActuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr_actuationForce",
+            "attr_responseTime"
+          ],
+          "operationIds": [
+            "op_actuateNoseGear"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block_SteeringPositionSensor",
+          "type": "Block",
+          "name": "SteeringPositionSensor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr_accuracy",
+            "attr_responseTime"
+          ],
+          "operationIds": [
+            "op_sendSteeringAngle"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb_SteeringControl",
+          "type": "InterfaceBlock",
+          "name": "SteeringControl",
+          "attributeIds": [],
+          "operationIds": [
+            "ifb_op_receiveCommand"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "ifb_SteeringFeedback",
+          "type": "InterfaceBlock",
+          "name": "SteeringFeedback",
+          "attributeIds": [],
+          "operationIds": [
+            "ifb_op_sendFeedback"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fs_HydraulicFlow",
+          "type": "FlowSpecification",
+          "name": "HydraulicFlow",
+          "flowType": "energy",
+          "dataType": "Real",
+          "unit": "psi",
+          "attributeIds": []
+        },
+        {
+          "id": "fs_DataFlow",
+          "type": "FlowSpecification",
+          "name": "DataFlow",
+          "flowType": "information",
+          "dataType": "String",
+          "unit": null,
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint_operationalTemp",
+          "type": "ConstraintBlock",
+          "name": "OperationalTemperatureConstraint",
+          "parameterIds": [
+            "param_minTemp",
+            "param_maxTemp"
+          ],
+          "expression": "minTemp <= operationalTemp <= maxTemp",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt_Degrees",
+          "type": "ValueType",
+          "name": "Degrees",
+          "quantityKindId": "qk_Angle",
+          "unitId": "unit_Degree",
+          "attributeIds": []
+        },
+        {
+          "id": "vt_Seconds",
+          "type": "ValueType",
+          "name": "Seconds",
+          "quantityKindId": "qk_Time",
+          "unitId": "unit_Second",
+          "attributeIds": []
+        },
+        {
+          "id": "vt_Watts",
+          "type": "ValueType",
+          "name": "Watts",
+          "quantityKindId": "qk_Power",
+          "unitId": "unit_Watt",
+          "attributeIds": []
+        },
+        {
+          "id": "vt_Celsius",
+          "type": "ValueType",
+          "name": "Celsius",
+          "quantityKindId": "qk_Temperature",
+          "unitId": "unit_Celsius",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum_SteeringDirection",
+          "type": "Enumeration",
+          "name": "SteeringDirection",
+          "literals": [
+            {
+              "id": "lit_Left",
+              "name": "LEFT"
+            },
+            {
+              "id": "lit_Right",
+              "name": "RIGHT"
+            },
+            {
+              "id": "lit_Center",
+              "name": "CENTER"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port_controlInput",
+          "type": "ProxyPort",
+          "name": "controlInput",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "block_LandingGearSteeringSystem",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "ifb_SteeringControl"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "port_feedbackOutput",
+          "type": "ProxyPort",
+          "name": "feedbackOutput",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "block_LandingGearSteeringSystem",
+          "providedInterfaceIds": [
+            "ifb_SteeringFeedback"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "port_hydraulicIn",
+          "type": "FlowPort",
+          "name": "hydraulicIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "block_SteeringActuator",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs_HydraulicFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "port_dataOut",
+          "type": "FlowPort",
+          "name": "dataOut",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "block_SteeringPositionSensor",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs_DataFlow",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp_steeringSystemToActuator",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "block_LandingGearSteeringSystem",
+          "targetId": "block_SteeringActuator",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp_steeringSystemToSensor",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "block_LandingGearSteeringSystem",
+          "targetId": "block_SteeringPositionSensor",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "ifr_steeringControl",
+          "type": "InterfaceRealization",
+          "name": "SteeringControlRealization",
+          "sourceId": "block_SteeringActuator",
+          "targetId": "ifb_SteeringControl"
+        },
+        {
+          "id": "ifr_steeringFeedback",
+          "type": "InterfaceRealization",
+          "name": "SteeringFeedbackRealization",
+          "sourceId": "block_SteeringPositionSensor",
+          "targetId": "ifb_SteeringFeedback"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr_maxRotationalRange",
+          "type": "Property",
+          "name": "maxRotationalRange",
+          "propertyType": "Real",
+          "value": "90",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr_responseTime",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "Real",
+          "value": "0.5",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr_powerConsumption",
+          "type": "Property",
+          "name": "powerConsumption",
+          "propertyType": "Real",
+          "value": "500",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr_operationalTempRange",
+          "type": "Property",
+          "name": "operationalTempRange",
+          "propertyType": "String",
+          "value": "-40 to 85",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr_actuationForce",
+          "type": "Property",
+          "name": "actuationForce",
+          "propertyType": "Real",
+          "value": "2000",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr_accuracy",
+          "type": "Property",
+          "name": "accuracy",
+          "propertyType": "Real",
+          "value": "0.1",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "op_receiveSteeringCommand",
+          "type": "Property",
+          "name": "receiveSteeringCommand",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "op_monitorSteeringAngle",
+          "type": "Property",
+          "name": "monitorSteeringAngle",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "op_actuateNoseGear",
+          "type": "Property",
+          "name": "actuateNoseGear",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "op_sendSteeringAngle",
+          "type": "Property",
+          "name": "sendSteeringAngle",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "ifb_op_receiveCommand",
+          "type": "Property",
+          "name": "receiveCommand",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "ifb_op_sendFeedback",
+          "type": "Property",
+          "name": "sendFeedback",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "param_minTemp",
+          "type": "Parameter",
+          "name": "minTemp",
+          "parameterType": "Real",
+          "defaultValue": "-40"
+        },
+        {
+          "id": "param_maxTemp",
+          "type": "Parameter",
+          "name": "maxTemp",
+          "parameterType": "Real",
+          "defaultValue": "85"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment_system",
+          "type": "Comment",
+          "body": "The Landing Gear Steering System provides directional control during ground operations by actuating the nose gear based on pilot commands and feedback from position sensors",
+          "annotatedElementId": "block_LandingGearSteeringSystem"
+        },
+        {
+          "id": "comment_tempConstraint",
+          "type": "Comment",
+          "body": "System must operate within specified temperature range to ensure reliability in extreme environmental conditions",
+          "annotatedElementId": "constraint_operationalTemp"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Landing Gear Steering System includes components such as the Steering Actuator for moving the nose gear, the Steering Position Sensor to monitor steering angle, and the Steering System itself, which is essential for directional control during ground operations. The system's specifications detail the maximum rotational range for the nose gear steering system, the response time from receiving a steering command to mechanical actuation, the power consumption required for operation, and the operational temperature range ensuring reliable performance under extreme environmental conditions.",
+  "timestamp": "20250326_013933",
+  "provider": "dpsk"
+}

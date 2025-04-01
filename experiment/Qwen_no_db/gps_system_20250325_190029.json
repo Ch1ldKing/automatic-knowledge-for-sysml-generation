@@ -1,0 +1,504 @@
+{
+  "system_id": "gps_system",
+  "system_name": "GPS System",
+  "specification": {
+    "designScenario": {
+      "name": "SmartFlight Navigation System",
+      "description": "Design an advanced Navigation System for modern aircraft, integrating artificial intelligence (AI) for real-time path optimization, multi-sensor fusion, and autonomous navigation capabilities. This system must provide precise positioning, adaptive route planning considering weather and air traffic, and enhanced situational awareness while ensuring robustness through redundancy and fail-safe mechanisms. The system must interface with autopilot systems and provide intuitive pilot controls.",
+      "requirements": [
+        {
+          "title": "AI-Driven Flight Path Optimization",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must use AI algorithms to dynamically adjust flight paths in response to real-time weather, air traffic, and airspace restrictions."
+            },
+            {
+              "description": "Optimize fuel efficiency by selecting the most efficient routes based on wind patterns and altitude profiles."
+            }
+          ]
+        },
+        {
+          "title": "Precision Positioning and Tracking",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve horizontal positional accuracy of ±3 meters and vertical accuracy of ±10 meters."
+            },
+            {
+              "description": "Maintain navigation data update rates of at least 20 Hz for high-dynamic flight scenarios."
+            }
+          ]
+        },
+        {
+          "title": "Safety and Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement quad-redundant sensor arrays for GPS, inertial navigation, and terrain referencing systems."
+            },
+            {
+              "description": "Trigger automatic terrain avoidance maneuvers if a collision threat is detected within 30 seconds."
+            }
+          ]
+        },
+        {
+          "title": "User Interface and Maintenance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide a touchscreen-based user interface with 3D terrain visualization and augmented reality overlays for navigation cues."
+            },
+            {
+              "description": "Support over-the-air software updates and predictive maintenance via self-diagnostic health monitoring."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Flight Management Computer (FMC)",
+        "description": "Central processing unit managing navigation algorithms, sensor fusion, and flight control interfaces.",
+        "type": "Electronic Module",
+        "subComponents": [
+          {
+            "name": "AI Navigation Core",
+            "description": "Dedicated hardware for real-time AI path optimization and threat detection.",
+            "type": "Processing Unit"
+          },
+          {
+            "name": "Sensor Fusion Processor",
+            "description": "Module integrating GPS, inertial, and terrain data into a unified navigation solution.",
+            "type": "Processing Unit"
+          }
+        ]
+      },
+      {
+        "name": "Multi-Constellation GNSS Receiver",
+        "description": "Primary positioning system supporting GPS, Galileo, GLONASS, and BeiDou constellations.",
+        "type": "Sensor Module",
+        "subComponents": [
+          {
+            "name": "High-Sensitivity Antenna Array",
+            "description": "Dual-polarized antenna for optimal satellite signal reception.",
+            "type": "Antenna"
+          },
+          {
+            "name": "RTK Differential Correction Unit",
+            "description": "Enhances positional accuracy using ground-based correction signals.",
+            "type": "Processing Unit"
+          }
+        ]
+      },
+      {
+        "name": "Inertial Navigation System (INS)",
+        "description": "Provides dead-reckoning capabilities during GPS signal loss.",
+        "type": "Sensor Module",
+        "subComponents": [
+          {
+            "name": "Fiber-Optic Gyroscopes",
+            "description": "High-precision rotational sensors for angular rate measurement.",
+            "type": "Sensor"
+          },
+          {
+            "name": "MEMS Accelerometers",
+            "description": "Micro-electromechanical accelerometers for linear motion tracking.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Terrain Awareness and Warning Subsystem (TAWS)",
+        "description": "Monitors terrain elevation and obstacles to prevent controlled flight into terrain (CFIT).",
+        "type": "Safety Module",
+        "subComponents": [
+          {
+            "name": "Digital Elevation Database",
+            "description": "Stores high-resolution global terrain elevation data.",
+            "type": "Data Module"
+          },
+          {
+            "name": "Collision Threat Processor",
+            "description": "Analyzes flight path against terrain data to generate avoidance advisories.",
+            "type": "Processing Unit"
+          }
+        ]
+      },
+      {
+        "name": "Air Data Inertial Reference Unit (ADIRU)",
+        "description": "Fuses inertial data with airspeed, altitude, and attitude information.",
+        "type": "Sensor Module",
+        "subComponents": null
+      },
+      {
+        "name": "Satellite Communication Module",
+        "description": "Enables high-bandwidth data links for weather updates and air traffic control communications.",
+        "type": "Communication Module",
+        "subComponents": [
+          {
+            "name": "Ka-Band Satellite Transceiver",
+            "description": "Supports high-speed data transfer via geostationary satellites.",
+            "type": "Communications Hardware"
+          },
+          {
+            "name": "VHF Data Link (VDL) Modem",
+            "description": "Facilitates digital voice and data communication with air traffic control.",
+            "type": "Communications Hardware"
+          }
+        ]
+      },
+      {
+        "name": "Pilot Display System",
+        "description": "Primary interface for pilots to view navigation data and control system parameters.",
+        "type": "Interface Module",
+        "subComponents": [
+          {
+            "name": "Head-Up Display (HUD)",
+            "description": "Projected transparent display overlaying the pilot's forward view.",
+            "type": "Display"
+          },
+          {
+            "name": "Multi-Function Control Panel",
+            "description": "Touchscreen interface for route adjustments and system configuration.",
+            "type": "Input Device"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Management Computer (FMC)",
+        "target": "Multi-Constellation GNSS Receiver",
+        "relationshipType": "aggregation",
+        "description": "The FMC aggregates GPS positioning data from the GNSS receiver for navigation solutions."
+      },
+      {
+        "source": "Flight Management Computer (FMC)",
+        "target": "Inertial Navigation System (INS)",
+        "relationshipType": "aggregation",
+        "description": "The FMC integrates inertial navigation data during GPS outages for continuity."
+      },
+      {
+        "source": "Flight Management Computer (FMC)",
+        "target": "Terrain Awareness and Warning Subsystem (TAWS)",
+        "relationshipType": "dependency",
+        "description": "The FMC relies on TAWS data to compute terrain clearance and avoidance paths."
+      },
+      {
+        "source": "Satellite Communication Module",
+        "target": "Flight Management Computer (FMC)",
+        "relationshipType": "association",
+        "description": "The communication module provides real-time weather and traffic data to the FMC."
+      },
+      {
+        "source": "Flight Management Computer (FMC)",
+        "target": "Air Data Inertial Reference Unit (ADIRU)",
+        "relationshipType": "aggregation",
+        "description": "The FMC fuses ADIRU data for accurate altitude and attitude calculations."
+      },
+      {
+        "source": "Flight Management Computer (FMC)",
+        "target": "Pilot Display System",
+        "relationshipType": "composition",
+        "description": "The FMC outputs navigation data to the pilot displays for situational awareness."
+      },
+      {
+        "source": "Redundant Sensor Suite",
+        "target": "Flight Management Computer (FMC)",
+        "relationshipType": "aggregation",
+        "description": "The redundant sensors provide backup positioning and inertial data to the FMC."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "PositionalAccuracyHorizontal",
+        "type": "string",
+        "value": "±3 meters",
+        "description": "Horizontal positional accuracy under optimal conditions."
+      },
+      {
+        "name": "DataUpdateRate",
+        "type": "string",
+        "value": "20 Hz",
+        "description": "Minimum navigation data update frequency for high-dynamic maneuvers."
+      },
+      {
+        "name": "RedundancyLevel",
+        "type": "string",
+        "value": "Quad-Redundant Sensors",
+        "description": "Four independent sensor channels for critical navigation functions."
+      },
+      {
+        "name": "AIProcessingSpeed",
+        "type": "string",
+        "value": "15 TFLOPS",
+        "description": "Computational power of the AI navigation core for real-time path optimization."
+      },
+      {
+        "name": "CommunicationProtocols",
+        "type": "string",
+        "value": "SATCOM Ka-Band, VDL Mode 4",
+        "description": "Supported communication protocols for data and voice transmission."
+      },
+      {
+        "name": "TerrainDatabaseCoverage",
+        "type": "string",
+        "value": "Global 1-meter resolution",
+        "description": "Resolution and coverage of the TAWS terrain database."
+      },
+      {
+        "name": "LatencyThreshold",
+        "type": "string",
+        "value": "<50 ms",
+        "description": "Maximum allowable latency between sensor input and display output."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "strict": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "diagramType": {
+          "type": "string",
+          "const": "BDD",
+          "description": "SysML 图的类型，固定为 BDD (块定义图)"
+        },
+        "elements": {
+          "type": "object",
+          "properties": {
+            "blocks": [
+              {
+                "id": "GPS_System",
+                "type": "Block",
+                "name": "GPS System",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "GPS_Receiver_Signal_Interface",
+                  "GPS_Processor_Interface",
+                  "Power_Interface"
+                ],
+                "operationIds": [
+                  "initializeGPS",
+                  "processSatelliteData",
+                  "providePosition"
+                ],
+                "constraintIds": [
+                  "Position_Accuracy_Constraint"
+                ],
+                "partIds": [
+                  "GPS_Receiver",
+                  "GPS_Processor",
+                  "Power_Module"
+                ],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "GPS_Receiver",
+                "type": "Block",
+                "name": "GPS Receiver",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "receivedSignalStrength",
+                  "numberOfSatellites"
+                ],
+                "operationIds": [
+                  "acquireSignal",
+                  "trackSatellites"
+                ],
+                "constraintIds": [
+                  "Signal_Strength_Constraint"
+                ],
+                "partIds": [
+                  "Antenna",
+                  "Signal_Processor"
+                ],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "GPS_Processor",
+                "type": "Block",
+                "name": "GPS Processor",
+                "isAbstract": false,
+                "isActive": true,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "currentPosition",
+                  "timeStamp"
+                ],
+                "operationIds": [
+                  "calculatePosition",
+                  "generateNavigationData"
+                ],
+                "constraintIds": [
+                  "Position_Update_Rate_Constraint"
+                ],
+                "partIds": [
+                  "Position_Calculator",
+                  "Time_Synchronizer"
+                ],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "Power_Module",
+                "type": "Block",
+                "name": "Power Module",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "voltageLevel",
+                  "currentDraw"
+                ],
+                "operationIds": [
+                  "supplyPower"
+                ],
+                "constraintIds": [
+                  "Power_Consumption_Constraint"
+                ],
+                "partIds": [],
+                "referenceIds": [],
+                "valueIds": []
+              }
+            ],
+            "interfaceBlocks": [
+              {
+                "id": "SatelliteSignal_Interface",
+                "type": "InterfaceBlock",
+                "name": "Satellite Signal Interface",
+                "attributeIds": [
+                  "signalFrequency",
+                  "satelliteID"
+                ],
+                "operationIds": [
+                  "transmitSignal",
+                  "receiveSignal"
+                ],
+                "signalIds": [],
+                "constraintIds": []
+              },
+              {
+                "id": "NavigationData_Interface",
+                "type": "InterfaceBlock",
+                "name": "Navigation Data Interface",
+                "attributeIds": [
+                  "latitude",
+                  "longitude",
+                  "altitude"
+                ],
+                "operationIds": [
+                  "providePosition",
+                  "provideVelocity"
+                ],
+                "signalIds": [],
+                "constraintIds": []
+              }
+            ],
+            "ports": [
+              {
+                "id": "GPS_Receiver_Input_Port",
+                "type": "FlowPort",
+                "name": "SatelliteSignal_Input",
+                "blockId": "GPS_Receiver",
+                "flowSpecificationId": "SatelliteSignal_Flow",
+                "isConjugated": false,
+                "attributeIds": []
+              },
+              {
+                "id": "GPS_Processor_Output_Port",
+                "type": "FullPort",
+                "name": "NavigationData_Output",
+                "blockId": "GPS_Processor",
+                "providedInterfaceIds": [
+                  "NavigationData_Interface"
+                ],
+                "requiredInterfaceIds": [],
+                "isConjugated": false,
+                "attributeIds": []
+              },
+              {
+                "id": "Power_Output_Port",
+                "type": "FullPort",
+                "name": "Power_Output",
+                "blockId": "Power_Module",
+                "providedInterfaceIds": [
+                  "Power_Interface"
+                ],
+                "requiredInterfaceIds": [],
+                "isConjugated": false,
+                "attributeIds": []
+              }
+            ],
+            "constraintBlocks": [
+              {
+                "id": "Position_Accuracy_Constraint",
+                "type": "ConstraintBlock",
+                "name": "Position Accuracy Constraint",
+                "expression": "currentPosition.accuracy <= 1.0",
+                "parameterIds": [
+                  "currentPosition"
+                ],
+                "attributeIds": []
+              }
+            ],
+            "valueTypes": [
+              {
+                "id": "CoordinateValueType",
+                "type": "ValueType",
+                "name": "CoordinateValue",
+                "quantityKindId": "Length",
+                "unitId": "Meter",
+                "attributeIds": [
+                  "latitude",
+                  "longitude",
+                  "altitude"
+                ]
+              }
+            ],
+            "enumerations": [
+              {
+                "id": "SatelliteSystem_Enum",
+                "type": "Enumeration",
+                "name": "SatelliteSystem",
+                "literals": [
+                  {
+                    "id": "GPS",
+                    "name": "GPS"
+                  },
+                  {
+                    "id": "GLONASS",
+                    "name": "GLONASS"
+                  },
+                  {
+                    "id": "Galileo",
+                    "name": "Galileo"
+                  }
+                ],
+                "attributeIds": []
+              }
+            ],
+            "comments": [
+              {
+                "id": "GPS_System_Doc",
+                "type": "Comment",
+                "body": "This block represents the entire GPS subsystem of the aircraft, including signal reception, processing, and navigation data generation.",
+                "annotatedElementId": "GPS_System"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "timestamp": "20250325_190029",
+  "provider": "qwen"
+}

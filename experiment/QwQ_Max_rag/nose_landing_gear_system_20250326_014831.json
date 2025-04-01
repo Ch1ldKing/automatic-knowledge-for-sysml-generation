@@ -1,0 +1,873 @@
+{
+  "system_id": "nose_landing_gear_system",
+  "system_name": "Nose Landing Gear System",
+  "specification": {
+    "designScenario": {
+      "name": "Landing Gear System",
+      "description": "Design a high-reliability Landing Gear System for an aircraft, integrating advanced deployment/retraction mechanisms, adaptive shock absorption, integrated braking and steering, hydraulic and electric actuation, real-time diagnostics, and thermal management. The system must operate under extreme environmental conditions, ensure safe landings with rapid deceleration, and maintain functionality in emergency scenarios such as hydraulic failure or extreme temperatures. The design emphasizes redundancy, fail-safe protocols, and ease of maintenance to minimize downtime.",
+      "requirements": [
+        {
+          "title": "Gear Deployment and Shock Absorption",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The landing gear must extend and retract reliably on command for takeoff and landing, ensuring alignment with runway conditions."
+            },
+            {
+              "description": "The system must utilize adaptive shock absorbers that adjust damping based on landing speed and load to minimize impact forces."
+            }
+          ]
+        },
+        {
+          "title": "Emergency Deployment Mechanism",
+          "type": "safety",
+          "details": [
+            {
+              "description": "The system must deploy the landing gear using a backup pyrotechnic mechanism if primary hydraulic systems fail."
+            },
+            {
+              "description": "Emergency deployment must occur within 5 seconds of activation, even in zero hydraulic pressure conditions."
+            }
+          ]
+        },
+        {
+          "title": "Brake and Steering Integration",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The braking system must engage automatically upon gear touchdown to initiate deceleration."
+            },
+            {
+              "description": "The steering system must provide precise directional control during taxiing with a maximum turning radius of 10 meters."
+            }
+          ]
+        },
+        {
+          "title": "Environmental Adaptability",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system must operate reliably at temperatures ranging from -50°C to +70°C without performance degradation."
+            },
+            {
+              "description": "All components must withstand exposure to saltwater, sand, and ice without corrosion or mechanical failure."
+            }
+          ]
+        },
+        {
+          "title": "Deployment Timing",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system must complete full deployment or retraction in under 2.5 seconds under normal conditions."
+            },
+            {
+              "description": "Actuation response time must remain consistent at extreme temperatures and altitudes."
+            }
+          ]
+        },
+        {
+          "title": "Load Capacity and Structural Integrity",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system must support a maximum load of 180,000 lbs during landing and taxiing operations."
+            },
+            {
+              "description": "Structural components must maintain rigidity under dynamic loads exceeding 200% of the aircraft's maximum weight."
+            }
+          ]
+        },
+        {
+          "title": "Dual Hydraulic Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "The system must have two independent hydraulic circuits to prevent total failure in case of a single circuit malfunction."
+            },
+            {
+              "description": "The secondary hydraulic system must activate automatically if the primary system loses pressure."
+            }
+          ]
+        },
+        {
+          "title": "Emergency Locking",
+          "type": "safety",
+          "details": [
+            {
+              "description": "The landing gear must lock in the extended position if the aircraft's weight exceeds 120% of the gear's capacity during retraction attempts."
+            },
+            {
+              "description": "A failsafe mechanism must prevent retraction if the gear is not fully locked during deployment."
+            }
+          ]
+        },
+        {
+          "title": "Real-Time Failure Monitoring",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must continuously monitor all critical parameters and provide immediate alerts for anomalies to the flight crew."
+            },
+            {
+              "description": "Diagnostic data must be transmitted to ground maintenance systems for post-flight analysis."
+            }
+          ]
+        },
+        {
+          "title": "Maintainability and Modularity",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All major components must be replaceable within 15 minutes using standardized tools."
+            },
+            {
+              "description": "The system should use modular design principles to allow for quick upgrades and repairs without full system disassembly."
+            }
+          ]
+        },
+        {
+          "title": "Compliance Standards",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "The design must adhere to FAA Part 25 regulations for landing gear systems."
+            },
+            {
+              "description": "All materials and components must meet ISO 9001 quality management standards."
+            }
+          ]
+        },
+        {
+          "title": "Thermal Management",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "The system must include cooling mechanisms to prevent overheating of hydraulic fluid and electronic components during prolonged operations."
+            },
+            {
+              "description": "Thermal sensors must monitor critical components and trigger warnings if temperatures exceed safe thresholds."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Control Unit",
+        "description": "Centralized control system managing all landing gear operations, diagnostics, and emergency protocols.",
+        "type": "Electronic Module",
+        "subComponents": [
+          {
+            "name": "Diagnostics Module",
+            "description": "Monitors system health and generates maintenance alerts.",
+            "type": "Diagnostic Subsystem"
+          },
+          {
+            "name": "Hydraulic Interface",
+            "description": "Manages hydraulic pressure distribution and valve control signals.",
+            "type": "Control Subsystem"
+          },
+          {
+            "name": "Emergency Protocol Controller",
+            "description": "Activates backup systems during critical failures.",
+            "type": "Safety Subsystem"
+          }
+        ]
+      },
+      {
+        "name": "Hydraulic System",
+        "description": "Dual-circuit hydraulic subsystem providing actuation power for gear and brake operations.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Primary Hydraulic Pump",
+            "description": "Main pump for normal hydraulic operations.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Secondary Hydraulic Pump",
+            "description": "Backup pump activated during primary failure.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Hydraulic Reservoir",
+            "description": "Stores and pressurizes hydraulic fluid.",
+            "type": "Storage Unit"
+          },
+          {
+            "name": "Pressure Regulator Valves",
+            "description": "Controls fluid pressure to actuators.",
+            "type": "Control Device"
+          },
+          {
+            "name": "Redundant Valve Array",
+            "description": "Ensures flow continuity in case of valve failure.",
+            "type": "Control Device"
+          }
+        ]
+      },
+      {
+        "name": "Actuation System",
+        "description": "Mechanical assembly for extending/retracting landing gear with emergency backup.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Primary Linear Actuators",
+            "description": "Electrically/hydraulically driven actuators for normal operations.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Emergency Pyrotechnic Actuators",
+            "description": "Pyrotechnic charges for emergency deployment.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Position Feedback Encoders",
+            "description": "Monitors gear position and sends data to the Control Unit.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Structural Strut Assembly",
+        "description": "Load-bearing framework with shock absorption and door mechanisms.",
+        "type": "Mechanical Assembly",
+        "subComponents": [
+          {
+            "name": "Primary Load-bearing Strut",
+            "description": "Supports the aircraft's weight during landing.",
+            "type": "Structural Component"
+          },
+          {
+            "name": "Adaptive Shock Absorbers",
+            "description": "Dampens impact forces with variable stiffness.",
+            "type": "Damping Device"
+          },
+          {
+            "name": "Landing Gear Doors",
+            "description": "Retractable doors covering the gear during flight.",
+            "type": "Mechanical Component"
+          },
+          {
+            "name": "Door Actuators",
+            "description": "Controls door opening/closing during gear retraction.",
+            "type": "Actuator"
+          }
+        ]
+      },
+      {
+        "name": "Brake System",
+        "description": "Deceleration system integrated with wheel assemblies.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Disc Brakes with Heat Shields",
+            "description": "Friction-based braking mechanism with thermal protection.",
+            "type": "Friction Component"
+          },
+          {
+            "name": "Brake Calipers",
+            "description": "Applies pressure to brake discs during deceleration.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Temperature Sensors",
+            "description": "Monitors brake disc temperatures to prevent overheating.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Anti-lock Braking Controller",
+            "description": "Prevents wheel lockup during heavy braking.",
+            "type": "Control Subsystem"
+          }
+        ]
+      },
+      {
+        "name": "Steering System",
+        "description": "Controls nose gear direction during ground maneuvers.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Steering Actuators",
+            "description": "Hydraulic/electric actuators for directional control.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Rack-and-Pinion Mechanism",
+            "description": "Translates actuator motion into wheel rotation.",
+            "type": "Mechanical Component"
+          },
+          {
+            "name": "Steering Angle Sensors",
+            "description": "Tracks steering angle for feedback control.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Wheel Assembly",
+        "description": "Includes tires, hubs, and pressure monitoring systems.",
+        "type": "Mechanical Assembly",
+        "subComponents": [
+          {
+            "name": "Main Landing Wheels with TPMS",
+            "description": "High-load wheels with tire pressure monitoring.",
+            "type": "Mechanical Component"
+          },
+          {
+            "name": "Nose Wheel Assembly",
+            "description": "Steerable nose wheel integrated with the steering system.",
+            "type": "Mechanical Component"
+          },
+          {
+            "name": "Tire Pressure Sensors",
+            "description": "Monitors tire pressure in real time.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Sensor Module",
+        "description": "Monitors gear position, hydraulic pressure, and structural loads.",
+        "type": "Monitoring Module",
+        "subComponents": [
+          {
+            "name": "Gear Position Sensors",
+            "description": "Tracks gear extension/retraction status.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Hydraulic Pressure Sensors",
+            "description": "Monitors pressure in both hydraulic circuits.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Load Cell Sensors",
+            "description": "Measures weight distribution on structural components.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Temperature Sensors",
+            "description": "Detects thermal conditions across the system.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Safety Sensor Array",
+        "description": "Redundant sensors for fail-safe operations.",
+        "type": "Monitoring Module",
+        "subComponents": [
+          {
+            "name": "Redundant Position Sensors",
+            "description": "Cross-validates gear position data.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Emergency Lock Status Sensors",
+            "description": "Confirms gear is locked during deployment.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Hydraulic Fluid Level Sensors",
+            "description": "Prevents underfill/overflow conditions.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Thermal Management System",
+        "description": "Controls heat dissipation in hydraulic and electronic components.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Cooling Fans",
+            "description": "Reduces heat buildup in enclosed areas.",
+            "type": "Cooling Device"
+          },
+          {
+            "name": "Heat Exchangers",
+            "description": "Manages hydraulic fluid temperature.",
+            "type": "Thermal Device"
+          },
+          {
+            "name": "Thermal Control Unit",
+            "description": "Regulates cooling based on sensor inputs.",
+            "type": "Control Subsystem"
+          }
+        ]
+      },
+      {
+        "name": "Emergency Deployment Mechanism",
+        "description": "Backup system for gear deployment during hydraulic failure.",
+        "type": "Safety Subsystem",
+        "subComponents": [
+          {
+            "name": "Pyrotechnic Charges",
+            "description": "Explosive actuators for emergency deployment.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Backup Power Supply",
+            "description": "Independent battery for pyrotechnic activation.",
+            "type": "Energy Storage"
+          },
+          {
+            "name": "Deployment Detonator",
+            "description": "Triggers pyrotechnic charges on command.",
+            "type": "Control Device"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Control Unit",
+        "target": "Thermal Management System",
+        "relationshipType": "aggregation",
+        "description": "The Control Unit aggregates the Thermal Management System to regulate thermal parameters."
+      },
+      {
+        "source": "Actuation System",
+        "target": "Hydraulic System",
+        "relationshipType": "dependency",
+        "description": "The Actuation System relies on the Hydraulic System for primary actuation power."
+      },
+      {
+        "source": "Emergency Deployment Mechanism",
+        "target": "Control Unit",
+        "relationshipType": "dependency",
+        "description": "The Emergency Deployment Mechanism activates based on signals from the Control Unit during failures."
+      },
+      {
+        "source": "Structural Strut Assembly",
+        "target": "Landing Gear Doors",
+        "relationshipType": "composition",
+        "description": "The Landing Gear Doors are part of the Structural Strut Assembly."
+      },
+      {
+        "source": "Brake System",
+        "target": "Wheel Assembly",
+        "relationshipType": "dependency",
+        "description": "The Brake System is mechanically attached to the Wheel Assembly for friction-based deceleration."
+      },
+      {
+        "source": "Steering System",
+        "target": "Nose Wheel Assembly",
+        "relationshipType": "aggregation",
+        "description": "The Steering System controls the Nose Wheel Assembly's orientation."
+      },
+      {
+        "source": "Sensor Module",
+        "target": "Control Unit",
+        "relationshipType": "association",
+        "description": "The Sensor Module provides real-time data to the Control Unit for monitoring and control."
+      },
+      {
+        "source": "Safety Sensor Array",
+        "target": "Control Unit",
+        "relationshipType": "aggregation",
+        "description": "The Safety Sensor Array integrates with the Control Unit for fail-safe decision-making."
+      },
+      {
+        "source": "Hydraulic Reservoir",
+        "target": "Hydraulic System",
+        "relationshipType": "composition",
+        "description": "The Hydraulic Reservoir is a core component of the Hydraulic System."
+      },
+      {
+        "source": "Primary Hydraulic Pump",
+        "target": "Hydraulic System",
+        "relationshipType": "dependency",
+        "description": "The Primary Hydraulic Pump supplies pressure to the Hydraulic System under normal conditions."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "loadCapacity",
+        "type": "string",
+        "value": "180,000 lbs",
+        "description": "Maximum supported weight during landing and taxiing."
+      },
+      {
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "< 2.5 seconds",
+        "description": "Time to fully deploy or retract under normal conditions."
+      },
+      {
+        "name": "shockAbsorption",
+        "type": "string",
+        "value": "Adaptive damping with real-time adjustment",
+        "description": "Shock absorbers adjust stiffness based on landing conditions."
+      },
+      {
+        "name": "hydraulicPressure",
+        "type": "string",
+        "value": "3500 PSI",
+        "description": "Required hydraulic pressure for actuation systems."
+      },
+      {
+        "name": "noiseVibration",
+        "type": "string",
+        "value": "Meets ICAO Chapter 14 standards",
+        "description": "Complies with noise and vibration regulations."
+      },
+      {
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "-50°C to +70°C",
+        "description": "Operational temperature range without performance loss."
+      },
+      {
+        "name": "hydraulicRedundancy",
+        "type": "string",
+        "value": "Dual independent circuits",
+        "description": "Two hydraulic systems to prevent single-point failures."
+      },
+      {
+        "name": "brakingEfficiency",
+        "type": "string",
+        "value": "Decelerates from 150 knots to 0 in 1500 ft",
+        "description": "Stopping performance under maximum load conditions."
+      },
+      {
+        "name": "maxSteeringAngle",
+        "type": "string",
+        "value": "± 75 degrees",
+        "description": "Maximum turning angle for the nose gear."
+      },
+      {
+        "name": "sensorRefreshRate",
+        "type": "string",
+        "value": "100 Hz",
+        "description": "Sampling rate for critical sensors during operation."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "NLG_System",
+          "type": "Block",
+          "name": "Nose Landing Gear System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_1",
+            "Attr_2",
+            "Attr_3",
+            "Attr_4",
+            "Attr_5",
+            "Attr_6"
+          ],
+          "operationIds": [
+            "Op_1",
+            "Op_2"
+          ],
+          "constraintIds": [
+            "Cnst_1",
+            "Cnst_2",
+            "Cnst_3"
+          ],
+          "partIds": [
+            "SteeringAssembly",
+            "ShockAbsorber",
+            "WheelAssembly",
+            "SensorModule",
+            "Actuator"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SteeringAssembly",
+          "type": "Block",
+          "name": "Steering Assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_7",
+            "Attr_8"
+          ],
+          "operationIds": [
+            "Op_3"
+          ],
+          "constraintIds": [
+            "Cnst_4"
+          ],
+          "partIds": [
+            "SteeringActuator"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ShockAbsorber",
+          "type": "Block",
+          "name": "Shock Absorber",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_9",
+            "Attr_10"
+          ],
+          "operationIds": [
+            "Op_4"
+          ],
+          "constraintIds": [
+            "Cnst_5"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "WheelAssembly",
+          "type": "Block",
+          "name": "Wheel Assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_11",
+            "Attr_12"
+          ],
+          "operationIds": [
+            "Op_5"
+          ],
+          "constraintIds": [
+            "Cnst_6"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SensorModule",
+          "type": "Block",
+          "name": "Sensor Module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_13",
+            "Attr_14"
+          ],
+          "operationIds": [
+            "Op_6"
+          ],
+          "constraintIds": [
+            "Cnst_7"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SteeringActuator",
+          "type": "Block",
+          "name": "Steering Actuator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_15",
+            "Attr_16"
+          ],
+          "operationIds": [
+            "Op_7"
+          ],
+          "constraintIds": [
+            "Cnst_8"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "Port_1",
+          "type": "FullPort",
+          "name": "SteeringControlPort",
+          "blockId": "NLG_System",
+          "providedInterfaceIds": [
+            "IF_1"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "isConjugated": false,
+          "attributeIds": []
+        },
+        {
+          "id": "Port_2",
+          "type": "ProxyPort",
+          "name": "SensorDataPort",
+          "blockId": "NLG_System",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "IF_2"
+          ],
+          "flowSpecificationId": null,
+          "isConjugated": false,
+          "attributeIds": []
+        },
+        {
+          "id": "Port_3",
+          "type": "FlowPort",
+          "name": "LoadDistributionPort",
+          "blockId": "NLG_System",
+          "flowSpecificationId": "FS_1",
+          "isConjugated": false,
+          "attributeIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IF_1",
+          "type": "InterfaceBlock",
+          "name": "SteeringControlInterface",
+          "attributeIds": [
+            "Attr_17"
+          ],
+          "operationIds": [
+            "Op_8"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "IF_2",
+          "type": "InterfaceBlock",
+          "name": "SensorDataInterface",
+          "attributeIds": [
+            "Attr_18"
+          ],
+          "operationIds": [
+            "Op_9"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_1",
+          "type": "FlowSpecification",
+          "name": "LoadDistributionFlow",
+          "flowType": "Control",
+          "dataType": "LoadData",
+          "unit": "kN",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "Cnst_1",
+          "type": "ConstraintBlock",
+          "name": "MaxLoadConstraint",
+          "expression": "maximumLoadCapacity >= 15000",
+          "parameterIds": [
+            "Attr_1"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "Cnst_2",
+          "type": "ConstraintBlock",
+          "name": "SteeringAngleConstraint",
+          "expression": "steeringAngle <= 75",
+          "parameterIds": [
+            "Attr_8"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "Cnst_3",
+          "type": "ConstraintBlock",
+          "name": "MaterialSpecConstraint",
+          "expression": "materialSpec in ['Aerospace_Aluminum', 'Titanium']",
+          "parameterIds": [
+            "Attr_4"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "Enum_1",
+          "type": "Enumeration",
+          "name": "MaterialSpecification",
+          "literals": [
+            {
+              "id": "Lit_1",
+              "name": "Aerospace_Aluminum"
+            },
+            {
+              "id": "Lit_2",
+              "name": "Titanium"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_1",
+          "type": "ValueType",
+          "name": "Diameter",
+          "quantityKindId": "Length",
+          "unitId": "Meter",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "Comp_1",
+          "type": "Composition",
+          "name": "NLG_SteeringAssembly",
+          "sourceId": "NLG_System",
+          "targetId": "SteeringAssembly",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "associations": [
+        {
+          "id": "Assoc_1",
+          "type": "Association",
+          "name": "SensorDataFlow",
+          "sourceId": "SensorModule",
+          "targetId": "Port_2",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "Cmt_1",
+          "type": "Comment",
+          "body": "Steering Assembly provides directional control during taxiing",
+          "annotatedElementId": "SteeringAssembly"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "Nose Landing Gear System是飞机起落架的一个专门组件，设计用于提供精确的转向控制、优化的载荷分布以及减震功能，以在滑行、起飞和着陆过程中提供支持。设计强调与转向执行器和先进传感器模块的集成，以确保在动态条件下进行实时监控和快速响应。系统采用航空级材料制造，以符合严格的安全和性能规定。规格包括最大承载能力、轮胎直径、材料规格、转向集成、减震支持、传感器集成等方面的详细信息。",
+  "timestamp": "20250326_014831",
+  "provider": "qwen"
+}

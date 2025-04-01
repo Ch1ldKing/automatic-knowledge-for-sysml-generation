@@ -1,0 +1,675 @@
+{
+  "system_id": "actuator_system",
+  "system_name": "Actuator System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Peak actuation force provided by the actuator, measured in kilonewtons. This value drives control surfaces, landing gear, and braking systems with high efficiency.",
+        "name": "maxForce",
+        "type": "string",
+        "value": "6-25 kN"
+      },
+      {
+        "description": "Time taken by the actuator to convert hydraulic input into mechanical motion. Critical for ensuring rapid and smooth control system response.",
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<0.45 sec"
+      },
+      {
+        "description": "The operational temperature range where the actuator maintains optimal performance under diverse atmospheric conditions.",
+        "name": "tempRange",
+        "type": "string",
+        "value": "-50°C to +90°C"
+      },
+      {
+        "description": "Indicates the degree of integration with the aircraft’s avionics and digital control systems for enhanced synchronization and diagnostics.",
+        "name": "integrationDegree",
+        "type": "string",
+        "value": "Ultra-High"
+      },
+      {
+        "description": "Maintenance interval expressed in flight cycles, ensuring long-term durability and operational reliability of the actuator system.",
+        "name": "serviceInterval",
+        "type": "string",
+        "value": "500 flight cycles"
+      }
+    ],
+    "designScenario": {
+      "description": "The Advanced Actuator System converts hydraulic energy into precise and controlled mechanical actions for critical flight operations including control surface modulation, landing gear deployment, and braking system actuation. Engineered with aerospace-grade materials and incorporating robust self-diagnostic capabilities, the system ensures rapid response, enhanced safety with redundant fail-safe mechanisms, and seamless integration with the aircraft’s avionics.",
+      "name": "Advanced Actuator System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The actuator system must precisely convert hydraulic pressure into mechanical motions for accurate positioning of control surfaces, landing gear, and brakes."
+            }
+          ],
+          "title": "Precision Actuation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The actuation mechanism must complete its movement in less than 0.45 seconds to enable high agility during rapid flight maneuvers."
+            }
+          ],
+          "title": "Rapid Response",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement redundant fail-safe protocols that default the actuators to a safe state during unexpected hydraulic pressure drops or system malfunctions."
+            }
+          ],
+          "title": "Redundant Fail-Safe",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate aerospace-grade materials and advanced self-diagnostic sensors to monitor system wear and alert maintenance teams proactively, ensuring extended durability under operational stress."
+            }
+          ],
+          "title": "Durability and Self-Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Advanced Actuator System relies on the Hydraulic Control Interface for the regulated delivery of hydraulic fluid necessary for precise actuation.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Control Interface",
+        "target": "Advanced Actuator Unit"
+      },
+      {
+        "description": "The Advanced Actuator Unit is composed of multiple subcomponents including the Precision Linear Actuator, ensuring integrated linear motion delivery.",
+        "relationshipType": "composition",
+        "source": "Advanced Actuator Unit",
+        "target": "Precision Linear Actuator"
+      },
+      {
+        "description": "The Advanced Actuator Unit is composed of the Torque Rotary Actuator to provide angular control necessary for directional adjustments in flight.",
+        "relationshipType": "composition",
+        "source": "Advanced Actuator Unit",
+        "target": "Torque Rotary Actuator"
+      },
+      {
+        "description": "The actuator system communicates performance data and status updates to the Aircraft Avionics Suite for continuous real-time monitoring and control loop adjustments.",
+        "relationshipType": "association",
+        "source": "Advanced Actuator Unit",
+        "target": "Aircraft Avionics Suite"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core module that transforms hydraulic pressure into controlled mechanical actions. It integrates subcomponents to deliver both linear and rotational movements essential for aircraft control.",
+        "name": "Advanced Actuator Unit",
+        "subComponents": [
+          {
+            "description": "Provides precise linear displacement for functions such as extending control surfaces and deploying landing gear.",
+            "name": "Precision Linear Actuator",
+            "type": "Hydraulic Linear Actuator"
+          },
+          {
+            "description": "Generates reliable angular motion for tasks including directional control and aileron adjustments.",
+            "name": "Torque Rotary Actuator",
+            "type": "Hydraulic Rotary Actuator"
+          }
+        ],
+        "type": "Actuation Module"
+      },
+      {
+        "description": "Module responsible for managing and regulating the flow of hydraulic fluid, ensuring that all actuator components receive stable and accurate pressure input.",
+        "name": "Hydraulic Control Interface",
+        "subComponents": null,
+        "type": "Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "1000.0",
+          "id": "Attr_AS_MaxForce",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "MaximumForce",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "1000.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "28.0",
+          "id": "Attr_AS_OpVoltage",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "OperatingVoltage",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "28.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "28.0",
+          "id": "Attr_PS_Voltage",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "OutputVoltage",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "28.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.1",
+          "id": "Attr_CS_ResponseTime",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0.1",
+          "name": "ResponseTime",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "0.1",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "3000",
+          "id": "Attr_HS_Pressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "3000",
+          "name": "HydraulicPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3000",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Linear",
+          "id": "Attr_AC_ActuatorType",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "ActuatorType",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Linear",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.01",
+          "id": "Attr_SS_Accuracy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0.01",
+          "name": "SensorAccuracy",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "0.01",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "Attr_AS_MaxForce",
+            "Attr_AS_OpVoltage"
+          ],
+          "constraintIds": null,
+          "id": "B_AS",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "ActuatorSystem",
+          "operationIds": [
+            "Op_AS_Initiate"
+          ],
+          "partIds": [
+            "B_PS",
+            "B_CS",
+            "B_HS",
+            "B_AC",
+            "B_SS"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_PS_Voltage"
+          ],
+          "constraintIds": null,
+          "id": "B_PS",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "PowerSubsystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_CS_ResponseTime"
+          ],
+          "constraintIds": null,
+          "id": "B_CS",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "ControlSubsystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_HS_Pressure"
+          ],
+          "constraintIds": null,
+          "id": "B_HS",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "HydraulicSubsystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_AC_ActuatorType"
+          ],
+          "constraintIds": null,
+          "id": "B_AC",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "ActuatorComponent",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_SS_Accuracy"
+          ],
+          "constraintIds": null,
+          "id": "B_SS",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "SensorSubsystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B_AS",
+          "body": "Actuator System integrates Power, Control, Hydraulic, Actuator, and Sensor subsystems to manage aircraft control surface actuation with redundant safety and performance measures.",
+          "id": "C1",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B_HS",
+          "body": "HydraulicSubsystem provides regulated fluid power necessary for actuator movement with pressure constraints and safety valves.",
+          "id": "C2",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "Conn_AS_Power",
+          "kind": "assembly",
+          "name": "Power Connection",
+          "source": "P_AS_PP",
+          "target": "B_PS",
+          "type": "Connector"
+        },
+        {
+          "id": "Conn_AS_Control",
+          "kind": "delegation",
+          "name": "Control Signal Connection",
+          "source": "P_AS_CP",
+          "target": "B_CS",
+          "type": "Connector"
+        },
+        {
+          "id": "Conn_AS_Fluid",
+          "kind": "assembly",
+          "name": "Hydraulic Fluid Connection",
+          "source": "P_AS_FP",
+          "target": "B_HS",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "ActuatorSystem must maintain operating temperature within predefined limits and not exceed maximum force.",
+          "id": "CB_Safety",
+          "name": "SafetyConstraintBlock",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": [
+        {
+          "guard": null,
+          "id": "CF_AS_ControlFlow",
+          "name": "ActuationControlFlow",
+          "sourceId": "P_AS_CP",
+          "targetId": "B_AC",
+          "type": "ControlFlow"
+        }
+      ],
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "Enum_AT",
+          "literals": [
+            {
+              "id": "Lit_Linear",
+              "name": "Linear"
+            },
+            {
+              "id": "Lit_Rotary",
+              "name": "Rotary"
+            }
+          ],
+          "name": "ActuatorTypeEnum",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "Signal",
+          "flowType": "information",
+          "id": "FS_CS",
+          "name": "ControlSignalFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        },
+        {
+          "attributeIds": null,
+          "dataType": "Electric",
+          "flowType": "electrical",
+          "id": "FS_PF",
+          "name": "PowerFlow",
+          "type": "FlowSpecification",
+          "unit": "Volt"
+        },
+        {
+          "attributeIds": null,
+          "dataType": "Fluid",
+          "flowType": "fluid",
+          "id": "FS_HF",
+          "name": "HydraulicFlow",
+          "type": "FlowSpecification",
+          "unit": "Pascal"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "IB_CS",
+          "name": "IControlSignal",
+          "operationIds": [
+            "Op_CS_Send"
+          ],
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "IB_PS",
+          "name": "IPowerSupply",
+          "operationIds": [
+            "Op_PS_Provide"
+          ],
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "IB_FF",
+          "name": "IFluidFlow",
+          "operationIds": [
+            "Op_FF_Control"
+          ],
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": null,
+          "id": "Intf_CS",
+          "name": "ControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "Interface"
+        },
+        {
+          "attributeIds": null,
+          "id": "Intf_PS",
+          "name": "PowerInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "Interface"
+        },
+        {
+          "attributeIds": null,
+          "id": "Intf_FF",
+          "name": "FluidInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B_AS",
+          "flowSpecificationId": null,
+          "id": "P_AS_CP",
+          "isConjugated": false,
+          "name": "ControlPort",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "IB_CS"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B_AS",
+          "flowSpecificationId": null,
+          "id": "P_AS_PP",
+          "isConjugated": false,
+          "name": "PowerPort",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": [
+            "IB_PS"
+          ],
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B_AS",
+          "flowSpecificationId": "FS_HF",
+          "id": "P_AS_FP",
+          "isConjugated": false,
+          "name": "HydraulicFlowPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "B_AS",
+          "id": "PP_AS",
+          "isConjugated": false,
+          "name": "ProxyPort_AS",
+          "providedInterfaceIds": [
+            "IB_PS"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "Req_AS_01",
+          "name": "ActuatorSystemRequirement",
+          "reqId": "REQ-AC-001",
+          "text": "The Actuator System shall deliver precise control forces within the specified voltage and pressure limits ensuring safe operation under all flight conditions.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT_Force",
+          "name": "Force",
+          "quantityKindId": "QK_Force",
+          "type": "ValueType",
+          "unitId": "Unit_N"
+        },
+        {
+          "attributeIds": [],
+          "id": "VT_Voltage",
+          "name": "Voltage",
+          "quantityKindId": "QK_Voltage",
+          "type": "ValueType",
+          "unitId": "Unit_V"
+        },
+        {
+          "attributeIds": [],
+          "id": "VT_Pressure",
+          "name": "Pressure",
+          "quantityKindId": "QK_Pressure",
+          "type": "ValueType",
+          "unitId": "Unit_Pa"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_114025"
+}

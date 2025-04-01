@@ -1,0 +1,540 @@
+{
+  "system_id": "reservoir_system",
+  "system_name": "Reservoir System",
+  "specification": {
+    "designScenario": {
+      "name": "Aircraft Hydraulic Fluid Reservoir System",
+      "description": "The Fluid Reservoir System is designed to store, manage, and supply hydraulic fluid under extreme environmental and operational conditions. It incorporates advanced thermal insulation, real-time monitoring, and integrated filtration to ensure consistent fluid quality and pressure. The system supports high-pressure hydraulic actuation systems while maintaining lightweight and durable construction for prolonged service intervals.",
+      "requirements": [
+        {
+          "title": "Fluid Storage and Thermal Management",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must store hydraulic fluid within a temperature range of -40°C to 85°C while maintaining structural integrity."
+            },
+            {
+              "description": "Supply fluid at a maximum flow rate of 200 liters per minute to meet peak system demands."
+            }
+          ]
+        },
+        {
+          "title": "Pressure Regulation and Stability",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Maintain fluid pressure between 2000 and 4500 psi during all operational phases without exceeding ±5% deviation."
+            }
+          ]
+        },
+        {
+          "title": "Contamination and Leak Prevention",
+          "type": "safety",
+          "details": [
+            {
+              "description": "The High-Efficiency Filter must remove 99.9% of particulates larger than 5 microns to protect downstream components."
+            },
+            {
+              "description": "The Leak Detection System must trigger an alarm within 30 seconds of detecting a leak exceeding 0.1 mL/min."
+            }
+          ]
+        },
+        {
+          "title": "Durability and Weight Optimization",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Constructed from titanium alloy to minimize weight while ensuring corrosion resistance and fatigue strength."
+            },
+            {
+              "description": "Support a service interval of 500 flight hours with routine checks and full maintenance every 2000 flight hours."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Fluid Reservoir System",
+        "description": "Central storage and management unit for hydraulic fluid, ensuring consistent supply under varying operational conditions.",
+        "type": "Storage Unit",
+        "subComponents": [
+          {
+            "name": "Reservoir Tank",
+            "description": "Primary container for storing hydraulic fluid with integrated thermal and pressure management features.",
+            "type": "Container",
+            "subComponents": [
+              {
+                "name": "Thermal Insulation Layer",
+                "description": "Multi-layer insulation to maintain fluid temperature stability during extreme environmental conditions.",
+                "type": "Insulation"
+              },
+              {
+                "name": "Level Sensor",
+                "description": "Electronic sensor to monitor fluid level and trigger refilling alerts.",
+                "type": "Sensor"
+              }
+            ]
+          },
+          {
+            "name": "Filtration and Pressure Regulation Unit",
+            "description": "Integrated system for filtering contaminants and maintaining optimal fluid pressure.",
+            "type": "Filter",
+            "subComponents": [
+              {
+                "name": "High-Efficiency Filter",
+                "description": "Micron-level filter to remove particulates and prevent contamination.",
+                "type": "Filter"
+              },
+              {
+                "name": "Pressure Regulator",
+                "description": "Mechanical regulator to adjust fluid pressure within operational limits.",
+                "type": "Regulator"
+              }
+            ]
+          },
+          {
+            "name": "Leak Detection System",
+            "description": "Pressure-sensitive sensors and alarms to detect fluid leaks in real-time.",
+            "type": "Sensor"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Fluid Reservoir System",
+        "target": "Reservoir Tank",
+        "relationshipType": "aggregation",
+        "description": "The Fluid Reservoir System aggregates the Reservoir Tank as its primary storage component."
+      },
+      {
+        "source": "Fluid Reservoir System",
+        "target": "Filtration and Pressure Regulation Unit",
+        "relationshipType": "aggregation",
+        "description": "The Fluid Reservoir System integrates the Filtration and Pressure Regulation Unit for fluid management."
+      },
+      {
+        "source": "Fluid Reservoir System",
+        "target": "Leak Detection System",
+        "relationshipType": "aggregation",
+        "description": "The Fluid Reservoir System includes the Leak Detection System for operational safety."
+      },
+      {
+        "source": "Reservoir Tank",
+        "target": "Thermal Insulation Layer",
+        "relationshipType": "composition",
+        "description": "The Reservoir Tank incorporates the Thermal Insulation Layer for temperature control."
+      },
+      {
+        "source": "Reservoir Tank",
+        "target": "Level Sensor",
+        "relationshipType": "composition",
+        "description": "The Reservoir Tank includes the Level Sensor to monitor fluid levels."
+      },
+      {
+        "source": "Filtration and Pressure Regulation Unit",
+        "target": "High-Efficiency Filter",
+        "relationshipType": "composition",
+        "description": "The Filtration and Pressure Regulation Unit contains the High-Efficiency Filter for contaminant removal."
+      },
+      {
+        "source": "Filtration and Pressure Regulation Unit",
+        "target": "Pressure Regulator",
+        "relationshipType": "composition",
+        "description": "The Filtration and Pressure Regulation Unit includes the Pressure Regulator to control fluid pressure."
+      },
+      {
+        "source": "Leak Detection System",
+        "target": "Reservoir Tank",
+        "relationshipType": "dependency",
+        "description": "The Leak Detection System depends on the Reservoir Tank to monitor for fluid leaks."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "2000-4500 psi",
+        "description": "Operating pressure range the reservoir must withstand during flight phases."
+      },
+      {
+        "name": "fluidType",
+        "type": "string",
+        "value": "High-viscosity aerospace hydraulic fluid",
+        "description": "Specific hydraulic fluid type compatible with extreme temperatures and system components."
+      },
+      {
+        "name": "thermalRange",
+        "type": "string",
+        "value": "-40°C to 85°C",
+        "description": "Temperature range in which the reservoir maintains optimal performance."
+      },
+      {
+        "name": "capacity",
+        "type": "string",
+        "value": "150 liters",
+        "description": "Total fluid storage capacity of the reservoir system."
+      },
+      {
+        "name": "material",
+        "type": "string",
+        "value": "Titanium alloy",
+        "description": "Primary material used for structural components to ensure lightweight and corrosion resistance."
+      },
+      {
+        "name": "maintenanceCycle",
+        "type": "string",
+        "value": "500 flight hours",
+        "description": "Recommended service interval for system checks and fluid analysis."
+      },
+      {
+        "name": "filterEfficiency",
+        "type": "string",
+        "value": "99.9% at 5 microns",
+        "description": "Filtration efficiency rating to remove particulates down to 5 microns."
+      },
+      {
+        "name": "pressureRegulationRange",
+        "type": "string",
+        "value": "2000-4500 psi",
+        "description": "Pressure range maintained by the integrated pressure regulator."
+      },
+      {
+        "name": "leakDetectionSensitivity",
+        "type": "string",
+        "value": "0.1 mL/min",
+        "description": "Minimum leak rate detectable by the leak detection system."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "ReservoirSystem",
+          "type": "Block",
+          "name": "Reservoir System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "pressureRange",
+            "fluidVolume",
+            "maintenanceInterval"
+          ],
+          "operationIds": [
+            "pressurize",
+            "filterFluid",
+            "monitorLevel"
+          ],
+          "constraintIds": [
+            "PressureConstraint",
+            "MaintenanceConstraint"
+          ],
+          "partIds": [
+            "Tank",
+            "FiltrationUnit",
+            "PressureSubsystem",
+            "Sensor"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Tank",
+          "type": "Block",
+          "name": "Hydraulic Tank",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "material",
+            "capacity"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "FiltrationUnit",
+          "type": "Block",
+          "name": "Filtration Unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "filterType",
+            "efficiency"
+          ],
+          "operationIds": [
+            "filter"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PressureSubsystem",
+          "type": "Block",
+          "name": "Pressure Management Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "pressureSetpoint"
+          ],
+          "operationIds": [
+            "regulatePressure"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Sensor",
+          "type": "Block",
+          "name": "Fluid Level Sensor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "threshold"
+          ],
+          "operationIds": [
+            "measureLevel"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [],
+      "ports": [
+        {
+          "id": "InletPort",
+          "type": "FlowPort",
+          "name": "Inlet Port",
+          "blockId": "ReservoirSystem",
+          "isConjugated": false,
+          "flowSpecificationId": "FluidFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "OutletPort",
+          "type": "FlowPort",
+          "name": "Outlet Port",
+          "blockId": "ReservoirSystem",
+          "isConjugated": false,
+          "flowSpecificationId": "FluidFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "PressurePort",
+          "type": "FullPort",
+          "name": "Pressure Control Port",
+          "blockId": "ReservoirSystem",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "PressureInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "SensorProxyPort",
+          "type": "ProxyPort",
+          "name": "Sensor Proxy Port",
+          "blockId": "ReservoirSystem",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "SensorInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "PressureConstraint",
+          "type": "ConstraintBlock",
+          "name": "Pressure Constraint",
+          "expression": "operatingPressure >= 1500 AND operatingPressure <= 5000",
+          "parameterIds": [
+            "operatingPressure"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "MaintenanceConstraint",
+          "type": "ConstraintBlock",
+          "name": "Maintenance Constraint",
+          "expression": "maintenanceInterval == 600",
+          "parameterIds": [
+            "maintenanceInterval"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "FluidVolume",
+          "type": "ValueType",
+          "name": "Fluid Volume",
+          "quantityKindId": "Volume",
+          "unitId": "Liters",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "PressureRange",
+          "type": "Enumeration",
+          "name": "Pressure Range",
+          "literals": [
+            {
+              "id": "MinPressure",
+              "name": "1500 psi"
+            },
+            {
+              "id": "MaxPressure",
+              "name": "5000 psi"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "associations": [
+        {
+          "id": "ReservoirTankComposition",
+          "type": "Composition",
+          "name": "Tank Composition",
+          "sourceId": "ReservoirSystem",
+          "targetId": "Tank",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "ReservoirFiltrationComposition",
+          "type": "Composition",
+          "name": "Filtration Composition",
+          "sourceId": "ReservoirSystem",
+          "targetId": "FiltrationUnit",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "ReservoirPressureComposition",
+          "type": "Composition",
+          "name": "Pressure Subsystem Composition",
+          "sourceId": "ReservoirSystem",
+          "targetId": "PressureSubsystem",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "ReservoirSensorComposition",
+          "type": "Composition",
+          "name": "Sensor Composition",
+          "sourceId": "ReservoirSystem",
+          "targetId": "Sensor",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "pressureRange",
+          "type": "Property",
+          "name": "Operating Pressure Range",
+          "propertyType": "Enumeration",
+          "value": "PressureRange",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "fluidVolume",
+          "type": "Property",
+          "name": "Fluid Volume",
+          "propertyType": "ValueType",
+          "value": "FluidVolume",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "maintenanceInterval",
+          "type": "Property",
+          "name": "Maintenance Interval",
+          "propertyType": "Integer",
+          "value": "600",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment1",
+          "type": "Comment",
+          "body": "Ensures hydraulic fluid storage under extreme operational conditions",
+          "annotatedElementId": "ReservoirSystem"
+        },
+        {
+          "id": "Comment2",
+          "type": "Comment",
+          "body": "Maintains pressure within 1500-5000 psi for system actuation requirements",
+          "annotatedElementId": "PressureSubsystem"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Reservoir System is designed to securely store and supply hydraulic fluid within an aerospace hydraulic system. It is engineered for extreme operational conditions, incorporating robust construction, integrated filtration, and precise fluid management. The system element ensures a constant supply of clean, pressurized fluid essential for proper actuation of control surfaces, landing gears, and braking systems in modern aircraft. The reservoir must support pressure variations within the 1500-5000 psi range without significant pressure drop, ensuring consistent system performance. An integrated filtration unit is employed to prevent contaminants from circulating in the hydraulic fluid, safeguarding critical components. Maintenance parameters are designed for extended operational periods, supporting service intervals of 600 flight hours or as specified by the OEM.",
+  "timestamp": "20250326_014724",
+  "provider": "qwen"
+}

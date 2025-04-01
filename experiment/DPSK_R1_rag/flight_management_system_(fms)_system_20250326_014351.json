@@ -1,0 +1,811 @@
+{
+  "system_id": "flight_management_system_(fms)_system",
+  "system_name": "Flight Management System (FMS) System",
+  "specification": {
+    "designScenario": {
+      "name": "Flight Management System",
+      "description": "An advanced avionics system integrating AI-driven flight optimization, predictive maintenance analytics, and cyber-physical security protocols. The FMS processes multi-source sensor data, manages 4D trajectory prediction (latitude, longitude, altitude, time), and interfaces with next-generation air traffic management (ATM) systems. It features adaptive fuel optimization algorithms and complies with DO-178C (Safety) and DO-326A (Security) standards for aviation systems.",
+      "requirements": [
+        {
+          "title": "AI-Driven Trajectory Management",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Implement machine learning models for dynamic 4D trajectory optimization considering weather patterns, airspace constraints, and fuel efficiency."
+            },
+            {
+              "description": "Automate vertical navigation (VNAV) and lateral navigation (LNAV) synchronization with Required Navigation Performance (RNP) specifications."
+            }
+          ]
+        },
+        {
+          "title": "Multi-Sensor Fusion & Integrity",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Fuse data from dual-frequency GNSS (GPS/Galileo), laser ring gyro INS, and terrain databases with RAIM (Receiver Autonomous Integrity Monitoring)."
+            },
+            {
+              "description": "Integrate with aircraft health monitoring systems for predictive maintenance triggering."
+            }
+          ]
+        },
+        {
+          "title": "High-Performance Compute Architecture",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Execute trajectory recalculation within 50ms latency for TCAS (Traffic Collision Avoidance System) integration."
+            },
+            {
+              "description": "Support 10Gbps data throughput between core processing modules."
+            }
+          ]
+        },
+        {
+          "title": "Cyber-Physical Security",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement hardware-isolated security co-processor for encrypted data bus communication (ARINC 664)."
+            },
+            {
+              "description": "Deploy anomaly detection algorithms for identifying spoofing attacks on GNSS signals."
+            }
+          ]
+        },
+        {
+          "title": "Human-Machine Interface",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide touchscreen EFB (Electronic Flight Bag) integration with haptic feedback for turbulence conditions."
+            },
+            {
+              "description": "Enable over-the-air (OTA) software updates with blockchain-based version control."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Core Flight Processor",
+        "type": "Safety-Critical Compute Module",
+        "description": "Triple-redundant ARM Cortex-R52 processors with lockstep execution for DO-254 DAL A compliance.",
+        "subComponents": [
+          {
+            "name": "AI Co-Processor",
+            "type": "Neural Processing Unit",
+            "description": "Dedicated tensor accelerator for real-time trajectory optimization"
+          }
+        ]
+      },
+      {
+        "name": "Navigation Fusion Module",
+        "type": "Sensor Fusion Subsystem",
+        "description": "Integrates multi-constellation GNSS, INS, and DME/VOR signals with SBAS corrections",
+        "subComponents": [
+          {
+            "name": "Quantum Inertial Sensor",
+            "type": "MEMS Device",
+            "description": "Cold-atom interferometry-based accelerometer for drift-free navigation"
+          }
+        ]
+      },
+      {
+        "name": "Cyber Security Unit",
+        "type": "Secure Processing Module",
+        "description": "Implements MILS (Multiple Independent Levels of Security) architecture with partitioned domains",
+        "subComponents": [
+          {
+            "name": "Post-Quantum Crypto Engine",
+            "type": "Cryptographic Module",
+            "description": "Kyber-1024 lattice-based encryption for future-proof communications"
+          }
+        ]
+      },
+      {
+        "name": "Dynamic Airspace Manager",
+        "type": "Trajectory Optimization Software",
+        "description": "Calculates conflict-free routes using EUROCONTROL's CRCO (Central Route Charges Office) data",
+        "subComponents": null
+      },
+      {
+        "name": "Energy Management System",
+        "type": "Fuel Optimization Subsystem",
+        "description": "Optimizes fuel burn using real-time jet stream data and engine performance models",
+        "subComponents": [
+          {
+            "name": "Hybrid Fuel Calculator",
+            "type": "Predictive Analytics Engine",
+            "description": "Integrates sustainable aviation fuel (SAF) blending ratios into consumption models"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Core Flight Processor",
+        "target": "AI Co-Processor",
+        "relationshipType": "composition",
+        "description": "Hardware-level integration of neural accelerator within the safety-certified compute module"
+      },
+      {
+        "source": "Navigation Fusion Module",
+        "target": "Dynamic Airspace Manager",
+        "relationshipType": "association",
+        "description": "Provides fused position/velocity/time (PVT) data for trajectory computation"
+      },
+      {
+        "source": "Cyber Security Unit",
+        "target": "Core Flight Processor",
+        "relationshipType": "aggregation",
+        "description": "Monitors and encrypts all data exchanges between processing domains"
+      },
+      {
+        "source": "Energy Management System",
+        "target": "Navigation Fusion Module",
+        "relationshipType": "dependency",
+        "description": "Requires atmospheric data from navigation sensors for fuel flow calculations"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "navigationIntegrity",
+        "type": "string",
+        "value": "RNP 0.1 (Required Navigation Performance)",
+        "description": "Lateral navigation accuracy within 0.1 nautical miles 95% of flight time"
+      },
+      {
+        "name": "computeRedundancy",
+        "type": "string",
+        "value": "Triple dissimilar redundancy",
+        "description": "Three independent compute lanes using ARM, PowerPC, and RISC-V architectures"
+      },
+      {
+        "name": "dataFreshness",
+        "type": "string",
+        "value": "50ms maximum age",
+        "description": "Maximum allowable latency for terrain/obstacle database updates"
+      },
+      {
+        "name": "cryptoAgility",
+        "type": "string",
+        "value": "NIST Post-Quantum Level 3",
+        "description": "Support for quantum-resistant cryptographic algorithms"
+      },
+      {
+        "name": "sensorSampling",
+        "type": "string",
+        "value": "200Hz IMU rate",
+        "description": "Inertial measurement unit data acquisition frequency"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "FMS_System",
+          "type": "Block",
+          "name": "Flight Management System (FMS)",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr_FMS_redundancy",
+            "attr_FMS_updateFrequency",
+            "attr_FMS_processingTime",
+            "attr_FMS_navAccuracy",
+            "attr_FMS_securityProtocol"
+          ],
+          "operationIds": [
+            "op_optimizeTrajectory",
+            "op_manageFuel",
+            "op_interfaceComms"
+          ],
+          "constraintIds": [
+            "const_FMS_reliability",
+            "const_FMS_performance"
+          ],
+          "partIds": [
+            "part_NavigationModule",
+            "part_FlightPlanningModule",
+            "part_AutopilotInterface",
+            "part_CommModule"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "NavigationModule",
+          "type": "Block",
+          "name": "Navigation Module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr_navAccuracy",
+            "attr_sensorInputs"
+          ],
+          "operationIds": [
+            "op_processSensorData"
+          ],
+          "constraintIds": [
+            "const_navAccuracy"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "FlightPlanningModule",
+          "type": "Block",
+          "name": "Flight Planning Module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr_routeOptimization",
+            "attr_fuelEfficiency"
+          ],
+          "operationIds": [
+            "op_planRoute",
+            "op_optimizeFuel"
+          ],
+          "constraintIds": [
+            "const_fuelEfficiency"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "AutopilotInterface",
+          "type": "Block",
+          "name": "Autopilot Interface",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr_controlSignals"
+          ],
+          "operationIds": [
+            "op_sendControlSignals"
+          ],
+          "constraintIds": [
+            "const_controlLatency"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "CommModule",
+          "type": "Block",
+          "name": "Communication Module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr_commsSecurity",
+            "attr_dataIntegrity"
+          ],
+          "operationIds": [
+            "op_encryptData",
+            "op_decryptData"
+          ],
+          "constraintIds": [
+            "const_securityProtocol"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IF_NavigationData",
+          "type": "InterfaceBlock",
+          "name": "Navigation Data Interface",
+          "attributeIds": [
+            "attr_latitude",
+            "attr_longitude",
+            "attr_altitude"
+          ],
+          "operationIds": [
+            "op_getPosition"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "IF_FlightPlan",
+          "type": "InterfaceBlock",
+          "name": "Flight Plan Interface",
+          "attributeIds": [
+            "attr_waypoints",
+            "attr_fuelConsumption"
+          ],
+          "operationIds": [
+            "op_updatePlan"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "IF_AutopilotCommands",
+          "type": "InterfaceBlock",
+          "name": "Autopilot Commands Interface",
+          "attributeIds": [
+            "attr_heading",
+            "attr_speed",
+            "attr_altitudeCmd"
+          ],
+          "operationIds": [
+            "op_sendCommand"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "IF_Communication",
+          "type": "InterfaceBlock",
+          "name": "Communication Interface",
+          "attributeIds": [
+            "attr_message",
+            "attr_encryptionStatus"
+          ],
+          "operationIds": [
+            "op_sendMessage",
+            "op_receiveMessage"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_SensorData",
+          "type": "FlowSpecification",
+          "name": "Sensor Data Flow",
+          "flowType": "information",
+          "dataType": "NavigationData",
+          "unit": "N/A",
+          "attributeIds": []
+        },
+        {
+          "id": "FS_ControlSignals",
+          "type": "FlowSpecification",
+          "name": "Control Signals Flow",
+          "flowType": "information",
+          "dataType": "AutopilotCommands",
+          "unit": "N/A",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "const_FMS_reliability",
+          "type": "ConstraintBlock",
+          "name": "FMS Reliability Constraint",
+          "parameterIds": [
+            "param_redundancyLevel"
+          ],
+          "expression": "redundancyLevel >= 2",
+          "attributeIds": []
+        },
+        {
+          "id": "const_FMS_performance",
+          "type": "ConstraintBlock",
+          "name": "FMS Performance Constraint",
+          "parameterIds": [
+            "param_processingTime",
+            "param_updateFrequency"
+          ],
+          "expression": "processingTime <= 100ms AND updateFrequency >= 1Hz",
+          "attributeIds": []
+        },
+        {
+          "id": "const_navAccuracy",
+          "type": "ConstraintBlock",
+          "name": "Navigation Accuracy Constraint",
+          "parameterIds": [
+            "param_accuracy"
+          ],
+          "expression": "accuracy <= 5m",
+          "attributeIds": []
+        },
+        {
+          "id": "const_fuelEfficiency",
+          "type": "ConstraintBlock",
+          "name": "Fuel Efficiency Constraint",
+          "parameterIds": [
+            "param_fuelConsumption"
+          ],
+          "expression": "fuelConsumption <= optimizedValue",
+          "attributeIds": []
+        },
+        {
+          "id": "const_controlLatency",
+          "type": "ConstraintBlock",
+          "name": "Control Latency Constraint",
+          "parameterIds": [
+            "param_latency"
+          ],
+          "expression": "latency <= 50ms",
+          "attributeIds": []
+        },
+        {
+          "id": "const_securityProtocol",
+          "type": "ConstraintBlock",
+          "name": "Security Protocol Constraint",
+          "parameterIds": [
+            "param_encryptionLevel"
+          ],
+          "expression": "encryptionLevel == 'AES-256' OR encryptionLevel == 'RSA'",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_meters",
+          "type": "ValueType",
+          "name": "meters",
+          "quantityKindId": "QK_length",
+          "unitId": "U_m",
+          "attributeIds": []
+        },
+        {
+          "id": "VT_seconds",
+          "type": "ValueType",
+          "name": "seconds",
+          "quantityKindId": "QK_time",
+          "unitId": "U_s",
+          "attributeIds": []
+        },
+        {
+          "id": "VT_hertz",
+          "type": "ValueType",
+          "name": "hertz",
+          "quantityKindId": "QK_frequency",
+          "unitId": "U_Hz",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "Enum_RedundancyLevel",
+          "type": "Enumeration",
+          "name": "RedundancyLevel",
+          "literals": [
+            {
+              "id": "lit_single",
+              "name": "SINGLE"
+            },
+            {
+              "id": "lit_dual",
+              "name": "DUAL"
+            },
+            {
+              "id": "lit_triple",
+              "name": "TRIPLE"
+            }
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "Enum_SecurityProtocol",
+          "type": "Enumeration",
+          "name": "SecurityProtocol",
+          "literals": [
+            {
+              "id": "lit_AES256",
+              "name": "AES-256"
+            },
+            {
+              "id": "lit_RSA",
+              "name": "RSA"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port_navIn",
+          "type": "FlowPort",
+          "name": "navIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "FMS_System",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "IF_NavigationData"
+          ],
+          "flowSpecificationId": "FS_SensorData",
+          "attributeIds": []
+        },
+        {
+          "id": "port_autopilotOut",
+          "type": "FlowPort",
+          "name": "autopilotOut",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "FMS_System",
+          "providedInterfaceIds": [
+            "IF_AutopilotCommands"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "FS_ControlSignals",
+          "attributeIds": []
+        },
+        {
+          "id": "port_comms",
+          "type": "FullPort",
+          "name": "comms",
+          "portType": "full",
+          "isConjugated": false,
+          "blockId": "FMS_System",
+          "providedInterfaceIds": [
+            "IF_Communication"
+          ],
+          "requiredInterfaceIds": [
+            "IF_Communication"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "proxyPorts": [],
+      "fullPorts": [
+        {
+          "id": "port_flightPlan",
+          "type": "FullPort",
+          "name": "flightPlan",
+          "isConjugated": false,
+          "blockId": "FMS_System",
+          "providedInterfaceIds": [
+            "IF_FlightPlan"
+          ],
+          "requiredInterfaceIds": [],
+          "attributeIds": []
+        }
+      ],
+      "flowPorts": [
+        {
+          "id": "port_fuelData",
+          "type": "FlowPort",
+          "name": "fuelData",
+          "isConjugated": false,
+          "blockId": "FMS_System",
+          "flowSpecificationId": "FS_SensorData",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp_FMS_Nav",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "FMS_System",
+          "targetId": "NavigationModule",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp_FMS_FlightPlan",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "FMS_System",
+          "targetId": "FlightPlanningModule",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp_FMS_Autopilot",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "FMS_System",
+          "targetId": "AutopilotInterface",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp_FMS_Comm",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "FMS_System",
+          "targetId": "CommModule",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "ir_NavModule",
+          "type": "InterfaceRealization",
+          "name": "NavInterfaceRealization",
+          "sourceId": "NavigationModule",
+          "targetId": "IF_NavigationData"
+        },
+        {
+          "id": "ir_FlightPlanModule",
+          "type": "InterfaceRealization",
+          "name": "FlightPlanInterfaceRealization",
+          "sourceId": "FlightPlanningModule",
+          "targetId": "IF_FlightPlan"
+        },
+        {
+          "id": "ir_AutopilotModule",
+          "type": "InterfaceRealization",
+          "name": "AutopilotInterfaceRealization",
+          "sourceId": "AutopilotInterface",
+          "targetId": "IF_AutopilotCommands"
+        },
+        {
+          "id": "ir_CommModule",
+          "type": "InterfaceRealization",
+          "name": "CommInterfaceRealization",
+          "sourceId": "CommModule",
+          "targetId": "IF_Communication"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr_FMS_redundancy",
+          "type": "Property",
+          "name": "redundancyLevel",
+          "propertyType": "Enum_RedundancyLevel",
+          "value": "DUAL",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "DUAL",
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr_FMS_updateFrequency",
+          "type": "Property",
+          "name": "updateFrequency",
+          "propertyType": "Real",
+          "value": "1.0",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "1.0",
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr_FMS_processingTime",
+          "type": "Property",
+          "name": "processingTime",
+          "propertyType": "Real",
+          "value": "100.0",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "100.0",
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr_FMS_navAccuracy",
+          "type": "Property",
+          "name": "navigationAccuracy",
+          "propertyType": "Real",
+          "value": "5.0",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "5.0",
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr_FMS_securityProtocol",
+          "type": "Property",
+          "name": "securityProtocol",
+          "propertyType": "Enum_SecurityProtocol",
+          "value": "AES-256",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "AES-256",
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "op_optimizeTrajectory",
+          "type": "Operation",
+          "name": "optimizeTrajectory",
+          "parameterIds": [
+            "param_waypoints"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "op_manageFuel",
+          "type": "Operation",
+          "name": "manageFuel",
+          "parameterIds": [
+            "param_fuelLevel"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "op_interfaceComms",
+          "type": "Operation",
+          "name": "interfaceComms",
+          "parameterIds": [
+            "param_message"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment_FMS",
+          "type": "Comment",
+          "body": "The FMS integrates navigation, flight planning, autopilot interface, and communication functions with redundancy and security requirements.",
+          "annotatedElementId": "FMS_System"
+        },
+        {
+          "id": "comment_NavModule",
+          "type": "Comment",
+          "body": "Navigation Module processes sensor inputs with accuracy constraint of 5 meters.",
+          "annotatedElementId": "NavigationModule"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "Flight Management System (FMS)是一个集成的航空电子解决方案，提供关键的飞行计划、导航和自动驾驶接口功能。它设计用于处理来自多个导航仪器的传感器输入，优化飞行轨迹，管理燃料消耗，并与机载和外部通信网络进行接口。FMS确保高可靠性、精度，并符合现代航空运营中至关重要的安全标准。具体规格包括更新频率为1Hz，双重或三重模块冗余性，实时处理周期时间为100ms，导航传感器精度在5米以内，以及用于保护通信和数据完整性的安全协议级别为AES-256和RSA加密。",
+  "timestamp": "20250326_014351",
+  "provider": "dpsk"
+}

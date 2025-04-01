@@ -1,0 +1,764 @@
+{
+  "system_id": "main_landing_gear_system",
+  "system_name": "Main Landing Gear System",
+  "specification": {
+    "designScenario": {
+      "name": "Landing Gear System",
+      "description": "Design a next-generation Landing Gear System for a commercial aircraft, integrating adaptive control algorithms, redundant electro-hydrostatic actuation (EHA), predictive health monitoring, and lightweight composite materials. The system must ensure operational reliability under extreme conditions (e.g., crosswind landings, contaminated runways) while enabling real-time diagnostics and energy-efficient performance.",
+      "requirements": [
+        {
+          "title": "Adaptive Gear Deployment",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must autonomously adjust deployment speed based on airspeed, altitude, and turbulence data to prevent structural overstress."
+            },
+            {
+              "description": "Integrated obstacle detection sensors must prevent gear extension during ground proximity alerts."
+            }
+          ]
+        },
+        {
+          "title": "Dynamic Load Management",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Shock absorbers must dissipate 95% of vertical kinetic energy within 0.8 seconds during touchdown at 3.5 m/s sink rate."
+            },
+            {
+              "description": "Electro-hydrostatic actuators shall achieve full gear extension in <2.5 seconds at -40°C ambient temperature."
+            }
+          ]
+        },
+        {
+          "title": "Multi-Layer Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Triple-redundant control channels (electronic, fiber-optic, mechanical) must independently initiate emergency gear deployment."
+            },
+            {
+              "description": "Passive gravity-assisted free-fall mechanism activates automatically if primary/secondary systems fail."
+            }
+          ]
+        },
+        {
+          "title": "Lifecycle Optimization",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Modular assembly design enabling component replacement in <45 minutes without full gear disassembly."
+            },
+            {
+              "description": "Corrosion-resistant titanium alloys and CFRP composites meeting FAA 25.729 fatigue life requirements."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Smart Actuation Controller",
+        "type": "Avionics Module",
+        "description": "AI-powered control unit with federated learning capabilities for optimizing gear dynamics based on historical operational data.",
+        "subComponents": [
+          {
+            "name": "Neural Processing Unit",
+            "description": "Dedicated hardware for real-time actuator trajectory optimization",
+            "type": "Computational Core"
+          },
+          {
+            "name": "Fault Detection Isolation Unit",
+            "description": "Triple-voting comparator for critical command validation",
+            "type": "Safety Processor"
+          }
+        ]
+      },
+      {
+        "name": "Electro-Hydrostatic Actuation System",
+        "type": "Power-by-Wire Subsystem",
+        "description": "Self-contained hydraulic power units with regenerative energy recovery during gear retraction.",
+        "subComponents": [
+          {
+            "name": "Compact Power Pack",
+            "description": "10 kW brushless motor driving variable displacement piston pump",
+            "type": "Electro-Hydraulic Actuator"
+          },
+          {
+            "name": "Accumulator Module",
+            "description": "Cellular silicone accumulator for peak power demand management",
+            "type": "Energy Storage"
+          }
+        ]
+      },
+      {
+        "name": "Morphing Shock Strut",
+        "type": "Adaptive Structure",
+        "description": "Magnetorheological fluid-based damper with variable stiffness tuning via electromagnetic field control.",
+        "subComponents": [
+          {
+            "name": "MR Fluid Cartridge",
+            "description": "Temperature-stable magnetorheological fluid matrix with 200 kPa yield stress",
+            "type": "Smart Material"
+          },
+          {
+            "name": "Flux Modulation Coil",
+            "description": "High-frequency electromagnetic field generator for viscosity control",
+            "type": "Actuation Interface"
+          }
+        ]
+      },
+      {
+        "name": "Sensor Fusion Module",
+        "type": "Distributed Sensing Network",
+        "description": "Multi-physics sensor array measuring structural loads, vibration spectra, and hydraulic fluid condition.",
+        "subComponents": [
+          {
+            "name": "Fiber Bragg Grating Array",
+            "description": "Embedded optical strain sensors in critical load paths",
+            "type": "Structural Health Monitor"
+          },
+          {
+            "name": "Tribo-dynamic Analyzer",
+            "description": "In-line fluid particulate counter with dielectric spectroscopy",
+            "type": "Condition Monitor"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Smart Actuation Controller",
+        "target": "Sensor Fusion Module",
+        "relationshipType": "association",
+        "description": "Bi-directional data exchange between control algorithms and distributed sensor network for closed-loop actuation"
+      },
+      {
+        "source": "Electro-Hydrostatic Actuation System",
+        "target": "Morphing Shock Strut",
+        "relationshipType": "dependency",
+        "description": "Hydraulic power delivery to MR fluid control circuits dependent on actuation system pressure stability"
+      },
+      {
+        "source": "Morphing Shock Strut",
+        "target": "Sensor Fusion Module",
+        "relationshipType": "aggregation",
+        "description": "Integrated strain and acceleration sensors form part of the strut's health monitoring subsystem"
+      },
+      {
+        "source": "Smart Actuation Controller",
+        "target": "Electro-Hydrostatic Actuation System",
+        "relationshipType": "composition",
+        "description": "Controller directly manages power electronics embedded within each electro-hydrostatic actuator"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "peakVerticalLoad",
+        "type": "structural",
+        "value": "220,000 lbf (Cat III landing)",
+        "description": "Maximum certified vertical load capacity during rejected takeoff scenario"
+      },
+      {
+        "name": "actuationEfficiency",
+        "type": "energy",
+        "value": "83% regenerative energy recovery",
+        "description": "Energy recaptured during gear retraction for auxiliary system power"
+      },
+      {
+        "name": "failureDetectionTime",
+        "type": "safety",
+        "value": "<50ms anomaly response",
+        "description": "Maximum allowable latency for critical fault detection and containment"
+      },
+      {
+        "name": "maintenanceInterval",
+        "type": "reliability",
+        "value": "10,000 cycles",
+        "description": "Minimum service life between major overhauls under normal operating conditions"
+      },
+      {
+        "name": "thermalOperatingRange",
+        "type": "environmental",
+        "value": "-65°C to +85°C",
+        "description": "Full functional temperature envelope including de-icing operations"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "b1",
+          "type": "Block",
+          "name": "MainLandingGearSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a1",
+            "a2",
+            "a3",
+            "a4",
+            "a5"
+          ],
+          "operationIds": [
+            "o1",
+            "o2",
+            "o3"
+          ],
+          "constraintIds": [
+            "c1"
+          ],
+          "partIds": [
+            "p1",
+            "p2",
+            "p3"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b2",
+          "type": "Block",
+          "name": "GearDeploymentMechanism",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a6"
+          ],
+          "operationIds": [
+            "o4"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b3",
+          "type": "Block",
+          "name": "ShockAbsorptionSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a7"
+          ],
+          "operationIds": [
+            "o5"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b4",
+          "type": "Block",
+          "name": "HydraulicSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a8"
+          ],
+          "operationIds": [
+            "o6"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ib1",
+          "type": "InterfaceBlock",
+          "name": "ILandingGearControl",
+          "attributeIds": [],
+          "operationIds": [
+            "io1",
+            "io2"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "ib2",
+          "type": "InterfaceBlock",
+          "name": "IHydraulicInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "io3"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fs1",
+          "type": "FlowSpecification",
+          "name": "HydraulicFluidFlow",
+          "flowType": "material",
+          "dataType": "HydraulicFluid",
+          "unit": "liters/second",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "cb1",
+          "type": "ConstraintBlock",
+          "name": "MaxLoadConstraint",
+          "parameterIds": [
+            "param1"
+          ],
+          "expression": "weight <= maxLoadCapacity",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt1",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "qk1",
+          "unitId": "u1",
+          "attributeIds": []
+        },
+        {
+          "id": "vt2",
+          "type": "ValueType",
+          "name": "Weight",
+          "quantityKindId": "qk2",
+          "unitId": "u2",
+          "attributeIds": []
+        },
+        {
+          "id": "vt3",
+          "type": "ValueType",
+          "name": "Time",
+          "quantityKindId": "qk3",
+          "unitId": "u3",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "e1",
+          "type": "Enumeration",
+          "name": "GearStatus",
+          "literals": [
+            {
+              "id": "l1",
+              "name": "DEPLOYED"
+            },
+            {
+              "id": "l2",
+              "name": "RETRACTED"
+            },
+            {
+              "id": "l3",
+              "name": "IN_TRANSITION"
+            }
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "e2",
+          "type": "Enumeration",
+          "name": "SystemMode",
+          "literals": [
+            {
+              "id": "l4",
+              "name": "NORMAL"
+            },
+            {
+              "id": "l5",
+              "name": "EMERGENCY"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port1",
+          "type": "ProxyPort",
+          "name": "controlInterface",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "b1",
+          "providedInterfaceIds": [
+            "ib1"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "port2",
+          "type": "FullPort",
+          "name": "hydraulicInterface",
+          "portType": "full",
+          "isConjugated": false,
+          "blockId": "b1",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "ib2"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "port3",
+          "type": "FlowPort",
+          "name": "hydraulicFluidPort",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b4",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs1",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp1",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b2",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp2",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b3",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp3",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b4",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "ir1",
+          "type": "InterfaceRealization",
+          "name": "LandingGearControlRealization",
+          "sourceId": "b1",
+          "targetId": "ib1"
+        },
+        {
+          "id": "ir2",
+          "type": "InterfaceRealization",
+          "name": "HydraulicInterfaceRealization",
+          "sourceId": "b4",
+          "targetId": "ib2"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "a1",
+          "type": "Property",
+          "name": "maxLoadCapacity",
+          "propertyType": "Double",
+          "value": "150000",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": true,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a2",
+          "type": "Property",
+          "name": "deploymentTime",
+          "propertyType": "Time",
+          "value": "3",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": true,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a3",
+          "type": "Property",
+          "name": "hydraulicPressure",
+          "propertyType": "Pressure",
+          "value": "3000",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": true,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a4",
+          "type": "Property",
+          "name": "currentStatus",
+          "propertyType": "GearStatus",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "RETRACTED",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a5",
+          "type": "Property",
+          "name": "systemMode",
+          "propertyType": "SystemMode",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "NORMAL",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a6",
+          "type": "Property",
+          "name": "deploymentSpeed",
+          "propertyType": "Double",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a7",
+          "type": "Property",
+          "name": "dampingCoefficient",
+          "propertyType": "Double",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a8",
+          "type": "Property",
+          "name": "currentPressure",
+          "propertyType": "Pressure",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "o1",
+          "type": "Operation",
+          "name": "deployGear",
+          "parameterIds": [],
+          "returnType": "Boolean"
+        },
+        {
+          "id": "o2",
+          "type": "Operation",
+          "name": "retractGear",
+          "parameterIds": [],
+          "returnType": "Boolean"
+        },
+        {
+          "id": "o3",
+          "type": "Operation",
+          "name": "emergencyRelease",
+          "parameterIds": [],
+          "returnType": "Boolean"
+        },
+        {
+          "id": "o4",
+          "type": "Operation",
+          "name": "activateDeployment",
+          "parameterIds": [],
+          "returnType": "Boolean"
+        },
+        {
+          "id": "o5",
+          "type": "Operation",
+          "name": "absorbShock",
+          "parameterIds": [
+            "param2"
+          ],
+          "returnType": "Double"
+        },
+        {
+          "id": "o6",
+          "type": "Operation",
+          "name": "adjustPressure",
+          "parameterIds": [
+            "param3"
+          ],
+          "returnType": "Boolean"
+        },
+        {
+          "id": "io1",
+          "type": "Operation",
+          "name": "commandDeploy",
+          "parameterIds": [],
+          "returnType": "Void"
+        },
+        {
+          "id": "io2",
+          "type": "Operation",
+          "name": "commandRetract",
+          "parameterIds": [],
+          "returnType": "Void"
+        },
+        {
+          "id": "io3",
+          "type": "Operation",
+          "name": "setHydraulicPressure",
+          "parameterIds": [
+            "param4"
+          ],
+          "returnType": "Void"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "param1",
+          "type": "Parameter",
+          "name": "maxLoadCapacity",
+          "parameterType": "Double",
+          "defaultValue": "150000"
+        },
+        {
+          "id": "param2",
+          "type": "Parameter",
+          "name": "impactForce",
+          "parameterType": "Double",
+          "defaultValue": null
+        },
+        {
+          "id": "param3",
+          "type": "Parameter",
+          "name": "targetPressure",
+          "parameterType": "Pressure",
+          "defaultValue": null
+        },
+        {
+          "id": "param4",
+          "type": "Parameter",
+          "name": "pressure",
+          "parameterType": "Pressure",
+          "defaultValue": null
+        }
+      ],
+      "comments": [
+        {
+          "id": "cmt1",
+          "type": "Comment",
+          "body": "The main landing gear system must support up to 150,000 lbs during landing",
+          "annotatedElementId": "b1"
+        },
+        {
+          "id": "cmt2",
+          "type": "Comment",
+          "body": "Deployment/retraction must complete within 3 seconds under normal conditions",
+          "annotatedElementId": "b2"
+        },
+        {
+          "id": "cmt3",
+          "type": "Comment",
+          "body": "Hydraulic system operates at approximately 3000 PSI",
+          "annotatedElementId": "b4"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Main Landing Gear System has a maximum load capacity of up to 150,000 lbs to support the full weight of the aircraft during landing. It has a deployment and retraction time of under 3 seconds under normal conditions. The system features high energy absorption with advanced damping for shock absorption during landing. It operates efficiently with a hydraulic system pressure of approximately 3000 PSI. The noise and vibration levels are maintained at low to moderate levels compliant with aviation standards. The system is designed to be robust and fail-safe, engineered for high-load conditions and safety-critical operations in both normal and emergency modes. It includes mechanisms for gear deployment and shock absorption, performance timing requirements, safety redundancy and failsafe measures, as well as maintainability and compliance standards.",
+  "timestamp": "20250326_013538",
+  "provider": "dpsk"
+}

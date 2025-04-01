@@ -1,0 +1,375 @@
+{
+  "system_id": "landing_gear_retraction_system",
+  "system_name": "Landing Gear Retraction System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Duration required to fully retract or deploy the landing gear under standard conditions.",
+        "name": "retractionDeploymentTime",
+        "type": "string",
+        "value": "5 seconds"
+      },
+      {
+        "description": "Maximum operating pressure within the hydraulic system for the retraction mechanism.",
+        "name": "hydraulicOperatingPressure",
+        "type": "string",
+        "value": "3000 psi"
+      },
+      {
+        "description": "Structural load capacity of the system during operation.",
+        "name": "structureLoadCapacity",
+        "type": "string",
+        "value": "50 tons"
+      },
+      {
+        "description": "Power supply specification for system operation.",
+        "name": "powerSpecifications",
+        "type": "string",
+        "value": "28V DC electrical system"
+      },
+      {
+        "description": "Safety compliance level for operation under extreme conditions.",
+        "name": "safetyCompliance",
+        "type": "string",
+        "value": "FAA Regulations Compliant"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear Retraction System is engineered for seamless operation under high-load and safety-critical conditions, handling the extension and retraction of the landing gear for large commercial aircraft.",
+      "name": "Landing Gear Retraction System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable smooth deployment and retraction of landing gear for takeoff and landing procedures."
+            }
+          ],
+          "title": "Operational Capability",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Withstand extreme temperatures and maintain insulation at altitudes exceeding 30,000 feet."
+            }
+          ],
+          "title": "Environmental Resistance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate emergency release mechanisms assuring gear deployment under system failure."
+            }
+          ],
+          "title": "Emergency Mechanisms",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Facilitate routine maintenance procedures for hydraulic and mechanical components."
+            }
+          ],
+          "title": "Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The control unit sends commands to the hydraulic system for managing gear operation.",
+        "relationshipType": "dependency",
+        "source": "Control Unit",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "The hydraulic actuator is mechanically connected to the landing gear structure.",
+        "relationshipType": "composition",
+        "source": "Hydraulic Actuator",
+        "target": "Structural Assembly"
+      },
+      {
+        "description": "The sensor module provides real-time feedback on system performance to the monitoring system.",
+        "relationshipType": "association",
+        "source": "Sensor Module",
+        "target": "Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Unit that houses the actuation mechanism for driving gear motion.",
+        "name": "Hydraulic System",
+        "subComponents": [
+          {
+            "description": "Unit responsible for pressurizing the hydraulic fluid.",
+            "name": "Hydraulic Pump",
+            "type": "Mechanical"
+          },
+          {
+            "description": "Device controlling hydraulic flow paths.",
+            "name": "Control Valve",
+            "type": "Mechanical"
+          }
+        ],
+        "type": "SubSystem"
+      },
+      {
+        "description": "Electronic device handling command processing and operational feedback.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Processor coordinating data management.",
+            "name": "Central Processor",
+            "type": "Electronic"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Assembly of the moving structure of the system, including support arms.",
+        "name": "Structural Assembly",
+        "subComponents": [
+          {
+            "description": "Main strut providing load support.",
+            "name": "Main Support Strut",
+            "type": "Mechanical"
+          },
+          {
+            "description": "Component accommodating load during impact.",
+            "name": "Shock Absorption Unit",
+            "type": "Mechanical"
+          }
+        ],
+        "type": "SubSystem"
+      },
+      {
+        "description": "System monitoring hydraulic levels and operational statuses.",
+        "name": "Sensor Module",
+        "subComponents": [
+          {
+            "description": "Sensor for evaluating fluid pressure.",
+            "name": "Pressure Sensor",
+            "type": "Electronic"
+          },
+          {
+            "description": "Sensor indicating gear position.",
+            "name": "Position Sensor",
+            "type": "Electronic"
+          }
+        ],
+        "type": "Electronic Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "pressureSpec",
+            "vibrationLevels",
+            "dampingCapability",
+            "emergencyExtension"
+          ],
+          "constraintIds": [
+            "timeConstraint",
+            "pressureConstraint"
+          ],
+          "id": "block1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "LandingGearRetractionSystem",
+          "operationIds": [
+            "deployLandingGear",
+            "retractLandingGear"
+          ],
+          "partIds": [
+            "hydraulicSystem",
+            "gearMechanism",
+            "controlSystem"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "maximumPressure"
+          ],
+          "constraintIds": null,
+          "id": "block2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HydraulicSystem",
+          "operationIds": [
+            "maintainPressure"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "shockAbsorption"
+          ],
+          "constraintIds": null,
+          "id": "block3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "GearMechanism",
+          "operationIds": [
+            "absorbShock"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "controlAlgorithms"
+          ],
+          "constraintIds": null,
+          "id": "block4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ControlSystem",
+          "operationIds": [
+            "monitorSystem"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block1",
+          "body": "This block represents the entire Landing Gear Retraction System.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp1",
+          "memberEndIds": null,
+          "name": "ComponentComposition",
+          "ownedEndIds": null,
+          "sourceId": "block1",
+          "sourceMultiplicity": "1",
+          "targetId": "block2",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp2",
+          "memberEndIds": null,
+          "name": "ComponentComposition",
+          "ownedEndIds": null,
+          "sourceId": "block1",
+          "sourceMultiplicity": "1",
+          "targetId": "block3",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp3",
+          "memberEndIds": null,
+          "name": "ComponentComposition",
+          "ownedEndIds": null,
+          "sourceId": "block1",
+          "sourceMultiplicity": "1",
+          "targetId": "block4",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "time <= 3 s",
+          "id": "constraint1",
+          "name": "TimeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "pressure <= 3000 PSI",
+          "id": "constraint2",
+          "name": "PressureConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "timeConstraint"
+          ],
+          "id": "constraint3",
+          "name": "DeploymentTimeLimit",
+          "specification": "deployment_time <= 3 seconds",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Landing Gear Retraction System's specifications include the deployment and retraction time of under 3 seconds, shock absorption with advanced damping capabilities, hydraulic system pressure of approximately 3000 PSI, and noise and vibration levels compliant with aviation standards. Additionally, the system is designed to be fail-safe, reliable for high-load conditions, and capable of emergency gear extension in case of failures.",
+  "timestamp": "20250326_174402",
+  "provider": "gpt"
+}

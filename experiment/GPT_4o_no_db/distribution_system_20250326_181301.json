@@ -1,0 +1,367 @@
+{
+  "system_id": "distribution_system",
+  "system_name": "Distribution System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operational pressure range for optimal fluid distribution tailored to variable flight altitudes and temperatures.",
+        "name": "operationalPressure",
+        "type": "string",
+        "value": "3-6 bar"
+      },
+      {
+        "description": "Precision specification ensuring that fluid flow is maintained within ±5% accuracy to optimize de-icing and anti-icing measures.",
+        "name": "flowAccuracy",
+        "type": "string",
+        "value": "±5% accuracy"
+      },
+      {
+        "description": "High-strength and lightweight titanium alloy used to ensure long-term durability and corrosion resistance in harsh environments.",
+        "name": "materialSpecification",
+        "type": "string",
+        "value": "Titanium alloy"
+      },
+      {
+        "description": "Triple redundant circuits implemented to ensure uninterrupted fluid distribution even during partial system failures.",
+        "name": "redundantCircuits",
+        "type": "string",
+        "value": "Triple redundancy"
+      },
+      {
+        "description": "Compliance with FAA, EASA, and ICAO certification standards ensuring adherence to all international aviation safety protocols.",
+        "name": "certificationStandard",
+        "type": "string",
+        "value": "FAA/EASA/ICAO"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fluid Distribution System is designed to manage and regulate the delivery of critical fluids across aircraft surfaces for de-icing and anti-icing applications. This system leverages smart pump assemblies, electronically-controlled valve arrays, and a comprehensive sensor feedback network to ensure real-time monitoring and adjustments. Safety, redundancy, and maintenance efficiency are prioritized, allowing for reliable operation under diverse environmental conditions and operational scenarios.",
+      "name": "Fluid Distribution System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall dynamically modulate pump and valve operations based on real-time sensor input to maintain optimal fluid distribution during critical de-icing events."
+            }
+          ],
+          "title": "Advanced Fluid Control",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must maintain specified operational pressures between 3-6 bar and ensure flow accuracy within ±5% to meet rapid fluid deployment needs."
+            }
+          ],
+          "title": "Precision Fluid Dynamics",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Triple redundant circuits and fail-safe electronic controls must be implemented to guarantee system functionality even in the event of component failures."
+            }
+          ],
+          "title": "Triple Module Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must facilitate quick and safe maintenance procedures through the use of modular components and standardized connection interfaces."
+            }
+          ],
+          "title": "Ease of Maintenance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Fluid Distribution Unit includes the Smart Pump Assembly as a core component for managing variable fluid pressurization.",
+        "relationshipType": "composition",
+        "source": "Fluid Distribution Unit",
+        "target": "Smart Pump Assembly"
+      },
+      {
+        "description": "The Fluid Distribution Unit integrates the Electronic Valve Array to exert fine control over fluid delivery rates.",
+        "relationshipType": "composition",
+        "source": "Fluid Distribution Unit",
+        "target": "Electronic Valve Array"
+      },
+      {
+        "description": "The Control Interface Module aggregates sensor feedback and commands operations of both the pump and valve assemblies.",
+        "relationshipType": "aggregation",
+        "source": "Fluid Distribution Unit",
+        "target": "Control Interface Module"
+      },
+      {
+        "description": "The Sensor and Feedback Network comprises the Pressure Sensor Array, providing essential pressure data throughout the system.",
+        "relationshipType": "composition",
+        "source": "Sensor and Feedback Network",
+        "target": "Pressure Sensor Array"
+      },
+      {
+        "description": "The Sensor and Feedback Network comprises the Flow Meter, which measures real-time fluid flow rates.",
+        "relationshipType": "composition",
+        "source": "Sensor and Feedback Network",
+        "target": "Flow Meter"
+      },
+      {
+        "description": "The Control Interface Module depends on data from the Sensor and Feedback Network for real-time adjustments and safety overrides.",
+        "relationshipType": "dependency",
+        "source": "Control Interface Module",
+        "target": "Sensor and Feedback Network"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core module that integrates all fluid control elements responsible for managing real-time distribution of fluids.",
+        "name": "Fluid Distribution Unit",
+        "subComponents": [
+          {
+            "description": "Pump unit designed for variable flow and pressure management with integrated smart sensors and control mechanisms.",
+            "name": "Smart Pump Assembly",
+            "type": "Actuator"
+          },
+          {
+            "description": "Array of electronically controlled valves that modulate fluid release in response to system commands.",
+            "name": "Electronic Valve Array",
+            "type": "Actuator"
+          },
+          {
+            "description": "Digital control unit that processes sensor inputs and orchestrates pump and valve actions for optimal fluid management.",
+            "name": "Control Interface Module",
+            "type": "Control Unit"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Monitoring subsystem that provides real-time data for fluid pressure, flow, and temperature to support system adjustments and safety protocols.",
+        "name": "Sensor and Feedback Network",
+        "subComponents": [
+          {
+            "description": "Sensors that accurately measure pressure variations to ensure operation within the designated 3-6 bar range.",
+            "name": "Pressure Sensor Array",
+            "type": "Sensor"
+          },
+          {
+            "description": "Instrumentation that quantifies the volumetric flow rate, ensuring adherence to performance parameters.",
+            "name": "Flow Meter",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "powerCapacityAttrib"
+          ],
+          "constraintIds": [
+            "powerSupplyConstraint"
+          ],
+          "id": "distributionSystemBlock1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "DistributionSystem",
+          "operationIds": [
+            "validatePowerOp"
+          ],
+          "partIds": [
+            "powerDistributionPart1"
+          ],
+          "referenceIds": [
+            "powerSourceRef",
+            "loadSystemsRef"
+          ],
+          "type": "Block",
+          "valueIds": [
+            "powerUsageValue"
+          ]
+        },
+        {
+          "attributeIds": [
+            "voltageAttrib",
+            "currentAttrib"
+          ],
+          "constraintIds": null,
+          "id": "powerSourceBlock1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "PowerSource",
+          "operationIds": [
+            "measurePowerOp"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "setVoltageValue"
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "distributionSystemBlock1",
+          "body": "This block represents the subsystem responsible for distributing power within the airplane.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "powerConsumed <= powerAvailable",
+          "id": "powerSupplyConstraint",
+          "name": "PowerSupplyConstraint",
+          "parameterIds": [
+            "powerConsumedParam",
+            "powerAvailableParam"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "distributionSystemBlock1"
+          ],
+          "id": "systemConstraint1",
+          "name": "PowerConstraint",
+          "specification": "powerDistribution <= systemCapacity",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "connectionTypeEnum",
+          "literals": [
+            {
+              "id": "serialConnection",
+              "name": "Serial"
+            },
+            {
+              "id": "parallelConnection",
+              "name": "Parallel"
+            }
+          ],
+          "name": "ConnectionType",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": [
+            "flowRateAttrib"
+          ],
+          "dataType": "PowerData",
+          "flowType": "Information",
+          "id": "powerFlowSpec1",
+          "name": "PowerFlowSpec",
+          "type": "FlowSpecification",
+          "unit": "kW"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "distributionSystemBlock1",
+          "id": "distributionPort1",
+          "isConjugated": false,
+          "name": "PowerIn",
+          "providedInterfaceIds": [
+            "powerFlowSpec1"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "0",
+          "id": "powerConsumedParam",
+          "name": "PowerConsumed",
+          "parameterType": "Real",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "0",
+          "id": "powerAvailableParam",
+          "name": "PowerAvailable",
+          "parameterType": "Real",
+          "type": "Parameter"
+        }
+      ],
+      "parts": [
+        {
+          "id": "powerDistributionPart1",
+          "name": "PowerDistribution",
+          "of": "powerSourceBlock1",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "powerValue",
+          "name": "Power",
+          "quantityKindId": "energyQuantity",
+          "type": "ValueType",
+          "unitId": "kWUnit"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250326_181301",
+  "provider": "gpt"
+}

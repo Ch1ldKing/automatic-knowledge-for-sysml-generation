@@ -1,0 +1,381 @@
+{
+  "system_id": "hf_communication_system",
+  "system_name": "HF Communication System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operational frequency range for optimal communication in various atmospheric conditions.",
+        "name": "Operating Frequency Range",
+        "type": "String",
+        "value": "3MHz to 30MHz"
+      },
+      {
+        "description": "Maximum allowable radiated power output for long-distance communication.",
+        "name": "Effective Radiated Power",
+        "type": "Number",
+        "value": "100W"
+      },
+      {
+        "description": "Latency during signal processing and transmission.",
+        "name": "Transmission Latency",
+        "type": "String",
+        "value": "<10ms"
+      },
+      {
+        "description": "Redundancy level for ensured communication availability in all circumstances.",
+        "name": "System Availability",
+        "type": "String",
+        "value": "99.999%"
+      }
+    ],
+    "designScenario": {
+      "description": "Development of the High Frequency (HF) Communication System engineered for aerial applications. This system facilitates long-range communication under varying atmospheric and operational scenarios, crucial for maintaining aircraft connectivity with ground stations and other aircraft.",
+      "name": "HF Communication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Ability to transmit and receive HF signals in the designated frequency range for uninterrupted connectivity."
+            }
+          ],
+          "title": "Signal Transmission and Reception",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure consistent performance under electromagnetic interference conditions typical in high-altitude environments."
+            }
+          ],
+          "title": "Performance Under Interference",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Function during power system failures utilizing redundant and backup power configurations."
+            }
+          ],
+          "title": "System Resilience",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "User interface to include real-time monitoring tools for transmission status with diagnostics."
+            }
+          ],
+          "title": "Operational Transparency",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Coordinates the signal modulation, and power regulation processes.",
+        "relationshipType": "composition",
+        "source": "Control Unit",
+        "target": "Transceiver Module"
+      },
+      {
+        "description": "Facilitates the integration of RF signals for amplification and demodulation.",
+        "relationshipType": "aggregation",
+        "source": "Antenna Array",
+        "target": "Signal Processor"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary unit responsible for orchestrating overall communication processes.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Monitors operational status and executes communication commands.",
+            "name": "Control Processor",
+            "type": "Processor"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Enables long-range RF communication by converting signal formats for transmission.",
+        "name": "Transceiver Module",
+        "subComponents": [
+          {
+            "description": "Modulates electrical signals into the required HF spectrum.",
+            "name": "HF Modulator",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Communication Module"
+      },
+      {
+        "description": "Supports long distance signal transit by transmitting and receiving HF waves.",
+        "name": "Antenna Array",
+        "subComponents": [
+          {
+            "description": "Main radiation element optimized for HF communication.",
+            "name": "Primary HF Antenna",
+            "type": "Antenna"
+          }
+        ],
+        "type": "Hardware Module"
+      },
+      {
+        "description": "Cleans and amplifies incoming signals for higher fidelity in received data.",
+        "name": "Signal Processor",
+        "subComponents": [
+          {
+            "description": "Applies signal amplification techniques.",
+            "name": "Input Signal Amplifier",
+            "type": "Amplifier"
+          }
+        ],
+        "type": "Processing Module"
+      },
+      {
+        "description": "Maintains backup power capabilities to guarantee continuous operation.",
+        "name": "Power System",
+        "subComponents": [
+          {
+            "description": "Power storage unit for emergency operations.",
+            "name": "Backup Battery Module",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Power Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg1",
+          "memberEndIds": [
+            "prop1",
+            "prop2"
+          ],
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block1",
+          "sourceMultiplicity": "1",
+          "targetId": "block2",
+          "targetMultiplicity": "2",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "118-137 MHz",
+          "id": "attr1",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": true,
+          "isStatic": null,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "OperatingFrequencyRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "25W",
+          "id": "attr2",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": true,
+          "isStatic": null,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "TransmissionPower",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "50ms",
+          "id": "attr3",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": true,
+          "isStatic": null,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "CommunicationLatency",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr1",
+            "attr2",
+            "attr3"
+          ],
+          "constraintIds": null,
+          "id": "block1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HF Communication System",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block1",
+          "body": "The HF Communication System supports redundancy and adheres to aviation certification standards.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "CommunicationLatency < 50ms",
+          "id": "const1",
+          "name": "LatencyConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "attr3"
+          ],
+          "id": "const2",
+          "name": "LatencyRequirement",
+          "specification": "CommunicationLatency <= 50ms",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum1",
+          "literals": [
+            {
+              "id": "lit1",
+              "name": "Critical"
+            },
+            {
+              "id": "lit2",
+              "name": "Moderate"
+            }
+          ],
+          "name": "ReliabilityCategory",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block1",
+          "flowSpecificationId": "/interfaces",
+          "id": "port1",
+          "isConjugated": false,
+          "name": "DataInPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "Packet",
+          "flowType": "InformationFlow",
+          "id": "fspec1",
+          "name": "DataFlowSpecification",
+          "type": "FlowSpecification",
+          "unit": "N/A"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req1",
+          "name": "LatencyRequirement",
+          "reqId": "REQ-001",
+          "text": "The communication latency must be under 50ms.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "valueType1",
+          "name": "FrequencyRange",
+          "quantityKindId": "Frequency",
+          "type": "ValueType",
+          "unitId": "MHz"
+        }
+      ]
+    }
+  },
+  "rag_context": "HF Communication System的所有信息和规格说明包括操作频率范围为118-137 MHz，传输功率为25W，接收灵敏度在1dB精度内，具有双冗余电路设计以确保系统可靠性，通信延迟低于50ms，符合关键航空标准和认证要求。",
+  "timestamp": "20250326_174427",
+  "provider": "gpt"
+}

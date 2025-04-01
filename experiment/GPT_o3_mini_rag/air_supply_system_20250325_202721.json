@@ -1,0 +1,487 @@
+{
+  "system_id": "air_supply_system",
+  "system_name": "Air Supply System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operating temperature range maintained within cabin to ensure passenger comfort while supplying conditioned air.",
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "18°C - 26°C"
+      },
+      {
+        "description": "Pressure levels maintained in the air supply ducts to simulate a stable environment and prevent cabin depressurization.",
+        "name": "pressureRange",
+        "type": "string",
+        "value": "0.8 atm - 1.2 atm"
+      },
+      {
+        "description": "Humidity levels regulated in the circulated air to prevent condensation and maintain air quality.",
+        "name": "humidityRange",
+        "type": "string",
+        "value": "30% - 60%"
+      },
+      {
+        "description": "Airflow capacity through the supply system ensuring efficient ventilation and proper mixing across cabin zones.",
+        "name": "airFlowRate",
+        "type": "string",
+        "value": "500 - 2000 CFM"
+      },
+      {
+        "description": "Response time of the control system ensuring corrective actions are taken within safety margins.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 5 seconds"
+      }
+    ],
+    "designScenario": {
+      "description": "The Air Supply System is engineered as a critical component of a passenger airplane's environmental control infrastructure. It is designed to deliver a continuous flow of conditioned air throughout the cabin, ensuring optimum comfort by regulating temperature, pressure, humidity, and air quality. Utilizing advanced aerospace engineering principles, the system integrates with other aircraft subsystems to provide fault tolerance, rapid system response, and modular maintainability through redundant air handling components, smart sensors, and sophisticated control mechanisms.",
+      "name": "Air Supply System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall precisely regulate airflow between 500 CFM and 2000 CFM to ensure even distribution of conditioned air throughout the cabin."
+            }
+          ],
+          "title": "Airflow Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall maintain the temperature within the range of 18°C to 26°C using real-time temperature sensors and adaptive heating/cooling elements."
+            }
+          ],
+          "title": "Temperature Management",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain cabin pressure levels between 0.8 atm and 1.2 atm by employing precision sensors and automatic pressure regulation valves."
+            }
+          ],
+          "title": "Pressure Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Control cabin humidity within the range of 30% to 60% using humidifiers and dehumidifiers to prevent condensation and ensure air quality."
+            }
+          ],
+          "title": "Humidity Control",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall detect and respond to environmental deviations, initiating corrective measures within 5 seconds to ensure passenger comfort and safety."
+            }
+          ],
+          "title": "Performance Response Time",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Safety mechanisms including redundant fans, sensor arrays, and fail-safe control algorithms shall be implemented to guarantee system integrity in the event of component failure."
+            }
+          ],
+          "title": "Safety Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall include an intuitive user interface with detailed graphical displays and remote monitoring capabilities to aid flight crew in rapid diagnostics and maintenance planning."
+            }
+          ],
+          "title": "User Interface and Remote Monitoring",
+          "type": "nonFunctional"
+        },
+        {
+          "details": [
+            {
+              "description": "All components of the Air Supply System shall support modular upgrades and routine maintenance in accordance with aviation engineering standards to minimize aircraft downtime."
+            }
+          ],
+          "title": "Maintainability & Modularity",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Unit aggregates sensor data from the Sensor Suite to manage and adjust air supply parameters.",
+        "relationshipType": "aggregation",
+        "source": "Control Unit",
+        "target": "Sensor Suite"
+      },
+      {
+        "description": "The Temperature Control Module is dependent on the Air Handling Unit for effective heat exchange and distribution of conditioned air.",
+        "relationshipType": "dependency",
+        "source": "Temperature Control System",
+        "target": "Air Handling Unit"
+      },
+      {
+        "description": "The Pressure Monitoring System interfaces with the Control Unit to trigger corrective actions when pressure deviations occur.",
+        "relationshipType": "association",
+        "source": "Pressure Monitoring System",
+        "target": "Control Unit"
+      },
+      {
+        "description": "The Humidity Control System is composed of integrated humidifier and dehumidifier units working in unison for optimal moisture control.",
+        "relationshipType": "composition",
+        "source": "Humidity Control System",
+        "target": "Dehumidifier"
+      },
+      {
+        "description": "The Gas Monitoring System connects to the Control Unit to provide real-time air quality alerts and adjustments in ventilation rates.",
+        "relationshipType": "association",
+        "source": "Gas Monitoring System",
+        "target": "Control Unit"
+      },
+      {
+        "description": "The Air Handling Unit distributes conditioned air to both the Temperature Control System and the Humidity Control System for balanced environmental conditioning.",
+        "relationshipType": "aggregation",
+        "source": "Air Handling Unit",
+        "target": "Temperature Control System"
+      },
+      {
+        "description": "The Air Handling Unit further aggregates air distribution to the Humidity Control System to ensure consistent moisture content in the cabin.",
+        "relationshipType": "aggregation",
+        "source": "Air Handling Unit",
+        "target": "Humidity Control System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central processing component responsible for integrating sensor data, managing subsystem operations, and issuing control signals to govern air supply parameters.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "User interface module providing real-time displays of air supply statistics and system status to flight crew.",
+            "name": "User Interface Module",
+            "type": "Display Unit"
+          },
+          {
+            "description": "Communication interface module enabling remote monitoring and inter-system connectivity.",
+            "name": "Communication Module",
+            "type": "Network Interface"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Responsible for the mechanical movement and conditioning of air throughout the aircraft cabin.",
+        "name": "Air Handling Unit",
+        "subComponents": [
+          {
+            "description": "High-capacity fan unit engineered to provide robust and adjustable airflow.",
+            "name": "Air Fan",
+            "type": "Actuator"
+          },
+          {
+            "description": "Network of ducts designed for efficient distribution of conditioned air to all cabin zones.",
+            "name": "Air Ducts",
+            "type": "Conduit"
+          },
+          {
+            "description": "Filtration module tasked with removing particulates and contaminants from the circulated air.",
+            "name": "Filter Module",
+            "type": "Filter"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Module dedicated to managing thermal conditions through integrated heating elements, cooling compressors, and precise temperature sensing.",
+        "name": "Temperature Control System",
+        "subComponents": [
+          {
+            "description": "Heating element designed to raise the temperature of the supplied air as required.",
+            "name": "Heater",
+            "type": "Actuator"
+          },
+          {
+            "description": "Cooling unit (commonly an air conditioning compressor) employed to reduce air temperature when necessary.",
+            "name": "Cooler",
+            "type": "Actuator"
+          },
+          {
+            "description": "High accuracy temperature sensor continuously monitoring the temperature of the incoming and distributed air.",
+            "name": "Temperature Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Control mechanism that dynamically adjusts the heating and cooling operations based on sensor feedback.",
+            "name": "Temperature Controller",
+            "type": "Controller"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "System module that monitors and regulates cabin pressure to ensure structural integrity and passenger comfort.",
+        "name": "Pressure Monitoring System",
+        "subComponents": [
+          {
+            "description": "High precision pressure sensor providing real-time assessments of cabin pressure.",
+            "name": "Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Overpressure relief valve that automatically activates to mitigate dangerous pressure levels.",
+            "name": "Overpressure Valve",
+            "type": "Safety Device"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Component responsible for regulating humidity levels using combined humidification and dehumidification processes.",
+        "name": "Humidity Control System",
+        "subComponents": [
+          {
+            "description": "Humidifier unit that increases moisture levels in the air when below desired thresholds.",
+            "name": "Humidifier",
+            "type": "Actuator"
+          },
+          {
+            "description": "Dehumidifier unit tasked with reducing ambient moisture when levels exceed optimal ranges.",
+            "name": "Dehumidifier",
+            "type": "Actuator"
+          },
+          {
+            "description": "Humidity sensor that continuously monitors the moisture content of the circulated air.",
+            "name": "Humidity Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Module dedicated to assessing air quality by monitoring harmful gas concentrations and ensuring safe breathing environments.",
+        "name": "Gas Monitoring System",
+        "subComponents": [
+          {
+            "description": "CO2 sensor designed to detect elevated carbon dioxide levels that could indicate ventilation issues.",
+            "name": "CO2 Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Ozone sensor used for detecting traces of ozone and other potential airborne pollutants.",
+            "name": "Ozone Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "A comprehensive assembly of sensors strategically distributed throughout the system to monitor environmental parameters in real-time.",
+        "name": "Sensor Suite",
+        "subComponents": null,
+        "type": "Monitoring Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "act_process_air",
+          "name": "Process Air",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "air_handling_unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Air Handling Unit",
+          "operationIds": [],
+          "partIds": [
+            "ahufan",
+            "ahufilter",
+            "ahuheater"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "AirFlow >= RequiredFlow; Temperature in [MinTemp, MaxTemp]; Pressure in [MinPressure, MaxPressure]; NoiseLevel <= MaxNoise; MaintenanceInterval = RecommendedCycle",
+          "id": "cb_operational_constraints",
+          "name": "Operational Constraints",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "ahufan",
+          "name": "Fan",
+          "of": "air_handling_unit",
+          "type": "Part"
+        },
+        {
+          "id": "ahufilter",
+          "name": "Air Filter",
+          "of": "air_handling_unit",
+          "type": "Part"
+        },
+        {
+          "id": "ahuheater",
+          "name": "Heater",
+          "of": "air_handling_unit",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "air_handling_unit",
+          "flowSpecificationId": null,
+          "id": "port_air_in",
+          "isConjugated": false,
+          "name": "Air Inlet Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "air_handling_unit",
+          "flowSpecificationId": null,
+          "id": "port_air_out",
+          "isConjugated": false,
+          "name": "Air Outlet Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "req_air_flow",
+          "name": "Air Flow Requirement",
+          "reqId": "R1",
+          "text": "Determine the air flow rate provided by the unit to ensure adequate ventilation across the cabin.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req_operating_temp",
+          "name": "Operating Temperature Range",
+          "reqId": "R2",
+          "text": "Specify the optimal operating temperature range for reliable performance under various flight conditions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req_pressure_range",
+          "name": "Pressure Compatibility Requirement",
+          "reqId": "R3",
+          "text": "Define the compatible pressure range to ensure proper integration with the cabin environmental control.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req_noise_level",
+          "name": "Noise Level Requirement",
+          "reqId": "R4",
+          "text": "Specify the noise level produced during operation, which is important for passenger comfort.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req_maintenance_cycle",
+          "name": "Maintenance Cycle Requirement",
+          "reqId": "R5",
+          "text": "Indicate the recommended maintenance cycle to ensure long-term reliability and safety.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "state_idle",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "state_operating",
+          "name": "Operating",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "state_maintenance",
+          "name": "Maintenance Mode",
+          "type": "State"
+        }
+      ],
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "Air Supply System的所有信息和规格说明包括：系统ID为air_handling_unit，系统名称为Air Handling Unit。规格说明包括：1. 确定了空气处理单元提供的空气流量，确保在整个客舱中有足够的通风和混合。2. 指示了可靠性能的最佳操作温度范围，适用于各种飞行条件。3. 定义了系统的兼容压力范围，确保与整体客舱环境控制的正确集成。4. 指定了单位在运行过程中发出的噪音级别，这对乘客舒适度很重要。5. 指示了建议的维护周期，以确保长期可靠性和安全性。",
+  "timestamp": "20250325_202721",
+  "provider": "gpt"
+}

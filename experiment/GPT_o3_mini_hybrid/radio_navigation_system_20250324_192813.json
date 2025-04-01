@@ -1,0 +1,996 @@
+{
+  "system_id": "radio_navigation_system",
+  "system_name": "Radio Navigation System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Overall positional accuracy of the navigation system ensuring sub-5 meter precision in diverse operating conditions.",
+        "name": "positionalAccuracy",
+        "type": "string",
+        "value": "±4.5 meters"
+      },
+      {
+        "description": "Data refresh rate to support dynamic flight conditions with rapid updates.",
+        "name": "dataRefreshRate",
+        "type": "string",
+        "value": "12 Hz"
+      },
+      {
+        "description": "Specified redundancy level using dual independent backup channels for sensor fusion reliability.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual-Diverse Redundancy"
+      },
+      {
+        "description": "Communication frequency bands utilized for satellite navigation and auxiliary data links.",
+        "name": "communicationBands",
+        "type": "string",
+        "value": "L1, L2 for GNSS; VHF/UHF for external communications"
+      }
+    ],
+    "designScenario": {
+      "description": "Design an Advanced Navigation System for modern passenger aircraft that leverages enhanced sensor fusion, real-time data processing, and autonomous diagnostic self-checks. The system integrates multi-source inputs including GNSS, inertial sensors, and external data to compute precise flight trajectories, optimize routes dynamically, and provide high-reliability navigational support under varying atmospheric conditions while ensuring strict compliance with aviation safety standards.",
+      "name": "Advanced Navigation System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Compute and continuously update aircraft position in real-time using integrated GNSS and inertial measurement data."
+            },
+            {
+              "description": "Support dynamic route optimization and real-time flight path recalculations based on up-to-date aeronautical data and weather conditions."
+            }
+          ],
+          "title": "Real-Time Navigation Computation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve a positional accuracy within ±5 meters with a minimum refresh rate of 12 Hz."
+            },
+            {
+              "description": "Ensure processing latency does not exceed 80 milliseconds to facilitate immediate response to environmental changes."
+            }
+          ],
+          "title": "Performance Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Integrate dual-sensor backup mechanisms to ensure continuous operation in the event of primary sensor failure."
+            },
+            {
+              "description": "Implement automatic switching to redundant systems and alert mechanisms to maintain safety integrity during component malfunctions."
+            }
+          ],
+          "title": "Robust Safety Protocols",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design intuitive pilot interfaces with clear visualization of navigational data, system alerts, and diagnostic feedback."
+            },
+            {
+              "description": "Facilitate remote system diagnostics and streamlined maintenance procedures for quick troubleshooting."
+            }
+          ],
+          "title": "Enhanced Usability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Central Navigation Processor aggregates data from the GPS Receiver and Inertial Measurement Unit for sensor fusion.",
+        "relationshipType": "aggregation",
+        "source": "Central Navigation Processor",
+        "target": "GPS Receiver Module"
+      },
+      {
+        "description": "The Central Navigation Processor aggregates inertial data from the Inertial Measurement Unit to complement satellite navigation.",
+        "relationshipType": "aggregation",
+        "source": "Central Navigation Processor",
+        "target": "Inertial Measurement Unit"
+      },
+      {
+        "description": "The Central Navigation Processor depends on the Map and Terrain Data Module for real-time aeronautical updates.",
+        "relationshipType": "dependency",
+        "source": "Central Navigation Processor",
+        "target": "Map and Terrain Data Module"
+      },
+      {
+        "description": "The External Data Interface provides supplementary weather and traffic updates to the Central Navigation Processor.",
+        "relationshipType": "association",
+        "source": "External Data Interface",
+        "target": "Central Navigation Processor"
+      },
+      {
+        "description": "The Pilot Display Interface is composed within the outputs of the Central Navigation Processor to present clear flight metrics to pilots.",
+        "relationshipType": "composition",
+        "source": "Central Navigation Processor",
+        "target": "Pilot Display Interface"
+      },
+      {
+        "description": "The Redundant Monitoring Suite aggregates backup sensor data to support failover operations in the event of primary sensor failure.",
+        "relationshipType": "aggregation",
+        "source": "Redundant Monitoring Suite",
+        "target": "Central Navigation Processor"
+      },
+      {
+        "description": "The Autopilot Control Link depends on accurate navigation data computed by the Central Navigation Processor to execute flight maneuvers.",
+        "relationshipType": "dependency",
+        "source": "Autopilot Control Link",
+        "target": "Central Navigation Processor"
+      },
+      {
+        "description": "The Diagnostic Self-check Module independently monitors system components to flag anomalies and trigger maintenance protocols.",
+        "relationshipType": "association",
+        "source": "Diagnostic Self-check Module",
+        "target": "Central Navigation Processor"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core processing unit that orchestrates sensor fusion, route computation, and system diagnostics.",
+        "name": "Central Navigation Processor",
+        "subComponents": null,
+        "type": "Processing Module"
+      },
+      {
+        "description": "Module that receives satellite signals and converts them into navigational data.",
+        "name": "GPS Receiver Module",
+        "subComponents": [
+          {
+            "description": "High-gain antenna designed for optimal satellite signal acquisition.",
+            "name": "High-Gain Antenna",
+            "type": "Antenna"
+          },
+          {
+            "description": "Signal demodulator that processes raw satellite signals into digital data for navigation.",
+            "name": "Signal Demodulator",
+            "type": "Processing Unit"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Module providing inertial data through motion sensors for dead reckoning and supplementary navigation.",
+        "name": "Inertial Measurement Unit",
+        "subComponents": [
+          {
+            "description": "Tri-axis accelerometers measuring linear acceleration.",
+            "name": "Tri-Axis Accelerometers",
+            "type": "Sensor"
+          },
+          {
+            "description": "Gyroscopic sensor providing rotational data to support inertial navigation.",
+            "name": "Gyroscopic Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Module responsible for external communications including weather, air traffic, and other operational updates.",
+        "name": "External Data Interface",
+        "subComponents": [
+          {
+            "description": "VHF transceiver for high reliability communication.",
+            "name": "VHF Transceiver",
+            "type": "Communications Hardware"
+          },
+          {
+            "description": "UHF transceiver for extended communication range and resilience.",
+            "name": "UHF Transceiver",
+            "type": "Communications Hardware"
+          }
+        ],
+        "type": "Communication Module"
+      },
+      {
+        "description": "Module managing up-to-date aeronautical charts, terrain data, and other essential navigation datasets.",
+        "name": "Map and Terrain Data Module",
+        "subComponents": null,
+        "type": "Data Management Module"
+      },
+      {
+        "description": "User interface module to display essential navigational data and alerts to flight crew.",
+        "name": "Pilot Display Interface",
+        "subComponents": [
+          {
+            "description": "Primary flight display presenting real-time navigation metrics.",
+            "name": "Primary Flight Display",
+            "type": "Display"
+          },
+          {
+            "description": "Tactical status panel providing supplemental flight and diagnostic information.",
+            "name": "Tactical Status Panel",
+            "type": "Display"
+          }
+        ],
+        "type": "Interface Module"
+      },
+      {
+        "description": "Backup sensor module offering alternative sensor data to support navigation operations during primary sensor anomalies.",
+        "name": "Redundant Monitoring Suite",
+        "subComponents": [
+          {
+            "description": "Backup GPS receiver module serving as a failover for primary satellite tracking.",
+            "name": "Backup GPS Receiver",
+            "type": "Sensor Module"
+          },
+          {
+            "description": "Backup inertial sensor to ensure continuous inertial data availability.",
+            "name": "IMU Backup Sensor",
+            "type": "Sensor Module"
+          }
+        ],
+        "type": "Redundancy Module"
+      },
+      {
+        "description": "Interface module that communicates computed navigation data to the aircraft's autopilot system for automated flight control.",
+        "name": "Autopilot Control Link",
+        "subComponents": null,
+        "type": "Interface Module"
+      },
+      {
+        "description": "Module dedicated to system health monitoring and self-diagnostics to ensure consistent navigational performance.",
+        "name": "Diagnostic Self-check Module",
+        "subComponents": null,
+        "type": "Diagnostic Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-CNP-GPS",
+          "memberEndIds": [
+            "block-central-nav-processor",
+            "block-gps-receiver"
+          ],
+          "name": "Aggregates GNSS Data",
+          "ownedEndIds": null,
+          "sourceId": "block-central-nav-processor",
+          "sourceMultiplicity": null,
+          "targetId": "block-gps-receiver",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-CNP-IMU",
+          "memberEndIds": [
+            "block-central-nav-processor",
+            "block-inertial-measurement"
+          ],
+          "name": "Aggregates Inertial Data",
+          "ownedEndIds": null,
+          "sourceId": "block-central-nav-processor",
+          "sourceMultiplicity": null,
+          "targetId": "block-inertial-measurement",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-Redundant-CNP",
+          "memberEndIds": [
+            "block-redundant-monitor",
+            "block-central-nav-processor"
+          ],
+          "name": "Aggregates Redundant Sensor Data",
+          "ownedEndIds": null,
+          "sourceId": "block-redundant-monitor",
+          "sourceMultiplicity": null,
+          "targetId": "block-central-nav-processor",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-ExtData-CNP",
+          "memberEndIds": null,
+          "name": "External Data Interface Connection",
+          "ownedEndIds": null,
+          "sourceId": "block-ext-data-interface",
+          "sourceMultiplicity": null,
+          "targetId": "block-central-nav-processor",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "assoc-Diag-CNP",
+          "memberEndIds": null,
+          "name": "Diagnostic Interface",
+          "ownedEndIds": null,
+          "sourceId": "block-diagnostic-selfcheck",
+          "sourceMultiplicity": null,
+          "targetId": "block-central-nav-processor",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "±4.5 meters",
+          "id": "attr-pos-acc",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "positionalAccuracy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "±4.5 meters",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "12 Hz",
+          "id": "attr-data-rate",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "dataRefreshRate",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "12 Hz",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual-Diverse Redundancy",
+          "id": "attr-redundancy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual-Diverse Redundancy",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "L1, L2 for GNSS; VHF/UHF for external links",
+          "id": "attr-comm-bands",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "communicationBands",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "L1, L2 for GNSS; VHF/UHF for external links",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-pos-acc",
+            "attr-data-rate",
+            "attr-redundancy",
+            "attr-comm-bands"
+          ],
+          "constraintIds": null,
+          "id": "block-navigation-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "NavigationSystem",
+          "operationIds": [
+            "op-calcFlightTrajectory",
+            "op-updateNavigation"
+          ],
+          "partIds": [
+            "part-central-nav-processor",
+            "part-gps-receiver",
+            "part-inertial-measurement",
+            "part-ext-data-interface",
+            "part-map-terrain",
+            "part-pilot-display",
+            "part-redundant-monitor",
+            "part-autopilot-control",
+            "part-diagnostic-selfcheck"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-central-nav-processor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "CentralNavigationProcessor",
+          "operationIds": [
+            "op-fuseSensorData",
+            "op-calcRoute"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-gps-receiver",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "GPSReceiverModule",
+          "operationIds": [
+            "op-receiveGNSSData"
+          ],
+          "partIds": [
+            "part-high-gain-antenna",
+            "part-signal-demodulator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-inertial-measurement",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "InertialMeasurementUnit",
+          "operationIds": [
+            "op-measureAcceleration",
+            "op-measureRotation"
+          ],
+          "partIds": [
+            "part-tri-axis-accelerometers",
+            "part-gyroscopic-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-ext-data-interface",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ExternalDataInterface",
+          "operationIds": [
+            "op-receiveExternalUpdates"
+          ],
+          "partIds": [
+            "part-vhf-transceiver",
+            "part-uhf-transceiver"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-map-terrain",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "MapTerrainDataModule",
+          "operationIds": [
+            "op-getAeronauticalData"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-pilot-display",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "PilotDisplayInterface",
+          "operationIds": [
+            "op-displayNavigation"
+          ],
+          "partIds": [
+            "part-primary-flight-display",
+            "part-tactical-status-panel"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-redundant-monitor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "RedundantMonitoringSuite",
+          "operationIds": [
+            "op-provideBackupData"
+          ],
+          "partIds": [
+            "part-backup-gps",
+            "part-backup-imu"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-autopilot-control",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "AutopilotControlLink",
+          "operationIds": [
+            "op-sendControlSignals"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-diagnostic-selfcheck",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "DiagnosticSelfCheckModule",
+          "operationIds": [
+            "op-runDiagnostics"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-navigation-system",
+          "body": "Advanced Navigation System integrates GNSS, inertial sensors, redundant backups and external data inputs to compute precise trajectories and support dynamic route optimization in modern passenger aircraft.",
+          "id": "comment-navsystem-advanced",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-NavSys-PilotDisplay",
+          "memberEndIds": [
+            "block-navigation-system",
+            "block-pilot-display"
+          ],
+          "name": "NavigationSystemComposesPilotDisplay",
+          "ownedEndIds": null,
+          "sourceId": "block-navigation-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-pilot-display",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": [
+        {
+          "id": "connector-CNP-Display",
+          "kind": "delegation",
+          "name": "CNPtoDisplayConnector",
+          "source": "port-CNP-out",
+          "target": "port-Display-in",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "processingLatency < 80",
+          "id": "constraint-latency-nav",
+          "name": "NavigationLatencyConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "block-central-nav-processor"
+          ],
+          "id": "constraint-processing-latency",
+          "name": "ProcessingLatency",
+          "specification": "Navigation data processing must complete within 80 milliseconds to ensure real-time responsiveness.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-CNP-MapData",
+          "name": "CNPDependsOnMapTerrain",
+          "sourceId": "block-central-nav-processor",
+          "sourceMultiplicity": null,
+          "targetId": "block-map-terrain",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        },
+        {
+          "id": "dep-Autopilot-CNP",
+          "name": "AutopilotDependsOnCNP",
+          "sourceId": "block-autopilot-control",
+          "sourceMultiplicity": null,
+          "targetId": "block-central-nav-processor",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-nav-status",
+          "literals": [
+            {
+              "id": "literal-nav-operational",
+              "name": "Operational"
+            },
+            {
+              "id": "literal-nav-degraded",
+              "name": "Degraded"
+            },
+            {
+              "id": "literal-nav-failure",
+              "name": "Failure"
+            }
+          ],
+          "name": "NavigationStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-navigation-system",
+          "flowSpecificationId": "flow-spec-nav-data",
+          "id": "flowport-NavDataOut",
+          "isConjugated": false,
+          "name": "NavigationDataOut",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "NavigationData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-nav-data",
+          "name": "NavigationDataFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-nav-control",
+          "name": "NavigationControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-nav-display",
+          "name": "NavigationDisplayInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-nav-system",
+          "name": "NavigationSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-central-nav-processor",
+          "name": "CNP",
+          "of": "block-central-nav-processor",
+          "type": "Part"
+        },
+        {
+          "id": "part-gps-receiver",
+          "name": "GPSModule",
+          "of": "block-gps-receiver",
+          "type": "Part"
+        },
+        {
+          "id": "part-inertial-measurement",
+          "name": "IMU",
+          "of": "block-inertial-measurement",
+          "type": "Part"
+        },
+        {
+          "id": "part-ext-data-interface",
+          "name": "ExtDataInterface",
+          "of": "block-ext-data-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-map-terrain",
+          "name": "MapTerrain",
+          "of": "block-map-terrain",
+          "type": "Part"
+        },
+        {
+          "id": "part-pilot-display",
+          "name": "PilotDisplay",
+          "of": "block-pilot-display",
+          "type": "Part"
+        },
+        {
+          "id": "part-redundant-monitor",
+          "name": "RedundantMonitor",
+          "of": "block-redundant-monitor",
+          "type": "Part"
+        },
+        {
+          "id": "part-autopilot-control",
+          "name": "AutopilotControl",
+          "of": "block-autopilot-control",
+          "type": "Part"
+        },
+        {
+          "id": "part-diagnostic-selfcheck",
+          "name": "DiagSelfCheck",
+          "of": "block-diagnostic-selfcheck",
+          "type": "Part"
+        },
+        {
+          "id": "part-high-gain-antenna",
+          "name": "HighGainAntenna",
+          "of": "block-gps-receiver",
+          "type": "Part"
+        },
+        {
+          "id": "part-signal-demodulator",
+          "name": "SignalDemodulator",
+          "of": "block-gps-receiver",
+          "type": "Part"
+        },
+        {
+          "id": "part-tri-axis-accelerometers",
+          "name": "TriAxisAccel",
+          "of": "block-inertial-measurement",
+          "type": "Part"
+        },
+        {
+          "id": "part-gyroscopic-sensor",
+          "name": "GyroSensor",
+          "of": "block-inertial-measurement",
+          "type": "Part"
+        },
+        {
+          "id": "part-vhf-transceiver",
+          "name": "VHFTransceiver",
+          "of": "block-ext-data-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-uhf-transceiver",
+          "name": "UHFTransceiver",
+          "of": "block-ext-data-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-primary-flight-display",
+          "name": "PrimaryFlightDisplay",
+          "of": "block-pilot-display",
+          "type": "Part"
+        },
+        {
+          "id": "part-tactical-status-panel",
+          "name": "TacticalStatusPanel",
+          "of": "block-pilot-display",
+          "type": "Part"
+        },
+        {
+          "id": "part-backup-gps",
+          "name": "BackupGPS",
+          "of": "block-redundant-monitor",
+          "type": "Part"
+        },
+        {
+          "id": "part-backup-imu",
+          "name": "BackupIMU",
+          "of": "block-redundant-monitor",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-central-nav-processor",
+          "flowSpecificationId": "flow-spec-nav-data",
+          "id": "port-CNP-out",
+          "isConjugated": false,
+          "name": "NavigationDataOut",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-pilot-display",
+          "flowSpecificationId": null,
+          "id": "port-Display-in",
+          "isConjugated": false,
+          "name": "DisplayInput",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-nav-display"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-ext-data-interface",
+          "flowSpecificationId": "flow-spec-nav-data",
+          "id": "port-ExtData-in",
+          "isConjugated": false,
+          "name": "ExternalDataIn",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-central-nav-processor",
+          "id": "proxyPort-CNP-control",
+          "isConjugated": false,
+          "name": "CNPControlPort",
+          "providedInterfaceIds": [
+            "ifb-nav-control"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-real-time-nav",
+          "name": "RealTimeNavigationComputation",
+          "reqId": null,
+          "text": "Compute and continuously update aircraft position in real-time using integrated GNSS and inertial sensors; perform dynamic flight path recalculation.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-performance",
+          "name": "PerformanceEfficiency",
+          "reqId": null,
+          "text": "Achieve positional accuracy within ±5 meters and refresh navigation data at a minimum of 12 Hz with processing latency below 80 ms.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-robust-safety",
+          "name": "RobustSafetyProtocols",
+          "reqId": null,
+          "text": "Integrate dual-sensor backup and automatic switching mechanisms to ensure continuous operation during sensor failures.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-enhanced-ui",
+          "name": "EnhancedUsabilityMaintainability",
+          "reqId": null,
+          "text": "Provide an intuitive pilot interface with clear navigation displays, system alerts, and support for remote diagnostics.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-distance",
+          "name": "DistanceValue",
+          "quantityKindId": "kind-distance",
+          "type": "ValueType",
+          "unitId": "unit-meters"
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-frequency",
+          "name": "FrequencyValue",
+          "quantityKindId": "kind-frequency",
+          "type": "ValueType",
+          "unitId": "unit-hertz"
+        }
+      ]
+    }
+  },
+  "reference_system": "navigation_system",
+  "parent_system": null,
+  "timestamp": "20250324_192813"
+}

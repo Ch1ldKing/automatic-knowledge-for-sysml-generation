@@ -1,0 +1,551 @@
+{
+  "system_id": "ignition_system",
+  "system_name": "Ignition System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the type of ignition system employed, such as capacitor discharge or magneto.",
+        "name": "ignitionType",
+        "type": "string",
+        "value": "Capacitor Discharge"
+      },
+      {
+        "description": "Indicates the system's operational temperature range to tolerate aircraft engine environments.",
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "-40°C to 125°C"
+      },
+      {
+        "description": "Defines the maximum allowable voltage to prevent component damage.",
+        "name": "voltageLimit",
+        "type": "string",
+        "value": "28V DC"
+      }
+    ],
+    "designScenario": {
+      "description": "The ignition system is a critical component within the aircraft designed to ignite the fuel-air mixture in the engine cylinders, ensuring reliable engine startup and operation across various conditions.",
+      "name": "Ignition System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must reliably produce and deliver a spark at the appropriate timing for efficient engine operation."
+            }
+          ],
+          "title": "Spark Generation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system should operate with high efficiency and quick response times under standard and emergency conditions."
+            }
+          ],
+          "title": "Performance Consistency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Include safeguards to manage electrical faults and prevent fire or spark hazards."
+            }
+          ],
+          "title": "Electrical Safety",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system should be easy to install and resilient to wear, reducing maintenance overhead."
+            }
+          ],
+          "title": "Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Spark Plug is dependent on the Ignition Coil for high voltage supply.",
+        "relationshipType": "dependency",
+        "source": "Spark Plug",
+        "target": "Ignition Coil"
+      },
+      {
+        "description": "The Ignition Control Unit aggregates signals from the Engine Sensors to regulate timing.",
+        "relationshipType": "aggregation",
+        "source": "Ignition Control Unit",
+        "target": "Engine Sensors"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Converts low-voltage power to high voltage necessary for spark generation.",
+        "name": "Ignition Coil",
+        "subComponents": [
+          {
+            "description": "Conducts and modulates current for inductive increase.",
+            "name": "Primary Coil",
+            "type": "Electrical"
+          },
+          {
+            "description": "Supplies the elevated voltage to the distributor.",
+            "name": "Secondary Coil",
+            "type": "Electrical"
+          }
+        ],
+        "type": "Electric Component"
+      },
+      {
+        "description": "Generates a spark to ignite the air-fuel mixture within the combustion chamber.",
+        "name": "Spark Plug",
+        "subComponents": [
+          {
+            "description": "Conducts high voltage to the electrode tip.",
+            "name": "Electrode Assembly",
+            "type": "Conductive Element"
+          },
+          {
+            "description": "Isolates electrical current to focus the discharge at the tip.",
+            "name": "Insulator",
+            "type": "Insulation"
+          }
+        ],
+        "type": "Mechanical Component"
+      },
+      {
+        "description": "Controls ignition timing and processes inputs from sensors and pilot commands.",
+        "name": "Ignition Control Unit",
+        "subComponents": [
+          {
+            "description": "Processes input data to adjust spark timings effectively.",
+            "name": "Processor Module",
+            "type": "Logic Circuitry"
+          },
+          {
+            "description": "Enables communication and adjustments by maintenance personnel.",
+            "name": "Diagnostic Interface",
+            "type": "Monitoring"
+          }
+        ],
+        "type": "Control System"
+      },
+      {
+        "description": "Monitors engine states like temperature and crankshaft position to optimize ignition.",
+        "name": "Engine Sensors",
+        "subComponents": [
+          {
+            "description": "Detects crankshaft position for precise spark timing.",
+            "name": "Crankshaft Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Determines engine operating temperature.",
+            "name": "Temperature Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring System"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-ignitioncontrol-sensors",
+          "memberEndIds": null,
+          "name": "ControlAggregatesSensors",
+          "ownedEndIds": null,
+          "sourceId": "block-ignition-control-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-engine-sensors",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-sparkplug-coil",
+          "memberEndIds": null,
+          "name": "SparkPlugDependencyOnCoil",
+          "ownedEndIds": null,
+          "sourceId": "block-spark-plug",
+          "sourceMultiplicity": null,
+          "targetId": "block-ignition-coil",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "Capacitor Discharge",
+          "id": "attr-ignitionType",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "ignitionType",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Capacitor Discharge",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-40°C to 125°C",
+          "id": "attr-temperatureRange",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "temperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-40°C to 125°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "28V DC",
+          "id": "attr-voltageLimit",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "voltageLimit",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "28V DC",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-ignitionType",
+            "attr-temperatureRange",
+            "attr-voltageLimit"
+          ],
+          "constraintIds": null,
+          "id": "block-ignition-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Ignition System",
+          "operationIds": null,
+          "partIds": [
+            "part-ignition-coil",
+            "part-spark-plug",
+            "part-ignition-control-unit",
+            "part-engine-sensors"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-ignition-coil",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Ignition Coil",
+          "operationIds": null,
+          "partIds": [
+            "part-primary-coil",
+            "part-secondary-coil"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-spark-plug",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Spark Plug",
+          "operationIds": null,
+          "partIds": [
+            "part-electrode-assembly",
+            "part-insulator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-ignition-control-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Ignition Control Unit",
+          "operationIds": null,
+          "partIds": [
+            "part-processor-module",
+            "part-diagnostic-interface"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-engine-sensors",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Engine Sensors",
+          "operationIds": null,
+          "partIds": [
+            "part-crankshaft-sensor",
+            "part-temperature-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-ignition-system",
+          "body": "Ignition System represents the critical engine subsystem responsible for initiating combustion within the aircraft engine's cylinders. It ensures operational reliability under diverse conditions.",
+          "id": "comment-ignition-system",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-ignitioncontrol-coil",
+          "memberEndIds": null,
+          "name": "ControlUnitToCoilComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-ignition-control-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-ignition-coil",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "IF voltage > 28 THEN limit output current to prevent coil damage",
+          "id": "constraintblock-voltage-limit",
+          "name": "VoltageLimitConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": null,
+          "id": "constraint-spark-accuracy",
+          "name": "SparkTimingAccuracy",
+          "specification": "Ensure spark occurs accurately within 1 ms of the target timing to maintain engine performance.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": [
+        {
+          "attributeIds": null,
+          "id": "domain-ignition-system",
+          "name": "IgnitionSystemDomain",
+          "type": "Domain"
+        }
+      ],
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-ignition-type",
+          "literals": [
+            {
+              "id": "literal-capacitor-discharge",
+              "name": "Capacitor Discharge"
+            },
+            {
+              "id": "literal-magneto",
+              "name": "Magneto"
+            }
+          ],
+          "name": "IgnitionTypes",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "Electric Signal",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-signal-flow",
+          "name": "SignalFlowSpecification",
+          "type": "FlowSpecification",
+          "unit": "Frequency (Hz)"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-ignition-control-unit",
+          "id": "fullport-diagnostic-interface",
+          "isConjugated": false,
+          "name": "DiagnosticInterfacePort",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-engine-control",
+          "name": "EngineControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-ignition-system",
+          "name": "IgnitionSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-ignition-coil",
+          "name": "Ignition Coil",
+          "of": "block-ignition-coil",
+          "type": "Part"
+        },
+        {
+          "id": "part-spark-plug",
+          "name": "Spark Plug",
+          "of": "block-spark-plug",
+          "type": "Part"
+        },
+        {
+          "id": "part-ignition-control-unit",
+          "name": "Ignition Control Unit",
+          "of": "block-ignition-control-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-engine-sensors",
+          "name": "Engine Sensors",
+          "of": "block-engine-sensors",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-spark-generation",
+          "name": "Spark Generation",
+          "reqId": null,
+          "text": "The system must reliably produce and deliver a spark at the appropriate timing for efficient engine operation.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-performance-consistency",
+          "name": "Performance Consistency",
+          "reqId": null,
+          "text": "The system should operate with high efficiency and quick response times under standard and emergency conditions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-electrical-safety",
+          "name": "Electrical Safety",
+          "reqId": null,
+          "text": "Include safeguards to manage electrical faults and prevent fire or spark hazards.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-maintainability",
+          "name": "Maintainability",
+          "reqId": null,
+          "text": "The system should be easy to install and resilient to wear, reducing maintenance overhead.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-voltage",
+          "name": "VoltageValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "fuel_system",
+  "timestamp": "20250326_171805",
+  "provider": "gpt"
+}

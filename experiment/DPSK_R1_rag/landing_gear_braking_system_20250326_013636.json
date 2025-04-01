@@ -1,0 +1,480 @@
+{
+  "system_id": "landing_gear_braking_system",
+  "system_name": "Landing Gear Braking System",
+  "specification": {
+    "designScenario": {
+      "name": "Landing Gear Braking System",
+      "description": "The Landing Gear Braking System is a critical subsystem responsible for decelerating the aircraft during landing, taxiing, and aborted takeoffs. It integrates friction-based braking, hydraulic actuation, and anti-skid control to ensure safe and reliable deceleration across diverse runway conditions. The system is designed to withstand extreme thermal loads, provide redundancy for fail-safe operation, and maintain compatibility with aircraft weight distribution and avionics interfaces.",
+      "requirements": [
+        {
+          "title": "Functional Deceleration Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must apply controlled braking force to all landing gear wheels proportionally to pilot input and aircraft weight distribution."
+            },
+            {
+              "description": "Integrate with anti-skid systems to prevent wheel lockup during low-friction runway conditions."
+            }
+          ]
+        },
+        {
+          "title": "Thermal and Mechanical Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Dissipate 2.5 MW of thermal energy during maximum effort braking without structural degradation."
+            },
+            {
+              "description": "Achieve full braking torque within 0.3 seconds of hydraulic pressure application."
+            }
+          ]
+        },
+        {
+          "title": "Operational Safety",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Maintain braking capability with 50% hydraulic system failure through redundant fluid circuits."
+            },
+            {
+              "description": "Implement automatic brake temperature monitoring with cockpit alerts for critical thermal thresholds."
+            }
+          ]
+        },
+        {
+          "title": "Maintenance and Certification",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Enable brake pad replacement within 90 minutes per wheel assembly using standard ground service equipment."
+            },
+            {
+              "description": "Comply with EASA CS-25 and FAA FAR Part 25 certification requirements for braking systems."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Brake Actuators",
+        "description": "Electro-hydraulic units converting fluid pressure into mechanical clamping force on brake discs.",
+        "type": "Actuation Subsystem",
+        "subComponents": [
+          {
+            "name": "Pressure Pistons",
+            "description": "Titanium alloy pistons transmitting hydraulic pressure to brake pads",
+            "type": "Mechanical Component"
+          }
+        ]
+      },
+      {
+        "name": "Carbon-Ceramic Brake Discs",
+        "description": "High-temperature composite discs providing friction surface for energy dissipation",
+        "type": "Friction Assembly",
+        "subComponents": [
+          {
+            "name": "Vented Rotors",
+            "description": "Axially ventilated disc structures enhancing convective cooling",
+            "type": "Thermal Management Component"
+          }
+        ]
+      },
+      {
+        "name": "Hydraulic Control Unit",
+        "description": "Dual-channel proportional valve system regulating brake fluid pressure",
+        "type": "Fluid Power Subsystem",
+        "subComponents": null
+      },
+      {
+        "name": "Wheel Speed Sensors",
+        "description": "Hall-effect sensors monitoring rotational velocity for anti-skid calculations",
+        "type": "Avionics Component",
+        "subComponents": null
+      },
+      {
+        "name": "Anti-Skid Control Unit",
+        "description": "Digital controller modulating brake pressure based on wheel slip calculations",
+        "type": "Electronic Control Subsystem",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Landing Gear Braking System",
+        "target": "Brake Actuators",
+        "relationshipType": "composition",
+        "description": "Brake actuators form an integral part of the braking system's mechanical actuation chain"
+      },
+      {
+        "source": "Landing Gear Braking System",
+        "target": "Carbon-Ceramic Brake Discs",
+        "relationshipType": "composition",
+        "description": "Brake discs are essential friction components permanently integrated into the braking assembly"
+      },
+      {
+        "source": "Landing Gear Braking System",
+        "target": "Hydraulic Control Unit",
+        "relationshipType": "dependency",
+        "description": "Braking system operation depends on hydraulic pressure regulation from the control unit"
+      },
+      {
+        "source": "Landing Gear Braking System",
+        "target": "Anti-Skid Control Unit",
+        "relationshipType": "association",
+        "description": "Integrated control interface between braking actuators and aircraft anti-skid systems"
+      },
+      {
+        "source": "Brake Actuators",
+        "target": "Wheel Speed Sensors",
+        "relationshipType": "aggregation",
+        "description": "Actuators utilize speed sensor data through the aircraft's central braking computer"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "peakDeceleration",
+        "type": "Performance Metric",
+        "value": "3.8 m/s²",
+        "description": "Maximum sustainable deceleration rate at MTOW (Maximum Takeoff Weight)"
+      },
+      {
+        "name": "thermalCapacity",
+        "type": "Thermal Characteristic",
+        "value": "12 MJ per wheel",
+        "description": "Energy absorption capacity before requiring cooling cycle"
+      },
+      {
+        "name": "hydraulicPressure",
+        "type": "Operational Parameter",
+        "value": "3000 psi",
+        "description": "Maximum operating pressure in brake actuator circuits"
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "Safety Attribute",
+        "value": "Dual-channel",
+        "description": "Independent hydraulic and control pathways for fault tolerance"
+      },
+      {
+        "name": "serviceInterval",
+        "type": "Maintenance Metric",
+        "value": "1500 cycles",
+        "description": "Typical brake disc replacement interval under normal operating conditions"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "b1",
+          "type": "Block",
+          "name": "LandingGearBrakingSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a1",
+            "a2",
+            "a3"
+          ],
+          "operationIds": [
+            "o1",
+            "o2"
+          ],
+          "constraintIds": [
+            "c1"
+          ],
+          "partIds": [
+            "p1",
+            "p2",
+            "p3"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b2",
+          "type": "Block",
+          "name": "HydraulicActuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a4"
+          ],
+          "operationIds": [
+            "o3"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b3",
+          "type": "Block",
+          "name": "BrakeControlUnit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a5"
+          ],
+          "operationIds": [
+            "o4"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b4",
+          "type": "Block",
+          "name": "WheelAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a6"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ib1",
+          "type": "InterfaceBlock",
+          "name": "IHydraulicFlow",
+          "attributeIds": [],
+          "operationIds": [],
+          "signalIds": [
+            "s1"
+          ],
+          "constraintIds": []
+        },
+        {
+          "id": "ib2",
+          "type": "InterfaceBlock",
+          "name": "IBrakeSignal",
+          "attributeIds": [],
+          "operationIds": [
+            "o5"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fs1",
+          "type": "FlowSpecification",
+          "name": "HydraulicFluidFlow",
+          "flowType": "material",
+          "dataType": "HydraulicFluid",
+          "unit": "liters_per_minute",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "cb1",
+          "type": "ConstraintBlock",
+          "name": "DecelerationConstraint",
+          "parameterIds": [
+            "param1"
+          ],
+          "expression": "deceleration >= 3.0 m/s^2",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt1",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "qk1",
+          "unitId": "u1",
+          "attributeIds": []
+        },
+        {
+          "id": "vt2",
+          "type": "ValueType",
+          "name": "Temperature",
+          "quantityKindId": "qk2",
+          "unitId": "u2",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "e1",
+          "type": "Enumeration",
+          "name": "BrakeState",
+          "literals": [
+            {
+              "id": "l1",
+              "name": "ENGAGED"
+            },
+            {
+              "id": "l2",
+              "name": "DISENGAGED"
+            },
+            {
+              "id": "l3",
+              "name": "FAILED"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port1",
+          "type": "FlowPort",
+          "name": "hydraulicIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b1",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs1",
+          "attributeIds": []
+        },
+        {
+          "id": "port2",
+          "type": "ProxyPort",
+          "name": "controlSignal",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "b1",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "ib2"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp1",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b2",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..4",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp2",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b3",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc1",
+          "type": "Association",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b4",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..4",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "a1",
+          "type": "Property",
+          "name": "maxPressure",
+          "propertyType": "Real",
+          "value": "3000",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "a2",
+          "type": "Property",
+          "name": "operatingTemp",
+          "propertyType": "Real",
+          "value": "-40..120",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "o1",
+          "type": "Property",
+          "name": "applyBrake",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "cmt1",
+          "type": "Comment",
+          "body": "Meets FAA Part 25.735 braking requirements",
+          "annotatedElementId": "b1"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Landing Gear Braking System is integrated with the Wheel Assembly and is a crucial part of the Landing Gear System. It operates efficiently with the hydraulic system to ensure effective braking functionality during landing and taxiing operations. The braking system is designed to meet aviation standards for safety and performance, providing reliable deceleration capabilities for the aircraft.",
+  "timestamp": "20250326_013636",
+  "provider": "dpsk"
+}

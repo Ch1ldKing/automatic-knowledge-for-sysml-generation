@@ -1,0 +1,483 @@
+{
+  "system_id": "gps_system",
+  "system_name": "GPS System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Accuracy of the navigation system to determine position under all conditions.",
+        "name": "positionAccuracy",
+        "type": "string",
+        "value": "±3 meters"
+      },
+      {
+        "description": "Frequency at which the navigation system updates its data.",
+        "name": "updateFrequency",
+        "type": "string",
+        "value": "12 Hz"
+      },
+      {
+        "description": "Redundancy policy ensuring safe navigation even in failure scenarios.",
+        "name": "redundancyPolicy",
+        "type": "string",
+        "value": "Dual Integrated Sensors"
+      },
+      {
+        "description": "Signal frequencies employed for satellite and communication links.",
+        "name": "signalFrequencies",
+        "type": "string",
+        "value": "L5 band for GNSS; X/Ka bands for data communication"
+      }
+    ],
+    "designScenario": {
+      "description": "The Navigation System is a sophisticated avionics suite aimed at delivering rapid and precise positional data and route guidance for aircraft operations, ensuring reliability and safety under diverse flight conditions.",
+      "name": "Next-Generation Aircraft Navigation System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Process and resolve current plane coordinates using onboard sensors and external GNSS data."
+            },
+            {
+              "description": "Compute optimal path traversing air traffic and meteorological conditions."
+            }
+          ],
+          "title": "Positional and Path Calculation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve relative positional accuracy within ±3 meters under standard atmospheric interference."
+            },
+            {
+              "description": "Data processing adaptations to function seamlessly under latency constraints of up to 50 milliseconds."
+            }
+          ],
+          "title": "Performance Standards",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Backup modules must seamlessly switch upon detecting primary unit malfunction."
+            },
+            {
+              "description": "Notify pilots of redundant system activation along with potential operational impacts."
+            }
+          ],
+          "title": "System Safety Assurance",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide pilots with a customized and dynamically updating navigation display."
+            },
+            {
+              "description": "Incorporate remote diagnostic access for streamlined maintenance and error resolution."
+            }
+          ],
+          "title": "Interface and Maintenance Efficiency",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The flight data module integrates synchronized measurements from multiple onboard sensors.",
+        "relationshipType": "composition",
+        "source": "Flight Data Processor",
+        "target": "Advanced Sensor Array"
+      },
+      {
+        "description": "The Communication Interface streams external advisory into the system for real-time processing.",
+        "relationshipType": "dependency",
+        "source": "Flight Data Processor",
+        "target": "Communication Interface Module"
+      },
+      {
+        "description": "Navigation computer modules consolidate and refine multiple input data.",
+        "relationshipType": "aggregation",
+        "source": "Advanced Navigation Computer",
+        "target": "Inertial Navigation Unit"
+      },
+      {
+        "description": "Critical alerts from Safety Systems direct updates directly to the pilot interface display.",
+        "relationshipType": "association",
+        "source": "Safety Override Processor",
+        "target": "Pilot Display Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core processor executing navigation computations and data integrations.",
+        "name": "Advanced Navigation Computer",
+        "subComponents": [
+          {
+            "description": "Primary data integration module synchronizing multiple input sources.",
+            "name": "Integration Controller",
+            "type": "Processing Core"
+          },
+          {
+            "description": "Performance monitoring unit controlling operational health levels of submodules.",
+            "name": "Health Monitor",
+            "type": "Oversight Module"
+          }
+        ],
+        "type": "Computational Module"
+      },
+      {
+        "description": "Devices managing primary signal and sensory data relevant to flight tasks.",
+        "name": "Advanced Sensor Array",
+        "subComponents": [
+          {
+            "description": "Antennas specifically tuned for L-band transmissions from satellites.",
+            "name": "Satellite Signal Antenna",
+            "type": "Signal Reception Unit"
+          },
+          {
+            "description": "High-precision instrument measuring velocity and directional parameters.",
+            "name": "Velocity Tracker",
+            "type": "Measurement Tool"
+          }
+        ],
+        "type": "Sensor Suite"
+      },
+      {
+        "description": "A repository for the maintenance and logic of situational awareness.",
+        "name": "Dynamic Flight Map Repository",
+        "subComponents": [
+          {
+            "description": "Controlling storage mechanisms ensuring consistent aerodrome and airspace updates.",
+            "name": "Flight Area Updater",
+            "type": "Data Storage"
+          },
+          {
+            "description": "Logic array dynamically translating enqueued maps into pilot-usable advisories.",
+            "name": "Translation Engine",
+            "type": "Conversion Unit"
+          }
+        ],
+        "type": "Cartographic Data Hub"
+      },
+      {
+        "description": "Module enabling external interaction for situational adaptability.",
+        "name": "Communication Interface Module",
+        "subComponents": [
+          {
+            "description": "Wireless controls enabling satellite link operability.",
+            "name": "Link Controllers",
+            "type": "Wireless Operators"
+          },
+          {
+            "description": "Hardware interfacing weather and danger information.",
+            "name": "Hazard Interface",
+            "type": "Communication Relay"
+          }
+        ],
+        "type": "Communication Device"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "±3 meters",
+          "id": "attribute-positionAccuracy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "positionAccuracy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "±3 meters",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "12 Hz",
+          "id": "attribute-updateFrequency",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "updateFrequency",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "12 Hz",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual Integrated Sensors",
+          "id": "attribute-redundancyPolicy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyPolicy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual Integrated Sensors",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "L5 band for GNSS; X/Ka bands for data communication",
+          "id": "attribute-signalFrequencies",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "signalFrequencies",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "L5 band for GNSS; X/Ka bands for data communication",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attribute-positionAccuracy",
+            "attribute-updateFrequency",
+            "attribute-redundancyPolicy",
+            "attribute-signalFrequencies"
+          ],
+          "constraintIds": [],
+          "id": "block-navigationSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "NavigationSystem",
+          "operationIds": [],
+          "partIds": [
+            "part-flightControlModule",
+            "part-positioningSensors",
+            "part-interfaceNetwork"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "part-flightControlModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "FlightControlModule",
+          "operationIds": [
+            "operation-optimizePathPlanning"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "part-positioningSensors",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "PositioningSensors",
+          "operationIds": [
+            "operation-captureRealTimeData"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "part-interfaceNetwork",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "InterfaceNetwork",
+          "operationIds": [
+            "operation-exchangeCommData"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-navigationSystem",
+          "body": "Designed to meet requirements for advanced flight navigation, incorporating redundancy and safety.",
+          "id": "comment-navigationSpecialization",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "composition-navigationStructure",
+          "memberEndIds": [
+            "block-navigationSystem",
+            "structural-components"
+          ],
+          "name": "Structural Composition",
+          "ownedEndIds": [],
+          "sourceId": "block-navigationSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "component-sensorsComputing",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        }
+      ],
+      "connectors": [
+        {
+          "id": "connector-flightInterface",
+          "kind": "delegation",
+          "name": "dataSyncDelegation",
+          "source": "block-flightControlModule",
+          "target": "part-interfaceNetwork",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "Processing latency <= 50ms and positionAccuracy = ±3 meters",
+          "id": "constraint-performanceMetrics",
+          "name": "PerformanceMetrics",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "block-navigationSystem"
+          ],
+          "id": "constraint-operationalLimits",
+          "name": "OperationalLimits",
+          "specification": "The system should operate within depicted latency and redundancy controls.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": [],
+      "dependencies": [
+        {
+          "id": "dependency-sensorIntegration",
+          "name": "SensorIntegration",
+          "sourceId": "block-navigationSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "PositioningSensors",
+          "targetMultiplicity": "1..*",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": [],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [],
+      "ports": [],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "requirement-R1",
+          "name": "Positional and Path Calculation",
+          "reqId": "R1",
+          "text": "Process and resolve current plane coordinates using onboard sensors and external GNSS data. Compute optimal path traversing air traffic and meteorological conditions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "requirement-R2",
+          "name": "Performance Standards",
+          "reqId": "R2",
+          "text": "Achieve relative positional accuracy within ±3 meters under standard atmospheric interference.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "requirement-R3",
+          "name": "System Safety Assurance",
+          "reqId": "R3",
+          "text": "Backup modules must seamlessly switch upon detecting primary unit malfunction. Notify pilots of redundant system activation along with potential operational impacts.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "requirement-R4",
+          "name": "Interface and Maintenance Efficiency",
+          "reqId": "R4",
+          "text": "Provide pilots with a customized and dynamically updating navigation display. Incorporate remote diagnostic access for streamlined maintenance and error resolution.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": []
+    }
+  },
+  "reference_system": "navigation_system",
+  "parent_system": null,
+  "timestamp": "20250326_164830",
+  "provider": "gpt"
+}

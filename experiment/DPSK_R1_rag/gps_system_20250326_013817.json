@@ -1,0 +1,617 @@
+{
+  "system_id": "gps_system",
+  "system_name": "GPS System",
+  "specification": {
+    "designScenario": {
+      "name": "Advanced Integrated Navigation System (AINS)",
+      "description": "A next-generation navigation system combining multi-constellation GNSS, hybrid inertial navigation, and AI-driven predictive routing for optimal flight efficiency and safety. Incorporates real-time space weather monitoring, terrain awareness, and cyber-resilient architecture to address modern aviation challenges in congested airspace and evolving threat environments.",
+      "requirements": [
+        {
+          "title": "Multi-Source Navigation Fusion",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Integrate GPS (L1/L5), Galileo (E1/E5), and GLONASS (G1/G3) signals with inertial reference system and celestial navigation backup"
+            },
+            {
+              "description": "Implement sensor fusion algorithms combining ADS-B, DME, and VOR data for ground-based verification"
+            }
+          ]
+        },
+        {
+          "title": "High-Precision Navigation Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Maintain 3D position accuracy of ±2.5 meters (95% CEP) under ionospheric disturbance conditions"
+            },
+            {
+              "description": "Achieve 50 Hz update rate for attitude determination with <5ms latency from sensor input to output"
+            }
+          ]
+        },
+        {
+          "title": "Cybersecurity and Fault Tolerance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement quantum-resistant encryption for all GNSS signal processing chains"
+            },
+            {
+              "description": "Quadruple redundant navigation computers with dissimilar architecture (x86/ARM/RISC-V)"
+            }
+          ]
+        },
+        {
+          "title": "Operational Adaptability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Support in-flight reconfiguration for alternative navigation during GNSS denial scenarios"
+            },
+            {
+              "description": "Provide 3D weather radar integration with navigation path optimization"
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Multi-Constellation GNSS Receiver",
+        "type": "Sensor Array",
+        "description": "Software-defined radio supporting simultaneous reception of GPS, Galileo, GLONASS, and BeiDou signals with anti-spoofing capabilities",
+        "subComponents": [
+          {
+            "name": "Phased Array Antenna",
+            "type": "Antenna System",
+            "description": "Active electronically scanned array with beamforming and null-steering capabilities"
+          },
+          {
+            "name": "Cryptographic Signal Validator",
+            "type": "Security Module",
+            "description": "Hardware-based signal authentication using Galileo OSNMA and GPS Chimera protocols"
+          }
+        ]
+      },
+      {
+        "name": "Laser Inertial Reference System",
+        "type": "Navigation Sensor",
+        "description": "Ring laser gyroscope cluster with hemispherical resonator accelerometers and thermal stabilization",
+        "subComponents": [
+          {
+            "name": "RLG Triad",
+            "type": "Gyro Assembly",
+            "description": "Three orthogonal ring laser gyros with <0.001°/hr bias stability"
+          },
+          {
+            "name": "Vibration Compensation Unit",
+            "type": "Active Control System",
+            "description": "Adaptive filtering for mechanical vibration rejection up to 2kHz"
+          }
+        ]
+      },
+      {
+        "name": "AI Navigation Processor",
+        "type": "Computational Module",
+        "description": "Neuromorphic computing unit for predictive route optimization and anomaly detection",
+        "subComponents": [
+          {
+            "name": "Terrain Prediction Engine",
+            "type": "Software Module",
+            "description": "Machine learning model for 4D trajectory planning considering weather and traffic"
+          },
+          {
+            "name": "Quantum Navigation Simulator",
+            "type": "Backup System",
+            "description": "Particle filter-based dead reckoning module for GNSS-denied environments"
+          }
+        ]
+      },
+      {
+        "name": "Cyber-Physical Interface",
+        "type": "Security Gateway",
+        "description": "Hardened data diode system for navigation data distribution to other aircraft systems",
+        "subComponents": null
+      },
+      {
+        "name": "Emergency Navigation Suite",
+        "type": "Backup System",
+        "description": "Independent MEMS-based inertial system with celestial alignment capability",
+        "subComponents": [
+          {
+            "name": "Stellar Tracker",
+            "type": "Optical Sensor",
+            "description": "Short-wave infrared star tracker with 0.1 arcsecond resolution"
+          },
+          {
+            "name": "MEMS IMU Cluster",
+            "type": "Sensor Array",
+            "description": "Redundant micro-electromechanical sensors with atomic clock synchronization"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "AI Navigation Processor",
+        "target": "Multi-Constellation GNSS Receiver",
+        "relationshipType": "aggregation",
+        "description": "Fuses raw GNSS measurements with inertial data for tightly coupled navigation solution"
+      },
+      {
+        "source": "Cyber-Physical Interface",
+        "target": "AI Navigation Processor",
+        "relationshipType": "composition",
+        "description": "Embedded security co-processor validates all navigation outputs before system distribution"
+      },
+      {
+        "source": "Emergency Navigation Suite",
+        "target": "Laser Inertial Reference System",
+        "relationshipType": "dependency",
+        "description": "Receives periodic alignment updates from primary inertial system during normal operation"
+      },
+      {
+        "source": "AI Navigation Processor",
+        "target": "Emergency Navigation Suite",
+        "relationshipType": "association",
+        "description": "Provides cross-check validation of backup system integrity through dissimilar algorithms"
+      },
+      {
+        "source": "Multi-Constellation GNSS Receiver",
+        "target": "Cyber-Physical Interface",
+        "relationshipType": "aggregation",
+        "description": "Feeds authenticated GNSS data to aircraft systems through secure gateway"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "positionalIntegrity",
+        "type": "string",
+        "value": "HPL < 40m (Horizontal Protection Level)",
+        "description": "Assured position uncertainty bound for RNP 0.3 operations"
+      },
+      {
+        "name": "temporalResolution",
+        "type": "string",
+        "value": "20ms synchronization accuracy",
+        "description": "Precision timekeeping using integrated atomic clock and GNSS discipline"
+      },
+      {
+        "name": "spectrumResilience",
+        "type": "string",
+        "value": "L1/L5/E1/E5/G1/G3/B1/B3 frequency coverage",
+        "description": "Multi-band GNSS reception with interference mitigation across aviation bands"
+      },
+      {
+        "name": "faultContainment",
+        "type": "string",
+        "value": "ASIL D compliance",
+        "description": "Automotive Safety Integrity Level D certification for all safety-critical components"
+      },
+      {
+        "name": "thermalTolerance",
+        "type": "string",
+        "value": "-55°C to +85°C operational range",
+        "description": "MIL-STD-810H compliant environmental hardening for global deployment"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "GPS_System",
+          "type": "Block",
+          "name": "GPS_System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr_GPS_System_1"
+          ],
+          "operationIds": [
+            "op_GPS_System_1"
+          ],
+          "constraintIds": [
+            "constraint_GPS_System_1"
+          ],
+          "partIds": [
+            "part_Backup_GPS_Module",
+            "part_Navigation_System",
+            "part_GPS_Antenna",
+            "part_GPS_Receiver_Module"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Backup_GPS_Module",
+          "type": "Block",
+          "name": "Backup_GPS_Module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr_Backup_GPS_Module_1",
+            "attr_Backup_GPS_Module_2",
+            "attr_Backup_GPS_Module_3",
+            "attr_Backup_GPS_Module_4"
+          ],
+          "operationIds": [
+            "op_Backup_GPS_Module_1"
+          ],
+          "constraintIds": [
+            "constraint_Backup_GPS_Module_1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Navigation_System",
+          "type": "Block",
+          "name": "Navigation_System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr_Navigation_System_1",
+            "attr_Navigation_System_2",
+            "attr_Navigation_System_3",
+            "attr_Navigation_System_4"
+          ],
+          "operationIds": [
+            "op_Navigation_System_1"
+          ],
+          "constraintIds": [
+            "constraint_Navigation_System_1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "GPS_Antenna",
+          "type": "Block",
+          "name": "GPS_Antenna",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr_GPS_Antenna_1",
+            "attr_GPS_Antenna_2",
+            "attr_GPS_Antenna_3",
+            "attr_GPS_Antenna_4"
+          ],
+          "operationIds": [
+            "op_GPS_Antenna_1"
+          ],
+          "constraintIds": [
+            "constraint_GPS_Antenna_1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "GPS_Receiver_Module",
+          "type": "Block",
+          "name": "GPS_Receiver_Module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr_GPS_Receiver_Module_1",
+            "attr_GPS_Receiver_Module_2",
+            "attr_GPS_Receiver_Module_3",
+            "attr_GPS_Receiver_Module_4"
+          ],
+          "operationIds": [
+            "op_GPS_Receiver_Module_1"
+          ],
+          "constraintIds": [
+            "constraint_GPS_Receiver_Module_1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IGPS_Signal",
+          "type": "InterfaceBlock",
+          "name": "IGPS_Signal",
+          "attributeIds": [
+            "attr_IGPS_Signal_1"
+          ],
+          "operationIds": [
+            "op_IGPS_Signal_1"
+          ],
+          "signalIds": [],
+          "constraintIds": [
+            "constraint_IGPS_Signal_1"
+          ]
+        },
+        {
+          "id": "INavigation_Data",
+          "type": "InterfaceBlock",
+          "name": "INavigation_Data",
+          "attributeIds": [
+            "attr_INavigation_Data_1"
+          ],
+          "operationIds": [
+            "op_INavigation_Data_1"
+          ],
+          "signalIds": [],
+          "constraintIds": [
+            "constraint_INavigation_Data_1"
+          ]
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "GPS_Signal_Flow",
+          "type": "FlowSpecification",
+          "name": "GPS_Signal_Flow",
+          "flowType": "information",
+          "dataType": "Signal",
+          "unit": "dBm",
+          "attributeIds": [
+            "attr_GPS_Signal_Flow_1"
+          ]
+        },
+        {
+          "id": "Navigation_Data_Flow",
+          "type": "FlowSpecification",
+          "name": "Navigation_Data_Flow",
+          "flowType": "information",
+          "dataType": "Data",
+          "unit": "Hz",
+          "attributeIds": [
+            "attr_Navigation_Data_Flow_1"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint_GPS_System_1",
+          "type": "ConstraintBlock",
+          "name": "GPS_System_Constraints",
+          "parameterIds": [
+            "param_GPS_System_1"
+          ],
+          "expression": "positionalAccuracy <= 10 meters",
+          "attributeIds": []
+        },
+        {
+          "id": "constraint_Backup_GPS_Module_1",
+          "type": "ConstraintBlock",
+          "name": "Backup_GPS_Module_Constraints",
+          "parameterIds": [
+            "param_Backup_GPS_Module_1"
+          ],
+          "expression": "failoverTime <= 50 ms",
+          "attributeIds": []
+        },
+        {
+          "id": "constraint_Navigation_System_1",
+          "type": "ConstraintBlock",
+          "name": "Navigation_System_Constraints",
+          "parameterIds": [
+            "param_Navigation_System_1"
+          ],
+          "expression": "positionalAccuracy <= 5 meters",
+          "attributeIds": []
+        },
+        {
+          "id": "constraint_GPS_Antenna_1",
+          "type": "ConstraintBlock",
+          "name": "GPS_Antenna_Constraints",
+          "parameterIds": [
+            "param_GPS_Antenna_1"
+          ],
+          "expression": "signalSensitivity >= -161 dBm",
+          "attributeIds": []
+        },
+        {
+          "id": "constraint_GPS_Receiver_Module_1",
+          "type": "ConstraintBlock",
+          "name": "GPS_Receiver_Module_Constraints",
+          "parameterIds": [
+            "param_GPS_Receiver_Module_1"
+          ],
+          "expression": "processingDelay <= 20 ms",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_Positional_Accuracy",
+          "type": "ValueType",
+          "name": "Positional_Accuracy",
+          "quantityKindId": "QK_Distance",
+          "unitId": "U_Meter",
+          "attributeIds": []
+        },
+        {
+          "id": "VT_Data_Update_Rate",
+          "type": "ValueType",
+          "name": "Data_Update_Rate",
+          "quantityKindId": "QK_Frequency",
+          "unitId": "U_Hz",
+          "attributeIds": []
+        },
+        {
+          "id": "VT_Signal_Sensitivity",
+          "type": "ValueType",
+          "name": "Signal_Sensitivity",
+          "quantityKindId": "QK_Power",
+          "unitId": "U_dBm",
+          "attributeIds": []
+        },
+        {
+          "id": "VT_Processing_Delay",
+          "type": "ValueType",
+          "name": "Processing_Delay",
+          "quantityKindId": "QK_Time",
+          "unitId": "U_Millisecond",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "Enum_Frequency_Band",
+          "type": "Enumeration",
+          "name": "Frequency_Band",
+          "literals": [
+            {
+              "id": "L1",
+              "name": "L1"
+            },
+            {
+              "id": "L2",
+              "name": "L2"
+            }
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "Enum_Redundancy_Type",
+          "type": "Enumeration",
+          "name": "Redundancy_Type",
+          "literals": [
+            {
+              "id": "TMR",
+              "name": "TMR"
+            },
+            {
+              "id": "Dual",
+              "name": "Dual"
+            },
+            {
+              "id": "None",
+              "name": "None"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port_GPS_System_1",
+          "type": "Port",
+          "name": "gpsSignalIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "GPS_System",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "IGPS_Signal"
+          ],
+          "flowSpecificationId": "GPS_Signal_Flow",
+          "attributeIds": []
+        },
+        {
+          "id": "port_GPS_System_2",
+          "type": "Port",
+          "name": "navDataOut",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "GPS_System",
+          "providedInterfaceIds": [
+            "INavigation_Data"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "Navigation_Data_Flow",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "composition_GPS_System_1",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "GPS_System",
+          "targetId": "Backup_GPS_Module",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "composition_GPS_System_2",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "GPS_System",
+          "targetId": "Navigation_System",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "composition_GPS_System_3",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "GPS_System",
+          "targetId": "GPS_Antenna",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "composition_GPS_System_4",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "GPS_System",
+          "targetId": "GPS_Receiver_Module",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment_GPS_System_1",
+          "type": "Comment",
+          "body": "The GPS System provides accurate positioning and navigation data for the aircraft.",
+          "annotatedElementId": "GPS_System"
+        },
+        {
+          "id": "comment_Backup_GPS_Module_1",
+          "type": "Comment",
+          "body": "The Backup GPS Module ensures redundancy and failover capability.",
+          "annotatedElementId": "Backup_GPS_Module"
+        },
+        {
+          "id": "comment_Navigation_System_1",
+          "type": "Comment",
+          "body": "The Navigation System processes GPS data to provide navigation information.",
+          "annotatedElementId": "Navigation_System"
+        },
+        {
+          "id": "comment_GPS_Antenna_1",
+          "type": "Comment",
+          "body": "The GPS Antenna receives satellite signals with high sensitivity.",
+          "annotatedElementId": "GPS_Antenna"
+        },
+        {
+          "id": "comment_GPS_Receiver_Module_1",
+          "type": "Comment",
+          "body": "The GPS Receiver Module processes signals from the antenna with minimal delay.",
+          "annotatedElementId": "GPS_Receiver_Module"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The GPS System includes the Backup GPS Module, Navigation System, GPS Antenna, and GPS Receiver Module. The Backup GPS Module provides positional accuracy of ±10 meters, a data update rate of 5 Hz, failover time of 50 milliseconds, and utilizes Triple Modular Redundancy (TMR) for reliability. The Navigation System offers positional accuracy of ±5 meters, a data update rate of 10 Hz, redundancy with Triple Modular Redundancy (TMR), and operates on specific communication frequencies. The GPS Antenna features signal sensitivity of -161 dBm, operating frequencies of L1 and L2 bands, antenna gain of 12 dBi, and environmental robustness per aerospace standards. The GPS Receiver Module has signal sensitivity of -161 dBm, processing delay of 20 ms, operates on L1 and L2 frequencies, and has an antenna gain of 12 dBi for high-speed flight environments.",
+  "timestamp": "20250326_013817",
+  "provider": "dpsk"
+}

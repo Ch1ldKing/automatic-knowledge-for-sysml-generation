@@ -1,0 +1,483 @@
+{
+  "system_id": "fuel_quantity_measurement_system",
+  "system_name": "Fuel Quantity Measurement System",
+  "specification": {
+    "designScenario": {
+      "name": "Fuel Quantity Measurement System",
+      "description": "The Fuel Quantity Measurement System is responsible for accurately measuring and monitoring the fuel quantity, density, and distribution within aircraft fuel tanks. It provides real-time data to flight management systems and cockpit displays, ensures fuel leak detection, and maintains redundancy for safety-critical operations. The system must operate reliably across all flight phases, environmental conditions, and adhere to aviation certification standards.",
+      "requirements": [
+        {
+          "title": "Fuel Quantity Measurement and Reporting",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Continuously measure fuel volume and density in all fuel tanks with high precision."
+            },
+            {
+              "description": "Provide real-time fuel quantity data to the Flight Management System (FMS) and cockpit displays."
+            }
+          ]
+        },
+        {
+          "title": "Leak Detection and Alerting",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Detect fuel leaks through differential pressure or capacitance changes and trigger immediate alerts."
+            },
+            {
+              "description": "Classify leak severity and provide actionable recommendations to flight crews."
+            }
+          ]
+        },
+        {
+          "title": "High Precision and Update Rate",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve measurement accuracy within ±0.5% of total fuel quantity under all operating conditions."
+            },
+            {
+              "description": "Update fuel quantity data at a minimum rate of 1 Hz to ensure real-time monitoring."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy and Fault Tolerance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant sensor arrays in critical fuel tanks to prevent single-point failures."
+            },
+            {
+              "description": "Automatically switch to backup sensors if primary measurement systems fail."
+            }
+          ]
+        },
+        {
+          "title": "Certification Compliance and Maintainability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Design the system to comply with RTCA/DO-178C and ED-12C aviation certification standards."
+            },
+            {
+              "description": "Support modular design for easy replacement of components during maintenance without disrupting flight operations."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Fuel Quantity Indication Unit (FQIU)",
+        "description": "Central processing unit responsible for aggregating fuel sensor data, calculating total fuel quantity, and providing outputs to cockpit displays and flight systems.",
+        "type": "Measurement Unit",
+        "subComponents": [
+          {
+            "name": "Processing Module",
+            "description": "Handles data acquisition, computational algorithms for fuel quantity calculation, and redundancy management.",
+            "type": "Processor Module"
+          },
+          {
+            "name": "Communication Interface",
+            "description": "Manages data transfer between fuel sensors, cockpit displays, and Flight Management System (FMS).",
+            "type": "Communication Module"
+          },
+          {
+            "name": "Display Interface",
+            "description": "Outputs fuel quantity data to cockpit instruments and provides visual alerts for anomalies.",
+            "type": "Display Module"
+          }
+        ]
+      },
+      {
+        "name": "Fuel Sensors",
+        "description": "Network of sensors distributed across fuel tanks to measure fuel level, density, and temperature.",
+        "type": "Sensor Array",
+        "subComponents": [
+          {
+            "name": "Capacitance Probe",
+            "description": "Measures fuel level by detecting capacitance changes caused by fuel displacement.",
+            "type": "Capacitance Sensor"
+          },
+          {
+            "name": "Ultrasonic Sensor",
+            "description": "Determines fuel level using ultrasonic waves reflected off the fuel surface.",
+            "type": "Ultrasonic Sensor"
+          },
+          {
+            "name": "Density Sensor",
+            "description": "Measures fuel density based on specific gravity or resistivity changes.",
+            "type": "Density Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Leak Detection System",
+        "description": "Monitors fuel tanks for pressure differentials or capacitance anomalies indicative of fuel leaks.",
+        "type": "Safety Monitoring System",
+        "subComponents": [
+          {
+            "name": "Leak Detection Processor",
+            "description": "Analyzes sensor data to identify leak patterns and trigger alerts.",
+            "type": "Safety Processor"
+          },
+          {
+            "name": "Pressure Differential Sensor",
+            "description": "Detects pressure changes in sealed fuel tanks to identify potential leaks.",
+            "type": "Pressure Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Fuel Tank Capacitance Measurement Module",
+        "description": "Specialized module for high-precision capacitance-based fuel quantity measurements in complex tank geometries.",
+        "type": "Measurement Module",
+        "subComponents": null
+      },
+      {
+        "name": "Flight Management System Interface",
+        "description": "Interface module for data exchange between the Fuel Quantity Measurement System and the Flight Management System (FMS).",
+        "type": "Interface Module",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Fuel Quantity Indication Unit (FQIU)",
+        "target": "Processing Module",
+        "relationshipType": "composition",
+        "description": "The FQIU is composed of the Processing Module responsible for core calculations."
+      },
+      {
+        "source": "Fuel Quantity Indication Unit (FQIU)",
+        "target": "Communication Interface",
+        "relationshipType": "composition",
+        "description": "The FQIU integrates the Communication Interface for data transmission to flight systems."
+      },
+      {
+        "source": "Fuel Quantity Indication Unit (FQIU)",
+        "target": "Display Interface",
+        "relationshipType": "composition",
+        "description": "The FQIU includes the Display Interface to provide cockpit fuel quantity readouts."
+      },
+      {
+        "source": "Fuel Quantity Indication Unit (FQIU)",
+        "target": "Fuel Sensors",
+        "relationshipType": "association",
+        "description": "The FQIU receives fuel level and density data from the Fuel Sensors network."
+      },
+      {
+        "source": "Fuel Quantity Indication Unit (FQIU)",
+        "target": "Leak Detection System",
+        "relationshipType": "association",
+        "description": "The FQIU monitors leak detection status provided by the Leak Detection System."
+      },
+      {
+        "source": "Fuel Quantity Indication Unit (FQIU)",
+        "target": "Flight Management System Interface",
+        "relationshipType": "aggregation",
+        "description": "The FQIU aggregates fuel data for transmission via the Flight Management System Interface."
+      },
+      {
+        "source": "Leak Detection System",
+        "target": "Leak Detection Processor",
+        "relationshipType": "composition",
+        "description": "The Leak Detection System contains the Leak Detection Processor for anomaly analysis."
+      },
+      {
+        "source": "Leak Detection System",
+        "target": "Pressure Differential Sensor",
+        "relationshipType": "composition",
+        "description": "The Leak Detection System uses Pressure Differential Sensors to detect fuel leaks."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "measurementAccuracy",
+        "type": "string",
+        "value": "±0.5%",
+        "description": "The maximum allowable error in fuel quantity measurement under standard operating conditions."
+      },
+      {
+        "name": "updateRate",
+        "type": "string",
+        "value": "1 Hz",
+        "description": "The minimum frequency at which fuel quantity data is updated and transmitted to flight systems."
+      },
+      {
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-40°C to +85°C",
+        "description": "The temperature range within which the system operates reliably during all flight phases."
+      },
+      {
+        "name": "safetyRedundancyLevel",
+        "type": "string",
+        "value": "Dual Channel Redundancy",
+        "description": "The system employs dual redundant sensor channels to ensure fault tolerance in critical measurements."
+      },
+      {
+        "name": "leakDetectionSensitivity",
+        "type": "string",
+        "value": "0.1 liters per minute",
+        "description": "The minimum leak rate detectable by the Leak Detection System under standard conditions."
+      },
+      {
+        "name": "communicationProtocol",
+        "type": "string",
+        "value": "ARINC 429",
+        "description": "The standardized communication protocol used for data exchange with flight systems."
+      },
+      {
+        "name": "memoryCapacity",
+        "type": "string",
+        "value": "256 MB",
+        "description": "The onboard memory capacity for storing fuel measurement logs and calibration data."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-fuel-quantity-measurement-system",
+          "type": "Block",
+          "name": "Fuel Quantity Measurement System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-measurementAccuracy",
+            "attr-updateRate",
+            "attr-operatingTemperature",
+            "attr-redundancyLevel"
+          ],
+          "operationIds": [
+            "op-measureFuel",
+            "op-detectLeaks"
+          ],
+          "constraintIds": [
+            "constraint-update-rate"
+          ],
+          "partIds": [
+            "part-fqiu",
+            "part-fuel-sensors",
+            "part-leak-detection"
+          ],
+          "referenceIds": null
+        },
+        {
+          "id": "block-fqiu",
+          "type": "Block",
+          "name": "Fuel Quantity Indication Unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-processingPower",
+            "attr-communicationProtocol"
+          ],
+          "operationIds": [
+            "op-processFuelData"
+          ],
+          "constraintIds": null,
+          "partIds": [
+            "part-processing-module",
+            "part-communication-interface",
+            "part-display-interface"
+          ],
+          "referenceIds": null
+        },
+        {
+          "id": "block-fuel-sensors",
+          "type": "Block",
+          "name": "Fuel Sensors",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-sensorType"
+          ],
+          "operationIds": [
+            "op-measureLevel",
+            "op-measureDensity"
+          ],
+          "constraintIds": null,
+          "partIds": [
+            "part-capacitance-probe",
+            "part-ultrasonic-sensor",
+            "part-density-sensor"
+          ],
+          "referenceIds": null
+        },
+        {
+          "id": "block-leak-detection",
+          "type": "Block",
+          "name": "Leak Detection System",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-leakThreshold"
+          ],
+          "operationIds": [
+            "op-analyzeLeaks"
+          ],
+          "constraintIds": null,
+          "partIds": [
+            "part-leak-processor",
+            "part-pressure-sensor"
+          ],
+          "referenceIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "if-block-fms-connector",
+          "type": "InterfaceBlock",
+          "name": "Flight Management System Interface",
+          "attributeIds": null,
+          "operationIds": [
+            "op-sendFuelData"
+          ],
+          "signalIds": null
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-fuel-data",
+          "type": "FlowSpecification",
+          "name": "FuelDataFlow",
+          "flowType": "InformationFlow",
+          "dataType": "FuelData",
+          "unit": "kg/L"
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-fqiu-fms",
+          "type": "Port",
+          "name": "FMSInterfacePort",
+          "blockId": "block-fuel-quantity-measurement-system",
+          "portType": "flow",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "if-block-fms-connector"
+          ],
+          "flowSpecificationId": "flow-spec-fuel-data"
+        },
+        {
+          "id": "port-fqiu-sensors",
+          "type": "Port",
+          "name": "SensorDataPort",
+          "blockId": "block-fqiu",
+          "portType": "flow",
+          "isConjugated": false,
+          "flowSpecificationId": "flow-spec-fuel-data"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-fqms-fqiu",
+          "type": "Composition",
+          "sourceId": "block-fuel-quantity-measurement-system",
+          "targetId": "block-fqiu",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "aggregations": [
+        {
+          "id": "agg-fqiu-sensors",
+          "type": "Aggregation",
+          "sourceId": "block-fqiu",
+          "targetId": "block-fuel-sensors",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-redundancy-type",
+          "type": "Enumeration",
+          "name": "RedundancyType",
+          "literals": [
+            {
+              "id": "literal-dual",
+              "name": "Dual"
+            },
+            {
+              "id": "literal-triple",
+              "name": "Triple"
+            }
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "value-type-temperature",
+          "type": "ValueType",
+          "name": "TemperatureRange",
+          "quantityKindId": "Temperature",
+          "unitId": "°C"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-update-rate",
+          "type": "ConstraintBlock",
+          "name": "UpdateRateConstraint",
+          "expression": "updateRate >= 1Hz"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-measurementAccuracy",
+          "type": "Property",
+          "name": "measurementAccuracy",
+          "propertyType": "String",
+          "value": "±0.5%",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-updateRate",
+          "type": "Property",
+          "name": "updateRate",
+          "propertyType": "String",
+          "value": "1Hz",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-operatingTemperature",
+          "type": "Property",
+          "name": "operatingTemperature",
+          "propertyType": "TemperatureRange",
+          "value": "-40°C to +85°C",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-redundancyLevel",
+          "type": "Property",
+          "name": "redundancyLevel",
+          "propertyType": "RedundancyType",
+          "value": "Dual",
+          "visibility": "public"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-fqiu",
+          "type": "Comment",
+          "body": "Central processing unit responsible for aggregating fuel sensor data and providing outputs to flight systems with dual channel redundancy.",
+          "annotatedElementId": "block-fqiu"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "engine_control_computer",
+  "timestamp": "20250325_131940"
+}

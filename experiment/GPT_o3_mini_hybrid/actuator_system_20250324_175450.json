@@ -1,0 +1,604 @@
+{
+  "system_id": "actuator_system",
+  "system_name": "Actuator System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Peak actuation force provided by the actuator, measured in kilonewtons. This value drives control surfaces, landing gear, and braking systems with high efficiency.",
+        "name": "maxForce",
+        "type": "string",
+        "value": "6-25 kN"
+      },
+      {
+        "description": "Time taken by the actuator to convert hydraulic input into mechanical motion. Critical for ensuring rapid and smooth control system response.",
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<0.45 sec"
+      },
+      {
+        "description": "The operational temperature range where the actuator maintains optimal performance under diverse atmospheric conditions.",
+        "name": "tempRange",
+        "type": "string",
+        "value": "-50°C to +90°C"
+      },
+      {
+        "description": "Indicates the degree of integration with the aircraft’s avionics and digital control systems for enhanced synchronization and diagnostics.",
+        "name": "integrationDegree",
+        "type": "string",
+        "value": "Ultra-High"
+      },
+      {
+        "description": "Maintenance interval expressed in flight cycles, ensuring long-term durability and operational reliability of the actuator system.",
+        "name": "serviceInterval",
+        "type": "string",
+        "value": "500 flight cycles"
+      }
+    ],
+    "designScenario": {
+      "description": "The Advanced Actuator System converts hydraulic energy into precise and controlled mechanical actions for critical flight operations including control surface modulation, landing gear deployment, and braking system actuation. Engineered with aerospace-grade materials and incorporating robust self-diagnostic capabilities, the system ensures rapid response, enhanced safety with redundant fail-safe mechanisms, and seamless integration with the aircraft’s avionics.",
+      "name": "Advanced Actuator System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The actuator system must precisely convert hydraulic pressure into mechanical motions for accurate positioning of control surfaces, landing gear, and brakes."
+            }
+          ],
+          "title": "Precision Actuation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The actuation mechanism must complete its movement in less than 0.45 seconds to enable high agility during rapid flight maneuvers."
+            }
+          ],
+          "title": "Rapid Response",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement redundant fail-safe protocols that default the actuators to a safe state during unexpected hydraulic pressure drops or system malfunctions."
+            }
+          ],
+          "title": "Redundant Fail-Safe",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate aerospace-grade materials and advanced self-diagnostic sensors to monitor system wear and alert maintenance teams proactively, ensuring extended durability under operational stress."
+            }
+          ],
+          "title": "Durability and Self-Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Advanced Actuator System relies on the Hydraulic Control Interface for the regulated delivery of hydraulic fluid necessary for precise actuation.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Control Interface",
+        "target": "Advanced Actuator Unit"
+      },
+      {
+        "description": "The Advanced Actuator Unit is composed of multiple subcomponents including the Precision Linear Actuator, ensuring integrated linear motion delivery.",
+        "relationshipType": "composition",
+        "source": "Advanced Actuator Unit",
+        "target": "Precision Linear Actuator"
+      },
+      {
+        "description": "The Advanced Actuator Unit is composed of the Torque Rotary Actuator to provide angular control necessary for directional adjustments in flight.",
+        "relationshipType": "composition",
+        "source": "Advanced Actuator Unit",
+        "target": "Torque Rotary Actuator"
+      },
+      {
+        "description": "The actuator system communicates performance data and status updates to the Aircraft Avionics Suite for continuous real-time monitoring and control loop adjustments.",
+        "relationshipType": "association",
+        "source": "Advanced Actuator Unit",
+        "target": "Aircraft Avionics Suite"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core module that transforms hydraulic pressure into controlled mechanical actions. It integrates subcomponents to deliver both linear and rotational movements essential for aircraft control.",
+        "name": "Advanced Actuator Unit",
+        "subComponents": [
+          {
+            "description": "Provides precise linear displacement for functions such as extending control surfaces and deploying landing gear.",
+            "name": "Precision Linear Actuator",
+            "type": "Hydraulic Linear Actuator"
+          },
+          {
+            "description": "Generates reliable angular motion for tasks including directional control and aileron adjustments.",
+            "name": "Torque Rotary Actuator",
+            "type": "Hydraulic Rotary Actuator"
+          }
+        ],
+        "type": "Actuation Module"
+      },
+      {
+        "description": "Module responsible for managing and regulating the flow of hydraulic fluid, ensuring that all actuator components receive stable and accurate pressure input.",
+        "name": "Hydraulic Control Interface",
+        "subComponents": null,
+        "type": "Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-actuator-avionics",
+          "memberEndIds": null,
+          "name": "ActuatorUnitToAvionicsSuite",
+          "ownedEndIds": null,
+          "sourceId": "block-advanced-actuator-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-aircraft-avionics-suite",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr-max-force",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "maxForce",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "6-25 kN",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr-actuation-speed",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "actuationSpeed",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "<0.45 sec",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr-temp-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "tempRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "-50°C to +90°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr-integration-degree",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "integrationDegree",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Ultra-High",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr-service-interval",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "serviceInterval",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "500 flight cycles",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-max-force",
+            "attr-actuation-speed",
+            "attr-temp-range",
+            "attr-integration-degree",
+            "attr-service-interval"
+          ],
+          "constraintIds": null,
+          "id": "block-advanced-actuator-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Advanced Actuator Unit",
+          "operationIds": [],
+          "partIds": [
+            "part-linear-actuator",
+            "part-rotary-actuator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-linear-actuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Precision Linear Actuator",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-rotary-actuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Torque Rotary Actuator",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-hydraulic-interface",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Hydraulic Control Interface",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-aircraft-avionics-suite",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Aircraft Avionics Suite",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-advanced-actuator-unit",
+          "body": "The Advanced Actuator Unit converts hydraulic energy into precise mechanical outputs for control surfaces, landing gear, and braking systems. It integrates aerospace-grade materials, redundant fail-safe mechanisms, and self-diagnostic sensors for optimal flight safety and operational reliability.",
+          "id": "comment-actuator-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-actuator-linear",
+          "memberEndIds": null,
+          "name": "ActuatorUnitComposedOfLinearActuator",
+          "ownedEndIds": null,
+          "sourceId": "block-advanced-actuator-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-linear-actuator",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-actuator-rotary",
+          "memberEndIds": null,
+          "name": "ActuatorUnitComposedOfRotaryActuator",
+          "ownedEndIds": null,
+          "sourceId": "block-advanced-actuator-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-rotary-actuator",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [
+            "attr-max-force"
+          ],
+          "expression": "maxForce >= 6 && maxForce <= 25",
+          "id": "cons-actuator-force-range",
+          "name": "ActuatorForceRangeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-hydraulic-to-actuator",
+          "name": "HydraulicInterfaceToActuatorDependency",
+          "sourceId": "block-hydraulic-interface",
+          "sourceMultiplicity": null,
+          "targetId": "block-advanced-actuator-unit",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-actuator-operational-mode",
+          "literals": [
+            {
+              "id": "literal-off",
+              "name": "Off"
+            },
+            {
+              "id": "literal-operating",
+              "name": "Operating"
+            },
+            {
+              "id": "literal-fault",
+              "name": "Fault"
+            }
+          ],
+          "name": "ActuatorOperationalMode",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-advanced-actuator-unit",
+          "flowSpecificationId": "flow-spec-actuation-command",
+          "id": "port-actuators-in",
+          "isConjugated": false,
+          "name": "ActuatorInputPort",
+          "type": "FlowPort"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-advanced-actuator-unit",
+          "flowSpecificationId": "flow-spec-actuation-feedback",
+          "id": "port-actuators-out",
+          "isConjugated": false,
+          "name": "ActuatorOutputPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "CommandData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-actuation-command",
+          "name": "ActuationCommandFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        },
+        {
+          "attributeIds": null,
+          "dataType": "FeedbackData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-actuation-feedback",
+          "name": "ActuationFeedbackFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-actuator-control",
+          "name": "ActuatorControlInterface",
+          "operationIds": [],
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-linear-actuator",
+          "name": "LinearActuatorPart",
+          "of": "block-linear-actuator",
+          "type": "Part"
+        },
+        {
+          "id": "part-rotary-actuator",
+          "name": "RotaryActuatorPart",
+          "of": "block-rotary-actuator",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-advanced-actuator-unit",
+          "flowSpecificationId": "flow-spec-actuation-command",
+          "id": "port-actuators-in",
+          "isConjugated": false,
+          "name": "ActuatorInputPort",
+          "portType": "flow",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-advanced-actuator-unit",
+          "flowSpecificationId": "flow-spec-actuation-feedback",
+          "id": "port-actuators-out",
+          "isConjugated": false,
+          "name": "ActuatorOutputPort",
+          "portType": "flow",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-advanced-actuator-unit",
+          "flowSpecificationId": null,
+          "id": "proxyport-actuator-control",
+          "isConjugated": false,
+          "name": "ActuatorControlProxyPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-actuator-control"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-advanced-actuator-unit",
+          "id": "proxyport-actuator-control",
+          "isConjugated": false,
+          "name": "ActuatorControlProxyPort",
+          "providedInterfaceIds": [
+            "ifb-actuator-control"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-precision-actuation",
+          "name": "Precision Actuation",
+          "reqId": null,
+          "text": "The actuator system must precisely convert hydraulic pressure into mechanical motions for accurate control of surfaces, landing gear, and braking systems.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-rapid-response",
+          "name": "Rapid Response",
+          "reqId": null,
+          "text": "The actuation mechanism must complete its movement in less than 0.45 seconds to support agile flight maneuvers.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-redundant-failsafe",
+          "name": "Redundant Fail-Safe",
+          "reqId": null,
+          "text": "Implement redundant fail-safe protocols to default actuators to a safe state during hydraulic anomalies.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-durability-diagnostics",
+          "name": "Durability and Self-Diagnostics",
+          "reqId": null,
+          "text": "Incorporate aerospace-grade materials and advanced sensing for self-diagnosis to ensure durability under extreme conditions.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "vt-actuation-force",
+          "name": "ActuationForceValue",
+          "quantityKindId": "kN",
+          "type": "ValueType",
+          "unitId": "kN"
+        }
+      ]
+    }
+  },
+  "reference_system": "actuators",
+  "parent_system": null,
+  "timestamp": "20250324_175450"
+}

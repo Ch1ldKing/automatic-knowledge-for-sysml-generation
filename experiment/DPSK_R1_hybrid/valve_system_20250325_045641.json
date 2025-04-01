@@ -1,0 +1,468 @@
+{
+  "system_id": "valve_system",
+  "system_name": "Valve System",
+  "specification": {
+    "designScenario": {
+      "name": "Aircraft Hydraulic Valve System",
+      "description": "The Valve System regulates hydraulic fluid flow within the aircraft's hydraulic network to ensure precise actuation of flight control surfaces, landing gear, and braking systems. It operates under extreme pressure and temperature conditions while maintaining fail-safe redundancy and rapid response to pilot/autopilot commands.",
+      "requirements": [
+        {
+          "title": "Fluid Routing Precision",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall direct hydraulic fluid to specified actuators with positional accuracy of ±1% to ensure synchronized control surface movements."
+            }
+          ]
+        },
+        {
+          "title": "High-Pressure Endurance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Valves shall maintain structural integrity at sustained pressures up to 5000 psi with peak tolerance of 6500 psi for 30-second durations."
+            }
+          ]
+        },
+        {
+          "title": "Dual Redundant Actuation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Critical fluid paths shall implement parallel valve assemblies with automatic switchover capability upon primary system failure detection."
+            }
+          ]
+        },
+        {
+          "title": "EMI Hardening",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All electronic valve control components shall meet DO-160G Section 20 Category R EMI/EMC standards for aviation environments."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Primary Flow Control Module",
+        "type": "Electro-Hydraulic Valve Assembly",
+        "description": "Main control unit containing servo valves and pressure regulators for primary hydraulic circuit management.",
+        "subComponents": [
+          {
+            "name": "Proportional Servo Valve",
+            "type": "Solenoid-Actuated Valve",
+            "description": "Precision metering valve with LVDT feedback for closed-loop flow control (±0.5% repeatability)."
+          },
+          {
+            "name": "Pressure Compensator",
+            "type": "Mechanical Regulator",
+            "description": "Automatic pressure-balancing mechanism maintaining constant flow despite pump output variations."
+          }
+        ]
+      },
+      {
+        "name": "Backup Hydraulic Gate",
+        "type": "Mechanical Safety System",
+        "description": "Passive pressure-actuated bypass valves that engage during electronic system failures.",
+        "subComponents": [
+          {
+            "name": "Shear Seal Cartridge",
+            "type": "Pressure-Relief Assembly",
+            "description": "Sacrificial mechanical fuse that isolates damaged hydraulic lines at 7000 psi overpressure."
+          }
+        ]
+      },
+      {
+        "name": "Valve Control Electronics",
+        "type": "Avionics Subsystem",
+        "description": "ARINC 429-compliant controller implementing FBW (Fly-By-Wire) command processing with 3 redundant channels.",
+        "subComponents": [
+          {
+            "name": "Solenoid Driver Array",
+            "type": "High-Current Amplifier",
+            "description": "Quad-redundant H-bridge circuits delivering 20A pulsed outputs for valve actuation."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Primary Flow Control Module",
+        "target": "Hydraulic Pump",
+        "relationshipType": "association",
+        "description": "Receives pressurized fluid input from engine-driven hydraulic pumps via high-pressure lines."
+      },
+      {
+        "source": "Backup Hydraulic Gate",
+        "target": "Flight Control Actuators",
+        "relationshipType": "composition",
+        "description": "Direct mechanical linkage to aileron/spoiler actuators through dedicated fluid paths."
+      },
+      {
+        "source": "Valve Control Electronics",
+        "target": "Primary Flow Control Module",
+        "relationshipType": "aggregation",
+        "description": "Embedded control logic governs servo valve positioning through PWM signals."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "Hysteresis Tolerance",
+        "type": "Performance Metric",
+        "value": "<0.15% FS",
+        "description": "Maximum allowable hysteresis in valve positioning across full operational temperature range."
+      },
+      {
+        "name": "Fluid Contamination Level",
+        "type": "Maintenance Parameter",
+        "value": "NAS 1638 Class 6",
+        "description": "Maximum particulate contamination level before requiring filter replacement."
+      },
+      {
+        "name": "Thermal Shock Rating",
+        "type": "Environmental Spec",
+        "value": "-65°C to +150°C ΔT/min",
+        "description": "Certified temperature transition rate without performance degradation."
+      },
+      {
+        "name": "MTBF",
+        "type": "Reliability Metric",
+        "value": "85,000 FH",
+        "description": "Mean Time Between Failures calculated per MIL-HDBK-217F guidelines."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "packages": [
+        {
+          "id": "pkg-valve-system",
+          "type": "Package",
+          "name": "AircraftHydraulicValveSystem",
+          "elementImports": null,
+          "packageImports": null
+        }
+      ],
+      "blocks": [
+        {
+          "id": "block-valve-system",
+          "type": "Block",
+          "name": "ValveSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-mtbf",
+            "attr-hysteresis",
+            "attr-contamination",
+            "attr-thermal-shock"
+          ],
+          "operationIds": [
+            "op-actuate",
+            "op-selfTest",
+            "op-failover"
+          ],
+          "constraintIds": [
+            "cons-pressure",
+            "cons-response",
+            "cons-emi",
+            "cons-flow-accuracy"
+          ],
+          "partIds": [
+            "part-primary-module",
+            "part-backup-gate",
+            "part-control-electronics"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-primary-module",
+          "type": "Block",
+          "name": "PrimaryFlowControlModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-psi-rating",
+            "attr-lvdt-accuracy"
+          ],
+          "operationIds": [
+            "op-meterFlow",
+            "op-balancePressure"
+          ],
+          "partIds": [
+            "part-proportional-valve",
+            "part-pressure-compensator"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-proportional-valve",
+          "type": "Block",
+          "name": "ProportionalServoValve",
+          "isAbstract": false,
+          "isActive": true,
+          "attributeIds": [
+            "attr-stroke-repeatability",
+            "attr-flow-accuracy"
+          ],
+          "operationIds": [
+            "op-adjustOrifice"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-backup-gate",
+          "type": "Block",
+          "name": "BackupHydraulicGate",
+          "isAbstract": false,
+          "isActive": true,
+          "partIds": [
+            "part-shear-seal"
+          ],
+          "attributeIds": [
+            "attr-relief-pressure"
+          ],
+          "operationIds": [
+            "op-mechanicalOverride"
+          ],
+          "constraintIds": [
+            "cons-shear-seal"
+          ]
+        },
+        {
+          "id": "block-hydraulic-pump",
+          "type": "Block",
+          "name": "HydraulicPump",
+          "isAbstract": false,
+          "isActive": true,
+          "attributeIds": [
+            "attr-pump-capacity"
+          ]
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb-fbw-interface",
+          "type": "InterfaceBlock",
+          "name": "FlyByWireInterface",
+          "operationIds": [
+            "op-receiveFbwCommand"
+          ],
+          "signalIds": [
+            "sig-overpressureAlert"
+          ],
+          "attributeIds": null,
+          "constraintIds": null
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flowspec-hydraulic",
+          "type": "FlowSpecification",
+          "name": "HydraulicFluidFlow",
+          "flowType": "MaterialFlow",
+          "dataType": "NASClass6Fluid",
+          "unit": "GPM",
+          "attributeIds": [
+            "attr-fluid-viscosity"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "cons-pressure",
+          "type": "ConstraintBlock",
+          "name": "PressureConstraint",
+          "expression": "operatingPressure <= 5000 psi && peakPressure <= 6500 psi",
+          "parameterIds": [
+            "param-operating-pressure",
+            "param-peak-pressure"
+          ]
+        },
+        {
+          "id": "cons-emi",
+          "type": "ConstraintBlock",
+          "name": "EMI_Compliance",
+          "expression": "EMI_Immunity >= DO-160G Cat R",
+          "parameterIds": [
+            "param-emi-level"
+          ]
+        },
+        {
+          "id": "cons-flow-accuracy",
+          "type": "ConstraintBlock",
+          "name": "FlowAccuracy",
+          "expression": "positionError = strokeRepeatability * 0.7",
+          "parameterIds": [
+            "param-stroke-error"
+          ]
+        },
+        {
+          "id": "cons-shear-seal",
+          "type": "ConstraintBlock",
+          "name": "PressureRelief",
+          "expression": "activationPressure >= 7000 psi",
+          "parameterIds": [
+            "param-activation-pressure"
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt-pressure",
+          "type": "ValueType",
+          "name": "AeroPressure",
+          "quantityKindId": "psi",
+          "unitId": "psi",
+          "attributeIds": []
+        },
+        {
+          "id": "vt-temp-transition",
+          "type": "ValueType",
+          "name": "TemperatureTransition",
+          "quantityKindId": "ΔT/min",
+          "unitId": "°C/min",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-valve-state",
+          "type": "Enumeration",
+          "name": "ValveOperationState",
+          "literals": [
+            {
+              "id": "lit-standby",
+              "name": "Standby"
+            },
+            {
+              "id": "lit-active",
+              "name": "Active"
+            },
+            {
+              "id": "lit-fault",
+              "name": "Fault"
+            }
+          ],
+          "attributeIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-hydraulic-in",
+          "type": "FlowPort",
+          "name": "HighPressureInlet",
+          "blockId": "block-valve-system",
+          "flowSpecificationId": "flowspec-hydraulic",
+          "isConjugated": false,
+          "attributeIds": null
+        }
+      ],
+      "proxyPorts": [
+        {
+          "id": "proxy-fbw",
+          "type": "ProxyPort",
+          "name": "FlyByWirePort",
+          "blockId": "block-valve-system",
+          "providedInterfaceIds": [
+            "ifb-fbw-interface"
+          ],
+          "isConjugated": false,
+          "attributeIds": null
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-primary-module",
+          "type": "Composition",
+          "name": "PrimarySystemComposition",
+          "sourceId": "block-valve-system",
+          "targetId": "block-primary-module",
+          "ownedEndIds": [
+            "part-primary-module"
+          ]
+        },
+        {
+          "id": "comp-shear-seal",
+          "type": "Composition",
+          "name": "ShearSealComposition",
+          "sourceId": "block-backup-gate",
+          "targetId": "block-shear-seal",
+          "ownedEndIds": [
+            "part-shear-seal"
+          ]
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-pump-interface",
+          "type": "Association",
+          "name": "PumpInterface",
+          "sourceId": "block-valve-system",
+          "targetId": "block-hydraulic-pump",
+          "memberEndIds": [
+            "end-pump-interface"
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-mtbf",
+          "type": "Property",
+          "name": "MTBF",
+          "propertyType": "Integer",
+          "value": "85000",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-thermal-shock",
+          "type": "Property",
+          "name": "ThermalShockRating",
+          "propertyType": "vt-temp-transition",
+          "value": "-65°C to +150°C ΔT/min"
+        }
+      ],
+      "requirements": [
+        {
+          "id": "req-redundancy",
+          "type": "Requirement",
+          "name": "DualRedundantActuation",
+          "text": "Critical fluid paths shall implement parallel valve assemblies with automatic switchover capability",
+          "reqId": "SYS-REQ-004"
+        },
+        {
+          "id": "req-emi",
+          "type": "Requirement",
+          "name": "EMI_Hardening",
+          "text": "All electronic components shall meet DO-160G Section 20 Category R standards",
+          "reqId": "SYS-REQ-005"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-failover",
+          "type": "Comment",
+          "body": "Automatic switchover must complete within 50ms of primary system failure detection",
+          "annotatedElementId": "op-failover"
+        },
+        {
+          "id": "comment-emi",
+          "type": "Comment",
+          "body": "EMI testing per DO-160G Section 20 Category R",
+          "annotatedElementId": "cons-emi"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "directional_control_valves",
+  "timestamp": "20250325_045641"
+}

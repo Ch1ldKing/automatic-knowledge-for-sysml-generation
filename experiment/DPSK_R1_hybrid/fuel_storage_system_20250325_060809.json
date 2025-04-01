@@ -1,0 +1,426 @@
+{
+  "system_id": "fuel_storage_system",
+  "system_name": "Fuel Storage System",
+  "specification": {
+    "designScenario": {
+      "name": "Fuel Storage System",
+      "description": "A critical subsystem responsible for the safe storage, containment, and management of aviation fuel. It ensures structural integrity, leak prevention, and thermal stability of fuel under extreme altitude variations, temperature fluctuations, and vibration loads. Designed with aerospace-grade materials and redundant safety features to meet FAA/EASA certification requirements.",
+      "requirements": [
+        {
+          "title": "Fuel Containment Integrity",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must maintain complete fuel containment without leaks during all flight phases including maximum turbulence loads (up to 5g) and temperature ranges (-50°C to +70°C)."
+            }
+          ]
+        },
+        {
+          "title": "Structural Load Capacity",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Tank structure must withstand 200% of maximum expected operational pressure (MEOP) with safety factor of 3.0 against yield failure."
+            }
+          ]
+        },
+        {
+          "title": "Explosion Prevention",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Incorporate inerting gas distribution and flame arrestors to maintain oxygen concentration below 12% in ullage space per FAA AC 25.981-2."
+            }
+          ]
+        },
+        {
+          "title": "Corrosion Resistance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All wetted surfaces shall demonstrate 10,000-hour salt spray resistance without pitting corrosion per ASTM B117 standards."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Primary Fuel Tank",
+        "description": "Main fuel reservoir with integral baffle system to prevent fuel sloshing, constructed from AA7075-T6 aluminum alloy with elastomeric sealing.",
+        "type": "Pressure Vessel",
+        "subComponents": [
+          {
+            "name": "Baffle System",
+            "description": "Anti-slosh partitions with check valves for controlled fuel migration during maneuvers",
+            "type": "Structural Component"
+          },
+          {
+            "name": "Access Panel",
+            "description": "Hermetically sealed inspection port with lightning-safe design",
+            "type": "Maintenance Interface"
+          }
+        ]
+      },
+      {
+        "name": "Venting System",
+        "description": "Dual-channel vent network maintaining atmospheric pressure differential <0.25 psi during climb/descent",
+        "type": "Pressure Management",
+        "subComponents": [
+          {
+            "name": "Pressure Relief Valve",
+            "description": "Spring-loaded valve activating at 1.5x MEOP",
+            "type": "Safety Component"
+          },
+          {
+            "name": "Flame Arrestor",
+            "description": "Stainless steel mesh preventing external ignition sources",
+            "type": "Fire Protection"
+          }
+        ]
+      },
+      {
+        "name": "Fuel Quantity Indicating System (FQIS)",
+        "description": "Capacitive probe array with temperature compensation for ±1% fuel volume accuracy",
+        "type": "Measurement System",
+        "subComponents": [
+          {
+            "name": "Probe Array",
+            "description": "Multi-segment capacitance sensors with anti-icing heaters",
+            "type": "Sensor"
+          },
+          {
+            "name": "Compensator Unit",
+            "description": "Real-time dielectric constant adjustment based on fuel temperature",
+            "type": "Signal Processor"
+          }
+        ]
+      },
+      {
+        "name": "Refuel/Defuel Manifold",
+        "description": "Dual-path fueling system with automatic shutoff at 98% capacity",
+        "type": "Fluid Handling",
+        "subComponents": [
+          {
+            "name": "Pressure Actuated Valve",
+            "description": "Quick-disconnect compatible refueling receptor",
+            "type": "Flow Control"
+          },
+          {
+            "name": "Fuel Defuel Pump",
+            "description": "15 l/sec transfer capacity for emergency fuel jettison",
+            "type": "Actuator"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Primary Fuel Tank",
+        "target": "Venting System",
+        "relationshipType": "composition",
+        "description": "The venting system is an integral structural component of the primary fuel tank assembly"
+      },
+      {
+        "source": "FQIS",
+        "target": "Primary Fuel Tank",
+        "relationshipType": "aggregation",
+        "description": "Fuel quantity indicating system aggregates measurement data from multiple tank regions"
+      },
+      {
+        "source": "Refuel/Defuel Manifold",
+        "target": "Primary Fuel Tank",
+        "relationshipType": "dependency",
+        "description": "Manifold operation requires real-time tank pressure data from primary tank sensors"
+      },
+      {
+        "source": "Venting System",
+        "target": "Flame Arrestor",
+        "relationshipType": "composition",
+        "description": "Flame arrestor is a permanent sub-component within the venting system ducting"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "fuelType",
+        "type": "string",
+        "value": "Jet-A",
+        "description": "Specifies compatible fuel types per API 1581 specifications"
+      },
+      {
+        "name": "tankCapacity",
+        "type": "float",
+        "value": "3000 liters",
+        "description": "Usable fuel volume at 15°C including expansion margin"
+      },
+      {
+        "name": "material",
+        "type": "string",
+        "value": "AA7075-T6",
+        "description": "Aluminum alloy construction per AMS-QQ-A-250/30"
+      },
+      {
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "-54°C to +85°C",
+        "description": "Operational temperature envelope including safety margin"
+      },
+      {
+        "name": "corrosionResistance",
+        "type": "string",
+        "value": "10,000 hours",
+        "description": "Salt spray resistance per ASTM B117 testing standard"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-fuel-storage-system",
+          "type": "Block",
+          "name": "FuelStorageSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-fuelType",
+            "attr-tankCapacity",
+            "attr-material",
+            "attr-temperatureRange",
+            "attr-corrosionResistance"
+          ],
+          "partIds": [
+            "part-primary-tank",
+            "part-venting-system",
+            "part-fqis",
+            "part-refuel-defuel"
+          ],
+          "operationIds": null,
+          "constraintIds": [
+            "constraint-structural-load",
+            "constraint-oxygen-concentration",
+            "constraint-corrosion-resistance"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-primary-fuel-tank",
+          "type": "Block",
+          "name": "PrimaryFuelTank",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-tankCapacity",
+            "attr-material",
+            "attr-temperatureRange"
+          ],
+          "partIds": [
+            "part-baffle-system",
+            "part-access-panel"
+          ],
+          "operationIds": [
+            "op-calculateSloshForces"
+          ],
+          "constraintIds": [
+            "constraint-leakIntegrity"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-venting-system",
+          "type": "Block",
+          "name": "VentingSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-maxPressureDiff"
+          ],
+          "partIds": [
+            "part-pressure-relief",
+            "part-flame-arrestor",
+            "part-nitrogen-inerting"
+          ],
+          "operationIds": [
+            "op-ventCalculation"
+          ],
+          "constraintIds": [
+            "constraint-pressureRelief"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-fqis",
+          "type": "Block",
+          "name": "FuelQuantityIndicatingSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-measurementAccuracy"
+          ],
+          "partIds": [
+            "part-probe-array",
+            "part-compensator-unit"
+          ],
+          "operationIds": [
+            "op-adjustDielectric"
+          ],
+          "constraintIds": [
+            "constraint-measurementPrecision"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-refuel-defuel",
+          "type": "Block",
+          "name": "RefuelDefuelManifold",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-transferRate"
+          ],
+          "partIds": [
+            "part-pressure-valve",
+            "part-defuel-pump"
+          ],
+          "operationIds": [
+            "op-emergencyJettison"
+          ],
+          "constraintIds": [
+            "constraint-pumpCapacity"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-tank-venting-composition",
+          "type": "Composition",
+          "name": "TankVentingComposition",
+          "sourceId": "block-primary-fuel-tank",
+          "targetId": "block-venting-system",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "assoc-fqis-aggregation",
+          "type": "Aggregation",
+          "name": "FQIS_Aggregation",
+          "sourceId": "block-fqis",
+          "targetId": "block-primary-fuel-tank",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "assoc-manifold-dependency",
+          "type": "Dependency",
+          "name": "ManifoldDependency",
+          "sourceId": "block-refuel-defuel",
+          "targetId": "block-primary-fuel-tank",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-fuelType",
+          "type": "Property",
+          "name": "fuelType",
+          "propertyType": "String",
+          "value": "Jet-A",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1"
+        },
+        {
+          "id": "attr-temperatureRange",
+          "type": "Property",
+          "name": "temperatureRange",
+          "propertyType": "String",
+          "value": "-54°C to +85°C",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-transferRate",
+          "type": "Property",
+          "name": "transferRate",
+          "propertyType": "FlowRate",
+          "value": "15 l/sec",
+          "visibility": "public"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-structural-load",
+          "type": "ConstraintBlock",
+          "name": "StructuralLoadConstraint",
+          "expression": "MEOP * 2.0 ≤ yield_strength / 3.0",
+          "parameterIds": [
+            "param-MEOP",
+            "param-yieldStrength"
+          ]
+        },
+        {
+          "id": "constraint-corrosion-resistance",
+          "type": "ConstraintBlock",
+          "name": "CorrosionResistanceConstraint",
+          "expression": "saltSprayHours ≥ 10000",
+          "parameterIds": [
+            "param-saltSprayHours"
+          ]
+        },
+        {
+          "id": "constraint-pumpCapacity",
+          "type": "ConstraintBlock",
+          "name": "PumpCapacityConstraint",
+          "expression": "transferRate ≥ 15 l/sec",
+          "parameterIds": [
+            "param-transferRate"
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-fuel-transfer",
+          "type": "FlowPort",
+          "name": "FuelTransferPort",
+          "blockId": "block-refuel-defuel",
+          "flowSpecificationId": "flow-spec-fuel",
+          "isConjugated": false
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-fuel",
+          "type": "FlowSpecification",
+          "name": "FuelFlow",
+          "flowType": "MaterialFlow",
+          "dataType": "Jet-A",
+          "unit": "liters/minute"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-inerting",
+          "type": "Comment",
+          "body": "Integrated nitrogen inerting maintains FAA-compliant O₂ levels",
+          "annotatedElementId": "block-venting-system"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "fuel_system",
+  "timestamp": "20250325_060809"
+}

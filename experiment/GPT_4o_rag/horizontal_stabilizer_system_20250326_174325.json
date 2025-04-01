@@ -1,0 +1,320 @@
+{
+  "system_id": "horizontal_stabilizer_system",
+  "system_name": "Horizontal Stabilizer System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The max angular deflection tolerance of the control surfaces.",
+        "name": "angularDeflectionPrecision",
+        "type": "string",
+        "value": "±0.05°"
+      },
+      {
+        "description": "The actuation speed for the horizontal stabilizer adjustments.",
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<30 ms"
+      },
+      {
+        "description": "The material tensile strength used for the horizontal stabilizer components.",
+        "name": "materialStrength",
+        "type": "string",
+        "value": "High-grade composites, >1800 MPa"
+      }
+    ],
+    "designScenario": {
+      "description": "This Horizontal Stabilizer System provides aerodynamic stability during flight by controlling pitch. It ensures fine-tuned adjustments to the tailplane angle to meet performance and safety criteria.",
+      "name": "Horizontal Stabilizer System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Generate precise adjustments of the horizontal tail surfaces to alter the aircraft pitch."
+            },
+            {
+              "description": "Respond dynamically to pilot inputs and autopilot systems."
+            }
+          ],
+          "title": "Pitch Control Capability",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Adjust surface positions within 30 milliseconds to control inputs."
+            },
+            {
+              "description": "Provide efficient damping responses to stabilize pitch motion."
+            }
+          ],
+          "title": "Dynamic Response Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Include redundant electrical and mechanical systems to prevent single-point failure."
+            },
+            {
+              "description": "Implement safety stops to prevent over-actuation or runaway motion."
+            }
+          ],
+          "title": "Intrinsic Safety Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Construct using high-durability materials for consistent performance over extreme conditions."
+            },
+            {
+              "description": "Enable maintenance-friendly assembly for component inspection and replacement."
+            }
+          ],
+          "title": "Durability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Provides pitch control by adjusting tailplane angle.",
+        "relationshipType": "dependency",
+        "source": "Actuator Control Module",
+        "target": "Horizontal Stabilizer"
+      },
+      {
+        "description": "Each actuator controls a section of the horizontal stabilizer for synchronized movement.",
+        "relationshipType": "composition",
+        "source": "Actuators",
+        "target": "Horizontal Stabilizer"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The movable plane at the tail of the aircraft that adjusts its angle to control pitch.",
+        "name": "Horizontal Stabilizer",
+        "subComponents": [
+          {
+            "description": "Actuators that adjust the angle of the horizontal tail surfaces.",
+            "name": "Actuators",
+            "type": "Mechanical Actuator"
+          },
+          {
+            "description": "Sensors monitoring surface angle and aerodynamic pressure.",
+            "name": "Stabilizer Sensors",
+            "type": "InputDevice"
+          }
+        ],
+        "type": "Aerodynamic Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block_1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HorizontalStabilizerSystem",
+          "operationIds": [
+            "operation_1"
+          ],
+          "partIds": [
+            "part_1",
+            "part_2",
+            "part_3"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "value_1",
+            "constraint_block_1_parameter_1"
+          ]
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": [
+            "constraint_1"
+          ],
+          "id": "block_2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ControlSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block_3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "StructuralComponent",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block_4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ElectricalSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block_1",
+          "body": "This block defines the Horizontal Stabilizer System.",
+          "id": "comment_1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "composition_1",
+          "memberEndIds": [
+            "part_1",
+            "part_3"
+          ],
+          "name": "HorizontalStabilizerSystemComposition",
+          "ownedEndIds": [
+            "part_2"
+          ],
+          "sourceId": "block_1",
+          "sourceMultiplicity": "1..1",
+          "targetId": "block_3",
+          "targetMultiplicity": "1..1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "Length \\le Max_Length",
+          "id": "constraint_block_1",
+          "name": "MaxLengthConstraint",
+          "parameterIds": [
+            "constraint_block_1_parameter_1"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "block_2"
+          ],
+          "id": "constraint_1",
+          "name": "MaxPower",
+          "specification": "Power < 500 W",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": null,
+          "id": "constraint_block_1_parameter_1",
+          "name": "Length",
+          "parameterType": "Real",
+          "type": "Parameter"
+        }
+      ],
+      "parts": [
+        {
+          "id": "part_1",
+          "name": "control",
+          "of": "block_1",
+          "type": "Part"
+        },
+        {
+          "id": "part_2",
+          "name": "structure",
+          "of": "block_1",
+          "type": "Part"
+        },
+        {
+          "id": "part_3",
+          "name": "electronics",
+          "of": "block_1",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value_1",
+          "name": "Length",
+          "quantityKindId": "QUANTITY_LENGTH",
+          "type": "ValueType",
+          "unitId": "UNIT_METER"
+        }
+      ]
+    }
+  },
+  "rag_context": "The Horizontal Stabilizer System information and specifications are not provided in the given context.",
+  "timestamp": "20250326_174325",
+  "provider": "gpt"
+}

@@ -1,0 +1,358 @@
+{
+  "system_id": "leading_edge_device_system",
+  "system_name": "Leading Edge Device System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines operational deflection angle range for aerodynamic efficiency during takeoff and landing.",
+        "name": "DeflectionAngleRange",
+        "type": "string",
+        "value": "0° to 30°"
+      },
+      {
+        "description": "Material resistance to aerodynamic forces and environmental conditions.",
+        "name": "MaterialStrength",
+        "type": "string",
+        "value": "High-strength aluminum alloys with corrosion-resistant coatings."
+      },
+      {
+        "description": "Ensures reliable operation under temperature variations.",
+        "name": "OperatingTemperatureRange",
+        "type": "string",
+        "value": "-50°C to +70°C"
+      },
+      {
+        "description": "Precision in executing commanded deflections.",
+        "name": "ActuationAccuracy",
+        "type": "string",
+        "value": "± 0.2°"
+      },
+      {
+        "description": "Response speed of actuation mechanism.",
+        "name": "ActuationSpeed",
+        "type": "string",
+        "value": "<100ms"
+      }
+    ],
+    "designScenario": {
+      "description": "The Leading Edge Device System is engineered to optimize the aircraft's aerodynamic performance during critical phases such as takeoff, climb, and landing. By modifying the wing's leading edge profile, the system facilitates smooth airflow, mitigating boundary layer separation and enhancing lift characteristics. This capability is crucial for reducing stalling speeds and improving overall flight efficiency.",
+      "name": "Leading Edge Device System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Extend and retract the leading edge slats as per operational demands during various flight phases."
+            },
+            {
+              "description": "Maintain smooth operation to contribute towards seamless aerodynamic profile changes."
+            }
+          ],
+          "title": "Functional Operation of Leading Edge Slats",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Actuate to desired deflection angles within stipulated time constraints."
+            },
+            {
+              "description": "Minimize retraction delays to enhance rapid response performance during landing or go-around."
+            }
+          ],
+          "title": "Rapid and Responsive Actuation",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate redundancy in actuation linkages to eliminate single points of failure."
+            },
+            {
+              "description": "Enable detection and response to component malfunctions, ensuring continued operation."
+            }
+          ],
+          "title": "Safety and Redundancy Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Facilitate straightforward aftermarket maintenance checks and component replacements."
+            },
+            {
+              "description": "Leverage materials and designs that extend system longevity and reduce wear related failures."
+            }
+          ],
+          "title": "Durability and Sustainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Leading Edge Device System uses actuation systems for position manipulations.",
+        "relationshipType": "dependency",
+        "source": "Actuation Mechanism",
+        "target": "Leading Edge Devices"
+      },
+      {
+        "description": "Leading Edge Devices reshape wing profiles to adjust lift coefficients.",
+        "relationshipType": "association",
+        "source": "Leading Edge Devices",
+        "target": "Aircraft Wing Aerodynamics"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A system to adjust leading edge slats to enhance aerodynamic lift.",
+        "name": "Leading Edge Devices",
+        "subComponents": [
+          {
+            "description": "Components extending or retracting along wing leading edges to adjust airflow.",
+            "name": "Leading Edge Slats",
+            "type": "Aerodynamic Component"
+          }
+        ],
+        "type": "Aerodynamic Adjustment Assembly"
+      },
+      {
+        "description": "Mechanical and hydraulic actuators facilitating Leading Edge Device movements.",
+        "name": "Actuation Mechanism",
+        "subComponents": null,
+        "type": "Actuation System"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-leading-edge-actuation",
+          "memberEndIds": null,
+          "name": "AggregatesActuationMechanism",
+          "ownedEndIds": null,
+          "sourceId": "block-leading-edge-device-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-actuation-mechanism",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-leading-edge-wing-aero",
+          "memberEndIds": null,
+          "name": "AssociationToWingAerodynamics",
+          "ownedEndIds": null,
+          "sourceId": "block-leading-edge-devices",
+          "sourceMultiplicity": "1..*",
+          "targetId": "block-aircraft-wing-aerodynamics",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "0° to 30°",
+          "id": "attr-deflection-angle-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "DeflectionAngleRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "0° to 30°",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-50°C to +70°C",
+          "id": "attr-operating-temperature-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "OperatingTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-50°C to +70°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "High-strength aluminum alloys with corrosion-resistant coatings.",
+          "id": "attr-material-strength",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "MaterialStrength",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "High-strength aluminum alloys with corrosion-resistant coatings.",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-deflection-angle-range",
+            "attr-operating-temperature-range",
+            "attr-material-strength"
+          ],
+          "constraintIds": null,
+          "id": "block-leading-edge-device-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "LeadingEdgeDeviceSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-actuation-mechanism",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ActuationMechanism",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-leading-edge-devices",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "LeadingEdgeDevices",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-aircraft-wing-aerodynamics",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "AircraftWingAerodynamics",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [],
+      "compositions": [
+        {
+          "id": "comp-leading-edge-devices-composition",
+          "memberEndIds": null,
+          "name": "CompositionForLeadingEdgeDevices",
+          "ownedEndIds": null,
+          "sourceId": "block-leading-edge-device-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-leading-edge-devices",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "ActuationSpeed < 100ms",
+          "id": "constraint-actuation-speed",
+          "name": "ActuationSpeedConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": [],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [],
+      "proxyPorts": [],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-functional-operation-le-slats",
+          "name": "Functional Operation of Leading Edge Slats",
+          "reqId": "REQ-LEDS-001",
+          "text": "Extend and retract the leading edge slats as per operational demands during various flight phases.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": []
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250326_162802",
+  "provider": "gpt"
+}

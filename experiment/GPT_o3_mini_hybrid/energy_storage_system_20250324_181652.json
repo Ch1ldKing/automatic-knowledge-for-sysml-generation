@@ -1,0 +1,573 @@
+{
+  "system_id": "energy_storage_system",
+  "system_name": "Energy Storage System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The pressure range at which the accumulator safely absorbs and releases hydraulic energy under varying flight conditions.",
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "1600-5200 psi"
+      },
+      {
+        "description": "The maximum response time for energy discharge during rapid maneuvering or pressure surges.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "0.25 sec"
+      },
+      {
+        "description": "Recommended interval for maintenance and inspections based on operational flight cycles.",
+        "name": "maintenanceCycle",
+        "type": "string",
+        "value": "700 flight hours"
+      },
+      {
+        "description": "Specified compatibility for hydraulic fluid meeting aerospace-grade synthetic standards.",
+        "name": "fluidCompatibility",
+        "type": "string",
+        "value": "Aerospace certified synthetic hydraulic fluid"
+      },
+      {
+        "description": "The operational temperature range for safe and efficient accumulator performance.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-40°C to 85°C"
+      },
+      {
+        "description": "Pressure threshold level at which an emergency release occurs to prevent system overpressurization.",
+        "name": "emergencyReleasePressure",
+        "type": "string",
+        "value": "5500 psi"
+      }
+    ],
+    "designScenario": {
+      "description": "The Accumulator is a high-performance hydraulic energy storage unit integrated within an aircraft's hydraulic circuit. Specifically engineered for modern jetliners, it stabilizes transient pressure spikes and ensures rapid energy deployment to support braking, landing gear actuation, and flight control surfaces. The system incorporates advanced piston assemblies, a pressurized gas buffer, and smart control valves to optimize performance while meeting rigorous safety regulations and extended maintenance cycles.",
+      "name": "Accumulator",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The accumulator shall effectively capture and store hydraulic energy to mitigate transient pressure fluctuations during critical flight phases."
+            }
+          ],
+          "title": "Efficient Hydraulic Energy Storage",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Upon detection of rapid pressure surges, the accumulator must deploy stored energy within 0.25 seconds to support immediate system actuation."
+            }
+          ],
+          "title": "Rapid Energy Deployment",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Integration of an automatic emergency release valve is mandatory to safely vent excess pressure, protecting the hydraulic circuit from potential structural damage."
+            }
+          ],
+          "title": "Over-Pressure Safety Mechanism",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must ensure long life-cycle durability with minimal performance degradation, supporting an operational window of at least 700 flight hours between required maintenance."
+            }
+          ],
+          "title": "Enhanced Durability and Maintenance Interval",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Accumulator is an integral component of the hydraulic system and is composed with essential subcomponents to manage energy storage and release.",
+        "relationshipType": "composition",
+        "source": "Hydraulic Circuit",
+        "target": "Accumulator"
+      },
+      {
+        "description": "The Fluid Reservoir aggregates and supplies clean hydraulic fluid to the accumulator, ensuring operational integrity.",
+        "relationshipType": "aggregation",
+        "source": "Fluid Reservoir",
+        "target": "Accumulator"
+      },
+      {
+        "description": "The control signals for the Accumulator are dependent on the aircraft's Flight Control System to ensure synchronized energy management.",
+        "relationshipType": "dependency",
+        "source": "Accumulator Control Module",
+        "target": "Flight Control System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A high-performance energy storage unit that moderates hydraulic pressure and provides rapid release of stored energy during flight operations.",
+        "name": "Accumulator",
+        "subComponents": [
+          {
+            "description": "An advanced piston assembly responsible for converting hydraulic fluid pressure into stored mechanical energy.",
+            "name": "Advanced Piston Assembly",
+            "type": "Mechanical Component"
+          },
+          {
+            "description": "A pressurized gas buffer that maintains baseline pressure and absorbs shock from rapid system surges.",
+            "name": "Pressurized Gas Buffer",
+            "type": "Safety Component"
+          },
+          {
+            "description": "A smart control valve module that regulates the flow of hydraulic fluid to ensure accurate energy release.",
+            "name": "Control Valve Module",
+            "type": "Control Component"
+          },
+          {
+            "description": "A structural mounting frame designed for secure integration within the aircraft's hydraulic system, ensuring robustness and vibration resistance.",
+            "name": "Structural Mounting Frame",
+            "type": "Support Component"
+          }
+        ],
+        "type": "Energy Storage Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-reservoir-accumulator",
+          "memberEndIds": null,
+          "name": "ReservoirAccumulatorAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-fluid-reservoir",
+          "sourceMultiplicity": null,
+          "targetId": "block-accumulator",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "1600-5200 psi",
+          "id": "attr-operating-pressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "operatingPressure",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "1600-5200 psi",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.25 sec",
+          "id": "attr-response-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "0.25 sec",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "700 flight hours",
+          "id": "attr-maintenance-cycle",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "maintenanceCycle",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "700 flight hours",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Aerospace certified synthetic hydraulic fluid",
+          "id": "attr-fluid-compatibility",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "fluidCompatibility",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Aerospace certified synthetic hydraulic fluid",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-40°C to 85°C",
+          "id": "attr-operating-temp-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "operatingTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "-40°C to 85°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "5500 psi",
+          "id": "attr-emergency-release-pressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "emergencyReleasePressure",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "5500 psi",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-operating-pressure",
+            "attr-response-time",
+            "attr-maintenance-cycle",
+            "attr-fluid-compatibility",
+            "attr-operating-temp-range",
+            "attr-emergency-release-pressure"
+          ],
+          "constraintIds": null,
+          "id": "block-accumulator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Accumulator",
+          "operationIds": null,
+          "partIds": [
+            "part-piston-assembly",
+            "part-gas-buffer",
+            "part-control-valve",
+            "part-mounting-frame"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-accumulator",
+          "body": "Accumulator: A high-performance hydraulic energy storage unit integrated within an aircraft's hydraulic circuit, designed to stabilize transient pressure spikes and enable rapid energy deployment for flight control surfaces.",
+          "id": "comment-accumulator-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-accumulator-piston",
+          "memberEndIds": null,
+          "name": "AccumulatorPistonAssemblyComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-accumulator",
+          "sourceMultiplicity": null,
+          "targetId": "part-piston-assembly",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-accumulator-gasbuffer",
+          "memberEndIds": null,
+          "name": "AccumulatorGasBufferComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-accumulator",
+          "sourceMultiplicity": null,
+          "targetId": "part-gas-buffer",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-accumulator-controlvalve",
+          "memberEndIds": null,
+          "name": "AccumulatorControlValveComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-accumulator",
+          "sourceMultiplicity": null,
+          "targetId": "part-control-valve",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-accumulator-mounting",
+          "memberEndIds": null,
+          "name": "AccumulatorMountingFrameComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-accumulator",
+          "sourceMultiplicity": null,
+          "targetId": "part-mounting-frame",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-hydraulic-circuit-accumulator",
+          "memberEndIds": null,
+          "name": "HydraulicCircuitAccumulatorComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-hydraulic-circuit",
+          "sourceMultiplicity": null,
+          "targetId": "block-accumulator",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "responseTime <= 0.25",
+          "id": "cons-response-time",
+          "name": "ResponseTimeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-accumulator-control-flight-control",
+          "name": "AccumulatorControlToFlightControl",
+          "sourceId": "block-accumulator-control",
+          "sourceMultiplicity": null,
+          "targetId": "block-flight-control",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-accumulator-status",
+          "literals": [
+            {
+              "id": "literal-idle",
+              "name": "Idle"
+            },
+            {
+              "id": "literal-operating",
+              "name": "Operating"
+            },
+            {
+              "id": "literal-fault",
+              "name": "Fault"
+            }
+          ],
+          "name": "AccumulatorOperationStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-accumulator",
+          "flowSpecificationId": "flow-spec-accumulator-energy",
+          "id": "flowport-accumulator-energy",
+          "isConjugated": false,
+          "name": "AccumulatorEnergyFlowPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "HydraulicEnergy",
+          "flowType": "EnergyFlow",
+          "id": "flow-spec-accumulator-energy",
+          "name": "AccumulatorEnergyFlow",
+          "type": "FlowSpecification",
+          "unit": "psi"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-accumulator",
+          "name": "AccumulatorInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-piston-assembly",
+          "name": "Advanced Piston Assembly",
+          "of": "block-accumulator",
+          "type": "Part"
+        },
+        {
+          "id": "part-gas-buffer",
+          "name": "Pressurized Gas Buffer",
+          "of": "block-accumulator",
+          "type": "Part"
+        },
+        {
+          "id": "part-control-valve",
+          "name": "Control Valve Module",
+          "of": "block-accumulator",
+          "type": "Part"
+        },
+        {
+          "id": "part-mounting-frame",
+          "name": "Structural Mounting Frame",
+          "of": "block-accumulator",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-accumulator",
+          "flowSpecificationId": "flow-spec-accumulator-energy",
+          "id": "port-accumulator-energy",
+          "isConjugated": false,
+          "name": "AccumulatorEnergyPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-accumulator",
+          "id": "proxyport-accumulator-monitor",
+          "isConjugated": false,
+          "name": "AccumulatorMonitorProxyPort",
+          "providedInterfaceIds": [
+            "if-block-accumulator"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-efficient-hydraulic-energy-storage",
+          "name": "EfficientHydraulicEnergyStorage",
+          "reqId": null,
+          "text": "The accumulator shall effectively capture and store hydraulic energy to mitigate transient pressure fluctuations during critical flight phases.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-rapid-energy-deployment",
+          "name": "RapidEnergyDeployment",
+          "reqId": null,
+          "text": "Upon rapid pressure surges, the accumulator must deploy stored energy within 0.25 sec to support immediate system actuation.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-overpressure-safety",
+          "name": "OverPressureSafetyMechanism",
+          "reqId": null,
+          "text": "An automatic emergency release valve must be integrated to vent excess pressure at 5500 psi to prevent structural damage.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-durability-maintenance",
+          "name": "DurabilityAndMaintenance",
+          "reqId": null,
+          "text": "The design must ensure long life-cycle durability, supporting an operational window of at least 700 flight hours between required maintenance.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-response-time",
+          "name": "ResponseTimeValue",
+          "quantityKindId": "sec",
+          "type": "ValueType",
+          "unitId": "sec"
+        }
+      ]
+    }
+  },
+  "reference_system": "accumulator",
+  "parent_system": null,
+  "timestamp": "20250324_181652"
+}

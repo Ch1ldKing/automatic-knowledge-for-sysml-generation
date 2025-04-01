@@ -1,0 +1,474 @@
+{
+  "system_id": "ignition_system",
+  "system_name": "Ignition System",
+  "specification": {
+    "designScenario": {
+      "name": "Ignition System",
+      "description": "The Ignition System is a critical aerospace subsystem responsible for initiating and sustaining combustion in aircraft engines under varying flight conditions. It ensures precise spark generation, timing synchronization, and fault tolerance to maintain engine performance across altitudes, temperatures, and operational loads. The design integrates advanced electronics and robust mechanical components to meet stringent safety and reliability standards.",
+      "requirements": [
+        {
+          "title": "Ignition Timing Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must synchronize spark timing with engine crankshaft position and RPM to optimize combustion efficiency during all flight phases."
+            }
+          ]
+        },
+        {
+          "title": "Spark Energy Delivery",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Deliver a minimum of 50 mJ per spark across all engine operating conditions, including high-altitude and low-temperature environments."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy and Fault Isolation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual ignition coils per cylinder and fail-safe isolation mechanisms to prevent catastrophic engine failure in the event of component malfunction."
+            }
+          ]
+        },
+        {
+          "title": "Environmental Robustness",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Ensure operational reliability within temperature ranges of -55°C to +95°C and altitudes up to 45,000 feet."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Ignition Control Unit (ICU)",
+        "type": "Electronic Module",
+        "description": "The central processing unit that regulates spark timing, monitors sensor data, and manages redundancy protocols. It interfaces with engine management systems to ensure precise combustion control.",
+        "subComponents": [
+          {
+            "name": "Microcontroller",
+            "description": "Processes input signals and executes ignition timing algorithms.",
+            "type": "Processor"
+          },
+          {
+            "name": "Power Supply Module",
+            "description": "Converts aircraft electrical power to the high-voltage required for spark generation.",
+            "type": "Power Converter"
+          }
+        ]
+      },
+      {
+        "name": "Ignition Coils",
+        "type": "Electrical Component",
+        "description": "High-voltage transformers that generate spark energy for the spark plugs. Each coil is paired with a cylinder for direct ignition.",
+        "subComponents": [
+          {
+            "name": "Primary Winding",
+            "description": "Receives low-voltage input from the ICU.",
+            "type": "Coil Winding"
+          },
+          {
+            "name": "Secondary Winding",
+            "description": "Induces high-voltage output for spark delivery.",
+            "type": "Coil Winding"
+          }
+        ]
+      },
+      {
+        "name": "Spark Plugs",
+        "type": "Combustion Component",
+        "description": "Delivers the spark to ignite the fuel-air mixture within engine cylinders. Designed for high durability under extreme thermal and mechanical stress.",
+        "subComponents": [
+          {
+            "name": "Center Electrode",
+            "description": "Primary conductor for the spark discharge.",
+            "type": "Conductive Element"
+          },
+          {
+            "name": "Ground Electrode",
+            "description": "Receives the spark to initiate combustion.",
+            "type": "Conductive Element"
+          }
+        ]
+      },
+      {
+        "name": "Ignition Sensors",
+        "type": "Sensor Array",
+        "description": "Monitors critical ignition parameters such as spark energy, cylinder pressure, and coil temperature to ensure optimal performance and fault detection.",
+        "subComponents": [
+          {
+            "name": "Voltage Sensor",
+            "description": "Measures high-voltage output from ignition coils.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Temperature Sensor",
+            "description": "Tracks coil and plug temperatures to prevent overheating.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Redundant Ignition System",
+        "type": "Redundant Subsystem",
+        "description": "A secondary ignition circuit that activates automatically if the primary system fails, ensuring continued engine operation during emergencies.",
+        "subComponents": [
+          {
+            "name": "Backup ICU",
+            "description": "Independent control unit for the redundant ignition coils.",
+            "type": "Electronic Module"
+          },
+          {
+            "name": "Secondary Ignition Coils",
+            "description": "Standby coils for each cylinder, isolated from the primary system.",
+            "type": "Electrical Component"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Ignition Control Unit (ICU)",
+        "target": "Ignition Coils",
+        "relationshipType": "association",
+        "description": "The ICU regulates the ignition timing and energy delivery to the ignition coils."
+      },
+      {
+        "source": "Ignition Coils",
+        "target": "Spark Plugs",
+        "relationshipType": "dependency",
+        "description": "The spark plugs depend on the ignition coils to receive high-voltage for spark generation."
+      },
+      {
+        "source": "Ignition Sensors",
+        "target": "Ignition Control Unit (ICU)",
+        "relationshipType": "aggregation",
+        "description": "Sensor data from ignition coils and plugs are aggregated by the ICU for real-time monitoring and control."
+      },
+      {
+        "source": "Redundant Ignition System",
+        "target": "Ignition Control Unit (ICU)",
+        "relationshipType": "dependency",
+        "description": "The redundant system depends on the primary ICU's fault signals to initiate automatic activation."
+      },
+      {
+        "source": "Ignition Control Unit (ICU)",
+        "target": "Redundant Ignition System",
+        "relationshipType": "association",
+        "description": "The ICU coordinates with the redundant system to ensure seamless failover during primary system failures."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "ignitionVoltage",
+        "type": "string",
+        "value": "20-30 kV",
+        "description": "Specifies the high-voltage output range required for reliable spark generation across all engine conditions."
+      },
+      {
+        "name": "sparkEnergy",
+        "type": "string",
+        "value": "50-70 mJ",
+        "description": "Defines the minimum energy per spark to ensure consistent ignition of fuel-air mixtures, even at high altitudes."
+      },
+      {
+        "name": "systemRedundancy",
+        "type": "string",
+        "value": "Dual redundant ignition coils per cylinder",
+        "description": "Indicates the level of redundancy to prevent engine shutdown in case of primary system failure."
+      },
+      {
+        "name": "operationalTemperatureRange",
+        "type": "string",
+        "value": "-55°C to +95°C",
+        "description": "Specifies the temperature range within which the system operates reliably."
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "≤50 ms",
+        "description": "The maximum time required for the system to initiate a spark after receiving a startup command."
+      },
+      {
+        "name": "sensorAccuracy",
+        "type": "string",
+        "value": "±0.5°C",
+        "description": "The precision of temperature sensors in monitoring ignition component thermal conditions."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "IgnitionSystem-1",
+          "type": "Block",
+          "name": "IgnitionSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr-1",
+            "Attr-2",
+            "Attr-3"
+          ],
+          "operationIds": [
+            "Op-1"
+          ],
+          "constraintIds": [
+            "Constraint-1"
+          ],
+          "partIds": [
+            "ICU-1",
+            "SparkPlug-1",
+            "IgnitionWire-1",
+            "Battery-1"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "ICU-1",
+          "type": "Block",
+          "name": "IgnitionControlUnit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr-4",
+            "Attr-5",
+            "Attr-6"
+          ],
+          "operationIds": [
+            "Op-2"
+          ],
+          "constraintIds": [
+            "Constraint-2"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "SparkPlug-1",
+          "type": "Block",
+          "name": "SparkPlug",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr-7",
+            "Attr-8"
+          ],
+          "operationIds": [
+            "Op-3"
+          ],
+          "constraintIds": [
+            "Constraint-3"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "Battery-1",
+          "type": "Block",
+          "name": "PowerSupply",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr-9",
+            "Attr-10"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "Constraint-4"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "Port-1",
+          "type": "Port",
+          "name": "IgnitionSignalPort",
+          "blockId": "ICU-1",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "Interface-1"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "Port-2",
+          "type": "Port",
+          "name": "PowerInputPort",
+          "blockId": "IgnitionSystem-1",
+          "portType": "flow",
+          "isConjugated": true,
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": "FlowSpec-1",
+          "attributeIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "Interface-1",
+          "type": "InterfaceBlock",
+          "name": "IgnitionSignalInterface",
+          "attributeIds": [
+            "Attr-11"
+          ],
+          "operationIds": [
+            "Op-4"
+          ],
+          "signalIds": null,
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FlowSpec-1",
+          "type": "FlowSpecification",
+          "name": "ElectricalEnergyFlow",
+          "flowType": "energy",
+          "dataType": "Voltage",
+          "unit": "V",
+          "attributeIds": [
+            "Attr-12"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "Constraint-1",
+          "type": "ConstraintBlock",
+          "name": "VoltageConstraint",
+          "expression": "system_voltage >= 12.0 AND system_voltage <= 14.0",
+          "parameterIds": [
+            "Param-1"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "Enum-1",
+          "type": "Enumeration",
+          "name": "IgnitionState",
+          "literals": [
+            {
+              "id": "Literal-1",
+              "name": "ON"
+            },
+            {
+              "id": "Literal-2",
+              "name": "OFF"
+            },
+            {
+              "id": "Literal-3",
+              "name": "FAULT"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "Attr-1",
+          "type": "Property",
+          "name": "systemVoltage",
+          "propertyType": "Double",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "12.0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "Attr-2",
+          "type": "Property",
+          "name": "ignitionState",
+          "propertyType": "Enumeration",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "OFF",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "Attr-11",
+          "type": "Property",
+          "name": "signalFrequency",
+          "propertyType": "Double",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "50000.0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment-1",
+          "type": "Comment",
+          "body": "Manages ignition sequence timing and voltage regulation.",
+          "annotatedElementId": "ICU-1"
+        }
+      ],
+      "associations": [
+        {
+          "id": "Assoc-1",
+          "type": "Association",
+          "name": "Contains",
+          "sourceId": "IgnitionSystem-1",
+          "targetId": "ICU-1",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_190948",
+  "provider": "qwen"
+}

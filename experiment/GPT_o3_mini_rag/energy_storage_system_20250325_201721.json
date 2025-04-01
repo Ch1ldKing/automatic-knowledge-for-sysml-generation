@@ -1,0 +1,350 @@
+{
+  "system_id": "energy_storage_system",
+  "system_name": "Energy Storage System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The pressure range at which the accumulator safely absorbs and releases hydraulic energy under varying flight conditions.",
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "1600-5200 psi"
+      },
+      {
+        "description": "The maximum response time for energy discharge during rapid maneuvering or pressure surges.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "0.25 sec"
+      },
+      {
+        "description": "Recommended interval for maintenance and inspections based on operational flight cycles.",
+        "name": "maintenanceCycle",
+        "type": "string",
+        "value": "700 flight hours"
+      },
+      {
+        "description": "Specified compatibility for hydraulic fluid meeting aerospace-grade synthetic standards.",
+        "name": "fluidCompatibility",
+        "type": "string",
+        "value": "Aerospace certified synthetic hydraulic fluid"
+      },
+      {
+        "description": "The operational temperature range for safe and efficient accumulator performance.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-40°C to 85°C"
+      },
+      {
+        "description": "Pressure threshold level at which an emergency release occurs to prevent system overpressurization.",
+        "name": "emergencyReleasePressure",
+        "type": "string",
+        "value": "5500 psi"
+      }
+    ],
+    "designScenario": {
+      "description": "The Accumulator is a high-performance hydraulic energy storage unit integrated within an aircraft's hydraulic circuit. Specifically engineered for modern jetliners, it stabilizes transient pressure spikes and ensures rapid energy deployment to support braking, landing gear actuation, and flight control surfaces. The system incorporates advanced piston assemblies, a pressurized gas buffer, and smart control valves to optimize performance while meeting rigorous safety regulations and extended maintenance cycles.",
+      "name": "Accumulator",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The accumulator shall effectively capture and store hydraulic energy to mitigate transient pressure fluctuations during critical flight phases."
+            }
+          ],
+          "title": "Efficient Hydraulic Energy Storage",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Upon detection of rapid pressure surges, the accumulator must deploy stored energy within 0.25 seconds to support immediate system actuation."
+            }
+          ],
+          "title": "Rapid Energy Deployment",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Integration of an automatic emergency release valve is mandatory to safely vent excess pressure, protecting the hydraulic circuit from potential structural damage."
+            }
+          ],
+          "title": "Over-Pressure Safety Mechanism",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must ensure long life-cycle durability with minimal performance degradation, supporting an operational window of at least 700 flight hours between required maintenance."
+            }
+          ],
+          "title": "Enhanced Durability and Maintenance Interval",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Accumulator is an integral component of the hydraulic system and is composed with essential subcomponents to manage energy storage and release.",
+        "relationshipType": "composition",
+        "source": "Hydraulic Circuit",
+        "target": "Accumulator"
+      },
+      {
+        "description": "The Fluid Reservoir aggregates and supplies clean hydraulic fluid to the accumulator, ensuring operational integrity.",
+        "relationshipType": "aggregation",
+        "source": "Fluid Reservoir",
+        "target": "Accumulator"
+      },
+      {
+        "description": "The control signals for the Accumulator are dependent on the aircraft's Flight Control System to ensure synchronized energy management.",
+        "relationshipType": "dependency",
+        "source": "Accumulator Control Module",
+        "target": "Flight Control System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A high-performance energy storage unit that moderates hydraulic pressure and provides rapid release of stored energy during flight operations.",
+        "name": "Accumulator",
+        "subComponents": [
+          {
+            "description": "An advanced piston assembly responsible for converting hydraulic fluid pressure into stored mechanical energy.",
+            "name": "Advanced Piston Assembly",
+            "type": "Mechanical Component"
+          },
+          {
+            "description": "A pressurized gas buffer that maintains baseline pressure and absorbs shock from rapid system surges.",
+            "name": "Pressurized Gas Buffer",
+            "type": "Safety Component"
+          },
+          {
+            "description": "A smart control valve module that regulates the flow of hydraulic fluid to ensure accurate energy release.",
+            "name": "Control Valve Module",
+            "type": "Control Component"
+          },
+          {
+            "description": "A structural mounting frame designed for secure integration within the aircraft's hydraulic system, ensuring robustness and vibration resistance.",
+            "name": "Structural Mounting Frame",
+            "type": "Support Component"
+          }
+        ],
+        "type": "Energy Storage Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "A1",
+          "name": "Backup Operation Activity",
+          "type": "Activity"
+        }
+      ],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [],
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Energy Storage System",
+          "operationIds": [],
+          "partIds": [
+            "P1",
+            "P2"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Battery Cell Array",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Battery Management Controller",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [],
+      "compositions": [
+        {
+          "id": "C1",
+          "memberEndIds": [],
+          "name": "Energy Storage System Composition",
+          "ownedEndIds": [
+            "P1",
+            "P2"
+          ],
+          "sourceId": "B1",
+          "sourceMultiplicity": "1",
+          "targetId": "B1",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        }
+      ],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "Voltage must be maintained within ±5% of the nominal value.",
+          "id": "CB1",
+          "name": "Voltage Stability Constraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [],
+      "controlFlows": [],
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": [],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [
+        {
+          "id": "P1",
+          "name": "Battery Cell Array Part",
+          "of": "B2",
+          "type": "Part"
+        },
+        {
+          "id": "P2",
+          "name": "Battery Management Controller Part",
+          "of": "B3",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B2",
+          "flowSpecificationId": null,
+          "id": "Port1",
+          "isConjugated": false,
+          "name": "Cell Array Output Port",
+          "portType": "flow",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B3",
+          "flowSpecificationId": null,
+          "id": "Port2",
+          "isConjugated": false,
+          "name": "Controller Control Port",
+          "portType": "proxy",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "R1",
+          "name": "Backup Energy Requirement",
+          "reqId": "REQ-001",
+          "text": "The system shall provide backup electrical energy during main power failures.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R2",
+          "name": "Aviation Safety Requirement",
+          "reqId": "REQ-002",
+          "text": "The system shall adhere to stringent aviation safety standards.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [],
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "S1",
+          "name": "Idle State",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "S2",
+          "name": "Charging State",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "S3",
+          "name": "Discharging State",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "S4",
+          "name": "Fault State",
+          "type": "State"
+        }
+      ],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": []
+    }
+  },
+  "rag_context": "The Energy Storage System is designed to provide backup electrical energy to ensure uninterrupted operation during main power failures. It consists of a \"Battery Cell Array\" which is an array of high-performance battery cells designed for robust discharge and long lifecycle, and a \"Battery Management Controller\" which oversees charging cycles and ensures safe operation. The system is engineered with advanced battery cell chemistry and intelligent management protocols to guarantee rapid response, stable voltage supply, and adherence to stringent aviation safety standards.",
+  "timestamp": "20250325_201721",
+  "provider": "gpt"
+}

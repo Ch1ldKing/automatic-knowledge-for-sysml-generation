@@ -1,0 +1,377 @@
+{
+  "system_id": "pressurization_system",
+  "system_name": "Pressurization System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Cabin pressure range maintained by the system ensuring optimal comfort and structural integrity.",
+        "name": "pressureRange",
+        "type": "string",
+        "value": "0.8 atm - 1.2 atm"
+      },
+      {
+        "description": "Maximum allowable delay for the pressurization system to adjust pressure levels.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 3 seconds"
+      },
+      {
+        "description": "Redundancy configuration for pressure measurement ensuring backup sensor data availability.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual redundancy"
+      },
+      {
+        "description": "Operational altitude range within which the pressurization system maintains effective performance.",
+        "name": "operationalAltitude",
+        "type": "string",
+        "value": "0 - 40000 ft"
+      },
+      {
+        "description": "Scheduled maintenance interval to ensure system reliability and longevity.",
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "500 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Pressurization System is a critical subsystem in modern aircraft designed to maintain a safe and comfortable cabin pressure environment throughout all phases of flight. By dynamically regulating the differential pressure, the system simulates a sea-level environment regardless of external altitude and weather conditions. It integrates advanced sensors, automated valve control, and redundant safety mechanisms to promptly adjust pressure deviations and prevent potential structural or passenger safety risks.",
+      "name": "Pressurization System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall continuously monitor cabin pressure and adjust valve positions to maintain pressure between 0.8 atm and 1.2 atm."
+            }
+          ],
+          "title": "Cabin Pressure Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "System response to pressure deviations must be executed within 3 seconds to prevent discomfort and structural imbalances."
+            }
+          ],
+          "title": "Rapid Response Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "The pressurization system shall employ redundant pressure sensors and include an emergency overpressure relief mechanism to mitigate potential cabin over-pressurization."
+            }
+          ],
+          "title": "Safety Redundancy and Emergency Relief",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system design must facilitate ease of maintenance and modular upgrades, ensuring minimal downtime and alignment with aviation engineering standards."
+            }
+          ],
+          "title": "Maintainability and Modularity",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Unit processes sensor inputs from the Pressure Regulation Unit to dynamically adjust cabin pressure.",
+        "relationshipType": "association",
+        "source": "Control Unit",
+        "target": "Pressure Regulation Unit"
+      },
+      {
+        "description": "The Pressure Regulation Unit depends on the Control Unit for issuing commands to its valve control mechanisms.",
+        "relationshipType": "dependency",
+        "source": "Pressure Regulation Unit",
+        "target": "Control Unit"
+      },
+      {
+        "description": "The Emergency Safety Module is composed of the Overpressure Relief Valve, ensuring rapid pressure mitigation during emergency conditions.",
+        "relationshipType": "composition",
+        "source": "Emergency Safety Module",
+        "target": "Overpressure Relief Valve"
+      },
+      {
+        "description": "The Pressure Regulation Unit aggregates the Emergency Safety Module to seamlessly integrate safety functions within the pressurization system.",
+        "relationshipType": "aggregation",
+        "source": "Pressure Regulation Unit",
+        "target": "Emergency Safety Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central processing component for the pressurization system that monitors sensor inputs and issues control commands.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "User interface module providing real-time pressure data and system status for flight crew.",
+            "name": "User Interface Module",
+            "type": "Display Unit"
+          },
+          {
+            "description": "Data processing module that runs pressure control algorithms and diagnostic routines.",
+            "name": "Data Processing Module",
+            "type": "Controller"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Subsystem responsible for managing the regulation of cabin pressure through sensors and valves.",
+        "name": "Pressure Regulation Unit",
+        "subComponents": [
+          {
+            "description": "Pressure regulator actuator that adjusts the airflow to maintain desired cabin pressure.",
+            "name": "Pressure Regulator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Sensor measuring external inlet air pressure to assist in regulation.",
+            "name": "Inlet Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Sensor monitoring the cabin pressure in real-time.",
+            "name": "Cabin Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Valve control assembly managing the opening and closing of pressure control valves.",
+            "name": "Valve Control Assembly",
+            "type": "Controller"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Safety module that provides emergency pressure relief in case of system failure or over-pressurization.",
+        "name": "Emergency Safety Module",
+        "subComponents": [
+          {
+            "description": "Overpressure relief valve designed to activate automatically during pressure anomalies.",
+            "name": "Overpressure Relief Valve",
+            "type": "Safety Device"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "An integrated suite of pressure sensors dedicated to accurate and redundant pressure measurement.",
+        "name": "Pressure Sensor Module",
+        "subComponents": [
+          {
+            "description": "Primary pressure sensor ensuring continuous monitoring of cabin pressure.",
+            "name": "Primary Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Secondary (redundant) pressure sensor providing backup measurements.",
+            "name": "Secondary Pressure Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc1",
+          "memberEndIds": [
+            "port1",
+            "port2"
+          ],
+          "name": "connection",
+          "ownedEndIds": [
+            "owned_port1",
+            "owned_port2"
+          ],
+          "sourceId": "block1",
+          "sourceMultiplicity": "1",
+          "targetId": "block2",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr1",
+            "attr2"
+          ],
+          "constraintIds": [
+            "constraint1"
+          ],
+          "id": "block1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Pressurization System",
+          "operationIds": [
+            "op1"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "value1",
+            "value2"
+          ]
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "block1"
+          ],
+          "id": "constraint1",
+          "name": "OperPressureReq",
+          "specification": "Operational pressure should be maintained between 8 and 12 psi.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": [
+            "attr1",
+            "attr2"
+          ],
+          "blockId": "block1",
+          "flowSpecificationId": "spec1",
+          "id": "port1",
+          "isConjugated": false,
+          "name": "InputPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": [
+            "attr1"
+          ],
+          "dataType": "PressureData",
+          "flowType": "InformationFlow",
+          "id": "spec1",
+          "name": "PressureSpecification",
+          "type": "FlowSpecification",
+          "unit": "psi"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": [
+            "attr1",
+            "attr3"
+          ],
+          "constraintIds": [
+            "constraint1"
+          ],
+          "id": "block2",
+          "name": "Pressure Valve",
+          "operationIds": [
+            "op2"
+          ],
+          "signalIds": [
+            "signal1"
+          ],
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "11",
+          "id": "param1",
+          "name": "PressureValue",
+          "parameterType": "Double",
+          "type": "Parameter"
+        }
+      ],
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": [
+            "attr1",
+            "attr2"
+          ],
+          "blockId": "block2",
+          "flowSpecificationId": "spec1",
+          "id": "port2",
+          "isConjugated": false,
+          "name": "OutputPort",
+          "portType": "full",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req1",
+          "name": "PressureRegulation",
+          "reqId": "REQ-001",
+          "text": "The system shall regulate pressure to stay between 8 and 12 psi.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value1",
+          "name": "Pressure",
+          "quantityKindId": "quantity1",
+          "type": "ValueType",
+          "unitId": "unit1"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250326_181501",
+  "provider": "gpt"
+}

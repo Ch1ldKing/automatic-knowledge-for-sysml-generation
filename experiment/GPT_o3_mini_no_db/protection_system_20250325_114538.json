@@ -1,0 +1,523 @@
+{
+  "system_id": "protection_system",
+  "system_name": "Protection System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum allowable response time for threat detection and alert activation in emergency security situations.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "3 seconds"
+      },
+      {
+        "description": "Operational temperature range to ensure sensor and electronics performance under various environmental conditions.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-30°C to 80°C"
+      },
+      {
+        "description": "System redundancy level to guarantee continuous protection without single point failures.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Quad redundant systems"
+      },
+      {
+        "description": "Mean Time Between Failures (MTBF) for the protection system ensuring high reliability.",
+        "name": "MTBF",
+        "type": "string",
+        "value": "25000 hours"
+      },
+      {
+        "description": "Backup power specifications ensuring continuous operation during primary power loss.",
+        "name": "powerBackup",
+        "type": "string",
+        "value": "Integrated dual power supply with lithium-ion battery backup"
+      },
+      {
+        "description": "Data encryption level ensuring secure communication and sensor data integrity.",
+        "name": "encryptionLevel",
+        "type": "string",
+        "value": "AES-256"
+      }
+    ],
+    "designScenario": {
+      "description": "The Protection System is a comprehensive security framework for passenger airplanes aimed at detecting, preventing, and mitigating unauthorized access, sabotage, and potential external threats. This system integrates advanced sensor technologies, biometric access control, and real-time threat analysis, ensuring immediate activation of emergency protocols and secure communication between flight deck, maintenance, and ground control. Leveraging redundant modules and robust cyber-security measures, the system is engineered following stringent airplane engineering standards and safety regulations.",
+      "name": "Protection System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Continuously monitor environmental conditions and detect unauthorized access or suspicious activities using multiple sensor arrays."
+            },
+            {
+              "description": "Automatically trigger alerts and lock-down protocols upon detection of security breaches."
+            }
+          ],
+          "title": "Real-Time Threat Detection",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure threat detection and alert generation within 3 seconds of anomaly detection."
+            },
+            {
+              "description": "Process sensor data from multiple modules concurrently with minimal latency."
+            }
+          ],
+          "title": "High-Speed Data Processing",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain system integrity under component failures by activating redundant modules automatically."
+            },
+            {
+              "description": "Integrate fail-safe mechanisms to isolate compromised modules and prevent cascading failures."
+            }
+          ],
+          "title": "Fail-Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide secure, intuitive interfaces for flight crew and security personnel featuring real-time status updates."
+            },
+            {
+              "description": "Ensure the system is maintainable through regular self-diagnostics, remote firmware updates, and cybersecurity patches."
+            }
+          ],
+          "title": "Interface & Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Threat Detection Unit aggregates input data from the Security Surveillance Module sensors to monitor for potential security breaches.",
+        "relationshipType": "aggregation",
+        "source": "Threat Detection Unit",
+        "target": "Security Surveillance Module"
+      },
+      {
+        "description": "The Emergency Response Coordination Module is associated with the Threat Detection Unit, facilitating immediate alert dissemination and command actions.",
+        "relationshipType": "association",
+        "source": "Emergency Response Coordination Module",
+        "target": "Threat Detection Unit"
+      },
+      {
+        "description": "The Access Control Module depends on data from the Threat Detection Unit to authorize or deny access in real-time, ensuring system integrity.",
+        "relationshipType": "dependency",
+        "source": "Access Control Module",
+        "target": "Threat Detection Unit"
+      },
+      {
+        "description": "The Power Backup Module is composed of dedicated Battery Module and Dual Power Module to ensure continuous operation of the Protection System.",
+        "relationshipType": "composition",
+        "source": "Power Backup Module",
+        "target": "Battery Module"
+      },
+      {
+        "description": "The Power Backup Module is composed of dedicated Battery Module and Dual Power Module to ensure continuous operation of the Protection System.",
+        "relationshipType": "composition",
+        "source": "Power Backup Module",
+        "target": "Dual Power Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Centralized unit that processes input from various threat sensors and initiates immediate protective measures. It serves as the brain of the Protection System.",
+        "name": "Threat Detection Unit",
+        "subComponents": [
+          {
+            "description": "Infrared sensor array to detect unusual heat signatures indicative of external threats or tampering.",
+            "name": "Infrared Sensor Array",
+            "type": "Sensor"
+          },
+          {
+            "description": "Acoustic sensors to pick up anomalous sounds or potential breaches in the aircraft hull.",
+            "name": "Acoustic Sensor Module",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Electronic Control Module"
+      },
+      {
+        "description": "Module responsible for continuous surveillance using optical and radar technologies, monitoring both internal and external environments.",
+        "name": "Security Surveillance Module",
+        "subComponents": [
+          {
+            "description": "Optical cameras designed for low-light conditions with high-resolution imaging capabilities.",
+            "name": "Optical Camera System",
+            "type": "Sensor"
+          },
+          {
+            "description": "Radar sensors to monitor external movements and detect approaching objects.",
+            "name": "Radar Sensor Array",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Ensures controlled access to sensitive areas of the aircraft by integrating biometric verification and electronic locking mechanisms.",
+        "name": "Access Control Module",
+        "subComponents": [
+          {
+            "description": "Biometric scanner for verifying authorized personnel using fingerprint and iris recognition.",
+            "name": "Biometric Scanner",
+            "type": "Sensor"
+          },
+          {
+            "description": "Electronic locking system that can automatically engage in response to detected security threats.",
+            "name": "Electronic Locking Mechanism",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Security Module"
+      },
+      {
+        "description": "Coordinates immediate emergency responses by communicating system status and alerts to the flight deck and security teams.",
+        "name": "Emergency Response Coordination Module",
+        "subComponents": [
+          {
+            "description": "Audio-visual alert system providing real-time notifications to crew and security personnel.",
+            "name": "Alert Notification System",
+            "type": "Interface"
+          },
+          {
+            "description": "Command panel for manual override and system diagnostics during emergencies.",
+            "name": "Command and Control Panel",
+            "type": "Display"
+          }
+        ],
+        "type": "Control Module"
+      },
+      {
+        "description": "Provides uninterrupted power supply to the Protection System ensuring full operational capability during primary power losses.",
+        "name": "Power Backup Module",
+        "subComponents": [
+          {
+            "description": "Battery unit engineered for high surge outputs during critical emergency operations.",
+            "name": "Battery Module",
+            "type": "Power Unit"
+          },
+          {
+            "description": "Dual-input power converter that facilitates seamless transition between main power and backup sources.",
+            "name": "Dual Power Module",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Power Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_PS_status",
+            "attr_PS_mode"
+          ],
+          "constraintIds": null,
+          "id": "PS001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Airplane Protection System",
+          "operationIds": [
+            "OP_PS_Activate",
+            "OP_PS_Deactivate"
+          ],
+          "partIds": [
+            "PS_FD001",
+            "PS_LP001",
+            "PS_SEC001",
+            "PS_HM001"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_FD_Sensitivity"
+          ],
+          "constraintIds": null,
+          "id": "PS_FD001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Fire Detection Subsystem",
+          "operationIds": [
+            "OP_FD_Detect"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_LP_EffectiveArea"
+          ],
+          "constraintIds": null,
+          "id": "PS_LP001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Lightning Protection Subsystem",
+          "operationIds": [
+            "OP_LP_ShuntLightning"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_SEC_EncryptionLevel"
+          ],
+          "constraintIds": null,
+          "id": "PS_SEC001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Security Subsystem",
+          "operationIds": [
+            "OP_SEC_Monitor"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_HM_ResponseTime"
+          ],
+          "constraintIds": null,
+          "id": "PS_HM001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Hazard Monitoring Subsystem",
+          "operationIds": [
+            "OP_HM_Monitor"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "PS001",
+          "body": "Protection System design based on aerospace standards. It integrates fire detection, lightning protection, security monitoring, and hazard monitoring mechanisms to ensure aircraft safety.",
+          "id": "CMT001",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "ProtectionResponseTime <= 2.0",
+          "id": "CB001",
+          "name": "Protection System Constraints",
+          "parameterIds": [
+            "param_MaxResponseTime"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "ENUM001",
+          "literals": [
+            {
+              "id": "LIT1",
+              "name": "Standby"
+            },
+            {
+              "id": "LIT2",
+              "name": "Active"
+            },
+            {
+              "id": "LIT3",
+              "name": "Emergency"
+            }
+          ],
+          "name": "ProtectionModeEnum",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "ProtectionData",
+          "flowType": "informationFlow",
+          "id": "DFS001",
+          "name": "Protection Data Flow Specification",
+          "type": "FlowSpecification",
+          "unit": "none"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "PI001",
+          "name": "Protection Interface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": null,
+          "id": "IProt001",
+          "name": "IProtection",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "2.0",
+          "id": "param_MaxResponseTime",
+          "name": "MaxResponseTime",
+          "parameterType": "Double",
+          "type": "Parameter"
+        }
+      ],
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "PS001",
+          "flowSpecificationId": "DFS001",
+          "id": "PF001",
+          "isConjugated": false,
+          "name": "Protection Data Port",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "PS001",
+          "flowSpecificationId": null,
+          "id": "PP001",
+          "isConjugated": false,
+          "name": "Protection Control Port",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "PI001"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "PS001",
+          "flowSpecificationId": null,
+          "id": "PPROX001",
+          "isConjugated": false,
+          "name": "Protection Sensor Port",
+          "portType": "proxy",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "PI001"
+          ],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": [
+        {
+          "id": "REAL001",
+          "name": "Protection Interface Realization",
+          "sourceId": "PS001",
+          "sourceMultiplicity": null,
+          "targetId": "IProt001",
+          "targetMultiplicity": null,
+          "type": "Realization"
+        }
+      ],
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "REQ001",
+          "name": "Protection System Requirement",
+          "reqId": "REQ_PS_001",
+          "text": "The Protection System shall respond to critical events within 2 seconds.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": null,
+          "id": "UC001",
+          "name": "Protection System Use Case",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT001",
+          "name": "ProtectionResponseTime",
+          "quantityKindId": "QK_ResponseTime",
+          "type": "ValueType",
+          "unitId": "s"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_114538"
+}

@@ -1,0 +1,648 @@
+{
+  "system_id": "leading_edge_device_system",
+  "system_name": "Leading Edge Device System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Time required to fully extend or retract the leading edge devices for optimal aerodynamic performance.",
+        "name": "extensionSpeed",
+        "type": "string",
+        "value": "<100ms"
+      },
+      {
+        "description": "Precision in the positioning of the deployed devices to ensure the intended lift and stall margin improvements.",
+        "name": "deploymentAccuracy",
+        "type": "string",
+        "value": "±0.1°"
+      },
+      {
+        "description": "Utilization of high-grade composite materials to ensure structural durability under aerodynamic loads.",
+        "name": "materialDurability",
+        "type": "string",
+        "value": "High-grade composites with >1500 MPa tensile strength"
+      },
+      {
+        "description": "Environmental operating range including temperature extremes and corrosion resistance features.",
+        "name": "operatingEnv",
+        "type": "string",
+        "value": "-40°C to +85°C; corrosion-resistant coatings applied"
+      }
+    ],
+    "designScenario": {
+      "description": "The Leading Edge Device System is designed to enhance the aerodynamic efficiency of the aircraft during critical low-speed phases such as takeoff and landing. This system integrates deployable slats and Krueger flaps along the wing's leading edge to optimize lift, delay stall, and maintain controllability. The design emphasizes rapid actuation, precise deployment, and robust fail-safe mechanisms through the integration of advanced actuator modules, sensors, and control interfaces. It addresses the challenges of varying aerodynamic loads and harsh environmental conditions using durable materials and redundant control to ensure maximum safety and performance.",
+      "name": "Leading Edge Device System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Deploy and retract leading edge devices (slats and flaps) in synchronization with cockpit commands to optimize lift and stall performance."
+            }
+          ],
+          "title": "Functional Deployment",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve actuation and deployment within less than 100 milliseconds to ensure rapid aerodynamic response during critical flight phases."
+            }
+          ],
+          "title": "Rapid Actuation Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate redundant sensors and actuator mechanisms to ensure safe operation and a fail-safe reversion mode in the event of system faults."
+            }
+          ],
+          "title": "Redundancy and Fail-Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Utilize corrosion-resistant materials and modular design to minimize maintenance downtime and ensure long-term durability."
+            }
+          ],
+          "title": "Durability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Interface Module issues deployment commands and receives feedback from the Leading Edge Device Assembly to ensure synchronized actuation with overall flight control systems.",
+        "relationshipType": "dependency",
+        "source": "Control Interface Module",
+        "target": "Leading Edge Device Assembly"
+      },
+      {
+        "description": "The Leading Edge Device Assembly aggregates multiple aerodynamic devices and control units (Left Slat, Right Slat, Krueger Flap, and Actuation Module) to function as a cohesive high-lift system.",
+        "relationshipType": "aggregation",
+        "source": "Leading Edge Device Assembly",
+        "target": "Left Slat, Right Slat, Krueger Flap, Actuation Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary assembly responsible for the controlled deployment and retraction of aerodynamically optimized devices along the wing's leading edge, crucial for enhancing lift characteristics.",
+        "name": "Leading Edge Device Assembly",
+        "subComponents": [
+          {
+            "description": "Left Slat enhances lift by extending the leading edge surface on the left wing, reducing airflow separation and delaying stall.",
+            "name": "Left Slat",
+            "type": "Aerodynamic Device"
+          },
+          {
+            "description": "Right Slat provides increased lift and improved airflow management on the right wing, ensuring balanced aerodynamic performance.",
+            "name": "Right Slat",
+            "type": "Aerodynamic Device"
+          },
+          {
+            "description": "Krueger Flap deploys inward from the wing leading edge to further augment lift during low-speed operations, particularly during takeoff and landing.",
+            "name": "Krueger Flap",
+            "type": "Aerodynamic Device"
+          },
+          {
+            "description": "Actuation Module integrates sensors and electromechanical actuators to control the precise timing and positioning of the leading edge devices.",
+            "name": "Actuation Module",
+            "type": "Control System"
+          }
+        ],
+        "type": "High Lift Assembly"
+      },
+      {
+        "description": "The module that interfaces with the aircraft's flight control computer, translating pilot inputs into actuation commands for the Leading Edge Device Assembly.",
+        "name": "Control Interface Module",
+        "subComponents": null,
+        "type": "Control Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "0.0",
+          "id": "ATTR-MASS-001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "systemMass",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "1200.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.0",
+          "id": "ATTR-POWER-001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "powerConsumption",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "500.0",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "ATTR-MASS-001",
+            "ATTR-POWER-001"
+          ],
+          "constraintIds": null,
+          "id": "B-LED-001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Leading Edge Device System",
+          "operationIds": [
+            "OP-LED-ACTIVATE",
+            "OP-LED-DEACTIVATE"
+          ],
+          "partIds": [
+            "B-LED-ACT-001",
+            "B-LED-SEN-001",
+            "B-LED-CON-001",
+            "B-LED-PWR-001",
+            "B-LED-STR-001"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR-ACTUATION-FORCE"
+          ],
+          "constraintIds": null,
+          "id": "B-LED-ACT-001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Actuation Subsystem",
+          "operationIds": [
+            "OP-ACT-DEPLOY"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR-SENSOR-ACCURACY"
+          ],
+          "constraintIds": null,
+          "id": "B-LED-SEN-001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Sensing Subsystem",
+          "operationIds": [
+            "OP-SEN-CALIBRATE"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR-CONTROL-ALGO"
+          ],
+          "constraintIds": null,
+          "id": "B-LED-CON-001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Control Subsystem",
+          "operationIds": [
+            "OP-CON-UPDATE"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR-PWR-VOLTAGE"
+          ],
+          "constraintIds": null,
+          "id": "B-LED-PWR-001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Power Subsystem",
+          "operationIds": [
+            "OP-PWR-STABILIZE"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR-STRUCTURAL-INTEGRITY"
+          ],
+          "constraintIds": null,
+          "id": "B-LED-STR-001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Structural Subsystem",
+          "operationIds": [
+            "OP-STR-VERIFY"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B-LED-001",
+          "body": "The Leading Edge Device System is designed to manage aerodynamic surfaces, integrating actuation, sensors, control logic, power supply, and structural integrity. It complies with aerospace standards and includes robust interfaces and control mechanisms.",
+          "id": "CMT-LED-001",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "CONN-LED-COMM-001",
+          "kind": "delegation",
+          "name": "Control Signal Connector",
+          "source": "P-LED-CON-001",
+          "target": "P-LED-ACT-001",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": [
+            "ATTR-MAX-ACTUATION-FORCE",
+            "ATTR-MIN-RESPONSE-TIME"
+          ],
+          "expression": "maxActuationForce <= 1000 and responseTime <= 0.5",
+          "id": "CB-LED-001",
+          "name": "LESys_Constraints",
+          "parameterIds": [
+            "PARAM-MAX-ACTUATION-FORCE",
+            "PARAM-MIN-RESPONSE-TIME"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": [
+        {
+          "guard": "systemInitialized",
+          "id": "CF-LED-CTRL-001",
+          "name": "Activation Control Flow",
+          "sourceId": "B-LED-CON-001",
+          "targetId": "B-LED-ACT-001",
+          "type": "ControlFlow"
+        }
+      ],
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "ENUM-DEVSTATUS-001",
+          "literals": [
+            {
+              "id": "LIT-STATUS-ON",
+              "name": "On"
+            },
+            {
+              "id": "LIT-STATUS-OFF",
+              "name": "Off"
+            },
+            {
+              "id": "LIT-STATUS-STANDBY",
+              "name": "Standby"
+            }
+          ],
+          "name": "DeviceStatusEnum",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "B-LED-001",
+          "flowSpecificationId": "FS-LED-SENSOR-001",
+          "id": "FP-LED-SENSOR-001",
+          "isConjugated": false,
+          "name": "SensorDataPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "Double",
+          "flowType": "information",
+          "id": "FS-LED-SENSOR-001",
+          "name": "SensorDataFlowSpec",
+          "type": "FlowSpecification",
+          "unit": "m/s"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "B-LED-001",
+          "id": "P-LED-CON-001",
+          "isConjugated": false,
+          "name": "CommandPort",
+          "providedInterfaceIds": [
+            "I-LEC-001"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "IB-LED-INT-001",
+          "name": "LeadingEdgeInterfaceBlock",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "IR-LED-001",
+          "name": "ControlInterfaceRealization",
+          "sourceId": "B-LED-CON-001",
+          "targetId": "IB-LED-INT-001",
+          "type": "InterfaceRealization"
+        }
+      ],
+      "interfaces": [
+        {
+          "attributeIds": null,
+          "id": "I-LEC-001",
+          "name": "LeadingEdgeControlInterface",
+          "operationIds": [
+            "OP-LED-SET-ANGLE"
+          ],
+          "signalIds": null,
+          "type": "Interface"
+        },
+        {
+          "attributeIds": null,
+          "id": "I-LEP-001",
+          "name": "LeadingEdgePowerInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "LL-LED-001",
+          "name": "LED_Lifeline",
+          "represents": "B-LED-001",
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": [
+        {
+          "guard": null,
+          "id": "OF-LED-001",
+          "name": "DataObjectFlow",
+          "sourceId": "B-LED-SEN-001",
+          "targetId": "B-LED-CON-001",
+          "type": "ObjectFlow"
+        }
+      ],
+      "packages": [
+        {
+          "elementImports": [
+            "B-LED-001",
+            "B-LED-ACT-001",
+            "B-LED-SEN-001",
+            "B-LED-CON-001",
+            "B-LED-PWR-001",
+            "B-LED-STR-001"
+          ],
+          "id": "PKG-LED-001",
+          "name": "LeadingEdgeDevicePackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": [
+        {
+          "defaultValue": "1000",
+          "id": "PARAM-MAX-ACTUATION-FORCE",
+          "name": "MaxActuationForce",
+          "parameterType": "Double",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "0.5",
+          "id": "PARAM-MIN-RESPONSE-TIME",
+          "name": "MinResponseTime",
+          "parameterType": "Double",
+          "type": "Parameter"
+        }
+      ],
+      "parts": [
+        {
+          "id": "PART-LED-ACT",
+          "name": "Actuator",
+          "of": "B-LED-ACT-001",
+          "type": "Part"
+        },
+        {
+          "id": "PART-LED-SEN",
+          "name": "Sensor",
+          "of": "B-LED-SEN-001",
+          "type": "Part"
+        },
+        {
+          "id": "PART-LED-CON",
+          "name": "Controller",
+          "of": "B-LED-CON-001",
+          "type": "Part"
+        },
+        {
+          "id": "PART-LED-PWR",
+          "name": "PowerUnit",
+          "of": "B-LED-PWR-001",
+          "type": "Part"
+        },
+        {
+          "id": "PART-LED-STR",
+          "name": "StructuralMember",
+          "of": "B-LED-STR-001",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B-LED-001",
+          "flowSpecificationId": null,
+          "id": "P-LED-MNT-001",
+          "isConjugated": false,
+          "name": "MaintenanceInterfacePort",
+          "portType": "proxy",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "I-LEP-001"
+          ],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "B-LED-001",
+          "id": "PP-LED-001",
+          "isConjugated": false,
+          "name": "DiagnosticProxyPort",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "I-LEC-001"
+          ],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": [
+        {
+          "id": "REAL-LED-001",
+          "name": "PowerInterfaceRealization",
+          "sourceId": "B-LED-PWR-001",
+          "sourceMultiplicity": null,
+          "targetId": "I-LEP-001",
+          "targetMultiplicity": null,
+          "type": "Realization"
+        }
+      ],
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "REQ-LED-001",
+          "name": "AerospaceComplianceRequirement",
+          "reqId": "REQ-AC-001",
+          "text": "The Leading Edge Device System must adhere to aerospace performance standards including weight, response time, and force constraints.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [
+        {
+          "attributeIds": null,
+          "id": "SIG-LED-001",
+          "name": "StatusUpdateSignal",
+          "parameterIds": null,
+          "type": "Signal"
+        }
+      ],
+      "states": [
+        {
+          "attributeIds": null,
+          "id": "STATE-LED-001",
+          "name": "OperationalState",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": "activateSubsystems()",
+          "guard": "systemNotActive",
+          "id": "TRANS-LED-001",
+          "name": "ActivateTransition",
+          "sourceId": "STATE-LED-001",
+          "targetId": "STATE-LED-001",
+          "trigger": "startupEvent",
+          "type": "Transition"
+        }
+      ],
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": null,
+          "id": "UC-LED-001",
+          "name": "DeployLeadingEdgeDevices",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT-ANGLE-001",
+          "name": "AngleValueType",
+          "quantityKindId": "QK-ANGLE",
+          "type": "ValueType",
+          "unitId": "UNIT-DEGREE"
+        },
+        {
+          "attributeIds": [],
+          "id": "VT-VOLT-001",
+          "name": "VoltageValueType",
+          "quantityKindId": "QK-VOLTAGE",
+          "type": "ValueType",
+          "unitId": "UNIT-VOLT"
+        },
+        {
+          "attributeIds": [],
+          "id": "VT-FORCE-001",
+          "name": "ForceValueType",
+          "quantityKindId": "QK-FORCE",
+          "type": "ValueType",
+          "unitId": "UNIT-NEWTON"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_113553"
+}

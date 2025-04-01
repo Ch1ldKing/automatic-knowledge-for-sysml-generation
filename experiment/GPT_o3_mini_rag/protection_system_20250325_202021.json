@@ -1,0 +1,472 @@
+{
+  "system_id": "protection_system",
+  "system_name": "Protection System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum allowable response time for threat detection and alert activation in emergency security situations.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "3 seconds"
+      },
+      {
+        "description": "Operational temperature range to ensure sensor and electronics performance under various environmental conditions.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-30°C to 80°C"
+      },
+      {
+        "description": "System redundancy level to guarantee continuous protection without single point failures.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Quad redundant systems"
+      },
+      {
+        "description": "Mean Time Between Failures (MTBF) for the protection system ensuring high reliability.",
+        "name": "MTBF",
+        "type": "string",
+        "value": "25000 hours"
+      },
+      {
+        "description": "Backup power specifications ensuring continuous operation during primary power loss.",
+        "name": "powerBackup",
+        "type": "string",
+        "value": "Integrated dual power supply with lithium-ion battery backup"
+      },
+      {
+        "description": "Data encryption level ensuring secure communication and sensor data integrity.",
+        "name": "encryptionLevel",
+        "type": "string",
+        "value": "AES-256"
+      }
+    ],
+    "designScenario": {
+      "description": "The Protection System is a comprehensive security framework for passenger airplanes aimed at detecting, preventing, and mitigating unauthorized access, sabotage, and potential external threats. This system integrates advanced sensor technologies, biometric access control, and real-time threat analysis, ensuring immediate activation of emergency protocols and secure communication between flight deck, maintenance, and ground control. Leveraging redundant modules and robust cyber-security measures, the system is engineered following stringent airplane engineering standards and safety regulations.",
+      "name": "Protection System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Continuously monitor environmental conditions and detect unauthorized access or suspicious activities using multiple sensor arrays."
+            },
+            {
+              "description": "Automatically trigger alerts and lock-down protocols upon detection of security breaches."
+            }
+          ],
+          "title": "Real-Time Threat Detection",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure threat detection and alert generation within 3 seconds of anomaly detection."
+            },
+            {
+              "description": "Process sensor data from multiple modules concurrently with minimal latency."
+            }
+          ],
+          "title": "High-Speed Data Processing",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain system integrity under component failures by activating redundant modules automatically."
+            },
+            {
+              "description": "Integrate fail-safe mechanisms to isolate compromised modules and prevent cascading failures."
+            }
+          ],
+          "title": "Fail-Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide secure, intuitive interfaces for flight crew and security personnel featuring real-time status updates."
+            },
+            {
+              "description": "Ensure the system is maintainable through regular self-diagnostics, remote firmware updates, and cybersecurity patches."
+            }
+          ],
+          "title": "Interface & Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Threat Detection Unit aggregates input data from the Security Surveillance Module sensors to monitor for potential security breaches.",
+        "relationshipType": "aggregation",
+        "source": "Threat Detection Unit",
+        "target": "Security Surveillance Module"
+      },
+      {
+        "description": "The Emergency Response Coordination Module is associated with the Threat Detection Unit, facilitating immediate alert dissemination and command actions.",
+        "relationshipType": "association",
+        "source": "Emergency Response Coordination Module",
+        "target": "Threat Detection Unit"
+      },
+      {
+        "description": "The Access Control Module depends on data from the Threat Detection Unit to authorize or deny access in real-time, ensuring system integrity.",
+        "relationshipType": "dependency",
+        "source": "Access Control Module",
+        "target": "Threat Detection Unit"
+      },
+      {
+        "description": "The Power Backup Module is composed of dedicated Battery Module and Dual Power Module to ensure continuous operation of the Protection System.",
+        "relationshipType": "composition",
+        "source": "Power Backup Module",
+        "target": "Battery Module"
+      },
+      {
+        "description": "The Power Backup Module is composed of dedicated Battery Module and Dual Power Module to ensure continuous operation of the Protection System.",
+        "relationshipType": "composition",
+        "source": "Power Backup Module",
+        "target": "Dual Power Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Centralized unit that processes input from various threat sensors and initiates immediate protective measures. It serves as the brain of the Protection System.",
+        "name": "Threat Detection Unit",
+        "subComponents": [
+          {
+            "description": "Infrared sensor array to detect unusual heat signatures indicative of external threats or tampering.",
+            "name": "Infrared Sensor Array",
+            "type": "Sensor"
+          },
+          {
+            "description": "Acoustic sensors to pick up anomalous sounds or potential breaches in the aircraft hull.",
+            "name": "Acoustic Sensor Module",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Electronic Control Module"
+      },
+      {
+        "description": "Module responsible for continuous surveillance using optical and radar technologies, monitoring both internal and external environments.",
+        "name": "Security Surveillance Module",
+        "subComponents": [
+          {
+            "description": "Optical cameras designed for low-light conditions with high-resolution imaging capabilities.",
+            "name": "Optical Camera System",
+            "type": "Sensor"
+          },
+          {
+            "description": "Radar sensors to monitor external movements and detect approaching objects.",
+            "name": "Radar Sensor Array",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Ensures controlled access to sensitive areas of the aircraft by integrating biometric verification and electronic locking mechanisms.",
+        "name": "Access Control Module",
+        "subComponents": [
+          {
+            "description": "Biometric scanner for verifying authorized personnel using fingerprint and iris recognition.",
+            "name": "Biometric Scanner",
+            "type": "Sensor"
+          },
+          {
+            "description": "Electronic locking system that can automatically engage in response to detected security threats.",
+            "name": "Electronic Locking Mechanism",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Security Module"
+      },
+      {
+        "description": "Coordinates immediate emergency responses by communicating system status and alerts to the flight deck and security teams.",
+        "name": "Emergency Response Coordination Module",
+        "subComponents": [
+          {
+            "description": "Audio-visual alert system providing real-time notifications to crew and security personnel.",
+            "name": "Alert Notification System",
+            "type": "Interface"
+          },
+          {
+            "description": "Command panel for manual override and system diagnostics during emergencies.",
+            "name": "Command and Control Panel",
+            "type": "Display"
+          }
+        ],
+        "type": "Control Module"
+      },
+      {
+        "description": "Provides uninterrupted power supply to the Protection System ensuring full operational capability during primary power losses.",
+        "name": "Power Backup Module",
+        "subComponents": [
+          {
+            "description": "Battery unit engineered for high surge outputs during critical emergency operations.",
+            "name": "Battery Module",
+            "type": "Power Unit"
+          },
+          {
+            "description": "Dual-input power converter that facilitates seamless transition between main power and backup sources.",
+            "name": "Dual Power Module",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Power Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "A1_FaultDetection",
+          "name": "Fault Detection Activity",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": [],
+          "id": "A2_SurgeClamping",
+          "name": "Surge Clamping Activity",
+          "type": "Activity"
+        }
+      ],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [],
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B1_PSys",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Protection System",
+          "operationIds": [],
+          "partIds": [
+            "P1_CircuitProtPart",
+            "P2_SurgeProtPart"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B2_CircuitProtUnit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Circuit Protection Unit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B3_SurgeProtector",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Surge Protector",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [],
+      "compositions": [],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "(CircuitActivationTime <= 10ms) and (SurgeClampingTime <= 5ms)",
+          "id": "CB1_TimingConstraint",
+          "name": "Timing Constraints for Protective Actions",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [],
+      "controlFlows": [],
+      "dependencies": [
+        {
+          "id": "D1_CPU_ProtectionRequirement",
+          "name": "Circuit Protection requirement dependency",
+          "sourceId": "R1_CircuitProtectionTiming",
+          "sourceMultiplicity": null,
+          "targetId": "B2_CircuitProtUnit",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        },
+        {
+          "id": "D2_SP_ProtectionRequirement",
+          "name": "Surge Protector requirement dependency",
+          "sourceId": "R3_SurgeClampingTiming",
+          "sourceMultiplicity": null,
+          "targetId": "B3_SurgeProtector",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        },
+        {
+          "id": "D3_AviationSafety",
+          "name": "Aviation safety compliance dependency",
+          "sourceId": "R4_AviationSafety",
+          "sourceMultiplicity": null,
+          "targetId": "B1_PSys",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        },
+        {
+          "id": "D4_LRUCompatibility",
+          "name": "LRU compatibility dependency",
+          "sourceId": "R5_LRUCompatibility",
+          "sourceMultiplicity": null,
+          "targetId": "B3_SurgeProtector",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": [],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [
+        {
+          "id": "P1_CircuitProtPart",
+          "name": "Circuit Protection Unit Part",
+          "of": "B2_CircuitProtUnit",
+          "type": "Part"
+        },
+        {
+          "id": "P2_SurgeProtPart",
+          "name": "Surge Protector Part",
+          "of": "B3_SurgeProtector",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B2_CircuitProtUnit",
+          "flowSpecificationId": null,
+          "id": "Port_CPU_Control",
+          "isConjugated": false,
+          "name": "Control Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B3_SurgeProtector",
+          "flowSpecificationId": null,
+          "id": "Port_SP_Protection",
+          "isConjugated": false,
+          "name": "Protection Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "R1_CircuitProtectionTiming",
+          "name": "Activates protective mechanisms within 10ms",
+          "reqId": "REQ-CP-10ms",
+          "text": "The Circuit Protection Unit must activate protective mechanisms within 10ms of fault detection.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R2_OvercurrentDetection",
+          "name": "Overcurrent and short-circuit detection",
+          "reqId": "REQ-CP-Detection",
+          "text": "The Circuit Protection Unit must detect overcurrent and short-circuit conditions promptly and isolate affected circuits.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R3_SurgeClampingTiming",
+          "name": "Surge clamping within 5ms",
+          "reqId": "REQ-SP-5ms",
+          "text": "The Surge Protector must clamp surge voltage within 5ms of detection.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R4_AviationSafety",
+          "name": "Compliance with aviation safety standards",
+          "reqId": "REQ-AS",
+          "text": "All components must comply with relevant aviation safety standards.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R5_LRUCompatibility",
+          "name": "LRU Compatibility",
+          "reqId": "REQ-LRU",
+          "text": "The Surge Protector must ensure compatibility with Line-Replaceable Units (LRUs).",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [],
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "S1_Normal",
+          "name": "Normal Operating",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "S2_Fault",
+          "name": "Fault Detected",
+          "type": "State"
+        }
+      ],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": []
+    }
+  },
+  "rag_context": "The Protection System includes the Circuit Protection Unit and the Surge Protector. The Circuit Protection Unit is designed to safeguard aircraft electrical systems by providing fault detection, current interruption, surge protection, and isolation of faulty circuits. It must detect overcurrent and short-circuit conditions, isolate affected circuits, activate protective mechanisms within 10ms of fault detection, and comply with aviation safety standards. The Surge Protector is engineered to detect and mitigate transient overvoltage events rapidly, achieving surge clamping within 5ms, maintaining consistent protection performance, and incorporating redundant protection features. It must also meet or exceed safety standards and ensure compatibility with Line-Replaceable Units (LRUs).",
+  "timestamp": "20250325_202021",
+  "provider": "gpt"
+}

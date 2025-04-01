@@ -1,0 +1,385 @@
+{
+  "system_id": "de-icing_system",
+  "system_name": "De-Icing System",
+  "specification": {
+    "designScenario": {
+      "name": "De-Icing System",
+      "description": "Basic description of De-Icing System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "A1",
+          "name": "MonitorEnvironment",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": [],
+          "id": "A2",
+          "name": "ActivateDeIcing",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": [],
+          "id": "A3",
+          "name": "FaultIsolationProcedure",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "DeIcingSystem",
+          "operationIds": [],
+          "partIds": [
+            "P1",
+            "P2",
+            "P3",
+            "P4"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ActiveHeater",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AntiIcingLiquidControl",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "SensorNetwork",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B5",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "RedundantControlCircuit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": [
+        {
+          "constrainedElementIds": [],
+          "id": "C1",
+          "name": "DeIcingResponseConstraint",
+          "specification": "ResponseTime < 5 sec",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": [
+        {
+          "classifierId": "B2",
+          "id": "P1",
+          "name": "ActiveHeater_Instance",
+          "slotIds": [],
+          "type": "Instance"
+        },
+        {
+          "classifierId": "B3",
+          "id": "P2",
+          "name": "LiquidControl_Instance",
+          "slotIds": [],
+          "type": "Instance"
+        },
+        {
+          "classifierId": "B4",
+          "id": "P3",
+          "name": "SensorNetwork_Instance",
+          "slotIds": [],
+          "type": "Instance"
+        },
+        {
+          "classifierId": "B5",
+          "id": "P4",
+          "name": "RedundantControlCircuit_Instance",
+          "slotIds": [],
+          "type": "Instance"
+        }
+      ],
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "S1",
+          "name": "Idle",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "S2",
+          "name": "Monitoring",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "S3",
+          "name": "DeIcingActive",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "S4",
+          "name": "FaultIsolation",
+          "represents": null,
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "P1",
+          "name": "ActiveHeater_Part",
+          "of": "B2",
+          "type": "Part"
+        },
+        {
+          "id": "P2",
+          "name": "LiquidControl_Part",
+          "of": "B3",
+          "type": "Part"
+        },
+        {
+          "id": "P3",
+          "name": "SensorNetwork_Part",
+          "of": "B4",
+          "type": "Part"
+        },
+        {
+          "id": "P4",
+          "name": "RedundantControl_Part",
+          "of": "B5",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "Port1",
+          "isConjugated": false,
+          "name": "SensorDataPort",
+          "portType": "flow",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "Port2",
+          "isConjugated": false,
+          "name": "CommandPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "R1",
+          "name": "DetectIceAccumulation",
+          "reqId": "REQ-ICE-01",
+          "text": "System shall detect ice accumulation on critical surfaces including wings, engine inlets, and control surfaces.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R2",
+          "name": "AutomaticActivation",
+          "reqId": "REQ-ACTIVE-01",
+          "text": "Upon detecting ice formation, the system shall automatically activate de-icing measures.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R3",
+          "name": "FastDeIcingResponse",
+          "reqId": "REQ-TIME-01",
+          "text": "The system shall provide de-icing effect within 5 seconds of detection.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R4",
+          "name": "RedundantControl",
+          "reqId": "REQ-REDUNDANCY-01",
+          "text": "The system shall incorporate dual redundant control circuits to ensure reliability during emergencies and sensor failures.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "State1",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "State2",
+          "name": "Monitoring",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "State3",
+          "name": "DeIcingActive",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "State4",
+          "name": "FaultIsolation",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": null,
+          "guard": "systemStart",
+          "id": "T1",
+          "name": "StartMonitoring",
+          "sourceId": "State1",
+          "targetId": "State2",
+          "trigger": "powerOn",
+          "type": "Transition"
+        },
+        {
+          "effect": "activate heaters and liquid control",
+          "guard": "iceDetected",
+          "id": "T2",
+          "name": "BeginDeIcing",
+          "sourceId": "State2",
+          "targetId": "State3",
+          "trigger": "sensorThresholdExceeded",
+          "type": "Transition"
+        },
+        {
+          "effect": "reset control elements",
+          "guard": "deIcingComplete",
+          "id": "T3",
+          "name": "ReturnToMonitoring",
+          "sourceId": "State3",
+          "targetId": "State2",
+          "trigger": "processComplete",
+          "type": "Transition"
+        },
+        {
+          "effect": "isolate faulty sensor and switch to backup",
+          "guard": "sensorFailure",
+          "id": "T4",
+          "name": "InitiateFaultIsolation",
+          "sourceId": "State2",
+          "targetId": "State4",
+          "trigger": "faultDetected",
+          "type": "Transition"
+        }
+      ],
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": [],
+          "id": "UC1",
+          "name": "DeIcingUseCase",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": null
+    }
+  },
+  "rag_context": "De-Icing System是设计用来防止飞机关键部位如机翼、发动机进气口和控制面积积冰的系统。它采用一系列主动加热元件、控制除冰液系统和先进的传感器网络，确保冰雪不会影响飞机的空气动力学和安全性。系统具有实时监测功能，并利用温度和湿度数据的预测能力主动启动防冰措施。系统要求包括检测关键表面上的冰形成，自动激活防冰措施，以及在检测后不到5秒内提供除冰作用等性能要求。此外，系统还需要具备双冗余控制电路，以确保在紧急情况下的可靠性，并在传感器故障时采取备用程序隔离故障组件，而不影响整体系统安全性。",
+  "timestamp": "20250325_204405",
+  "provider": "gpt"
+}

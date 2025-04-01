@@ -1,0 +1,720 @@
+{
+  "system_id": "pressurization_system",
+  "system_name": "Pressurization System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Cabin pressure range maintained by the system ensuring optimal comfort and structural integrity.",
+        "name": "pressureRange",
+        "type": "string",
+        "value": "0.8 atm - 1.2 atm"
+      },
+      {
+        "description": "Maximum allowable delay for the pressurization system to adjust pressure levels.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 3 seconds"
+      },
+      {
+        "description": "Redundancy configuration for pressure measurement ensuring backup sensor data availability.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual redundancy"
+      },
+      {
+        "description": "Operational altitude range within which the pressurization system maintains effective performance.",
+        "name": "operationalAltitude",
+        "type": "string",
+        "value": "0 - 40000 ft"
+      },
+      {
+        "description": "Scheduled maintenance interval to ensure system reliability and longevity.",
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "500 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Pressurization System is a critical subsystem in modern aircraft designed to maintain a safe and comfortable cabin pressure environment throughout all phases of flight. By dynamically regulating the differential pressure, the system simulates a sea-level environment regardless of external altitude and weather conditions. It integrates advanced sensors, automated valve control, and redundant safety mechanisms to promptly adjust pressure deviations and prevent potential structural or passenger safety risks.",
+      "name": "Pressurization System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall continuously monitor cabin pressure and adjust valve positions to maintain pressure between 0.8 atm and 1.2 atm."
+            }
+          ],
+          "title": "Cabin Pressure Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "System response to pressure deviations must be executed within 3 seconds to prevent discomfort and structural imbalances."
+            }
+          ],
+          "title": "Rapid Response Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "The pressurization system shall employ redundant pressure sensors and include an emergency overpressure relief mechanism to mitigate potential cabin over-pressurization."
+            }
+          ],
+          "title": "Safety Redundancy and Emergency Relief",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system design must facilitate ease of maintenance and modular upgrades, ensuring minimal downtime and alignment with aviation engineering standards."
+            }
+          ],
+          "title": "Maintainability and Modularity",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Unit processes sensor inputs from the Pressure Regulation Unit to dynamically adjust cabin pressure.",
+        "relationshipType": "association",
+        "source": "Control Unit",
+        "target": "Pressure Regulation Unit"
+      },
+      {
+        "description": "The Pressure Regulation Unit depends on the Control Unit for issuing commands to its valve control mechanisms.",
+        "relationshipType": "dependency",
+        "source": "Pressure Regulation Unit",
+        "target": "Control Unit"
+      },
+      {
+        "description": "The Emergency Safety Module is composed of the Overpressure Relief Valve, ensuring rapid pressure mitigation during emergency conditions.",
+        "relationshipType": "composition",
+        "source": "Emergency Safety Module",
+        "target": "Overpressure Relief Valve"
+      },
+      {
+        "description": "The Pressure Regulation Unit aggregates the Emergency Safety Module to seamlessly integrate safety functions within the pressurization system.",
+        "relationshipType": "aggregation",
+        "source": "Pressure Regulation Unit",
+        "target": "Emergency Safety Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central processing component for the pressurization system that monitors sensor inputs and issues control commands.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "User interface module providing real-time pressure data and system status for flight crew.",
+            "name": "User Interface Module",
+            "type": "Display Unit"
+          },
+          {
+            "description": "Data processing module that runs pressure control algorithms and diagnostic routines.",
+            "name": "Data Processing Module",
+            "type": "Controller"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Subsystem responsible for managing the regulation of cabin pressure through sensors and valves.",
+        "name": "Pressure Regulation Unit",
+        "subComponents": [
+          {
+            "description": "Pressure regulator actuator that adjusts the airflow to maintain desired cabin pressure.",
+            "name": "Pressure Regulator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Sensor measuring external inlet air pressure to assist in regulation.",
+            "name": "Inlet Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Sensor monitoring the cabin pressure in real-time.",
+            "name": "Cabin Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Valve control assembly managing the opening and closing of pressure control valves.",
+            "name": "Valve Control Assembly",
+            "type": "Controller"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Safety module that provides emergency pressure relief in case of system failure or over-pressurization.",
+        "name": "Emergency Safety Module",
+        "subComponents": [
+          {
+            "description": "Overpressure relief valve designed to activate automatically during pressure anomalies.",
+            "name": "Overpressure Relief Valve",
+            "type": "Safety Device"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "An integrated suite of pressure sensors dedicated to accurate and redundant pressure measurement.",
+        "name": "Pressure Sensor Module",
+        "subComponents": [
+          {
+            "description": "Primary pressure sensor ensuring continuous monitoring of cabin pressure.",
+            "name": "Primary Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Secondary (redundant) pressure sensor providing backup measurements.",
+            "name": "Secondary Pressure Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "10",
+          "id": "attr_desiredCabinPressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "10",
+          "name": "DesiredCabinPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "10",
+          "value": "10",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "12",
+          "id": "attr_maxPressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "12",
+          "name": "MaxCabinPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "12",
+          "value": "12",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "8",
+          "id": "attr_minPressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "8",
+          "name": "MinCabinPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "8",
+          "value": "8",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Idle",
+          "id": "attr_regulationStatus",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "RegulationStatus",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Idle",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10",
+          "id": "attr_targetPressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "10",
+          "name": "TargetPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "10",
+          "value": "10",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10",
+          "id": "attr_currentPressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "10",
+          "name": "CurrentPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "10",
+          "value": "10",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.5",
+          "id": "attr_sensorAccuracy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0.5",
+          "name": "SensorAccuracy",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "0.5",
+          "value": "0.5",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0",
+          "id": "attr_valvePosition",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "ValvePosition",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "0",
+          "value": "0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Closed",
+          "id": "attr_valveStatus",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "ValveStatus",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Closed",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0",
+          "id": "attr_pressureValue",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "PressureValue",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "0",
+          "value": "0",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_desiredCabinPressure",
+            "attr_maxPressure",
+            "attr_minPressure"
+          ],
+          "constraintIds": null,
+          "id": "B_PS_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "PressurizationSystem",
+          "operationIds": [
+            "op_adjustPressure"
+          ],
+          "partIds": [
+            "B_PRU_001",
+            "B_CPS_001",
+            "B_ACV_001",
+            "B_SRV_001"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_regulationStatus",
+            "attr_targetPressure"
+          ],
+          "constraintIds": null,
+          "id": "B_PRU_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "PressureRegulationUnit",
+          "operationIds": [
+            "op_regulatePressure"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_currentPressure",
+            "attr_sensorAccuracy"
+          ],
+          "constraintIds": null,
+          "id": "B_CPS_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CabinPressureSensor",
+          "operationIds": [
+            "op_readPressure"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_valvePosition"
+          ],
+          "constraintIds": null,
+          "id": "B_ACV_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AirFlowControlValve",
+          "operationIds": [
+            "op_adjustValve"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_valveStatus"
+          ],
+          "constraintIds": null,
+          "id": "B_SRV_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "SafetyReliefValve",
+          "operationIds": [
+            "op_activateRelief"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B_PS_001",
+          "body": "The Pressurization System ensures that the aircraft cabin pressure is maintained within safe limits by integrating a pressure regulation unit, cabin pressure sensor, airflow control valve, and safety relief valve. This system interfaces with control and data networks using standardized ports and flow specifications.",
+          "id": "CMT_PS_001",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "CN_PRUtoPS_001",
+          "kind": "assembly",
+          "name": "PRU to System Connector",
+          "source": "B_PS_001",
+          "target": "B_PRU_001",
+          "type": "Connector"
+        },
+        {
+          "id": "CN_CPStoPS_001",
+          "kind": "assembly",
+          "name": "Sensor to System Connector",
+          "source": "B_PS_001",
+          "target": "B_CPS_001",
+          "type": "Connector"
+        },
+        {
+          "id": "CN_ACVtoPS_001",
+          "kind": "assembly",
+          "name": "Valve to System Connector",
+          "source": "B_PS_001",
+          "target": "B_ACV_001",
+          "type": "Connector"
+        },
+        {
+          "id": "CN_SRVtoPS_001",
+          "kind": "assembly",
+          "name": "Safety Valve to System Connector",
+          "source": "B_PS_001",
+          "target": "B_SRV_001",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "attr_minPressure <= attr_desiredCabinPressure and attr_desiredCabinPressure <= attr_maxPressure",
+          "id": "CB_PressureConstraint",
+          "name": "PressureConstraintBlock",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": [],
+          "id": "ENUM_OperationMode",
+          "literals": [
+            {
+              "id": "LIT_Auto",
+              "name": "Automatic"
+            },
+            {
+              "id": "LIT_Manual",
+              "name": "Manual"
+            }
+          ],
+          "name": "OperationMode",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": [
+            "attr_pressureValue"
+          ],
+          "dataType": "Double",
+          "flowType": "physical",
+          "id": "FS_AirPressure",
+          "name": "AirPressureFlowSpecification",
+          "type": "FlowSpecification",
+          "unit": "psi"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "IB_IPC_001",
+          "name": "IPressurizationControl",
+          "operationIds": [
+            "op_setPressure",
+            "op_overrideControl"
+          ],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": [],
+          "id": "IFC_IPC_001",
+          "name": "IPressurizationControl",
+          "operationIds": [
+            "op_setPressure",
+            "op_overrideControl"
+          ],
+          "signalIds": [],
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B_PRU_001",
+          "flowSpecificationId": null,
+          "id": "P_PRU_CONTROL",
+          "isConjugated": false,
+          "name": "PRU_ControlPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "IB_IPC_001"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_CPS_001",
+          "flowSpecificationId": "FS_AirPressure",
+          "id": "P_CPS_DATA",
+          "isConjugated": false,
+          "name": "CPS_DataPort",
+          "portType": "full",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": [
+            "IB_IPC_001"
+          ],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_ACV_001",
+          "flowSpecificationId": null,
+          "id": "P_ACV_CONTROL",
+          "isConjugated": false,
+          "name": "ACV_ControlPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "IB_IPC_001"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_SRV_001",
+          "flowSpecificationId": null,
+          "id": "P_SRV_CONTROL",
+          "isConjugated": false,
+          "name": "SRV_ControlPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "IB_IPC_001"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "B_PRU_001",
+          "id": "P_PRU_PROXY",
+          "isConjugated": false,
+          "name": "PRU_ProxyPort",
+          "providedInterfaceIds": [
+            "IB_IPC_001"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": [
+        {
+          "id": "REAL_IPC_001",
+          "name": "IPressurizationControlRealization",
+          "sourceId": "B_PS_001",
+          "sourceMultiplicity": null,
+          "targetId": "IFC_IPC_001",
+          "targetMultiplicity": null,
+          "type": "Realization"
+        }
+      ],
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT_Pressure",
+          "name": "PressureValueType",
+          "quantityKindId": "QK_Pressure",
+          "type": "ValueType",
+          "unitId": "U_psi"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_115441"
+}

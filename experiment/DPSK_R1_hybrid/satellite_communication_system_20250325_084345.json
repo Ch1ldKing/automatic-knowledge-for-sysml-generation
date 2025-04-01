@@ -1,0 +1,374 @@
+{
+  "system_id": "satellite_communication_system",
+  "system_name": "Satellite Communication System",
+  "specification": {
+    "designScenario": {
+      "name": "S A T C O M Module",
+      "description": "The S A T C O M Module is an advanced avionics system enabling global, secure, and low-latency satellite communication for passenger aircraft. It supports real-time telemetry, flight path optimization, crew/passenger connectivity, and emergency coordination. The module employs adaptive frequency agility, multi-layer encryption, and fault-tolerant architecture to meet DO-178C/DAL-B safety standards and ARINC 791 interoperability requirements.",
+      "requirements": [
+        {
+          "title": "Multi-Band Satellite Connectivity",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Establish simultaneous links with L-band (1-2 GHz) and Ka-band (26.5-40 GHz) satellites for global coverage and high-throughput data transfer."
+            },
+            {
+              "description": "Automatically switch between satellite constellations (e.g., Iridium, Inmarsat, ViaSat) based on signal strength and network availability."
+            }
+          ]
+        },
+        {
+          "title": "High-Speed Data Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve asymmetric data rates up to 50 Mbps downlink / 10 Mbps uplink in Ka-band mode for passenger connectivity services."
+            },
+            {
+              "description": "Maintain end-to-end latency below 300ms for ATC datalink communications (CPDLC) during critical flight phases."
+            }
+          ]
+        },
+        {
+          "title": "Fault-Tolerant Operation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement triple-redundant modem units with majority voting logic to prevent single-point communication failures."
+            },
+            {
+              "description": "Integrate radiation-hardened components capable of withstanding single-event upsets (SEUs) at maximum cruise altitudes."
+            }
+          ]
+        },
+        {
+          "title": "Cybersecurity & Maintainability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Utilize quantum-resistant encryption (CRYSTALS-Kyber) with FIPS 140-3 compliant key management for classified data channels."
+            },
+            {
+              "description": "Support over-the-air (OTA) software updates with dual-bank flash memory to enable in-service upgrades without downtime."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "S A T C O M Module",
+        "description": "Primary communication hub integrating satellite transceivers, beamforming antennas, and network security components for airborne connectivity",
+        "type": "Avionics Data Communication Unit",
+        "subComponents": [
+          {
+            "name": "Phased-Array Antenna System",
+            "description": "Electronically steerable antenna array with 256 elements providing ±75° azimuth/elevation coverage and adaptive beamforming",
+            "type": "RF Subsystem"
+          },
+          {
+            "name": "Multi-Band Transceiver Stack",
+            "description": "Software-defined radio supporting simultaneous L-band (Aero-L) and Ka-band (SwiftBroadband-Safety) waveforms with 4x4 MIMO capability",
+            "type": "Digital Signal Processor"
+          },
+          {
+            "name": "Quantum Encryption Unit",
+            "description": "Post-quantum cryptography module implementing lattice-based algorithms for key exchange and AES-GCM-256 data encryption",
+            "type": "Security Hardware"
+          },
+          {
+            "name": "Network Processor Unit",
+            "description": "Dual-core ARM Cortex-A76 processor managing QoS for multiple virtual channels (ATN, ACARS, APD, passenger Wi-Fi)",
+            "type": "Data Routing Controller"
+          },
+          {
+            "name": "Power Conditioning Module",
+            "description": "28VDC-to-48VDC converter with surge protection and 90% efficiency under MIL-STD-704F power quality standards",
+            "type": "Power Electronics"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "S A T C O M Module",
+        "target": "Phased-Array Antenna System",
+        "relationshipType": "composition",
+        "description": "The antenna system is an integral part of the SATCOM Module, physically enclosed within the LRU and managed via dedicated beam steering controllers"
+      },
+      {
+        "source": "Multi-Band Transceiver Stack",
+        "target": "Quantum Encryption Unit",
+        "relationshipType": "association",
+        "description": "All transceiver I/O channels are routed through the encryption unit for mandatory data-in-transit protection"
+      },
+      {
+        "source": "Network Processor Unit",
+        "target": "Central Integrated Network",
+        "relationshipType": "dependency",
+        "description": "The processor depends on the aircraft's central network for time synchronization via ARINC 664 P7 datalinks"
+      },
+      {
+        "source": "Power Conditioning Module",
+        "target": "Essential Power Bus",
+        "relationshipType": "aggregation",
+        "description": "Draws power from both main and emergency electrical buses with automatic load shedding capabilities"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "frequencyAgility",
+        "type": "string",
+        "value": "L-band (1.5-1.6 GHz), Ka-band (29-31 GHz)",
+        "description": "Dual-band operation with automatic frequency selection based on ITU channel availability"
+      },
+      {
+        "name": "thermalRange",
+        "type": "string",
+        "value": "-55°C to +85°C",
+        "description": "Operating temperature range compliant with DO-160G Section 4.0 environmental conditions"
+      },
+      {
+        "name": "dataIntegrity",
+        "type": "string",
+        "value": "BER < 10⁻⁹",
+        "description": "Maximum permissible bit error rate for safety-critical communications"
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "2-out-of-3 voting",
+        "description": "Fault-tolerant architecture for modem processing chains"
+      },
+      {
+        "name": "powerConsumption",
+        "type": "string",
+        "value": "450W peak",
+        "description": "Maximum power draw during simultaneous dual-band operation"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-satcom-module",
+          "type": "Block",
+          "name": "SATCOM Module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-frequency-agility",
+            "attr-thermal-range",
+            "attr-data-integrity",
+            "attr-redundancy-level",
+            "attr-power-consumption"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "constraint-dal-b",
+            "constraint-arinc791"
+          ],
+          "partIds": [
+            "part-phased-array",
+            "part-transceiver",
+            "part-encryption",
+            "part-network-processor",
+            "part-power-module"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-phased-array",
+          "type": "Block",
+          "name": "Phased-Array Antenna",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-azimuth-coverage",
+            "attr-mimo-capability"
+          ],
+          "operationIds": [],
+          "constraintIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-transceiver",
+          "type": "Block",
+          "name": "Multi-Band Transceiver",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-frequency-range",
+            "attr-modulation-types"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "constraint-seu-tolerance"
+          ],
+          "partIds": [],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-encryption",
+          "type": "Block",
+          "name": "Quantum Encryption Unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-key-size",
+            "attr-throughput"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "constraint-fips140-3"
+          ],
+          "partIds": [],
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-satcom-rf",
+          "type": "FlowPort",
+          "name": "RF_IO",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "block-satcom-module",
+          "flowSpecificationId": "flow-spec-rf",
+          "attributeIds": null
+        },
+        {
+          "id": "port-power-input",
+          "type": "FullPort",
+          "name": "Power_IN",
+          "portType": "full",
+          "isConjugated": false,
+          "blockId": "block-satcom-module",
+          "providedInterfaceIds": [
+            "if-power"
+          ],
+          "requiredInterfaceIds": null,
+          "attributeIds": null
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-dal-b",
+          "type": "ConstraintBlock",
+          "name": "DO-178C/DAL-B Compliance",
+          "expression": "failureProbability < 1e-7 per flight hour",
+          "parameterIds": null,
+          "attributeIds": null
+        },
+        {
+          "id": "constraint-arinc791",
+          "type": "ConstraintBlock",
+          "name": "ARINC 791 Conformance",
+          "expression": "interfaceProtocol == 'AFDX' && messageFormat == 'ARINC 618'",
+          "parameterIds": null,
+          "attributeIds": null
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-frequency-agility",
+          "type": "Property",
+          "name": "frequencyAgility",
+          "propertyType": "String",
+          "value": "L-band (1.5-1.6 GHz), Ka-band (29-31 GHz)",
+          "visibility": "public",
+          "aggregation": "none"
+        },
+        {
+          "id": "attr-thermal-range",
+          "type": "Property",
+          "name": "operatingTemperature",
+          "propertyType": "String",
+          "value": "-55°C to +85°C",
+          "visibility": "public",
+          "aggregation": "none"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-antenna-module",
+          "type": "Composition",
+          "name": "Antenna Integration",
+          "sourceId": "block-satcom-module",
+          "targetId": "block-phased-array",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-encryption-link",
+          "type": "Association",
+          "name": "Secure Data Path",
+          "sourceId": "block-transceiver",
+          "targetId": "block-encryption",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "requirements": [
+        {
+          "id": "req-multiband",
+          "type": "Requirement",
+          "name": "Multi-Band Operation",
+          "text": "Simultaneous L/Ka-band operation with automatic constellation switching",
+          "reqId": "SATCOM-001"
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "value-type-latency",
+          "type": "ValueType",
+          "name": "Latency",
+          "quantityKindId": "qk-time",
+          "unitId": "ms"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-band",
+          "type": "Enumeration",
+          "name": "FrequencyBand",
+          "literals": [
+            {
+              "id": "lit-L",
+              "name": "L-band"
+            },
+            {
+              "id": "lit-Ka",
+              "name": "Ka-band"
+            }
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-redundancy",
+          "type": "Comment",
+          "body": "Triple modular redundancy with 2-out-of-3 voting logic for fault-tolerant operation",
+          "annotatedElementId": "block-satcom-module"
+        }
+      ]
+    }
+  },
+  "reference_system": "s_a_t_c_o_m_module",
+  "parent_system": null,
+  "timestamp": "20250325_084345"
+}

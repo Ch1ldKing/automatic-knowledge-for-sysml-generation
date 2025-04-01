@@ -1,0 +1,295 @@
+{
+  "system_id": "speed_brake_system",
+  "system_name": "Speed Brake System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the time required to deploy the speed brake panels upon command from the flight control system.",
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "<100ms"
+      },
+      {
+        "description": "Indicates the time taken for full retraction of the speed brake panels to restore aerodynamic integrity.",
+        "name": "retractionTime",
+        "type": "string",
+        "value": "<120ms"
+      },
+      {
+        "description": "Defines the robust material used for the brake panels, ensuring high durability and resistance to aerodynamic loads.",
+        "name": "brakePanelMaterial",
+        "type": "string",
+        "value": "High-grade composites with >1500 MPa tensile strength"
+      },
+      {
+        "description": "Specifies the operational temperature range and corrosion resistance properties for harsh flight environments.",
+        "name": "environmentResistance",
+        "type": "string",
+        "value": "-40°C to +85°C; corrosion-resistant coatings applied"
+      }
+    ],
+    "designScenario": {
+      "description": "The Speed Brake System is engineered to enhance deceleration by deploying aerodynamic surfaces that increase drag, thereby reducing lift. It integrates seamlessly with the flight control module and provides rapid actuation to ensure timely deployment and retraction during high-speed descent or landing phases. The design prioritizes precision, rapid response, high reliability, and fail-safe operation under diverse flight conditions, including severe aerodynamic loads and environmental extremes.",
+      "name": "Speed Brake System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable automated deployment and retraction of speed brake panels upon command from the flight control system."
+            },
+            {
+              "description": "Accurately translate the flight control input into mechanical motion to modulate aerodynamic drag."
+            }
+          ],
+          "title": "Brake Actuation Functionality",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve deployment of the speed brake panels within 100 milliseconds to ensure rapid deceleration."
+            },
+            {
+              "description": "Ensure retraction occurs within 120 milliseconds to minimize aerodynamic penalties during normal flight."
+            }
+          ],
+          "title": "Rapid Deployment and Retraction Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement redundant actuator and sensor systems to guarantee fail-safe operation in the event of a primary system malfunction."
+            },
+            {
+              "description": "Incorporate real-time monitoring to detect misalignment or deployment errors, automatically triggering backup control measures."
+            }
+          ],
+          "title": "Redundancy and Fail-Safe Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design the system with a modular architecture to facilitate routine maintenance and rapid component replacement."
+            },
+            {
+              "description": "Utilize materials and coatings that reduce long-term wear and minimize maintenance frequency under extreme environmental conditions."
+            }
+          ],
+          "title": "Maintainability and Durability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Brake Control Module receives deployment commands from the Flight Control System, establishing a dependency relationship to ensure proper synchronization.",
+        "relationshipType": "dependency",
+        "source": "Brake Control Module",
+        "target": "Flight Control System"
+      },
+      {
+        "description": "The Brake Control Module aggregates inputs from the Sensor Feedback Unit to confirm accurate actuation of the speed brake panels.",
+        "relationshipType": "aggregation",
+        "source": "Brake Control Module",
+        "target": "Sensor Feedback Unit"
+      },
+      {
+        "description": "The Brake Actuators are composed within the Speed Brake System, forming the mechanical basis for deploying the brake panels.",
+        "relationshipType": "composition",
+        "source": "Speed Brake System",
+        "target": "Brake Actuators"
+      },
+      {
+        "description": "The Sensor Feedback Unit is associated with both the Brake Actuators and the Brake Control Module to provide essential real-time deployment status.",
+        "relationshipType": "association",
+        "source": "Sensor Feedback Unit",
+        "target": "Brake Actuators, Brake Control Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary electronic module responsible for interpreting flight control commands and managing the sequence of brake deployment and retraction.",
+        "name": "Brake Control Module",
+        "subComponents": null,
+        "type": "Control Unit"
+      },
+      {
+        "description": "Mechanisms that convert control signals into physical movement, utilizing redundant actuator systems to deploy and retract the brake panels reliably.",
+        "name": "Brake Actuators",
+        "subComponents": [
+          {
+            "description": "Primary actuator providing rapid and precise motion for the brake panel deployment under nominal conditions.",
+            "name": "Primary Actuator",
+            "type": "Hydraulic/Electric Actuator"
+          },
+          {
+            "description": "Backup actuator that engages in the event of a primary actuator failure, ensuring continuous system functionality.",
+            "name": "Backup Actuator",
+            "type": "Hydraulic/Electric Actuator"
+          }
+        ],
+        "type": "Actuation System"
+      },
+      {
+        "description": "Aerodynamic surfaces specifically designed to increase drag during deceleration phases, constructed from high-performance composite materials.",
+        "name": "Brake Panels",
+        "subComponents": null,
+        "type": "Aerodynamic Surface"
+      },
+      {
+        "description": "Integrated sensor suite that monitors the position, velocity, and deployment status of the brake panels in real time.",
+        "name": "Sensor Feedback Unit",
+        "subComponents": null,
+        "type": "Sensor Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg1",
+          "memberEndIds": null,
+          "name": "speedBrakeComposition",
+          "ownedEndIds": null,
+          "sourceId": "SBSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "SBPanel",
+          "targetMultiplicity": "*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "composite",
+          "defaultValue": null,
+          "id": "panelCountAttr",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "panelCount",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "5",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "panelCountAttr"
+          ],
+          "constraintIds": null,
+          "id": "SBSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "SpeedBrakeSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "SBPanel",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "SpeedBrakePanel",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "SBSystem",
+          "body": "The Speed Brake System is a critical subsystem designed to assist in aircraft deceleration by deploying panels that alter aerodynamics.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": [
+        {
+          "id": "comp1",
+          "memberEndIds": null,
+          "name": "SBSystem-to-Panels",
+          "ownedEndIds": null,
+          "sourceId": "SBSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "SBPanel",
+          "targetMultiplicity": "*",
+          "type": "DirectedComposition"
+        }
+      ],
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part1",
+          "name": "SpeedBrakePanel_1",
+          "of": "SBSystem",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "timestamp": "20250326_181129",
+  "provider": "gpt"
+}

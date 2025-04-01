@@ -1,0 +1,720 @@
+{
+  "system_id": "valve_system",
+  "system_name": "Valve System",
+  "specification": {
+    "designScenario": {
+      "name": "Aircraft Hydraulic Valve System",
+      "description": "The Valve System regulates hydraulic fluid flow within the aircraft's hydraulic network to ensure precise actuation of flight control surfaces, landing gear, and braking systems. It operates under extreme pressure and temperature conditions while maintaining fail-safe redundancy and rapid response to pilot/autopilot commands.",
+      "requirements": [
+        {
+          "title": "Fluid Routing Precision",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall direct hydraulic fluid to specified actuators with positional accuracy of ±1% to ensure synchronized control surface movements."
+            }
+          ]
+        },
+        {
+          "title": "High-Pressure Endurance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Valves shall maintain structural integrity at sustained pressures up to 5000 psi with peak tolerance of 6500 psi for 30-second durations."
+            }
+          ]
+        },
+        {
+          "title": "Dual Redundant Actuation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Critical fluid paths shall implement parallel valve assemblies with automatic switchover capability upon primary system failure detection."
+            }
+          ]
+        },
+        {
+          "title": "EMI Hardening",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All electronic valve control components shall meet DO-160G Section 20 Category R EMI/EMC standards for aviation environments."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Primary Flow Control Module",
+        "type": "Electro-Hydraulic Valve Assembly",
+        "description": "Main control unit containing servo valves and pressure regulators for primary hydraulic circuit management.",
+        "subComponents": [
+          {
+            "name": "Proportional Servo Valve",
+            "type": "Solenoid-Actuated Valve",
+            "description": "Precision metering valve with LVDT feedback for closed-loop flow control (±0.5% repeatability)."
+          },
+          {
+            "name": "Pressure Compensator",
+            "type": "Mechanical Regulator",
+            "description": "Automatic pressure-balancing mechanism maintaining constant flow despite pump output variations."
+          }
+        ]
+      },
+      {
+        "name": "Backup Hydraulic Gate",
+        "type": "Mechanical Safety System",
+        "description": "Passive pressure-actuated bypass valves that engage during electronic system failures.",
+        "subComponents": [
+          {
+            "name": "Shear Seal Cartridge",
+            "type": "Pressure-Relief Assembly",
+            "description": "Sacrificial mechanical fuse that isolates damaged hydraulic lines at 7000 psi overpressure."
+          }
+        ]
+      },
+      {
+        "name": "Valve Control Electronics",
+        "type": "Avionics Subsystem",
+        "description": "ARINC 429-compliant controller implementing FBW (Fly-By-Wire) command processing with 3 redundant channels.",
+        "subComponents": [
+          {
+            "name": "Solenoid Driver Array",
+            "type": "High-Current Amplifier",
+            "description": "Quad-redundant H-bridge circuits delivering 20A pulsed outputs for valve actuation."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Primary Flow Control Module",
+        "target": "Hydraulic Pump",
+        "relationshipType": "association",
+        "description": "Receives pressurized fluid input from engine-driven hydraulic pumps via high-pressure lines."
+      },
+      {
+        "source": "Backup Hydraulic Gate",
+        "target": "Flight Control Actuators",
+        "relationshipType": "composition",
+        "description": "Direct mechanical linkage to aileron/spoiler actuators through dedicated fluid paths."
+      },
+      {
+        "source": "Valve Control Electronics",
+        "target": "Primary Flow Control Module",
+        "relationshipType": "aggregation",
+        "description": "Embedded control logic governs servo valve positioning through PWM signals."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "Hysteresis Tolerance",
+        "type": "Performance Metric",
+        "value": "<0.15% FS",
+        "description": "Maximum allowable hysteresis in valve positioning across full operational temperature range."
+      },
+      {
+        "name": "Fluid Contamination Level",
+        "type": "Maintenance Parameter",
+        "value": "NAS 1638 Class 6",
+        "description": "Maximum particulate contamination level before requiring filter replacement."
+      },
+      {
+        "name": "Thermal Shock Rating",
+        "type": "Environmental Spec",
+        "value": "-65°C to +150°C ΔT/min",
+        "description": "Certified temperature transition rate without performance degradation."
+      },
+      {
+        "name": "MTBF",
+        "type": "Reliability Metric",
+        "value": "85,000 FH",
+        "description": "Mean Time Between Failures calculated per MIL-HDBK-217F guidelines."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "b1",
+          "type": "Block",
+          "name": "ValveSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a1",
+            "a2"
+          ],
+          "operationIds": [
+            "o1",
+            "o2"
+          ],
+          "constraintIds": [
+            "c1"
+          ],
+          "partIds": [
+            "p1",
+            "p2"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b2",
+          "type": "Block",
+          "name": "DirectionalControlValve",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a3",
+            "a4"
+          ],
+          "operationIds": [
+            "o3"
+          ],
+          "constraintIds": [
+            "c2"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b3",
+          "type": "Block",
+          "name": "DistributionValve",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "a5",
+            "a6"
+          ],
+          "operationIds": [
+            "o4"
+          ],
+          "constraintIds": [
+            "c3"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ib1",
+          "type": "InterfaceBlock",
+          "name": "IFluidControl",
+          "attributeIds": [],
+          "operationIds": [
+            "io1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "ib2",
+          "type": "InterfaceBlock",
+          "name": "IFuelControl",
+          "attributeIds": [],
+          "operationIds": [
+            "io2"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fs1",
+          "type": "FlowSpecification",
+          "name": "HydraulicFluidFlow",
+          "flowType": "material",
+          "dataType": "HydraulicFluid",
+          "unit": "liters_per_minute",
+          "attributeIds": []
+        },
+        {
+          "id": "fs2",
+          "type": "FlowSpecification",
+          "name": "FuelFlow",
+          "flowType": "material",
+          "dataType": "AviationFuel",
+          "unit": "liters_per_minute",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "c1",
+          "type": "ConstraintBlock",
+          "name": "ValveSystemConstraints",
+          "parameterIds": [
+            "p1"
+          ],
+          "expression": "responseTime < 100ms AND failureRate < 1e-6",
+          "attributeIds": []
+        },
+        {
+          "id": "c2",
+          "type": "ConstraintBlock",
+          "name": "DirectionalValveConstraints",
+          "parameterIds": [
+            "p2"
+          ],
+          "expression": "pressureRating >= 3000psi AND temperatureRange.contains(operatingTemp)",
+          "attributeIds": []
+        },
+        {
+          "id": "c3",
+          "type": "ConstraintBlock",
+          "name": "DistributionValveConstraints",
+          "parameterIds": [
+            "p3"
+          ],
+          "expression": "flowAccuracy >= 98% AND material IN ['Titanium', 'StainlessSteel']",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt1",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "qk1",
+          "unitId": "u1",
+          "attributeIds": []
+        },
+        {
+          "id": "vt2",
+          "type": "ValueType",
+          "name": "FlowRate",
+          "quantityKindId": "qk2",
+          "unitId": "u2",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "e1",
+          "type": "Enumeration",
+          "name": "ValveState",
+          "literals": [
+            {
+              "id": "l1",
+              "name": "OPEN"
+            },
+            {
+              "id": "l2",
+              "name": "CLOSED"
+            },
+            {
+              "id": "l3",
+              "name": "FAILSAFE"
+            }
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "e2",
+          "type": "Enumeration",
+          "name": "ControlMode",
+          "literals": [
+            {
+              "id": "l4",
+              "name": "AUTOMATIC"
+            },
+            {
+              "id": "l5",
+              "name": "MANUAL"
+            },
+            {
+              "id": "l6",
+              "name": "EMERGENCY"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "pt1",
+          "type": "FlowPort",
+          "name": "hydraulicIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b2",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs1",
+          "attributeIds": []
+        },
+        {
+          "id": "pt2",
+          "type": "FlowPort",
+          "name": "hydraulicOut",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b2",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs1",
+          "attributeIds": []
+        },
+        {
+          "id": "pt3",
+          "type": "ProxyPort",
+          "name": "controlInterface",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "b2",
+          "providedInterfaceIds": [
+            "ib1"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "pt4",
+          "type": "FlowPort",
+          "name": "fuelIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b3",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs2",
+          "attributeIds": []
+        },
+        {
+          "id": "pt5",
+          "type": "FlowPort",
+          "name": "fuelOut",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b3",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs2",
+          "attributeIds": []
+        },
+        {
+          "id": "pt6",
+          "type": "ProxyPort",
+          "name": "fuelControlInterface",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "b3",
+          "providedInterfaceIds": [
+            "ib2"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp1",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b2",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp2",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b1",
+          "targetId": "b3",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "a1",
+          "type": "Property",
+          "name": "systemPressure",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "1",
+          "defaultValue": "0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a2",
+          "type": "Property",
+          "name": "operatingMode",
+          "propertyType": "String",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "NORMAL",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a3",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "1",
+          "defaultValue": "0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a4",
+          "type": "Property",
+          "name": "valvePosition",
+          "propertyType": "String",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "CLOSED",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a5",
+          "type": "Property",
+          "name": "flowRate",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "1",
+          "defaultValue": "0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a6",
+          "type": "Property",
+          "name": "material",
+          "propertyType": "String",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "Titanium",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "o1",
+          "type": "Property",
+          "name": "activateFailSafe",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "o2",
+          "type": "Property",
+          "name": "systemDiagnostics",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "o3",
+          "type": "Property",
+          "name": "adjustFlow",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "o4",
+          "type": "Property",
+          "name": "switchMode",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "io1",
+          "type": "Property",
+          "name": "sendControlSignal",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "io2",
+          "type": "Property",
+          "name": "adjustFuelFlow",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "0",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "type": "Part",
+          "name": "directionalValve",
+          "of": "b2"
+        },
+        {
+          "id": "p2",
+          "type": "Part",
+          "name": "distributionValve",
+          "of": "b3"
+        }
+      ],
+      "comments": [
+        {
+          "id": "cm1",
+          "type": "Comment",
+          "body": "The ValveSystem manages both hydraulic and fuel flow control",
+          "annotatedElementId": "b1"
+        },
+        {
+          "id": "cm2",
+          "type": "Comment",
+          "body": "DirectionalControlValve must meet MIL-STD-810 environmental standards",
+          "annotatedElementId": "b2"
+        },
+        {
+          "id": "cm3",
+          "type": "Comment",
+          "body": "DistributionValve includes automatic pressure compensation",
+          "annotatedElementId": "b3"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "Directional Control Valves系统是用于管理液压流体在泵和各种飞行控制部件之间的路由的。它们旨在在极端操作条件下提供精确的流体控制，并确保具有集成失效安全机制的快速执行。这些阀是飞机液压系统的重要组成部分，有助于机动性和整体飞行安全性。Distribution Valves系统是飞机燃油系统中的关键控制部件，旨在将燃料精确地从燃油控制模块引导到发动机和辅助电路。该子系统集成了自动和手动覆盖功能，确保在正常和紧急情况下正确引导燃料。设计利用高完整性航空材料和精密控制技术，以实现快速响应、高耐久性和符合航空标准的安全合规性。",
+  "timestamp": "20250326_013549",
+  "provider": "dpsk"
+}

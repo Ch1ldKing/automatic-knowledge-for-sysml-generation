@@ -1,0 +1,79 @@
+{
+  "results": {
+    "Structural Element Definition": {
+      "TP": 160,
+      "TN": 41,
+      "FP": 150,
+      "FN": 320
+    },
+    "Relationship Modeling": {
+      "TP": 1,
+      "TN": 42,
+      "FP": 33,
+      "FN": 45
+    },
+    "Attributes and Constraints": {
+      "TP": 49,
+      "TN": 36,
+      "FP": 68,
+      "FN": 183
+    },
+    "Interface and Connectivity Modeling": {
+      "TP": 83,
+      "TN": 21,
+      "FP": 26,
+      "FN": 204
+    },
+    "Requirements and Verification Modeling": {
+      "TP": 86,
+      "TN": 20,
+      "FP": 69,
+      "FN": 154
+    }
+  },
+  "metrics": {
+    "Structural Element Definition": {
+      "Precision": 0.5161290322580645,
+      "Recall": 0.3333333333333333,
+      "Accuracy": 0.2995529061102832,
+      "False_alarm": 0.7853403141361257,
+      "F1": 0.4050632911392405
+    },
+    "Relationship Modeling": {
+      "Precision": 0.029411764705882353,
+      "Recall": 0.021739130434782608,
+      "Accuracy": 0.35537190082644626,
+      "False_alarm": 0.44,
+      "F1": 0.024999999999999998
+    },
+    "Attributes and Constraints": {
+      "Precision": 0.4188034188034188,
+      "Recall": 0.21120689655172414,
+      "Accuracy": 0.25297619047619047,
+      "False_alarm": 0.6538461538461539,
+      "F1": 0.2808022922636103
+    },
+    "Interface and Connectivity Modeling": {
+      "Precision": 0.7614678899082569,
+      "Recall": 0.289198606271777,
+      "Accuracy": 0.31137724550898205,
+      "False_alarm": 0.5531914893617021,
+      "F1": 0.4191919191919192
+    },
+    "Requirements and Verification Modeling": {
+      "Precision": 0.5548387096774193,
+      "Recall": 0.35833333333333334,
+      "Accuracy": 0.3221884498480243,
+      "False_alarm": 0.7752808988764045,
+      "F1": 0.4354430379746836
+    },
+    "Overall": {
+      "Precision": 0.5227586206896552,
+      "Recall": 0.29494163424124514,
+      "Accuracy": 0.3009491903964266,
+      "False_alarm": 0.6837944664031621,
+      "F1": 0.37711442786069654
+    }
+  },
+  "timestamp": "2025-03-26 00:00:01"
+}

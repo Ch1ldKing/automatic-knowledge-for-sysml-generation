@@ -1,0 +1,372 @@
+{
+  "system_id": "flight_management_system_(fms)_system",
+  "system_name": "Flight Management System (FMS) System",
+  "specification": {
+    "designScenario": {
+      "name": "Flight Management System (FMS) System",
+      "description": "Basic description of Flight Management System (FMS) System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "FMS-Block",
+          "type": "Block",
+          "name": "Flight Management System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "FMS-UpdateFrequency",
+            "FMS-RedundancyLevel",
+            "FMS-ProcessingCycleTime"
+          ],
+          "operationIds": [
+            "FMS-ComputeTrajectory",
+            "FMS-IntegrateAutopilot",
+            "FMS-UpdateWeather",
+            "FMS-UpdateAirportDB",
+            "FMS-RealTimeDecision"
+          ],
+          "constraintIds": [
+            "FMS-ProcessingConstraint",
+            "FMS-SecurityConstraint"
+          ],
+          "partIds": [
+            "Navigation-Block",
+            "FlightPlanning-Block",
+            "AutopilotInterface-Block",
+            "Communication-Block",
+            "Security-Block"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "Navigation-Block",
+          "type": "Block",
+          "name": "Navigation Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Nav-SensorAccuracy"
+          ],
+          "operationIds": [
+            "Nav-ProcessSensors",
+            "Nav-CalculatePosition"
+          ],
+          "constraintIds": [
+            "Nav-AccuracyConstraint"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "FlightPlanning-Block",
+          "type": "Block",
+          "name": "Flight Planning Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "FP-FuelOptimization",
+            "FP-RouteValidity"
+          ],
+          "operationIds": [
+            "FP-OptimizeTrajectory",
+            "FP-ValidateRoute"
+          ],
+          "constraintIds": [
+            "FP-OptimizationConstraint"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "AutopilotInterface-Block",
+          "type": "Block",
+          "name": "Autopilot Interface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "AP-CommandLatency"
+          ],
+          "operationIds": [
+            "AP-ReceiveCommands",
+            "AP-TransmitStatus"
+          ],
+          "constraintIds": [
+            "AP-LatencyConstraint"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "Communication-Block",
+          "type": "Block",
+          "name": "Communication Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Comm-DataRate"
+          ],
+          "operationIds": [
+            "Comm-ReceiveWeather",
+            "Comm-TransmitStatus"
+          ],
+          "constraintIds": [
+            "Comm-DataRateConstraint"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "Security-Block",
+          "type": "Block",
+          "name": "Security Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Sec-EncryptionAlgo"
+          ],
+          "operationIds": [
+            "Sec-EncryptData",
+            "Sec-DecryptData"
+          ],
+          "constraintIds": [
+            "Sec-EncryptionConstraint"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "NavigationData-Interface",
+          "type": "InterfaceBlock",
+          "name": "Navigation Data Interface",
+          "attributeIds": null,
+          "operationIds": [
+            "Nav-Interface-SendPosition",
+            "Nav-Interface-ReceiveSensors"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        },
+        {
+          "id": "AutopilotCommands-Interface",
+          "type": "InterfaceBlock",
+          "name": "Autopilot Commands Interface",
+          "attributeIds": null,
+          "operationIds": [
+            "AP-Interface-ReceiveCommands",
+            "AP-Interface-TransmitStatus"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        },
+        {
+          "id": "Security-Interface",
+          "type": "InterfaceBlock",
+          "name": "Security Interface",
+          "attributeIds": null,
+          "operationIds": [
+            "Sec-Interface-Encrypt",
+            "Sec-Interface-Decrypt"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "FMS-NavigationPort",
+          "type": "Port",
+          "name": "NavigationPort",
+          "blockId": "FMS-Block",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "NavigationData-Interface"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": null
+        },
+        {
+          "id": "FMS-AutopilotPort",
+          "type": "Port",
+          "name": "AutopilotPort",
+          "blockId": "FMS-Block",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": [
+            "AutopilotCommands-Interface"
+          ],
+          "flowSpecificationId": null
+        },
+        {
+          "id": "Security-EncryptionPort",
+          "type": "Port",
+          "name": "EncryptionPort",
+          "blockId": "Security-Block",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "Security-Interface"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": null
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "ValueType-RedundancyLevel",
+          "type": "ValueType",
+          "name": "RedundancyLevel",
+          "quantityKindId": "Redundancy",
+          "unitId": "None",
+          "attributeIds": [
+            "Redundancy-Dual",
+            "Redundancy-Triple"
+          ]
+        },
+        {
+          "id": "ValueType-ProcessingCycle",
+          "type": "ValueType",
+          "name": "ProcessingCycle",
+          "quantityKindId": "Time",
+          "unitId": "ms",
+          "attributeIds": [
+            "Cycle-100ms"
+          ]
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "Enum-Redundancy",
+          "type": "Enumeration",
+          "name": "RedundancyLevel",
+          "literals": [
+            {
+              "id": "Redundancy-Dual",
+              "name": "Dual"
+            },
+            {
+              "id": "Redundancy-Triple",
+              "name": "Triple"
+            }
+          ],
+          "attributeIds": null
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "FMS-ProcessingConstraint",
+          "type": "ConstraintBlock",
+          "name": "ProcessingCycleConstraint",
+          "parameterIds": [
+            "ProcessingCycle"
+          ],
+          "expression": "processingCycleTime <= 100",
+          "attributeIds": null
+        },
+        {
+          "id": "FMS-SecurityConstraint",
+          "type": "ConstraintBlock",
+          "name": "SecurityProtocolConstraint",
+          "parameterIds": [
+            "EncryptionAlgo"
+          ],
+          "expression": "encryptionAlgorithm == 'AES-256' || encryptionAlgorithm == 'RSA'",
+          "attributeIds": null
+        }
+      ],
+      "attributes": [
+        {
+          "id": "FMS-UpdateFrequency",
+          "type": "Property",
+          "name": "updateFrequency",
+          "propertyType": "String",
+          "value": "1Hz",
+          "visibility": "public"
+        },
+        {
+          "id": "FMS-RedundancyLevel",
+          "type": "Property",
+          "name": "redundancyLevel",
+          "propertyType": "Enum-Redundancy",
+          "value": "Dual",
+          "visibility": "public"
+        },
+        {
+          "id": "Nav-SensorAccuracy",
+          "type": "Property",
+          "name": "sensorAccuracy",
+          "propertyType": "String",
+          "value": "5m",
+          "visibility": "public"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "FMS-Composition-Navigation",
+          "type": "Composition",
+          "name": "FMS Contains Navigation",
+          "sourceId": "FMS-Block",
+          "targetId": "Navigation-Block",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [
+            "FMS-Block.parts",
+            "Navigation-Block.compositeParent"
+          ],
+          "ownedEndIds": null
+        },
+        {
+          "id": "FMS-Composition-Autopilot",
+          "type": "Composition",
+          "name": "FMS Contains AutopilotInterface",
+          "sourceId": "FMS-Block",
+          "targetId": "AutopilotInterface-Block",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [
+            "FMS-Block.parts",
+            "AutopilotInterface-Block.compositeParent"
+          ],
+          "ownedEndIds": null
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment-FMS-Design",
+          "type": "Comment",
+          "body": "Ensures 1Hz update frequency with Triple Modular Redundancy for critical components",
+          "annotatedElementId": "FMS-Block"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Flight Management System (FMS) is an integrated avionics solution providing critical flight planning, navigation, and autopilot interfacing capabilities. It is designed to process sensor inputs from multiple navigational instruments, optimize flight trajectories, manage fuel consumption, and interface with both onboard and external communication networks. The FMS ensures high reliability, precision, and compliance with safety standards crucial for modern aeronautical operations. The system specifications include attributes such as update frequency of 1Hz, redundancy level of Dual or Triple Modular Redundancy, processing cycle time of 100ms, sensor accuracy within 5 meters positional accuracy, and security protocols using AES-256 and RSA encryption. The requirements involve functionalities like computing optimal flight trajectories, integrating with autopilot systems, interfacing with weather data services and airport databases, providing real-time updates to pilots and flight crew, and supporting real-time flight decision making within 100ms cycle times.",
+  "timestamp": "20250326_015228",
+  "provider": "qwen"
+}

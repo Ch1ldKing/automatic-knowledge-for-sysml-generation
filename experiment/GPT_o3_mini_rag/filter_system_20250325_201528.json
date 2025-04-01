@@ -1,0 +1,485 @@
+{
+  "system_id": "filter_system",
+  "system_name": "Filter System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Ensures the filter captures at least 99.97% of airborne particulate matter of 0.3 microns or larger, thereby guaranteeing high cabin air quality.",
+        "name": "filtrationEfficiency",
+        "type": "string",
+        "value": "99.97%"
+      },
+      {
+        "description": "Specifies the acceptable pressure drop across the filter medium to maintain optimal airflow while ensuring effective filtration performance under flight conditions.",
+        "name": "pressureDrop",
+        "type": "string",
+        "value": "0.3 - 0.5 inH2O"
+      },
+      {
+        "description": "Operating temperature range to ensure stable and consistent filter performance during various flight conditions.",
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "10°C - 40°C"
+      },
+      {
+        "description": "Recommended service interval before scheduled maintenance or filter replacement to uphold system reliability.",
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "Every 500 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Filter System is a critical subsystem in passenger airplanes designed to maintain superior cabin air quality through a multi-stage filtration process. It integrates a central Filter Module that combines pre-filtration, HEPA filtration for microscopic particulate removal, and active carbon filtering to adsorb odors and gaseous contaminants. Engineered under stringent aerospace standards, the system ensures minimal pressure drop and operational integrity within the designated temperature range, while supporting rapid modular maintenance procedures.",
+      "name": "Filter System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The Filter System shall capture at least 99.97% of airborne particulates of 0.3 microns or larger to ensure exceptional cabin air quality."
+            }
+          ],
+          "title": "Filtration Efficiency",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must sustain a pressure drop between 0.3 and 0.5 inH2O across the filtering medium to guarantee sufficient airflow without sacrificing filtration performance."
+            }
+          ],
+          "title": "Pressure Drop Optimization",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Redundant sensing and alarm mechanisms shall be integrated to detect any clogging or degradation in the filtering media, ensuring continuous safety for flight crew and passengers."
+            }
+          ],
+          "title": "Aerospace Safety",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must support modular replacement of filter subcomponents, facilitating streamlined maintenance procedures and reducing aircraft turnaround time."
+            }
+          ],
+          "title": "Modularity and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Filter Module is composed of multiple subcomponents to achieve a multi-stage filtration process.",
+        "relationshipType": "composition",
+        "source": "Filter Module",
+        "target": "Pre-Filter"
+      },
+      {
+        "description": "The Filter Module includes a HEPA Filter element responsible for high-efficiency removal of microscopic particulates.",
+        "relationshipType": "composition",
+        "source": "Filter Module",
+        "target": "HEPA Filter"
+      },
+      {
+        "description": "The Filter Module integrates an Active Carbon Filter to adsorb odors and gaseous contaminants, enhancing cabin air quality.",
+        "relationshipType": "composition",
+        "source": "Filter Module",
+        "target": "Active Carbon Filter"
+      },
+      {
+        "description": "The Filter Module is structurally supported by the Filter Housing, ensuring protection against external environmental factors.",
+        "relationshipType": "composition",
+        "source": "Filter Module",
+        "target": "Filter Housing"
+      },
+      {
+        "description": "The Filter Module depends on the conditioned airflow provided by the upstream Air Handling Unit to function efficiently.",
+        "relationshipType": "dependency",
+        "source": "Filter Module",
+        "target": "Air Handling Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The main Filter Module integrates multi-stage filtration elements essential for delivering contaminant-free air, employing robust mechanical support and meeting aerospace quality standards.",
+        "name": "Filter Module",
+        "subComponents": [
+          {
+            "description": "Pre-filtration unit designed to capture larger particulates and debris, extending the lifespan of downstream filters.",
+            "name": "Pre-Filter",
+            "type": "Filter Element"
+          },
+          {
+            "description": "High-efficiency HEPA filter element that removes microscopic particulate contaminants, ensuring superior air purity.",
+            "name": "HEPA Filter",
+            "type": "Filter Element"
+          },
+          {
+            "description": "Active Carbon Filter stage designed to adsorb odors and gaseous pollutants, thereby enhancing the overall quality of cabin air.",
+            "name": "Active Carbon Filter",
+            "type": "Filter Element"
+          },
+          {
+            "description": "Robust housing that provides necessary structural integrity and shields sensitive filtration elements from environmental stresses.",
+            "name": "Filter Housing",
+            "type": "Structural"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Air Handling Unit that supplies conditioned airflow to the Filter System, ensuring optimal performance of the filtration process.",
+        "name": "Air Handling Unit",
+        "subComponents": null,
+        "type": "Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "ACT_FO_1",
+          "name": "FilterOperationActivity",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": ">=99.97",
+          "id": "attr_efficiency",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "FilteringEfficiency",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.3-0.5",
+          "id": "attr_pressureDrop",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0.3",
+          "name": "PressureDrop",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "0.5",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Specified Service Range",
+          "id": "attr_tempRange",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "TemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "500",
+          "id": "attr_maintInterval",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "500",
+          "name": "MaintenanceInterval",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "500",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_tempRange",
+            "attr_maintInterval"
+          ],
+          "constraintIds": [],
+          "id": "BLK_FS_1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FilterSystem",
+          "operationIds": [],
+          "partIds": [
+            "part_FM_1"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "attr_efficiency",
+            "attr_pressureDrop"
+          ],
+          "constraintIds": [],
+          "id": "BLK_FM_1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FilterModule",
+          "operationIds": [],
+          "partIds": [
+            "part_PreFilter",
+            "part_HEPAFilter",
+            "part_ActivatedCarbonFilter"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "BLK_PreFilter",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "PreFilter",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "BLK_HEPAFilter",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HEPAFilter",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "BLK_ActivatedCarbonFilter",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ActivatedCarbonFilter",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "CONN_FS_FM",
+          "kind": "assembly",
+          "name": "FilterSystemToFilterModule",
+          "source": "BLK_FS_1",
+          "target": "BLK_FM_1",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "filterEfficiency >= 99.97 and pressureDrop >= 0.3 and pressureDrop <= 0.5",
+          "id": "CB_FilterPerformance",
+          "name": "FilterPerformanceConstraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "STATE_NormalOperation",
+          "name": "NormalOperation",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "STATE_MaintenanceRequired",
+          "name": "MaintenanceRequired",
+          "represents": null,
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part_FM_1",
+          "name": "FilterModulePart",
+          "of": "BLK_FM_1",
+          "type": "Part"
+        },
+        {
+          "id": "part_PreFilter",
+          "name": "PreFilterPart",
+          "of": "BLK_FM_1",
+          "type": "Part"
+        },
+        {
+          "id": "part_HEPAFilter",
+          "name": "HEPAFilterPart",
+          "of": "BLK_FM_1",
+          "type": "Part"
+        },
+        {
+          "id": "part_ActivatedCarbonFilter",
+          "name": "ActivatedCarbonFilterPart",
+          "of": "BLK_FM_1",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "BLK_FM_1",
+          "flowSpecificationId": null,
+          "id": "PORT_AirInlet",
+          "isConjugated": false,
+          "name": "AirInlet",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "BLK_FM_1",
+          "flowSpecificationId": null,
+          "id": "PORT_AirOutlet",
+          "isConjugated": false,
+          "name": "AirOutlet",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "REQ_FE_1",
+          "name": "FilterEfficiencyRequirement",
+          "reqId": "REQ_FE_1",
+          "text": "The filter module shall achieve a filtering efficiency of at least 99.97%.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "REQ_PD_1",
+          "name": "PressureDropRequirement",
+          "reqId": "REQ_PD_1",
+          "text": "The pressure drop shall be maintained between 0.3 and 0.5 inH2O.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "REQ_MI_1",
+          "name": "MaintenanceIntervalRequirement",
+          "reqId": "REQ_MI_1",
+          "text": "Maintenance intervals shall be every 500 flight hours.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "STATE_NormalOperation",
+          "name": "NormalOperation",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "STATE_MaintenanceRequired",
+          "name": "MaintenanceRequired",
+          "type": "State"
+        }
+      ],
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "Filter Module是飞机乘客机的空气处理单元（AHU）内的关键子系统，采用多级过滤工艺。它集成了预过滤以捕获大颗粒物，HEPA过滤以确保微小颗粒物的去除，以及活性炭过滤以消除异味和气态污染物。该模块根据严格的航空航天标准设计，提供可靠的空气质量控制，压降最小，可在指定的温度范围内运行，并支持快速维护程序。其规格包括过滤效率为至少99.97％，压降在0.3至0.5 inH2O之间，维护间隔为每500飞行小时。",
+  "timestamp": "20250325_201528",
+  "provider": "gpt"
+}

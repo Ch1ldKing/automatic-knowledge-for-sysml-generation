@@ -1,0 +1,370 @@
+{
+  "system_id": "fuel_quantity_measurement_system",
+  "system_name": "Fuel Quantity Measurement System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The measurement accuracy of the fuel quantity sensors, indicating the precision level of fuel level detection.",
+        "name": "measurementAccuracy",
+        "type": "string",
+        "value": "±0.5%"
+      },
+      {
+        "description": "The interval at which the fuel quantity measurement system updates its readings to ensure near real-time monitoring.",
+        "name": "updateInterval",
+        "type": "string",
+        "value": "500 ms"
+      },
+      {
+        "description": "Operating temperature range to ensure reliable sensor performance under various atmospheric conditions.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-40°C to +85°C"
+      },
+      {
+        "description": "The recommended calibration interval to maintain sensor accuracy over extended flight hours.",
+        "name": "sensorCalibrationInterval",
+        "type": "string",
+        "value": "100 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fuel Quantity Measurement System is a critical avionics subsystem designed to accurately measure and monitor the fuel levels within an aircraft. It integrates a network of sensor arrays, data acquisition modules, signal processing units, and diagnostic interfaces to deliver reliable fuel quantity data under varying flight conditions. The system supports real-time measurements, redundant sensing, continuous self-diagnosis, and seamless integration with cockpit displays, ensuring both operational safety and maintenance efficiency.",
+      "name": "Fuel Quantity Measurement System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Collect and process data from multiple fuel tanks via sensor arrays to compute the accurate fuel level in real-time."
+            },
+            {
+              "description": "Integrate redundant sensor inputs to ensure reliable fuel quantity reporting under all flight conditions."
+            }
+          ],
+          "title": "Real-Time Fuel Level Sensing",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain a measurement accuracy within ±0.5% across the entire operating range."
+            },
+            {
+              "description": "Ensure the data update interval does not exceed 500 ms to support timely decision-making by pilots."
+            }
+          ],
+          "title": "High Precision Measurement",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Deploy dual or multiple sensor arrays to provide redundancy, ensuring continuous operation even in the case of individual sensor failures."
+            },
+            {
+              "description": "Incorporate fault detection mechanisms that automatically notify the crew and trigger backup sensor activation."
+            }
+          ],
+          "title": "Redundant Sensor Architecture",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design the system with ease of maintenance in mind, allowing for quick calibration and diagnostic self-tests."
+            },
+            {
+              "description": "Provide a user-friendly maintenance interface for flight crews and technicians to monitor system health and perform routine calibrations."
+            }
+          ],
+          "title": "Maintainability and Calibration",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Data Acquisition Module is composed of the Fuel Sensor Array which gathers raw fuel quantity data from multiple fuel tanks.",
+        "relationshipType": "composition",
+        "source": "Data Acquisition Module",
+        "target": "Fuel Sensor Array"
+      },
+      {
+        "description": "The Signal Processing Unit depends on the Data Acquisition Module to receive digitized sensor data for further analysis.",
+        "relationshipType": "dependency",
+        "source": "Signal Processing Unit",
+        "target": "Data Acquisition Module"
+      },
+      {
+        "description": "The Diagnostic and Calibration Module is associated with both the Fuel Sensor Array and the Signal Processing Unit to facilitate system health checks and calibration procedures.",
+        "relationshipType": "association",
+        "source": "Diagnostic and Calibration Module",
+        "target": "Fuel Sensor Array"
+      },
+      {
+        "description": "The Diagnostic and Calibration Module is associated with the Signal Processing Unit to continuously monitor and optimize measurement processes.",
+        "relationshipType": "association",
+        "source": "Diagnostic and Calibration Module",
+        "target": "Signal Processing Unit"
+      },
+      {
+        "description": "The Cockpit Display Integration module receives processed fuel quantity data from the Signal Processing Unit, ensuring timely information is available to the flight crew.",
+        "relationshipType": "dependency",
+        "source": "Cockpit Display Integration",
+        "target": "Signal Processing Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A network of sensors measuring fuel levels from various tanks, providing raw analog signals that represent fuel quantity.",
+        "name": "Fuel Sensor Array",
+        "subComponents": [
+          {
+            "description": "Primary fuel sensor responsible for high-accuracy measurements under nominal conditions.",
+            "name": "Primary Fuel Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Backup fuel sensor that provides redundancy in the event of primary sensor failure.",
+            "name": "Backup Fuel Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Reserve fuel sensor monitoring auxiliary tanks to support overall fuel management.",
+            "name": "Reserve Fuel Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Array"
+      },
+      {
+        "description": "Module responsible for acquiring analog signals from the sensor array and converting them into digital data for further processing.",
+        "name": "Data Acquisition Module",
+        "subComponents": null,
+        "type": "Acquisition Unit"
+      },
+      {
+        "description": "Unit that processes digitized sensor signals using advanced algorithms to compute the precise fuel quantity.",
+        "name": "Signal Processing Unit",
+        "subComponents": null,
+        "type": "Processing Unit"
+      },
+      {
+        "description": "Module that conducts continuous self-diagnostics and calibration, ensuring system reliability and accuracy over time.",
+        "name": "Diagnostic and Calibration Module",
+        "subComponents": [
+          {
+            "description": "Subsystem responsible for routine self-testing and health monitoring of the fuel measurement components.",
+            "name": "Self-Test Subsystem",
+            "type": "Diagnostic"
+          },
+          {
+            "description": "Subsystem dedicated to calibrating sensor outputs and adjusting measurement parameters as required.",
+            "name": "Calibration Subsystem",
+            "type": "Calibration"
+          }
+        ],
+        "type": "Maintenance Module"
+      },
+      {
+        "description": "Interface module that presents the processed fuel quantity data to the cockpit displays for pilot monitoring.",
+        "name": "Cockpit Display Integration",
+        "subComponents": null,
+        "type": "Display Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr1",
+            "attr2"
+          ],
+          "constraintIds": [
+            "constr1"
+          ],
+          "id": "block1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Fuel Quantity Measurement System",
+          "operationIds": [
+            "op1"
+          ],
+          "partIds": [
+            "block2",
+            "block3",
+            "block4"
+          ],
+          "referenceIds": [
+            "interfaceblock1"
+          ],
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr3"
+          ],
+          "constraintIds": null,
+          "id": "block2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Sensor Array",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr4"
+          ],
+          "constraintIds": null,
+          "id": "block3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Data Analyzer Unit",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr5"
+          ],
+          "constraintIds": null,
+          "id": "block4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Driver Interface",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block1",
+          "body": "This Block represents the complete Fuel Quantity Measurement System, including its components and interfaces.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp1",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block1",
+          "sourceMultiplicity": "1",
+          "targetId": "block2",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp2",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block1",
+          "sourceMultiplicity": "1",
+          "targetId": "block3",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp3",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block1",
+          "sourceMultiplicity": "1",
+          "targetId": "block4",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "FuelQuantity = Sum(SensorReadings)",
+          "id": "constr1",
+          "name": "FuelQuantityCalculation",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "interfaceblock1",
+          "name": "FuelInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "timestamp": "20250326_181340",
+  "provider": "gpt"
+}

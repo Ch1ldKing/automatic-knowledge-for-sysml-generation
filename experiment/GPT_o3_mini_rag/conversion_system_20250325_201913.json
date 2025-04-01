@@ -1,0 +1,544 @@
+{
+  "system_id": "conversion_system",
+  "system_name": "Conversion System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Aircraft standard AC voltage input reference with enhanced regulation capabilities for variable flight conditions.",
+        "name": "inputVoltage",
+        "type": "string",
+        "value": "AC 400V"
+      },
+      {
+        "description": "Provides a well-regulated DC voltage output to ensure stable power supply for critical avionics systems.",
+        "name": "outputVoltage",
+        "type": "string",
+        "value": "DC 28V"
+      },
+      {
+        "description": "High conversion efficiency achieved through advanced digital processing and optimized power electronics.",
+        "name": "conversionEfficiency",
+        "type": "string",
+        "value": "97%"
+      },
+      {
+        "description": "Operational temperature range designed to support high-altitude and extreme environmental conditions.",
+        "name": "operatingAltitudeTemperature",
+        "type": "string",
+        "value": "-50°C to +100°C"
+      },
+      {
+        "description": "Regulatory and industry standards compliance ensuring robust aerospace certification and integration.",
+        "name": "standards",
+        "type": "string",
+        "value": "MIL-STD-704, DO-160, ARP4754A"
+      }
+    ],
+    "designScenario": {
+      "description": "A C- D C Converter is an advanced power supply unit engineered for modern passenger aircraft. It converts high-voltage alternating current (AC) into a precise, low-voltage direct current (DC) using state-of-the-art digital control algorithms and integrated safety protocols. The converter is designed with modular robustness, ensuring seamless integration with redundant power systems, reliable operation under transient conditions, and minimized electromagnetic interference. Its smart diagnostics and proactive fault management make it ideal for both routine operations and emergency scenarios.",
+      "name": "A C- D C Converter",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Must convert an AC input, within aircraft voltage standards, to a strictly regulated DC output for critical systems."
+            },
+            {
+              "description": "Ensure redundant power pathways for fail-safe operations during power anomalies."
+            }
+          ],
+          "title": "AC to DC Conversion Accuracy",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve a conversion efficiency of at least 97% across varying load conditions."
+            },
+            {
+              "description": "Maintain rapid transient response to abrupt changes in electrical load."
+            }
+          ],
+          "title": "High Conversion Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Integrate multi-tier safeguards including over-voltage, over-current, surge protection, and thermal shutdown mechanisms."
+            },
+            {
+              "description": "Implement real-time diagnostics and self-recovery protocols to mitigate fault propagation."
+            }
+          ],
+          "title": "Advanced Safety Features",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate a modular architecture to facilitate quick maintenance, component upgrade, and system scalability."
+            },
+            {
+              "description": "Minimize electromagnetic interference (EMI) to prevent disruptions to sensitive avionics systems."
+            }
+          ],
+          "title": "Reliability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The DC Conversion Core relies on the AC Conditioning Module to provide a stabilized AC signal necessary for effective rectification.",
+        "relationshipType": "dependency",
+        "source": "AC Conditioning Module",
+        "target": "DC Conversion Core"
+      },
+      {
+        "description": "The DC Conversion Core requires thermal regulation from the Thermal Management Unit to ensure optimal performance during high-power operation.",
+        "relationshipType": "dependency",
+        "source": "DC Conversion Core",
+        "target": "Thermal Management Unit"
+      },
+      {
+        "description": "The Monitoring and Protection System aggregates operational and performance data from the DC Conversion Core for system-wide diagnostics.",
+        "relationshipType": "aggregation",
+        "source": "Monitoring and Protection System",
+        "target": "DC Conversion Core"
+      },
+      {
+        "description": "Within the Monitoring and Protection System, the Fault Detection Sensor Network composes the Protective Circuitry responsible for executing immediate corrective actions.",
+        "relationshipType": "composition",
+        "source": "Fault Detection Sensor Network",
+        "target": "Protective Circuitry"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Prepares and stabilizes the incoming AC signal for conversion by removing noise and protecting against surges.",
+        "name": "AC Conditioning Module",
+        "subComponents": [
+          {
+            "description": "Filters high-frequency noise and provides surge protection for a clean and stable AC input.",
+            "name": "Input Filter and Surge Protector",
+            "type": "Filter"
+          },
+          {
+            "description": "Regulates and adjusts the voltage levels to meet the requirements of the DC conversion stage.",
+            "name": "Voltage Regulation Pre-Stage",
+            "type": "Regulator"
+          }
+        ],
+        "type": "Power Unit"
+      },
+      {
+        "description": "Central unit that transforms conditioned AC power into stable DC power utilizing digital control and precision electronics.",
+        "name": "DC Conversion Core",
+        "subComponents": [
+          {
+            "description": "Converts the conditioned AC into a pulsating DC waveform and filters out imperfections to smooth the output.",
+            "name": "Rectification and Filtering Unit",
+            "type": "Converter"
+          },
+          {
+            "description": "Monitors and adjusts the conversion process in real time, ensuring optimal power regulation under all load conditions.",
+            "name": "Digital Control Module",
+            "type": "Controller"
+          }
+        ],
+        "type": "Power Unit"
+      },
+      {
+        "description": "Manages thermal dissipation to maintain system integrity during peak operations and adverse flight conditions.",
+        "name": "Thermal Management Unit",
+        "subComponents": [
+          {
+            "description": "Employs active cooling methods such as forced-air or liquid cooling to dissipate excess heat.",
+            "name": "Active Cooling System",
+            "type": "Cooling System"
+          },
+          {
+            "description": "Continuously monitors temperature across critical system components and feeds data to the control module.",
+            "name": "Thermal Sensors Array",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Support Unit"
+      },
+      {
+        "description": "Provides real-time monitoring of electrical parameters and initiates protective actions during fault conditions.",
+        "name": "Monitoring and Protection System",
+        "subComponents": [
+          {
+            "description": "A network of sensors that detect electrical anomalies including over-current and short-circuits.",
+            "name": "Fault Detection Sensor Network",
+            "type": "Sensor"
+          },
+          {
+            "description": "Enacts automatic interruption and remediation measures when abnormal electrical conditions are detected.",
+            "name": "Protective Circuitry",
+            "type": "Protector"
+          }
+        ],
+        "type": "Control Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "Act_ConversionProcess",
+          "name": "Conversion Process Activity",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "270V",
+          "id": "A_DCInputVoltage",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "270",
+          "name": "Nominal DC Input Voltage",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "270",
+          "value": "270V",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "28V",
+          "id": "A_RegulatedOutputVoltage",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "28",
+          "name": "Regulated Output Voltage",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "28",
+          "value": "28V",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "95%",
+          "id": "A_PowerEfficiency",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "95",
+          "name": "Power Efficiency Rating",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "95",
+          "value": "95%",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-40°C to 85°C",
+          "id": "A_OperatingTempRange",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "-40°C",
+          "name": "Operating Temperature Range",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "85°C",
+          "value": "-40°C to 85°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "9.64",
+          "id": "A_VoltageConversionRatio",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "9.64",
+          "name": "Voltage Conversion Ratio",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "9.64",
+          "value": "9.64",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "DO-160, MIL-STD-704",
+          "id": "A_ComplianceStandards",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "",
+          "name": "Compliance with Aviation Standards",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "",
+          "value": "DO-160, MIL-STD-704",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "A_DCInputVoltage",
+            "A_RegulatedOutputVoltage",
+            "A_PowerEfficiency",
+            "A_OperatingTempRange",
+            "A_VoltageConversionRatio",
+            "A_ComplianceStandards"
+          ],
+          "constraintIds": null,
+          "id": "B_ConversionSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Conversion System",
+          "operationIds": null,
+          "partIds": [
+            "P_SwitchingRegulator",
+            "P_FeedbackController",
+            "P_ProtectionModule"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "B_SwitchingRegulator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Switching Regulator Module",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "B_FeedbackController",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Feedback Control Unit",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "B_ProtectionModule",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Protection Module",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": [
+        {
+          "constrainedElementIds": [],
+          "id": "CB_Ripple",
+          "name": "Output Ripple Constraint",
+          "specification": "Output voltage ripple must be less than 50 mV under nominal load.",
+          "type": "Constraint"
+        },
+        {
+          "constrainedElementIds": [],
+          "id": "CB_ConversionRatio",
+          "name": "Voltage Conversion Ratio Constraint",
+          "specification": "Conversion ratio must remain within specified tolerance during operation.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "Dep_Req_VoltageStability",
+          "name": "Voltage Stability Dependency",
+          "sourceId": "B_ConversionSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "Req_VoltageStability",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        },
+        {
+          "id": "Dep_Req_Efficiency",
+          "name": "Efficiency Dependency",
+          "sourceId": "B_ConversionSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "Req_Efficiency",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "P_SwitchingRegulator",
+          "name": "Switching Regulator",
+          "of": "B_ConversionSystem",
+          "type": "Part"
+        },
+        {
+          "id": "P_FeedbackController",
+          "name": "Feedback Controller",
+          "of": "B_ConversionSystem",
+          "type": "Part"
+        },
+        {
+          "id": "P_ProtectionModule",
+          "name": "Protection Module",
+          "of": "B_ConversionSystem",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B_ConversionSystem",
+          "flowSpecificationId": null,
+          "id": "Port_HighVoltage",
+          "isConjugated": false,
+          "name": "High Voltage Input Port",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_ConversionSystem",
+          "flowSpecificationId": null,
+          "id": "Port_RegulatedVoltage",
+          "isConjugated": false,
+          "name": "Regulated Voltage Output Port",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "Req_VoltageStability",
+          "name": "Voltage Regulation Requirement",
+          "reqId": "REQ-001",
+          "text": "The conversion system shall provide precise and stable regulated output voltage under all operating conditions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "Req_Efficiency",
+          "name": "Efficiency Requirement",
+          "reqId": "REQ-002",
+          "text": "The conversion system shall achieve a power efficiency of at least 95%.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "State_NormalOperation",
+          "name": "Normal Operation",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "State_Protection",
+          "name": "Protection Mode",
+          "type": "State"
+        }
+      ],
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Conversion System is a dedicated module within the aircraft's power distribution system tasked with stepping down and regulating higher DC bus voltages to precise and stable lower-voltage levels for sensitive avionics and flight control systems. Engineered to deliver high conversion efficiency, low ripple, and robust protection against transient conditions, this converter integrates advanced switching regulation, feedback control, and safety mechanisms. Its design emphasizes modularity, ease of maintenance, and compliance with strict aerospace standards to ensure optimal performance even in the harsh environmental and operational conditions encountered in flight. The system has specific attributes such as nominal DC input voltage, regulated output voltage, power efficiency rating, operating temperature range, voltage conversion ratio, and compliance with recognized aviation and electronic standards.",
+  "timestamp": "20250325_201913",
+  "provider": "gpt"
+}

@@ -1,0 +1,599 @@
+{
+  "system_id": "lubrication_system",
+  "system_name": "Lubrication System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the maximum oil flow rate provided by the lubrication system to ensure effective distribution for engine component lubrication.",
+        "name": "maxFlowRate",
+        "type": "string",
+        "value": "100 liters/min"
+      },
+      {
+        "description": "Defines the normal operating pressure within the lubrication circuit, critical for maintaining optimal oil film thickness.",
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "5 bar"
+      },
+      {
+        "description": "Indicates the acceptable temperature range for oil performance, ensuring proper viscosity and reliability in various flight conditions.",
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "-40°C to 120°C"
+      },
+      {
+        "description": "Specifies the recommended oil viscosity grade suitable for the lubrication system under typical aerospace operating conditions.",
+        "name": "oilViscosityGrade",
+        "type": "string",
+        "value": "15W-40"
+      },
+      {
+        "description": "Represents the maintenance interval to inspect and replace lubrication components, which is essential for sustaining long-term system reliability.",
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "500 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Lubrication System is a critical sub-system within a passenger airplane, responsible for delivering pressurized oil to engine and auxiliary components. It minimizes friction, reduces wear, and assists in the cooling of moving parts under various flight regimes. Designed with aerospace-grade components, the system integrates advanced monitoring sensors and automated controls to ensure effective lubrication and protect against operational hazards. Its design supports dynamic adjustment of oil flow and pressure in response to engine operating conditions.",
+      "name": "Lubrication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Provide a controlled oil flow distribution to multiple critical engine components to reduce friction and improve operational efficiency."
+            },
+            {
+              "description": "Incorporate automatic flow adjustment mechanisms to respond to changes in engine load and sliding speeds."
+            }
+          ],
+          "title": "Controlled Oil Distribution",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain oil flow rate within ±5% variance under standard operating conditions to ensure consistent lubrication performance."
+            },
+            {
+              "description": "Achieve rapid pressure stabilization within 2 seconds following sudden changes in engine load."
+            }
+          ],
+          "title": "Flow and Pressure Stability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement a fail-safe low oil pressure alert system to automatically shut down lubrication flow in emergency scenarios, protecting engine components."
+            },
+            {
+              "description": "Ensure redundant sensor networks and pressure regulators to monitor and compensate for potential oil supply failures."
+            }
+          ],
+          "title": "Safety and Redundancy Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Facilitate ease of maintenance through modular design, allowing rapid replacement of components such as filters and pumps."
+            },
+            {
+              "description": "Ensure compatibility with a range of aerospace lubricants and adhere to the latest aviation regulatory standards."
+            }
+          ],
+          "title": "Modularity and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Oil Pump is dependent on the Oil Reservoir for a constant supply of lubrication oil to pressurize and distribute the fluid.",
+        "relationshipType": "dependency",
+        "source": "Oil Pump",
+        "target": "Oil Reservoir"
+      },
+      {
+        "description": "The Oil Pump delivers pressurized oil into the Lubrication Lines, establishing an association between these components.",
+        "relationshipType": "association",
+        "source": "Oil Pump",
+        "target": "Lubrication Lines"
+      },
+      {
+        "description": "The Lubrication Lines aggregate the Oil Filter, which removes impurities from the oil before reaching critical engine parts.",
+        "relationshipType": "aggregation",
+        "source": "Lubrication Lines",
+        "target": "Oil Filter"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The Oil Pump provides the necessary pressurization for oil circulation within the lubrication system. It is equipped with precision control mechanisms and sensor integration to adjust flow based on operational needs.",
+        "name": "Oil Pump",
+        "subComponents": [
+          {
+            "description": "An electric motor drives the pump, ensuring consistent performance across varying engine loads.",
+            "name": "Electric Motor",
+            "type": "Actuator"
+          },
+          {
+            "description": "A pump controller monitors flow rates and adjusts the pump performance in real time.",
+            "name": "Pump Controller",
+            "type": "Control Module"
+          }
+        ],
+        "type": "Hydraulic Pump"
+      },
+      {
+        "description": "The Oil Reservoir stores lubrication oil and provides a buffer supply to handle transient demands. Inbuilt sensors monitor oil levels continuously.",
+        "name": "Oil Reservoir",
+        "subComponents": [
+          {
+            "description": "An oil sensor monitors the oil level and quality, providing feedback to the control unit for maintenance alerts.",
+            "name": "Oil Sensor",
+            "type": "Sensor Module"
+          }
+        ],
+        "type": "Storage Module"
+      },
+      {
+        "description": "The Lubrication Lines consist of a network of pipes and channels that deliver pressurized oil from the pump to engine components. Valves within the system allow for flow regulation.",
+        "name": "Lubrication Lines",
+        "subComponents": [
+          {
+            "description": "Control valves regulate the oil flow rate and ensure that pressure is maintained throughout the system.",
+            "name": "Control Valves",
+            "type": "Regulatory Component"
+          }
+        ],
+        "type": "Distribution Network"
+      },
+      {
+        "description": "The Oil Filter cleans the oil by removing contaminants to ensure that only pure lubrication oil reaches critical engine parts, thereby enhancing longevity and performance.",
+        "name": "Oil Filter",
+        "subComponents": [
+          {
+            "description": "The filter element traps particulates and impurities from the oil.",
+            "name": "Filter Element",
+            "type": "Filtration Element"
+          },
+          {
+            "description": "A bypass valve allows oil to flow even when the filter is obstructed, ensuring continuous lubrication while signaling maintenance needs.",
+            "name": "Bypass Valve",
+            "type": "Safety Component"
+          }
+        ],
+        "type": "Filtration Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "3.5",
+          "id": "A1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "systemPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3.5",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "100",
+          "id": "A2",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "oilFlowRate",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "100",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "3000",
+          "id": "A3",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "pumpSpeed",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3000",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.95",
+          "id": "A4",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "filterEfficiency",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "0.95",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "500",
+          "id": "A5",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "capacity",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "500",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "1.0",
+          "id": "A6",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "oilLevel",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "1.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "v1.0",
+          "id": "A7",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "controlAlgorithmVersion",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "v1.0",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "A1",
+            "A2"
+          ],
+          "constraintIds": [],
+          "id": "BLS1",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "LubricationSystem",
+          "operationIds": [
+            "OP1",
+            "OP2",
+            "OP3"
+          ],
+          "partIds": [
+            "BP1",
+            "BP2",
+            "BP3",
+            "BP4",
+            "BP5",
+            "BP6"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A3"
+          ],
+          "constraintIds": [],
+          "id": "BP1",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "OilPump",
+          "operationIds": [
+            "OP4"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A4"
+          ],
+          "constraintIds": [],
+          "id": "BP2",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "OilFilter",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A5"
+          ],
+          "constraintIds": [],
+          "id": "BP3",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "OilReservoir",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "BP4",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "LubricationDistribution",
+          "operationIds": [
+            "OP5"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A6"
+          ],
+          "constraintIds": [],
+          "id": "BP5",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "SensorUnit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A7"
+          ],
+          "constraintIds": [],
+          "id": "BP6",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ControlUnit",
+          "operationIds": [
+            "OP6"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "BLS1",
+          "body": "Lubrication System subsystem for the aircraft. This system manages oil distribution, pressure regulation, and incorporates monitoring and control units for reliable operation.",
+          "id": "C1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "2.0 <= systemPressure <= 5.0",
+          "id": "CB1",
+          "name": "LubricationPressureConstraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [],
+      "controlFlows": [],
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [
+        {
+          "attributeIds": [],
+          "id": "ENUM1",
+          "literals": [
+            {
+              "id": "L1",
+              "name": "synthetic"
+            },
+            {
+              "id": "L2",
+              "name": "mineral"
+            }
+          ],
+          "name": "LubricantType",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": [],
+      "flowPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "BP1",
+          "flowSpecificationId": "FS1",
+          "id": "FP1",
+          "isConjugated": false,
+          "name": "oilFlowPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "Oil",
+          "flowType": "fluid",
+          "id": "FS1",
+          "name": "OilFlowSpecification",
+          "type": "FlowSpecification",
+          "unit": "L/min"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "BLS1",
+          "id": "P1",
+          "isConjugated": false,
+          "name": "oilOutPort",
+          "providedInterfaceIds": [
+            "IB1"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "IB1",
+          "name": "OilInterface",
+          "operationIds": [
+            "OP7"
+          ],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "BP1",
+          "flowSpecificationId": null,
+          "id": "P2",
+          "isConjugated": false,
+          "name": "pumpControlPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT1",
+          "name": "PressureType",
+          "quantityKindId": "qk1",
+          "type": "ValueType",
+          "unitId": "unit_bar"
+        },
+        {
+          "attributeIds": [],
+          "id": "VT2",
+          "name": "FlowRateType",
+          "quantityKindId": "qk2",
+          "type": "ValueType",
+          "unitId": "unit_Lpm"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_120416"
+}

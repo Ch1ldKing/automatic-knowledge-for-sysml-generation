@@ -1,0 +1,303 @@
+{
+  "system_id": "de-icing_system",
+  "system_name": "De-Icing System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Temperature range ensuring system effectiveness.",
+        "name": "operationalTemperatureRange",
+        "type": "string",
+        "value": "-30°C to +15°C"
+      },
+      {
+        "description": "Time required to detect and act against ice formation.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Within 3 seconds"
+      },
+      {
+        "description": "Compliance with international aviation icing safety standards.",
+        "name": "complianceStandards",
+        "type": "string",
+        "value": "ICAO Annex 8 / EASA-CS-23 Certified"
+      },
+      {
+        "description": "System capability to operate effectively under single subsystem failure.",
+        "name": "redundancyCapability",
+        "type": "string",
+        "value": "Full functional redundancy"
+      }
+    ],
+    "designScenario": {
+      "description": "The Anti-Ice and De-Ice System is designed to ensure the safety and aerodynamic efficiency of an aircraft by preventing or removing ice formation on critical components such as wings, engine intakes, and control surfaces. The system incorporates advanced sensing mechanisms to detect ice build-up, activates anti-icing measures proactively, and utilizes dual-mode functionality combining thermal heating and fluid application systems for de-icing.",
+      "name": "Anti-Ice and De-Ice System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must automatically detect ice formation using temperature, moisture, and visual sensors."
+            },
+            {
+              "description": "The system shall activate anti-icing mechanisms upon detection of conditions conducive to ice formation."
+            }
+          ],
+          "title": "Ice Detection Automation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall maintain surface conditions to prevent duty cycle increases beyond system tolerance during operation."
+            },
+            {
+              "description": "The de-icing mechanism shall remove accretions within a five-second window."
+            }
+          ],
+          "title": "Performance Optimization",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must include multiple fail-safe redundancies to ensure operational endurance despite subsystem dysfunction."
+            },
+            {
+              "description": "The system should possess in-built diagnostics to alert of potential performance degradation."
+            }
+          ],
+          "title": "Safety Assurances",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system interfaces must be user-friendly for maintenance operatives, with graphical and textual diagnostics provided."
+            },
+            {
+              "description": "Components should be modular and easily exchangeable to reduce operational downtime during replacements or upgrades."
+            }
+          ],
+          "title": "Operational Usability and Longevity",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Data flows from sensors to the computing unit for analysis and decision-making.",
+        "relationshipType": "dependency",
+        "source": "Sensor Network",
+        "target": "Central Processing Unit"
+      },
+      {
+        "description": "Heating elements receive activation triggers from the control unit.",
+        "relationshipType": "association",
+        "source": "Central Processing Unit",
+        "target": "Heating Elements"
+      },
+      {
+        "description": "The fluid application submodules transfer de-icing solution to discharge outlets.",
+        "relationshipType": "composition",
+        "source": "Fluid Delivery Assembly",
+        "target": "Outlet Valves"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core unit processing inputs from sensors and directing actions.",
+        "name": "Central Processing Unit",
+        "subComponents": null,
+        "type": "Electrical Module"
+      },
+      {
+        "description": "Sensors distributed across protective surfaces monitoring freezing conditions.",
+        "name": "Sensor Network",
+        "subComponents": [
+          {
+            "description": "Devices for temperature measurement and evaluation.",
+            "name": "Temperature Sensors",
+            "type": "Sensor"
+          },
+          {
+            "description": "Devices detecting atmospheric moisture conducive to ice.",
+            "name": "Moisture Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Equipment"
+      },
+      {
+        "description": "Parts heating surface areas to counteract freezing.",
+        "name": "Heating Elements",
+        "subComponents": [
+          {
+            "description": "Electric filament heaters for wings.",
+            "name": "Wing Heating Units",
+            "type": "Actuator"
+          },
+          {
+            "description": "Heaters ensuring ice clearance on engine intakes.",
+            "name": "Engine Heating Units",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Active Surfaces"
+      },
+      {
+        "description": "Structurally conveyor system distributing de-icing fluid.",
+        "name": "Fluid Delivery Assembly",
+        "subComponents": [
+          {
+            "description": "Pump system for propelling de-icing fluid.",
+            "name": "Pumping System",
+            "type": "Actuator"
+          },
+          {
+            "description": "Regulated valves discharging fluid across surfaces.",
+            "name": "Outlet Valves",
+            "type": "Control Mechanism"
+          }
+        ],
+        "type": "Hydronics Infrastructure"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": null,
+      "actors": null,
+      "aggregations": [],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr001",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "OperatingTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "[-20°C, +20°C]",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "5s",
+          "id": "attr002",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "ResponseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "5s",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr001",
+            "attr002"
+          ],
+          "constraintIds": null,
+          "id": "block001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "De-Icing System",
+          "operationIds": null,
+          "partIds": [
+            "subsys001",
+            "subsys002"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block001",
+          "body": "The De-Icing System is designed to prevent ice accumulation on critical components such as wings and engine inlets.",
+          "id": "comm001",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [],
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": [],
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "subsys001",
+          "name": "HeatingElements",
+          "of": "block001",
+          "type": "Part"
+        },
+        {
+          "id": "subsys002",
+          "name": "SensorNetwork",
+          "of": "block001",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "De-Icing System的所有信息和规格说明包括：操作温度范围为-20°C至+20°C，响应时间为检测和减少冰积累在5秒内，能源类型为Bleed Air / Electric，认证标准符合FAA和EASA对防冰系统的要求，冗余级别为双冗余控制路径。该系统旨在防止飞机关键部位如机翼、发动机进气口和控制面积积冰。通过使用主动加热元件、受控除冰液系统和先进传感器网络的组合，确保冰雪不会影响飞机的空气动力学和安全性。此外，系统还提供实时监测，并利用温度和湿度数据的预测能力主动参与防冰措施。",
+  "timestamp": "20250326_174450",
+  "provider": "gpt"
+}

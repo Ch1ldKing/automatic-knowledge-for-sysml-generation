@@ -1,0 +1,278 @@
+{
+  "system_id": "landing_gear_braking_system",
+  "system_name": "Landing Gear Braking System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum deceleration force achievable by the Brake System under emergency conditions.",
+        "name": "maxDeceleration",
+        "type": "string",
+        "value": "4.5g"
+      },
+      {
+        "description": "The brake system's ability to rapidly dissipate heat during prolonged or repeated use.",
+        "name": "heatDissipation",
+        "type": "string",
+        "value": "High capacity with advanced cooling design"
+      },
+      {
+        "description": "Response time from activation command to full brake engagement.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Within 0.5 seconds"
+      },
+      {
+        "description": "Redundant hydraulic circuit design ensuring fail-safe operation in case of circuit failure.",
+        "name": "redundancy",
+        "type": "string",
+        "value": "Dual circuit design"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear Braking System is a vital component in the aircraft's landing gear that ensures rapid and effective deceleration upon touchdown. It integrates high-performance friction components, rapid response actuation systems, and redundant hydraulic circuits to provide safe, reliable performance in both normal and emergency conditions. The system is designed to meet rigorous aviation safety standards and is optimized for maintenance and compliance with aerospace regulations.",
+      "name": "Landing Gear Braking System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must deliver consistent braking force across varying aircraft loads and runway conditions."
+            },
+            {
+              "description": "It must interface accurately with the Wheel Assembly to manage deceleration forces throughout the landing gear."
+            }
+          ],
+          "title": "Functional Braking Performance",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The complete engagement of braking systems must occur within 0.5 seconds to ensure rapid deceleration during emergency landings."
+            },
+            {
+              "description": "Advanced heat dissipation mechanisms should maintain braking performance during continuous or repeated operations."
+            }
+          ],
+          "title": "Performance Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate dual hydraulic circuit redundancy to ensure the brake system remains fully operational in the event of a circuit failure."
+            },
+            {
+              "description": "Integrate system monitoring that alerts the flight crew to any abnormal condition in the braking operation."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design should support easy inspection, maintenance, and replacement procedures according to aviation maintenance protocols."
+            },
+            {
+              "description": "Materials and construction techniques must comply with environmental, endurance, and durability standards set for aerospace applications."
+            }
+          ],
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Brake System comprises Brake Calipers which actuate to apply pressure for friction generation.",
+        "relationshipType": "composition",
+        "source": "Brake System",
+        "target": "Brake Calipers"
+      },
+      {
+        "description": "Brake System comprises Brake Discs that provide the friction surfaces required for deceleration.",
+        "relationshipType": "composition",
+        "source": "Brake System",
+        "target": "Brake Discs"
+      },
+      {
+        "description": "Brake System is dependent on the Hydraulic System for hydraulic pressure to facilitate brake actuation.",
+        "relationshipType": "dependency",
+        "source": "Brake System",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "Brake System associates with the Wheel Assembly to transfer braking forces effectively to the landing gear.",
+        "relationshipType": "association",
+        "source": "Brake System",
+        "target": "Wheel Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Subsystem dedicated to providing deceleration through friction braking, integrated within the aircraft's landing gear architecture.",
+        "name": "Brake System",
+        "subComponents": [
+          {
+            "description": "Brake Calipers that actuate to apply hydraulic pressure, converting kinetic energy into frictional heat.",
+            "name": "Brake Calipers",
+            "type": "Actuator"
+          },
+          {
+            "description": "Brake Discs fashioned from high-friction materials to generate the necessary deceleration force.",
+            "name": "Brake Discs",
+            "type": "Friction Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Hydraulic system supplying controlled fluid pressure essential for the rapid actuation of the brake system.",
+        "name": "Hydraulic System",
+        "subComponents": null,
+        "type": "Subsystem"
+      },
+      {
+        "description": "Mechanical assembly that integrates the landing gear wheels with the braking system, ensuring effective force transmission during deceleration.",
+        "name": "Wheel Assembly",
+        "subComponents": null,
+        "type": "Mechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "lgbs.mainBrakeSystem",
+            "lgbs.parkingBrakeSubsystem",
+            "lgbs.sensorBlock",
+            "lgbs.controlBlock",
+            "lgbs.actuatorBlock",
+            "lgbs.tireInteraction"
+          ],
+          "constraintIds": [
+            "lgbs.constraint1",
+            "lgbs.constraint2"
+          ],
+          "id": "lgbs",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Landing Gear Braking System",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "mbs.hydraulicFluid",
+            "mbs.pressureSensors"
+          ],
+          "constraintIds": [],
+          "id": "lgbs.mainBrakeSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Main Brake System",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "lgbs",
+          "body": "This block represents the top-level abstraction for the Landing Gear Braking System, including all subsystems and interfaces.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "Pressure > MinOperationalPressure",
+          "id": "lgbs.constraint1",
+          "name": "Pressure Maintained",
+          "parameterIds": [
+            "param.MinOperationalPressure",
+            "param.Pressure"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "100",
+          "id": "param.MinOperationalPressure",
+          "name": "MinOperationalPressure",
+          "parameterType": "Real",
+          "type": "Parameter"
+        }
+      ],
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "valueType.pressurePsi",
+          "name": "PressurePsi",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": "unit.psi"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250326_181431",
+  "provider": "gpt"
+}

@@ -1,0 +1,407 @@
+{
+  "system_id": "protection_system",
+  "system_name": "Protection System",
+  "specification": {
+    "designScenario": {
+      "name": "Protection System",
+      "description": "The Protection System ensures continuous monitoring and safeguarding of aircraft structural integrity, passenger safety, and critical systems during normal and emergency operations. It integrates threat detection, environmental control, collision avoidance, and automated countermeasures using fail-safe architectures compliant with DO-178C and DO-254 standards. The system employs predictive analytics and cross-channel validation to maintain operational readiness across all flight phases.",
+      "requirements": [
+        {
+          "title": "Hazard Detection",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Continuously monitor structural stress, cabin pressure, and external environmental threats using distributed sensor networks."
+            },
+            {
+              "description": "Execute automated decompression countermeasures and fire suppression protocols when critical thresholds are breached."
+            }
+          ]
+        },
+        {
+          "title": "Response Latency",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve sub-3 second response time for collision avoidance system actuation from threat detection."
+            },
+            {
+              "description": "Maintain 99.999% data integrity in critical control loops between sensors and actuation systems."
+            }
+          ]
+        },
+        {
+          "title": "Fault Containment",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement quadruple redundancy in flight control protection interfaces with Byzantine fault tolerance."
+            },
+            {
+              "description": "Ensure complete electrical isolation between primary and backup protection channels."
+            }
+          ]
+        },
+        {
+          "title": "Operational Continuity",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Support in-flight reconfiguration of protection parameters via cockpit interface with role-based access control."
+            },
+            {
+              "description": "Provide prognostic health monitoring capabilities with minimum 5000-hour component life prediction accuracy."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Threat Assessment Unit",
+        "description": "Central decision-making module that correlates data from multiple sensor arrays to validate threats and initiate protection protocols.",
+        "type": "Processing Module",
+        "subComponents": [
+          {
+            "name": "Neural Processing Core",
+            "description": "AI-accelerator for real-time pattern recognition in multi-sensor data streams",
+            "type": "Compute Unit"
+          },
+          {
+            "name": "Cross-Channel Validator",
+            "description": "Hardware comparator for consensus-based decision making across redundant inputs",
+            "type": "Safety Unit"
+          }
+        ]
+      },
+      {
+        "name": "Structural Integrity Monitor",
+        "description": "Network of fiber-optic strain gauges and piezoelectric sensors detecting airframe stress and micro-fractures",
+        "type": "Sensor Array",
+        "subComponents": [
+          {
+            "name": "Acoustic Emission Sensors",
+            "description": "Detect material fatigue through ultrasonic frequency analysis",
+            "type": "Passive Sensor"
+          },
+          {
+            "name": "SHM Processing Node",
+            "description": "Structural Health Monitoring computer performing time-domain reflectometry",
+            "type": "Diagnostic Unit"
+          }
+        ]
+      },
+      {
+        "name": "Emergency Power Distribution",
+        "description": "Triple-channel power routing system with galvanic isolation between protection subsystems",
+        "type": "Power Module",
+        "subComponents": [
+          {
+            "name": "Pyroswitch Controllers",
+            "description": "Explosive-activated circuit breakers for instantaneous fault isolation",
+            "type": "Safety Device"
+          },
+          {
+            "name": "Supercapacitor Bank",
+            "description": "750F rapid-discharge energy storage for critical system brownout protection",
+            "type": "Power Storage"
+          }
+        ]
+      },
+      {
+        "name": "Environmental Protection Controller",
+        "description": "Manages cabin pressure control, smoke evacuation, and fire suppression systems",
+        "type": "Actuation Module",
+        "subComponents": [
+          {
+            "name": "Dual-Stage Extinguisher Valves",
+            "description": "Electropneumatic controls for Halon and water mist suppression systems",
+            "type": "Fluid Control"
+          },
+          {
+            "name": "Outflow Ramp Actuators",
+            "description": "Electro-mechanical controls for emergency cabin decompression management",
+            "type": "Mechanical Actuator"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Threat Assessment Unit",
+        "target": "Structural Integrity Monitor",
+        "relationshipType": "aggregation",
+        "description": "TAU aggregates and processes real-time structural health data from distributed SHM sensors"
+      },
+      {
+        "source": "Emergency Power Distribution",
+        "target": "Threat Assessment Unit",
+        "relationshipType": "composition",
+        "description": "EPD contains dedicated power rails for TAU's redundant processing channels"
+      },
+      {
+        "source": "Environmental Protection Controller",
+        "target": "Threat Assessment Unit",
+        "relationshipType": "dependency",
+        "description": "EPC requires validated threat confirmation from TAU before executing suppression protocols"
+      },
+      {
+        "source": "Structural Integrity Monitor",
+        "target": "Emergency Power Distribution",
+        "relationshipType": "association",
+        "description": "SHM nodes receive isolated power feeds from EPD's protected bus architecture"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "threatValidationLatency",
+        "type": "float",
+        "value": "1.2s",
+        "description": "Maximum allowed time from sensor input to validated threat classification"
+      },
+      {
+        "name": "sensorCoverageDensity",
+        "type": "integer",
+        "value": "15 sensors/m²",
+        "description": "Minimum sensor distribution density in critical structural areas"
+      },
+      {
+        "name": "faultContainmentLevel",
+        "type": "string",
+        "value": "ASIL D",
+        "description": "Automotive Safety Integrity Level for protection system components"
+      },
+      {
+        "name": "powerIsolation",
+        "type": "string",
+        "value": "1500V DC",
+        "description": "Minimum dielectric isolation between redundant power channels"
+      },
+      {
+        "name": "dataRefreshRate",
+        "type": "string",
+        "value": "200Hz",
+        "description": "Minimum sampling rate for structural integrity monitoring sensors"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "PS_001",
+          "type": "Block",
+          "name": "ProtectionSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "PS_ATTR_001",
+            "PS_ATTR_002"
+          ],
+          "operationIds": [
+            "PS_OP_001",
+            "PS_OP_002"
+          ],
+          "constraintIds": [
+            "PS_CONST_001"
+          ],
+          "partIds": [
+            "PS_PART_001",
+            "PS_PART_002",
+            "PS_PART_003"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "FDS_001",
+          "type": "Block",
+          "name": "FireDetectionSubsystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "FDS_ATTR_001"
+          ],
+          "operationIds": [
+            "FDS_OP_001"
+          ],
+          "constraintIds": [
+            "FDS_CONST_001"
+          ],
+          "partIds": [
+            "FDS_PART_001",
+            "FDS_PART_002"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "FSS_001",
+          "type": "Block",
+          "name": "FireSuppressionSubsystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "FSS_ATTR_001"
+          ],
+          "operationIds": [
+            "FSS_OP_001"
+          ],
+          "constraintIds": [
+            "FSS_CONST_001"
+          ],
+          "partIds": [
+            "FSS_PART_001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB_001",
+          "type": "InterfaceBlock",
+          "name": "AircraftBusInterface",
+          "attributeIds": [
+            "IB_ATTR_001"
+          ],
+          "operationIds": [
+            "IB_OP_001"
+          ],
+          "signalIds": [
+            "IB_SIG_001"
+          ],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_001",
+          "type": "FlowSpecification",
+          "name": "FireSuppressantFlow",
+          "flowType": "Material",
+          "dataType": "FluidFlowRate",
+          "unit": "liters/minute",
+          "attributeIds": [
+            "FS_ATTR_001"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB_001",
+          "type": "ConstraintBlock",
+          "name": "ResponseTimeConstraint",
+          "parameterIds": [
+            "CB_PARAM_001"
+          ],
+          "expression": "responseTime <= maxResponseTime",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_001",
+          "type": "ValueType",
+          "name": "FluidFlowRate",
+          "quantityKindId": "QK_001",
+          "unitId": "U_001",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_001",
+          "type": "Enumeration",
+          "name": "SystemStatus",
+          "literals": [
+            {
+              "id": "ENUM_LIT1",
+              "name": "STANDBY"
+            },
+            {
+              "id": "ENUM_LIT2",
+              "name": "ACTIVE"
+            },
+            {
+              "id": "ENUM_LIT3",
+              "name": "FAULT"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "P_001",
+          "type": "ProxyPort",
+          "name": "fireSignalPort",
+          "blockId": "FDS_001",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "IB_001"
+          ],
+          "requiredInterfaceIds": [],
+          "attributeIds": []
+        },
+        {
+          "id": "P_002",
+          "type": "FlowPort",
+          "name": "suppressantOutput",
+          "blockId": "FSS_001",
+          "isConjugated": false,
+          "flowSpecificationId": "FS_001",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "COMP_001",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "PS_001",
+          "targetId": "FDS_001",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "CMT_001",
+          "type": "Comment",
+          "body": "Primary aircraft protection system meeting DO-178C/DO-254 standards",
+          "annotatedElementId": "PS_001"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "PS_ATTR_001",
+          "type": "Property",
+          "name": "systemStatus",
+          "propertyType": "ENUM_001",
+          "value": "STANDBY",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_143516",
+  "provider": "dpsk"
+}

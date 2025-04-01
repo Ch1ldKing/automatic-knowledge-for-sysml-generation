@@ -1,0 +1,406 @@
+{
+  "system_id": "flap_system",
+  "system_name": "Flap System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the maximum angular deflection achieved by the flaps under standard conditions.",
+        "name": "maximumDeflection",
+        "type": "numeric",
+        "value": "40 degrees"
+      },
+      {
+        "description": "Specifies the material composition ensuring operational integrity under aerodynamic stress.",
+        "name": "materialComposition",
+        "type": "string",
+        "value": "High-strength aluminum alloys"
+      },
+      {
+        "description": "Details the energy consumption during flap operation.",
+        "name": "operationalEnergyConsumption",
+        "type": "numeric",
+        "value": "500 W"
+      }
+    ],
+    "designScenario": {
+      "description": "The Flap System design is tailored to optimize the lift and drag characteristics of the airplane during various phases of flight, such as takeoff, landing, and low-speed operations. It incorporates mechanical, electrical, and hydraulic elements to ensure synchronization and precise control for efficient aerodynamics.",
+      "name": "Flap System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Translate pilot commands into accurate angular deflections of the flaps."
+            },
+            {
+              "description": "Allow adjustments to support various flight envelope conditions, such as takeoff and landing."
+            }
+          ],
+          "title": "Accurate Operation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure flap repositioning occurs within a 5-second interval from command initiation."
+            },
+            {
+              "description": "Operate consistently under varying load conditions without delays."
+            }
+          ],
+          "title": "Responsive Actuation",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Include redundant control pathways to prevent total loss of functionality."
+            },
+            {
+              "description": "Implement monitoring systems that alert of potential failures before they escalate."
+            }
+          ],
+          "title": "Operational Safety",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Streamline inspection tools to simplify routine maintenance."
+            },
+            {
+              "description": "Utilize materials that resist wear and corrosion from prolonged exposure to the environment."
+            }
+          ],
+          "title": "Durability and Maintenance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Hydraulic Actuator provides the necessary force to move the flap panels.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Actuator",
+        "target": "Flap Panels"
+      },
+      {
+        "description": "The Flap Control Unit interfaces the cockpit commands to the flaps' operation, governing their movements.",
+        "relationshipType": "association",
+        "source": "Flap Control Unit",
+        "target": "Hydraulic Actuator"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Main structure of the flap system.",
+        "name": "Flap System Framework",
+        "subComponents": [
+          {
+            "description": "Panels or surfaces that physically alter to modify lift and drag.",
+            "name": "Flap Panels",
+            "type": "Surface"
+          },
+          {
+            "description": "Mechanisms transmitting hydraulic fluid to execute movements.",
+            "name": "Hydraulic Actuator",
+            "type": "Actuation Component"
+          },
+          {
+            "description": "Computational interface translating control inputs into operative commands.",
+            "name": "Flap Control Unit",
+            "type": "Control Unit"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      },
+      {
+        "description": "Assembly supporting coordination among control components.",
+        "name": "Control Interface",
+        "subComponents": null,
+        "type": "Integration System"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "association-actuator-mechanism",
+          "memberEndIds": [
+            "block-actuator",
+            "block-mechanism"
+          ],
+          "name": "Actuator to Mechanism",
+          "ownedEndIds": null,
+          "sourceId": "block-actuator",
+          "sourceMultiplicity": "1..1",
+          "targetId": "block-mechanism",
+          "targetMultiplicity": "1..1",
+          "type": "Association"
+        }
+      ],
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "property-actuationSpeed",
+            "property-deflectionAccuracy",
+            "property-environmentResistance"
+          ],
+          "constraintIds": [
+            "constraint-actuationSpeed",
+            "constraint-deflectionAccuracy",
+            "constraint-environmentResistance"
+          ],
+          "id": "block-flapSystem",
+          "isAbstract": false,
+          "isActive": null,
+          "isEncapsulated": true,
+          "name": "Flap System",
+          "operationIds": [
+            "operation-controlFlapDeflection",
+            "operation-monitorPerformance"
+          ],
+          "partIds": [
+            "block-actuator",
+            "block-mechanism",
+            "block-sensors"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "property-tensileStrength",
+            "property-material"
+          ],
+          "constraintIds": null,
+          "id": "block-mechanism",
+          "isAbstract": false,
+          "isActive": null,
+          "isEncapsulated": null,
+          "name": "Mechanism",
+          "operationIds": [
+            "operation-transmitActuation"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-actuator",
+          "isAbstract": false,
+          "isActive": null,
+          "isEncapsulated": null,
+          "name": "Actuator",
+          "operationIds": [
+            "operation-interpretActuationSignal"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-sensors",
+          "isAbstract": false,
+          "isActive": null,
+          "isEncapsulated": null,
+          "name": "Sensors",
+          "operationIds": [
+            "operation-measureDeflection",
+            "operation-outputFeedback"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-flapSystem",
+          "body": "The Flap System is designed to provide precise mechanical control over an aircraft's flaps.",
+          "id": "comment-flapSystem",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "composition-flapSystem-actuator",
+          "memberEndIds": [
+            "block-flapSystem",
+            "block-actuator"
+          ],
+          "name": "Actuator composition",
+          "ownedEndIds": null,
+          "sourceId": "block-flapSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "block-actuator",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "composition-flapSystem-mechanism",
+          "memberEndIds": [
+            "block-flapSystem",
+            "block-mechanism"
+          ],
+          "name": "Mechanism composition",
+          "ownedEndIds": null,
+          "sourceId": "block-flapSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "block-mechanism",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "composition-flapSystem-sensors",
+          "memberEndIds": [
+            "block-flapSystem",
+            "block-sensors"
+          ],
+          "name": "Sensors composition",
+          "ownedEndIds": null,
+          "sourceId": "block-flapSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "block-sensors",
+          "targetMultiplicity": "*",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "actuationSpeed < 50",
+          "id": "constraint-actuationSpeed",
+          "name": "Actuation Speed Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "abs(deflectionError) \\<\\= 0.1",
+          "id": "constraint-deflectionAccuracy",
+          "name": "Deflection Accuracy Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "operationTemperature in [-40, 85]",
+          "id": "constraint-environmentResistance",
+          "name": "Environment Resistance Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-actuator",
+          "name": "Actuator",
+          "of": "block-flapSystem",
+          "type": "Part"
+        },
+        {
+          "id": "part-mechanism",
+          "name": "Mechanism",
+          "of": "block-flapSystem",
+          "type": "Part"
+        },
+        {
+          "id": "part-sensors",
+          "name": "Sensors",
+          "of": "block-flapSystem",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "valueType-Temperature",
+          "name": "Temperature",
+          "quantityKindId": "quantityKind-Temperature",
+          "type": "ValueType",
+          "unitId": "unit-Celsius"
+        },
+        {
+          "attributeIds": [],
+          "id": "valueType-Speed",
+          "name": "Speed",
+          "quantityKindId": "quantityKind-Speed",
+          "type": "ValueType",
+          "unitId": "unit-MetersPerSecond"
+        },
+        {
+          "attributeIds": [],
+          "id": "valueType-DeflectionAngle",
+          "name": "Deflection Angle",
+          "quantityKindId": "quantityKind-Angle",
+          "type": "ValueType",
+          "unitId": "unit-Degree"
+        },
+        {
+          "attributeIds": [],
+          "id": "valueType-Force",
+          "name": "Force",
+          "quantityKindId": "quantityKind-Force",
+          "type": "ValueType",
+          "unitId": "unit-Newton"
+        }
+      ]
+    }
+  },
+  "rag_context": "The Flap System is designed to provide precise mechanical control over an aircraft's flaps. It ensures that commands received from the actuator control module are translated into accurate surface deflections. The system attributes include actuation speed of less than 50ms, deflection accuracy of ±0.1°, high-grade composites with over 1500 MPa tensile strength for material strength, and operational environmental resistance from -40°C to +85°C with corrosion-resistant coatings applied.",
+  "timestamp": "20250326_174330",
+  "provider": "gpt"
+}

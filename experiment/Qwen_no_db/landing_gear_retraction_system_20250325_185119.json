@@ -1,0 +1,574 @@
+{
+  "system_id": "landing_gear_retraction_system",
+  "system_name": "Landing Gear Retraction System",
+  "specification": {
+    "designScenario": {
+      "name": "Landing Gear Retraction System",
+      "description": "Design a robust and fail-safe Landing Gear Retraction System for an aircraft, incorporating deployment and retraction mechanisms, shock absorption, brake and steering integration, hydraulic actuation, and sensor-based monitoring. The system must handle high-load conditions and ensure safety in normal and emergency operations.",
+      "requirements": [
+        {
+          "title": "Gear Deployment and Shock Absorption",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The landing gear must extend and retract reliably on command for takeoff and landing."
+            },
+            {
+              "description": "The system must include shock absorption mechanisms to dissipate impact energy during landing."
+            }
+          ]
+        },
+        {
+          "title": "Performance Timing",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Deployment and retraction must complete in under 3 seconds under normal conditions."
+            },
+            {
+              "description": "Hydraulic actuators must achieve full extension within specified time limits even in low-temperature environments."
+            }
+          ]
+        },
+        {
+          "title": "Safety Redundancy and Failsafe",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Redundant actuation mechanisms must enable emergency gear extension in case of hydraulic/electrical failure."
+            },
+            {
+              "description": "Failsafe locks must engage automatically if gear position anomalies are detected."
+            }
+          ]
+        },
+        {
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Components must allow easy inspection, maintenance, and replacement with minimal downtime."
+            },
+            {
+              "description": "All components must comply with aviation environmental and durability standards (e.g., FAA/EASA regulations)."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Control Unit",
+        "type": "Electronic Module",
+        "description": "Central control unit processing sensor data and issuing commands for gear operations.",
+        "subComponents": null
+      },
+      {
+        "name": "Hydraulic System",
+        "type": "Subsystem",
+        "description": "Provides hydraulic pressure for gear actuation and braking.",
+        "subComponents": [
+          {
+            "name": "Hydraulic Pump",
+            "description": "Generates hydraulic pressure for system actuation.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Hydraulic Reservoir",
+            "description": "Stores and manages hydraulic fluid supply.",
+            "type": "Storage Unit"
+          },
+          {
+            "name": "Hydraulic Valves",
+            "description": "Controls fluid flow direction and pressure distribution.",
+            "type": "Control Device"
+          }
+        ]
+      },
+      {
+        "name": "Actuation System",
+        "type": "Subsystem",
+        "description": "Mechanical assembly for extending/retracting the landing gear.",
+        "subComponents": [
+          {
+            "name": "Linear Actuator",
+            "description": "Provides linear force for gear movement.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Actuator Position Sensor",
+            "description": "Monitors actuator position and gear status.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Structural Strut Assembly",
+        "type": "Mechanical Assembly",
+        "description": "Supports aircraft weight and transfers loads during landing.",
+        "subComponents": [
+          {
+            "name": "Primary Strut",
+            "description": "Bearing component for load transmission.",
+            "type": "Structural Component"
+          },
+          {
+            "name": "Shock Absorber",
+            "description": "Dampens impact forces via hydraulic/pneumatic damping.",
+            "type": "Damping Device"
+          }
+        ]
+      },
+      {
+        "name": "Brake System",
+        "type": "Subsystem",
+        "description": "Provides deceleration during landing and ground operations.",
+        "subComponents": [
+          {
+            "name": "Brake Calipers",
+            "description": "Applies friction to brake discs for stopping force.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Brake Discs",
+            "description": "Friction surfaces attached to wheel hubs.",
+            "type": "Friction Component"
+          }
+        ]
+      },
+      {
+        "name": "Steering System",
+        "type": "Subsystem",
+        "description": "Controls directional movement via nose gear deflection.",
+        "subComponents": [
+          {
+            "name": "Steering Actuator",
+            "description": "Mechanically adjusts nose gear angle.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Steering Position Sensor",
+            "description": "Monitors steering angle in real time.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Wheel Assembly",
+        "type": "Mechanical Assembly",
+        "description": "Includes main and nose wheels with integrated systems.",
+        "subComponents": [
+          {
+            "name": "Main Wheels",
+            "description": "High-load-capacity wheels for main landing gear.",
+            "type": "Mechanical Component"
+          },
+          {
+            "name": "Nose Wheel",
+            "description": "Steerable nose gear wheel assembly.",
+            "type": "Mechanical Component"
+          }
+        ]
+      },
+      {
+        "name": "Sensor Module",
+        "type": "Monitoring Module",
+        "description": "Monitors gear position, hydraulic pressure, and structural loads.",
+        "subComponents": [
+          {
+            "name": "Pressure Sensor",
+            "description": "Monitors hydraulic system pressure levels.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Gear Position Sensor",
+            "description": "Detects gear extension/retraction status.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Load Sensor",
+            "description": "Measures structural stress during operation.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Safety Sensor Array",
+        "type": "Monitoring Module",
+        "description": "Redundant sensors for critical system parameters.",
+        "subComponents": [
+          {
+            "name": "Redundant Pressure Sensor",
+            "description": "Backup sensor for hydraulic pressure monitoring.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Emergency Gear Sensor",
+            "description": "Ensures gear locks in extended position during emergencies.",
+            "type": "Sensor"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Control Unit",
+        "target": "Sensor Module",
+        "relationshipType": "association",
+        "description": "Control Unit receives sensor data and sends commands to Actuation System."
+      },
+      {
+        "source": "Actuation System",
+        "target": "Hydraulic System",
+        "relationshipType": "dependency",
+        "description": "Actuation System relies on Hydraulic System pressure for operation."
+      },
+      {
+        "source": "Brake System",
+        "target": "Wheel Assembly",
+        "relationshipType": "composition",
+        "description": "Brake System is a component of the Wheel Assembly."
+      },
+      {
+        "source": "Steering System",
+        "target": "Nose Gear Assembly",
+        "relationshipType": "aggregation",
+        "description": "Steering System is aggregated with the Nose Gear Assembly."
+      },
+      {
+        "source": "Safety Sensor Array",
+        "target": "Control Unit",
+        "relationshipType": "aggregation",
+        "description": "Safety sensors are integrated into the Control Unit for redundancy."
+      },
+      {
+        "source": "Structural Strut Assembly",
+        "target": "Actuation System",
+        "relationshipType": "dependency",
+        "description": "Strut assembly mechanically couples with the Actuation System for load transfer."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "loadCapacity",
+        "type": "string",
+        "value": "Up to 150,000 lbs",
+        "description": "Maximum supported weight during landing."
+      },
+      {
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "< 3 seconds",
+        "description": "Time from command to full deployment/retraction."
+      },
+      {
+        "name": "shockAbsorption",
+        "type": "string",
+        "value": "High energy absorption with advanced damping",
+        "description": "Shock absorption capability during impact."
+      },
+      {
+        "name": "hydraulicPressure",
+        "type": "string",
+        "value": "Approx. 3000 PSI",
+        "description": "Required hydraulic pressure for actuation."
+      },
+      {
+        "name": "noiseVibration",
+        "type": "string",
+        "value": "Low to moderate compliant with aviation standards",
+        "description": "Noise and vibration levels meet regulatory standards."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "LGRS-001",
+          "type": "Block",
+          "name": "LandingGearRetractionSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATT-001",
+            "ATT-002"
+          ],
+          "operationIds": [
+            "OP-001",
+            "OP-002"
+          ],
+          "constraintIds": [
+            "CNST-001"
+          ],
+          "partIds": [
+            "LGRS-COMP-001",
+            "LGRS-COMP-002",
+            "LGRS-COMP-003"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "LGRS-COMP-001",
+          "type": "Block",
+          "name": "ControlUnit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATT-003",
+            "ATT-004"
+          ],
+          "operationIds": [
+            "OP-003"
+          ],
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "LGRS-COMP-002",
+          "type": "Block",
+          "name": "ActuationMechanism",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "ATT-005"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "LGRS-COMP-003",
+          "type": "Block",
+          "name": "Sensors",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "ATT-006",
+            "ATT-007"
+          ],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IF-001",
+          "type": "InterfaceBlock",
+          "name": "ControlInterface",
+          "attributeIds": [
+            "ATT-008"
+          ],
+          "operationIds": [
+            "OP-004"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        },
+        {
+          "id": "IF-002",
+          "type": "InterfaceBlock",
+          "name": "StatusInterface",
+          "attributeIds": [
+            "ATT-009"
+          ],
+          "operationIds": null,
+          "signalIds": [
+            "SIG-001"
+          ],
+          "constraintIds": null
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS-001",
+          "type": "FlowSpecification",
+          "name": "PositionDataFlow",
+          "flowType": "information",
+          "dataType": "PositionDataType",
+          "unit": null,
+          "attributeIds": [
+            "ATT-010"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CNST-001",
+          "type": "ConstraintBlock",
+          "name": "GearRetractConstraint",
+          "parameterIds": [
+            "PAR-001",
+            "PAR-002"
+          ],
+          "expression": "gearPosition == DOWN && airspeed > 150 knots",
+          "attributeIds": null
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM-001",
+          "type": "Enumeration",
+          "name": "GearPosition",
+          "literals": [
+            {
+              "id": "LIT-001",
+              "name": "UP"
+            },
+            {
+              "id": "LIT-002",
+              "name": "DOWN"
+            },
+            {
+              "id": "LIT-003",
+              "name": "TRANSIT"
+            }
+          ],
+          "attributeIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "PRT-001",
+          "type": "ProxyPort",
+          "name": "ControlPort",
+          "blockId": "LGRS-001",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "IF-001"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": null,
+          "attributeIds": null
+        },
+        {
+          "id": "PRT-002",
+          "type": "FullPort",
+          "name": "StatusPort",
+          "blockId": "LGRS-001",
+          "isConjugated": true,
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": [
+            "IF-002"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": null
+        },
+        {
+          "id": "PRT-003",
+          "type": "FlowPort",
+          "name": "ActuatorCommandPort",
+          "blockId": "LGRS-COMP-002",
+          "isConjugated": false,
+          "flowSpecificationId": "FS-001",
+          "attributeIds": null
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "IF-001",
+          "type": "Interface",
+          "name": "ControlInterface",
+          "operationIds": [
+            "OP-004"
+          ],
+          "signalIds": null,
+          "attributeIds": null
+        },
+        {
+          "id": "IF-002",
+          "type": "Interface",
+          "name": "StatusInterface",
+          "operationIds": null,
+          "signalIds": [
+            "SIG-001"
+          ],
+          "attributeIds": null
+        }
+      ],
+      "comments": [
+        {
+          "id": "CMT-001",
+          "type": "Comment",
+          "body": "Manages deployment and retraction of landing gear during flight phases",
+          "annotatedElementId": "LGRS-001"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "ATT-001",
+          "type": "Property",
+          "name": "gearPosition",
+          "propertyType": "Enumeration",
+          "value": "DOWN",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "ATT-002",
+          "type": "Property",
+          "name": "currentCommand",
+          "propertyType": "CommandType",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "ATT-003",
+          "type": "Property",
+          "name": "aircraftSpeed",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_185119",
+  "provider": "qwen"
+}

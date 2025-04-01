@@ -1,0 +1,214 @@
+{
+  "system_id": "valve_system",
+  "system_name": "Valve System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Nominal operating pressure for hydraulic routing to ensure consistent performance even under high dynamic load conditions.",
+        "name": "nominalPressure",
+        "type": "string",
+        "value": "1600-5200 psi"
+      },
+      {
+        "description": "Flow capacity through the valve assembly, adjustable based on flight maneuver requirements.",
+        "name": "flowCapacity",
+        "type": "string",
+        "value": "0.8-1.5 GPM"
+      },
+      {
+        "description": "Type of hydraulic fluid used in the valve system, compatible with aerospace specifications and temperature variations.",
+        "name": "hydraulicFluid",
+        "type": "string",
+        "value": "Synthetic Aerospace Hydraulic Oil"
+      },
+      {
+        "description": "Actuation response time critical for ensuring rapid changes in control surface actuation during flight.",
+        "name": "actuationResponseTime",
+        "type": "string",
+        "value": "< 0.4 seconds"
+      },
+      {
+        "description": "Service interval definition to ensure reliability and preventive maintenance in high-cycle flight operations.",
+        "name": "serviceInterval",
+        "type": "string",
+        "value": "500 flight hours or per OEM guidelines"
+      }
+    ],
+    "designScenario": {
+      "description": "The Directional Control Valves system is engineered to precisely manage the routing of hydraulic fluid between the central hydraulic pump and critical flight control assemblies. It integrates advanced electro-hydraulic actuation with real-time monitoring, ensuring rapid fluid redirection during maneuvering and emergency scenarios. The system encompasses automated and manual override capabilities, reinforcing safety with built-in redundancy and fail-safe modes.",
+      "name": "Directional Control Valves",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The valve assembly shall regulate the hydraulic fluid flow between the pump and control actuators, enabling accurate directional changes of flight surfaces."
+            }
+          ],
+          "title": "Hydraulic Flow Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall achieve fluid redirection within 0.4 seconds to meet rapid maneuver requirements during critical flight phases."
+            }
+          ],
+          "title": "Rapid Fluid Redirection",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Redundant fail-safe mechanisms must be incorporated to automatically isolate the faulty valve segment and reroute fluid to maintain aircraft control."
+            }
+          ],
+          "title": "Redundancy and Fail-Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The directional control valve system shall be built for high durability with integrated self-diagnostic features and low maintenance needs, ensuring sustained operational reliability during extended flight cycles."
+            }
+          ],
+          "title": "Durability and Self-Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Directional Control Valves act as an intermediary in the hydraulic system, linking the Central Hydraulic Pump with the flight control Actuators.",
+        "relationshipType": "association",
+        "source": "Directional Control Valves",
+        "target": "Central Hydraulic Pump"
+      },
+      {
+        "description": "The valves are compositionally integrated with advanced sensor arrays that provide real-time fluid pressure and temperature data for system monitoring.",
+        "relationshipType": "composition",
+        "source": "Directional Control Valves",
+        "target": "Sensor Arrays"
+      },
+      {
+        "description": "Manual override components have a dependency on the electro-hydraulic actuators, supporting direct control during emergency conditions.",
+        "relationshipType": "dependency",
+        "source": "Manual Override Module",
+        "target": "Electro-Hydraulic Actuators"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Primary assembly responsible for dynamically routing hydraulic fluid based on flight control commands, featuring both automated and manual control pathways.",
+        "name": "Directional Control Valves Assembly",
+        "subComponents": [
+          {
+            "description": "Electro-hydraulic solenoid modules providing rapid switching of hydraulic paths in response to digital control signals.",
+            "name": "Electro-Hydraulic Solenoids",
+            "type": "Actuation Module"
+          },
+          {
+            "description": "Manual override units enabling direct pilot intervention for fluid control during system anomalies or maintenance scenarios.",
+            "name": "Manual Override Units",
+            "type": "Mechanical Module"
+          },
+          {
+            "description": "In-line sensor arrays integrated within the valve housing to continuously monitor pressure and temperature, contributing to overall system diagnostics.",
+            "name": "In-line Sensor Arrays",
+            "type": "Monitoring Module"
+          }
+        ],
+        "type": "Control Unit"
+      },
+      {
+        "description": "Dedicated electronic control unit that processes sensor feedback and commands to adjust valve positions in real time.",
+        "name": "Hydraulic Control Processor",
+        "subComponents": null,
+        "type": "Control Module"
+      },
+      {
+        "description": "Interface module which bridges pilot inputs with the valve actuation system, ensuring seamless manual and automated control transitions.",
+        "name": "Pilot Interface Module",
+        "subComponents": [
+          {
+            "description": "Digital cockpit controls interfaced with the advanced control processor to issue rapid commands.",
+            "name": "Digital Control Panel",
+            "type": "Human-Machine Interface"
+          }
+        ],
+        "type": "Interface Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [],
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "block1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Valve System",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [],
+      "compositions": [],
+      "connectors": [],
+      "constraintBlocks": [],
+      "constraints": [],
+      "controlFlows": [],
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": [],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [],
+      "ports": [],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": []
+    }
+  },
+  "timestamp": "20250326_181159",
+  "provider": "gpt"
+}

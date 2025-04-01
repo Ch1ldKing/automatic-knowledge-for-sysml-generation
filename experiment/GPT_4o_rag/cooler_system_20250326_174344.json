@@ -1,0 +1,324 @@
+{
+  "system_id": "cooler_system",
+  "system_name": "Cooler System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The unit's cooling power indicating its capacity to lower cabin temperatures.",
+        "name": "CoolingPower",
+        "type": "string",
+        "value": "6.5 kW"
+      },
+      {
+        "description": "Range of temperatures over which the system operates effectively.",
+        "name": "OperationalRange",
+        "type": "string",
+        "value": "-10°C to 40°C"
+      },
+      {
+        "description": "Response time to begin cooling upon command to ensure passenger comfort.",
+        "name": "InitiationTime",
+        "type": "string",
+        "value": "3 seconds"
+      },
+      {
+        "description": "Precision of maintaining set temperature within the cabin for effective climate control.",
+        "name": "TemperaturePrecision",
+        "type": "string",
+        "value": "±0.3°C"
+      },
+      {
+        "description": "Rate of energy consumption during maximum cooling operation.",
+        "name": "MaxEnergyConsumption",
+        "type": "string",
+        "value": "3.2 kW"
+      }
+    ],
+    "designScenario": {
+      "description": "The Cooler unit is designed as a critical component of the aircraft's environmental control system, responsible for reducing and maintaining optimal cabin temperature for passenger comfort and system operational efficiency. It features enhanced response times, redundancy for fault tolerance, and comprehensive control systems to ensure reliability during varied operational conditions. Modern advancements in cooling technology reduce energy usage and increase system longevity, maintaining operational effectiveness even under challenging scenarios.",
+      "name": "Aircraft Cabin Cooler",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The cooler unit must begin operations once the cabin temperature exceeds the defined comfort threshold, triggering the refrigeration cycle."
+            }
+          ],
+          "title": "Activation on Demand",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must achieve the required cabin temperature reduction within a maximum duration of 3 seconds following temperature escalation beyond the set point."
+            }
+          ],
+          "title": "Rapid Onset Cooling",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate redundant components, such as temperature sensors and control circuits, to ensure reliable operation during crucial conditions."
+            }
+          ],
+          "title": "Failure Resilience",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must support remote diagnostics and modular components for simplified monitoring, repairs, and upgrades."
+            }
+          ],
+          "title": "Maintainability and Monitoring",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Composes the Environmental Control System and works collaboratively with air heating and distribution subsystems.",
+        "relationshipType": "composition",
+        "source": "Environmental Control System",
+        "target": "Aircraft Cabin Cooler"
+      },
+      {
+        "description": "Depends on power supply units for operational energy and electronic control modules for integrated management.",
+        "relationshipType": "dependency",
+        "source": "Aircraft Cabin Cooler",
+        "target": "Power Supply Unit"
+      },
+      {
+        "description": "Interacts with cabin airflow systems to distribute and regulate the cooled air efficiently.",
+        "relationshipType": "association",
+        "source": "Aircraft Cabin Cooler",
+        "target": "Air Circulation Subunit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core unit managing the cooling process through various integrated mechanisms.",
+        "name": "Cooling Assembly",
+        "subComponents": [
+          {
+            "description": "Compresses refrigerant gas to elevate pressure and temperature.",
+            "name": "Refrigerant Compressor",
+            "type": "Actuator"
+          },
+          {
+            "description": "Exchanges heat with surroundings to condense the refrigerant.",
+            "name": "Thermal Condenser",
+            "type": "Heat Exchanger"
+          },
+          {
+            "description": "Absorbs cabin heat allowing refrigerant evaporation.",
+            "name": "Thermal Evaporator",
+            "type": "Heat Exchanger"
+          },
+          {
+            "description": "Regulates refrigerant entry into the evaporator for pressure control.",
+            "name": "Valve Regulator",
+            "type": "Control Element"
+          },
+          {
+            "description": "Circulates air across heat exchange units enhancing thermal transfer.",
+            "name": "Outlet Wind Turbine",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Sensors dedicated to obtaining temperature readings for fine-tuned environmental adjustments.",
+        "name": "Temperature Monitoring Subdivision",
+        "subComponents": null,
+        "type": "Sensor"
+      },
+      {
+        "description": "Handles logical processes for maintaining desired functionality and responding to environmental conditions.",
+        "name": "Cooling Control Processor",
+        "subComponents": null,
+        "type": "Controller"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "tempThreshold",
+            "responseTime"
+          ],
+          "constraintIds": [
+            "cabinTempControlConstraint"
+          ],
+          "id": "coolerSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CoolerSystem",
+          "operationIds": [
+            "startRefrigerationCycle",
+            "stopRefrigerationCycle"
+          ],
+          "partIds": [
+            "compressor",
+            "condenser",
+            "evaporator",
+            "expansionValve",
+            "coolingFan"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "compressor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Compressor",
+          "operationIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "condenser",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Condenser",
+          "operationIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "evaporator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Evaporator",
+          "operationIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "expansionValve",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ExpansionValve",
+          "operationIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "coolingFan",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CoolingFan",
+          "operationIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": [
+        {
+          "id": "composition_coolersys_compressor",
+          "memberEndIds": null,
+          "name": "CoolingSystem_Contains_Compressor",
+          "ownedEndIds": null,
+          "sourceId": "coolerSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "compressor",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "Cabin temperature <= comfort threshold within specified response time",
+          "id": "cabinTempControlConstraint",
+          "name": "Cabin Temperature Control Constraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Cooler System is a dedicated component of the aircraft’s environmental control system designed to rapidly and accurately lower cabin temperature when conditions exceed the defined comfort threshold. It integrates a compressor, condenser, evaporator, expansion valve, and cooling fan. The system is engineered for high efficiency, quick response, and robust safety redundancy to ensure minimal temperature deviation and seamless integration with the central Control Unit and Air Handling Unit. The Cooler System actively reduces cabin temperature when ambient conditions exceed 26°C by initiating the refrigeration cycle. It must achieve the required temperature reduction within 5 seconds upon detection of a temperature deviation to ensure optimum cabin comfort. Fail-safe measures, including redundant sensor feedback and compressor bypass, are incorporated to ensure continuous operation even in the event of component failure.",
+  "timestamp": "20250326_174344",
+  "provider": "gpt"
+}

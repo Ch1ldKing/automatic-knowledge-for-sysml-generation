@@ -1,0 +1,401 @@
+{
+  "system_id": "protection_system",
+  "system_name": "Protection System",
+  "specification": {
+    "designScenario": {
+      "name": "Protection System",
+      "description": "This design scenario outlines the Protection System for an aircraft, focusing on safeguarding against fire, structural failures, environmental hazards, and unauthorized intrusions. The system integrates real-time threat detection, structural health monitoring, and environmental control modules, designed with robust redundancy and fail-safe mechanisms to ensure passenger and crew safety under extreme conditions.",
+      "requirements": [
+        {
+          "title": "Threat Detection and Response",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Detect fire, smoke, structural breaches, and unauthorized intrusions through distributed sensors and real-time analysis."
+            },
+            {
+              "description": "Initiate protective actions such as deploying fire suppressants, sealing breached compartments, or isolating faulty systems."
+            }
+          ]
+        },
+        {
+          "title": "Performance Specifications",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve threat detection accuracy of 99.9% under normal operational conditions."
+            },
+            {
+              "description": "Ensure sensor data updates at intervals no greater than 200 milliseconds for real-time threat analysis."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe and Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Maintain quad-modular redundancy in critical subsystems to prevent single points of failure."
+            },
+            {
+              "description": "Implement automatic system isolation and fallback modes for degraded operation during component failures."
+            }
+          ]
+        },
+        {
+          "title": "System Maintainability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide diagnostic interfaces for ground crews with self-test capabilities and modular component replacement."
+            },
+            {
+              "description": "Support remote firmware updates and configuration changes via secure aviation data links."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Threat Detection Unit",
+        "type": "Sensor Module",
+        "description": "Monitors for fire, smoke, structural anomalies, and unauthorized access via integrated sensor arrays.",
+        "subComponents": [
+          {
+            "name": "Fire and Smoke Sensor Array",
+            "type": "Sensor",
+            "description": "Combines infrared, optical, and ionization sensors for fire/smoke detection."
+          },
+          {
+            "name": "Intrusion Detection Subsystem",
+            "type": "Sensor",
+            "description": "Uses pressure differentials and motion sensors to detect unauthorized access."
+          }
+        ]
+      },
+      {
+        "name": "Structural Integrity Monitor",
+        "type": "Sensor Module",
+        "description": "Continuously evaluates aircraft structural health, including wings, fuselage, and landing gear.",
+        "subComponents": [
+          {
+            "name": "Stress and Vibration Sensors",
+            "type": "Sensor",
+            "description": "Measures material stress and vibration patterns to detect structural degradation."
+          },
+          {
+            "name": "Cabin Pressure Sensor Array",
+            "type": "Sensor",
+            "description": "Monitors cabin pressure to prevent decompression events."
+          }
+        ]
+      },
+      {
+        "name": "Central Protection Controller",
+        "type": "Electronic Module",
+        "description": "Processes data from all subsystems to execute protective protocols and coordinate system responses.",
+        "subComponents": null
+      },
+      {
+        "name": "Safety Actuation System",
+        "type": "Actuator Module",
+        "description": "Executes protective actions such as deploying fire suppressants, sealing compartments, or activating emergency gear.",
+        "subComponents": [
+          {
+            "name": "Fire Suppression Actuator",
+            "type": "Actuator",
+            "description": "Controls release of extinguishing agents in fire-affected zones."
+          },
+          {
+            "name": "Compartment Isolation Mechanism",
+            "type": "Actuator",
+            "description": "Automatically seals breached areas to contain hazards."
+          }
+        ]
+      },
+      {
+        "name": "Environmental Protection Module",
+        "type": "Control Module",
+        "description": "Manages cabin environmental conditions during emergencies, including temperature and oxygen levels.",
+        "subComponents": [
+          {
+            "name": "Cabin Pressure Regulator",
+            "type": "Actuator",
+            "description": "Maintains safe cabin pressure during altitude changes or breaches."
+          },
+          {
+            "name": "Temperature Control System",
+            "type": "Actuator",
+            "description": "Regulates cabin temperature to mitigate heat-related hazards."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Central Protection Controller",
+        "target": "Threat Detection Unit",
+        "relationshipType": "aggregation",
+        "description": "The Central Protection Controller aggregates threat detection data to trigger protective actions."
+      },
+      {
+        "source": "Central Protection Controller",
+        "target": "Structural Integrity Monitor",
+        "relationshipType": "aggregation",
+        "description": "The Central Protection Controller uses structural health data to initiate emergency protocols."
+      },
+      {
+        "source": "Safety Actuation System",
+        "target": "Central Protection Controller",
+        "relationshipType": "dependency",
+        "description": "The Safety Actuation System depends on commands from the Central Protection Controller to execute actions."
+      },
+      {
+        "source": "Environmental Protection Module",
+        "target": "Structural Integrity Monitor",
+        "relationshipType": "dependency",
+        "description": "The Environmental Protection Module relies on structural data to adjust cabin conditions safely."
+      },
+      {
+        "source": "Threat Detection Unit",
+        "target": "Intrusion Detection Subsystem",
+        "relationshipType": "composition",
+        "description": "The Intrusion Detection Subsystem is a core component of the Threat Detection Unit."
+      },
+      {
+        "source": "Environmental Protection Module",
+        "target": "Cabin Pressure Regulator",
+        "relationshipType": "composition",
+        "description": "The Cabin Pressure Regulator is an integral part of the Environmental Protection Module."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "5 seconds",
+        "description": "Maximum allowable time from threat detection to system response initiation."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Quad modular redundancy",
+        "description": "System redundancy level ensuring no single point of failure in critical subsystems."
+      },
+      {
+        "name": "MTBF",
+        "type": "string",
+        "value": "30000 hours",
+        "description": "Mean time between failures for the Central Protection Controller."
+      },
+      {
+        "name": "sensorUpdateInterval",
+        "type": "string",
+        "value": "200 milliseconds",
+        "description": "Maximum allowable interval between sensor data updates for real-time analysis."
+      },
+      {
+        "name": "pressureTolerance",
+        "type": "string",
+        "value": "-10 kPa to +10 kPa",
+        "description": "Operating pressure range for structural integrity monitoring."
+      },
+      {
+        "name": "fireSuppressionCoverage",
+        "type": "string",
+        "value": "100% cabin coverage within 15 seconds",
+        "description": "Required deployment speed and coverage area for fire suppression systems."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "PSYS-001",
+          "type": "Block",
+          "name": "ProtectionSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-001",
+            "ATTR-002"
+          ],
+          "operationIds": [
+            "OP-001",
+            "OP-002"
+          ],
+          "constraintIds": [
+            "CNST-001"
+          ],
+          "partIds": [
+            "PSYS-FP-001",
+            "PSYS-OP-001",
+            "PSYS-EP-001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PSYS-FP-001",
+          "type": "Block",
+          "name": "FireProtectionSubsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-003",
+            "ATTR-004"
+          ],
+          "operationIds": [
+            "OP-003"
+          ],
+          "constraintIds": [
+            "CNST-002"
+          ],
+          "partIds": [
+            "PSYS-FP-DET-001",
+            "PSYS-FP-EXT-001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PSYS-OP-001",
+          "type": "Block",
+          "name": "OverpressureProtectionSubsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-005",
+            "ATTR-006"
+          ],
+          "operationIds": [
+            "OP-004"
+          ],
+          "constraintIds": [
+            "CNST-003"
+          ],
+          "partIds": [
+            "PSYS-OP-SENS-001",
+            "PSYS-OP-REL-001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PSYS-EP-001",
+          "type": "Block",
+          "name": "ElectricalProtectionSubsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-007",
+            "ATTR-008"
+          ],
+          "operationIds": [
+            "OP-005"
+          ],
+          "constraintIds": [
+            "CNST-004"
+          ],
+          "partIds": [
+            "PSYS-EP-BC-001",
+            "PSYS-EP-FS-001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IF-001",
+          "type": "InterfaceBlock",
+          "name": "ProtectionDataInterface",
+          "attributeIds": [
+            "ATTR-009"
+          ],
+          "operationIds": [],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "PORT-001",
+          "type": "FullPort",
+          "name": "FirePort",
+          "blockId": "PSYS-FP-001",
+          "providedInterfaceIds": [
+            "IF-001"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "PORT-002",
+          "type": "ProxyPort",
+          "name": "OverpressurePort",
+          "blockId": "PSYS-OP-001",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "IF-001"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CNST-001",
+          "type": "ConstraintBlock",
+          "name": "SystemSafetyConstraint",
+          "parameterIds": [
+            "PARAM-001"
+          ],
+          "expression": "SafetyFactor > 1.5",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM-001",
+          "type": "Enumeration",
+          "name": "SystemStatus",
+          "literals": [
+            {
+              "id": "LIT-001",
+              "name": "Active"
+            },
+            {
+              "id": "LIT-002",
+              "name": "Inactive"
+            },
+            {
+              "id": "LIT-003",
+              "name": "Fault"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "CMNT-001",
+          "type": "Comment",
+          "body": "Primary protection system managing all subsystem interactions",
+          "annotatedElementId": "PSYS-001"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_184250",
+  "provider": "qwen"
+}

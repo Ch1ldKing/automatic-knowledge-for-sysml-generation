@@ -1,0 +1,445 @@
+{
+  "system_id": "evacuation_system",
+  "system_name": "Evacuation System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Time allowed for the system to initiate evacuation protocols after emergency detection.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "2 seconds"
+      },
+      {
+        "description": "Operational ambient temperature range to ensure sensor and actuator reliability in variable flight conditions.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-25°C to 75°C"
+      },
+      {
+        "description": "Redundancy level implemented across sensors and actuators to ensure reliable functioning even if one path fails.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple redundancy"
+      },
+      {
+        "description": "Mean Time Between Failures indicating high durability during continuous flight operations.",
+        "name": "MTBF",
+        "type": "string",
+        "value": "25000 hours"
+      },
+      {
+        "description": "Power specifications ensuring continuous operation during prolonged emergencies with redundant supplies.",
+        "name": "powerBackup",
+        "type": "string",
+        "value": "Dual redundant power supply with high capacity battery backup"
+      }
+    ],
+    "designScenario": {
+      "description": "The Evacuation Control System is designed to orchestrate a coordinated and safe evacuation of an aircraft during emergencies. It integrates advanced door actuation, dynamic cabin guidance, and synchronized emergency lighting with real-time avionics data. The system is optimized to ensure immediate activation, continuous reliability, and fault-tolerant operation under rigorous aviation standards. It also offers a user-friendly interface for cabin crew to monitor system status and perform manual overrides if necessary.",
+      "name": "Evacuation Control System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Automatically actuate emergency doors and activate directional signage immediately upon detecting critical flight parameters."
+            },
+            {
+              "description": "Interface with sensors in the avionic suite to validate emergency conditions before initiating protocols."
+            }
+          ],
+          "title": "Evacuation Activation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Guarantee system response to emergency triggers within 2 seconds to minimize delay."
+            },
+            {
+              "description": "Maintain continuous real-time communication with avionics and lighting modules during evacuation events."
+            }
+          ],
+          "title": "Response Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement triple redundancy in sensor and actuator circuits to secure operational integrity even with isolated component failures."
+            },
+            {
+              "description": "Deploy fail-safe logic that ensures system activation only upon verified emergency conditions, minimizing false alarms."
+            }
+          ],
+          "title": "Safety and Redundancy Assurance",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide an intuitive interface for cabin crew, incorporating clear alert indicators and manual override options."
+            },
+            {
+              "description": "Support regular automated diagnostics, remote firmware updates, and compliance with aircraft maintenance schedules."
+            }
+          ],
+          "title": "Interface and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Evacuation Control Module depends on the Cabin Guidance Module to relay directional information during evacuation processes.",
+        "relationshipType": "dependency",
+        "source": "Evacuation Control Module",
+        "target": "Cabin Guidance Module"
+      },
+      {
+        "description": "The Emergency Lighting Assembly is aggregated by the Evacuation Control Module to provide synchronized visual evacuation cues.",
+        "relationshipType": "aggregation",
+        "source": "Evacuation Control Module",
+        "target": "Emergency Lighting Assembly"
+      },
+      {
+        "description": "The Avionics Integration Module composes the overall system by integrating sensor data from the aircraft's central avionics to trigger system activation.",
+        "relationshipType": "composition",
+        "source": "Evacuation Control System",
+        "target": "Avionics Integration Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary control unit that oversees evacuation operations and interfaces with in-flight avionics systems.",
+        "name": "Evacuation Control Module",
+        "subComponents": [
+          {
+            "description": "Automatic door actuator responsible for releasing emergency exits quickly.",
+            "name": "Emergency Door Actuator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Synchronizes activation of evacuation signals across the aircraft.",
+            "name": "Evacuation Signal Synchronizer",
+            "type": "Control Subsystem"
+          }
+        ],
+        "type": "Control Module"
+      },
+      {
+        "description": "Provides in-cabin directional guidance and emergency signage to assist passenger evacuation.",
+        "name": "Cabin Guidance Module",
+        "subComponents": [
+          {
+            "description": "Directional exit indicator that highlights the safest evacuation path.",
+            "name": "Directional Exit Indicator",
+            "type": "Guidance Device"
+          },
+          {
+            "description": "Digital signage driver that manages dynamic messages and evacuation instructions.",
+            "name": "Digital Signage Driver",
+            "type": "Display Controller"
+          }
+        ],
+        "type": "Guidance Module"
+      },
+      {
+        "description": "Delivers structured illumination using LED and strobe technologies to mark evacuation routes.",
+        "name": "Emergency Lighting Assembly",
+        "subComponents": [
+          {
+            "description": "LED pathlights fixed along cabin floors to illuminate evacuation paths.",
+            "name": "LED Pathlights",
+            "type": "Lighting Device"
+          },
+          {
+            "description": "Strobe beacon lights providing intermittent visual cues for evacuation.",
+            "name": "Strobe Beacon Lights",
+            "type": "Lighting Device"
+          }
+        ],
+        "type": "Safety Module"
+      },
+      {
+        "description": "Integrates with the aircraft’s avionics to collect sensor data and send system updates for real-time analysis and maintenance.",
+        "name": "Avionics Integration Module",
+        "subComponents": [
+          {
+            "description": "Aggregates data from flight sensors to monitor emergency conditions.",
+            "name": "Sensor Data Aggregator",
+            "type": "Data Processor"
+          },
+          {
+            "description": "Interfaces with the maintenance management system for diagnostic reporting and scheduling.",
+            "name": "Maintenance Interface",
+            "type": "Communication Module"
+          }
+        ],
+        "type": "Integration Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "A_ActivateEvacuation",
+          "name": "Activate Evacuation Procedure",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_EvacSys",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Evacuation Control System",
+          "operationIds": [],
+          "partIds": [
+            "B_CCU",
+            "B_ELM",
+            "B_DCM",
+            "B_DGM"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_CCU",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Central Control Unit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_ELM",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Emergency Lighting Module",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_DCM",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Door Control Module",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_DGM",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Directional Guidance Module",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "responseTime <= 3",
+          "id": "CB_ResponseTime",
+          "name": "Response Time Constraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": [],
+          "expression": "-20 <= temperature and temperature <= 70",
+          "id": "CB_Temperature",
+          "name": "Operating Temperature Constraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B_EvacSys",
+          "flowSpecificationId": null,
+          "id": "P_Control",
+          "isConjugated": false,
+          "name": "Control Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_CCU",
+          "flowSpecificationId": null,
+          "id": "P_CCU_Interface",
+          "isConjugated": false,
+          "name": "CCU Interface Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_ELM",
+          "flowSpecificationId": null,
+          "id": "P_ELM_Interface",
+          "isConjugated": false,
+          "name": "Lighting Interface Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "R_ResponseTime",
+          "name": "Response Time Requirement",
+          "reqId": "RT-001",
+          "text": "System must respond within 3 seconds.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R_Temperature",
+          "name": "Operating Temperature Requirement",
+          "reqId": "TEMP-001",
+          "text": "Operating temperature range is -20°C to 70°C.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R_FaultSafety",
+          "name": "Fault Safety Requirement",
+          "reqId": "FS-001",
+          "text": "System must include fault safety measures.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R_Redundancy",
+          "name": "Redundancy Requirement",
+          "reqId": "RED-001",
+          "text": "System employs triple modular redundancy.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R_MTBF",
+          "name": "MTBF Requirement",
+          "reqId": "MTBF-001",
+          "text": "MTBF is at least 20000 hours.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "R_PowerBackup",
+          "name": "Power Backup Requirement",
+          "reqId": "PB-001",
+          "text": "Dual power supplies with battery backup is required.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "S_Normal",
+          "name": "Normal Operation",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "S_Evacuation",
+          "name": "Evacuation Mode",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "S_Fault",
+          "name": "Fault Mode",
+          "type": "State"
+        }
+      ],
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "Evacuation Control System是一个管理安全疏散协议的系统，通过集成先进的门控机制和方向指引系统来确保安全疏散。它设计符合严格的飞机工程标准，侧重于快速激活、操作可靠性和强大的故障安全措施。系统与中央控制单元和紧急照明模块无缝接口，确保在关键情况下，疏散信号能够迅速触发，引导乘客安全疏散。系统具有以下规格说明：响应时间为3秒，工作温度范围为-20°C至70°C，采用三重模块冗余的容错策略，MTBF为20000小时，备用电源为双电源供应和电池备份。此外，系统还包括功能性、性能、安全和非功能性要求，如疏散激活、响应性能、故障安全和冗余性、界面和可维护性等方面的设计要求。",
+  "timestamp": "20250325_204135",
+  "provider": "gpt"
+}

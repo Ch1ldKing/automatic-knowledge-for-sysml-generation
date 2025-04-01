@@ -1,0 +1,486 @@
+{
+  "system_id": "fuel_storage_system",
+  "system_name": "Fuel Storage System",
+  "specification": {
+    "designScenario": {
+      "name": "Fuel Storage System",
+      "description": "The Fuel Storage System is a critical subsystem designed to safely store, monitor, and maintain fuel quality within an aircraft. It employs aerospace-grade materials and redundancy mechanisms to ensure fuel integrity and availability across all flight phases. The system integrates sensors and structural components to manage fuel level, pressure, and temperature, while preventing contamination and leaks under varying environmental conditions.",
+      "requirements": [
+        {
+          "title": "Fuel Storage Capacity",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must store fuel within a capacity of 3000 liters to ensure sufficient supply for mission duration."
+            }
+          ]
+        },
+        {
+          "title": "Fuel Containment Integrity",
+          "type": "safety",
+          "details": [
+            {
+              "description": "The system must prevent fuel leakage through pressure-resistant tank construction and redundant sealing mechanisms."
+            }
+          ]
+        },
+        {
+          "title": "Fuel Purity Maintenance",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must maintain fuel purity through internal tank lining and filtration, ensuring compatibility with engine specifications."
+            }
+          ]
+        },
+        {
+          "title": "Environmental Resistance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The tank must withstand pressure differentials of up to 5 Bar and temperature ranges from -40°C to 60°C without structural failure."
+            }
+          ]
+        },
+        {
+          "title": "Sensor Monitoring",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must continuously monitor fuel level, pressure, and temperature, providing real-time data to the aircraft's control systems."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy and Fail-Safes",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Dual redundant sensors and isolation valves must be implemented to ensure operational continuity in case of component failure."
+            }
+          ]
+        },
+        {
+          "title": "Maintenance Accessibility",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "The system must allow for easy access to subcomponents for inspection, cleaning, and replacement without disassembling primary structures."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Fuel Storage Tank",
+        "description": "Primary containment structure for fuel, designed to withstand extreme environmental conditions and maintain structural integrity.",
+        "type": "Container",
+        "subComponents": [
+          {
+            "name": "Tank Lining",
+            "description": "Protective coating to prevent corrosion and contamination of stored fuel.",
+            "type": "Protective Layer"
+          },
+          {
+            "name": "Tank Pressure Sensor",
+            "description": "Monitors internal tank pressure to prevent over-pressurization.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Fuel Level Sensor",
+            "description": "Detects fuel volume and provides real-time level data.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Temperature Sensor",
+            "description": "Measures fuel temperature to ensure thermal stability.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Sensor Network",
+        "description": "Aggregates and transmits fuel storage parameters to the aircraft's avionics system.",
+        "type": "Monitoring",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Fuel Storage Tank",
+        "target": "Tank Lining",
+        "relationshipType": "composition",
+        "description": "The Tank Lining is a critical subcomponent of the Fuel Storage Tank, ensuring fuel purity."
+      },
+      {
+        "source": "Fuel Storage Tank",
+        "target": "Tank Pressure Sensor",
+        "relationshipType": "composition",
+        "description": "The Tank Pressure Sensor is embedded within the Fuel Storage Tank to monitor internal pressure."
+      },
+      {
+        "source": "Fuel Storage Tank",
+        "target": "Fuel Level Sensor",
+        "relationshipType": "composition",
+        "description": "The Fuel Level Sensor is integrated into the Fuel Storage Tank to track fuel volume."
+      },
+      {
+        "source": "Fuel Storage Tank",
+        "target": "Temperature Sensor",
+        "relationshipType": "composition",
+        "description": "The Temperature Sensor is mounted within the Fuel Storage Tank to measure fuel temperature."
+      },
+      {
+        "source": "Sensor Network",
+        "target": "Fuel Storage Tank",
+        "relationshipType": "aggregation",
+        "description": "The Sensor Network aggregates data from the Fuel Storage Tank's sensors for system-wide monitoring."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "fuelType",
+        "type": "string",
+        "value": "Jet-A, AVGAS",
+        "description": "Specifies the fuel types compatible with the storage system, critical for engine compatibility."
+      },
+      {
+        "name": "tankCapacity",
+        "type": "string",
+        "value": "3000 liters",
+        "description": "Indicates the maximum fuel volume the tank can safely contain."
+      },
+      {
+        "name": "systemRedundancy",
+        "type": "string",
+        "value": "Dual redundant systems",
+        "description": "Ensures backup components (e.g., sensors, valves) are available to prevent single-point failures."
+      },
+      {
+        "name": "pressureRating",
+        "type": "string",
+        "value": "5 Bar",
+        "description": "Specifies the maximum allowable internal pressure the tank structure can withstand."
+      },
+      {
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-40°C to 60°C",
+        "description": "Defines the temperature range within which the tank maintains structural integrity."
+      }
+    ]
+  },
+  "model": {
+      "diagramType": "BDD",
+      "elements": {
+        "blocks": [
+          {
+            "id": "FuelStorageSystem",
+            "type": "Block",
+            "name": "Fuel Storage System",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "FSS_Attributes"
+            ],
+            "operationIds": [
+              "refuel",
+              "transferFuel",
+              "monitorFuelLevels"
+            ],
+            "constraintIds": [
+              "FSS_CapacityConstraint"
+            ],
+            "partIds": [
+              "FuelTankSystem",
+              "FuelDistributionSystem",
+              "FuelQuantityIndicationSystem"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "FuelTankSystem",
+            "type": "Block",
+            "name": "Fuel Tank System",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "FTS_Attributes"
+            ],
+            "operationIds": [
+              "checkFuelLevel",
+              "ventFuel"
+            ],
+            "constraintIds": [
+              "FTS_VolumeConstraint"
+            ],
+            "partIds": [
+              "MainFuelTank",
+              "AuxiliaryFuelTank"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "FuelTank",
+            "type": "Block",
+            "name": "Fuel Tank",
+            "isAbstract": true,
+            "isActive": false,
+            "isEncapsulated": false,
+            "attributeIds": [
+              "FT_Capacity",
+              "FT_CurrentLevel",
+              "FT_Temperature"
+            ],
+            "operationIds": [
+              "getFuelLevel",
+              "setFuelLevel"
+            ],
+            "constraintIds": [
+              "FT_CapacityConstraint"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "FuelDistributionSystem",
+            "type": "Block",
+            "name": "Fuel Distribution System",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "FDS_PumpStatus"
+            ],
+            "operationIds": [
+              "startPump",
+              "stopPump"
+            ],
+            "constraintIds": [
+              "FDS_PressureConstraint"
+            ],
+            "partIds": [
+              "FuelPump",
+              "FuelValve"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "FuelPump",
+            "type": "Block",
+            "name": "Fuel Pump",
+            "isAbstract": false,
+            "isActive": true,
+            "isEncapsulated": false,
+            "attributeIds": [
+              "FP_Pressure",
+              "FP_RPM"
+            ],
+            "operationIds": [
+              "pumpFuel",
+              "monitorPressure"
+            ],
+            "constraintIds": [
+              "FP_RPMConstraint"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "FuelQuantityIndicationSystem",
+            "type": "Block",
+            "name": "Fuel Quantity Indication System",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "FQIS_SensorData"
+            ],
+            "operationIds": [
+              "reportFuelLevel",
+              "calibrateSensors"
+            ],
+            "constraintIds": [
+              "FQIS_AccuracyConstraint"
+            ],
+            "partIds": [
+              "LevelSensor",
+              "FuelQuantityIndicator"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          }
+        ],
+        "interfaceBlocks": [
+          {
+            "id": "FuelInterface",
+            "type": "InterfaceBlock",
+            "name": "Fuel Interface",
+            "attributeIds": [
+              "FI_FuelFlow"
+            ],
+            "operationIds": [
+              "supplyFuel"
+            ],
+            "signalIds": [],
+            "constraintIds": [
+              "FI_FlowConstraint"
+            ]
+          },
+          {
+            "id": "ControlInterface",
+            "type": "InterfaceBlock",
+            "name": "Control Interface",
+            "attributeIds": [
+              "CI_CommandSignal"
+            ],
+            "operationIds": [
+              "receiveCommand"
+            ],
+            "signalIds": [],
+            "constraintIds": [
+              "CI_CommandConstraint"
+            ]
+          },
+          {
+            "id": "StatusInterface",
+            "type": "InterfaceBlock",
+            "name": "Status Interface",
+            "attributeIds": [
+              "ST_StatusSignal"
+            ],
+            "operationIds": [
+              "sendStatus"
+            ],
+            "signalIds": [],
+            "constraintIds": [
+              "ST_SignalConstraint"
+            ]
+          }
+        ],
+        "flowSpecifications": [
+          {
+            "id": "FuelFlow",
+            "type": "FlowSpecification",
+            "name": "Fuel Flow",
+            "flowType": "material",
+            "dataType": "Volume",
+            "unit": "L",
+            "attributeIds": []
+          }
+        ],
+        "constraintBlocks": [
+          {
+            "id": "FSS_CapacityConstraint",
+            "type": "ConstraintBlock",
+            "name": "Fuel Storage Capacity Constraint",
+            "expression": "totalCapacity = sum(tank.capacities for tank in FuelStorageSystem.tanks)",
+            "parameterIds": [
+              "totalCapacity"
+            ]
+          }
+        ],
+        "ports": [
+          {
+            "id": "FuelPort",
+            "type": "FlowPort",
+            "name": "FuelPort",
+            "blockId": "FuelStorageSystem",
+            "flowSpecificationId": "FuelFlow",
+            "isConjugated": false,
+            "attributeIds": []
+          },
+          {
+            "id": "ControlPort",
+            "type": "ProxyPort",
+            "name": "ControlPort",
+            "blockId": "FuelDistributionSystem",
+            "providedInterfaceIds": [
+              "ControlInterface"
+            ],
+            "isConjugated": false,
+            "attributeIds": []
+          },
+          {
+            "id": "StatusPort",
+            "type": "FullPort",
+            "name": "StatusPort",
+            "blockId": "FuelQuantityIndicationSystem",
+            "requiredInterfaceIds": [
+              "StatusInterface"
+            ],
+            "isConjugated": true,
+            "attributeIds": []
+          }
+        ],
+        "enumerations": [
+          {
+            "id": "FuelTankType",
+            "type": "Enumeration",
+            "name": "FuelTankType",
+            "literals": [
+              {
+                "id": "Main",
+                "name": "Main"
+              },
+              {
+                "id": "Auxiliary",
+                "name": "Auxiliary"
+              }
+            ],
+            "attributeIds": []
+          }
+        ],
+        "valueTypes": [
+          {
+            "id": "Volume",
+            "type": "ValueType",
+            "name": "Volume",
+            "quantityKindId": "VolumeQuantity",
+            "unitId": "LiterUnit",
+            "attributeIds": []
+          }
+        ],
+        "attributes": [
+          {
+            "id": "FT_Capacity",
+            "type": "Property",
+            "name": "Capacity",
+            "propertyType": "Double",
+            "value": "0",
+            "visibility": "public",
+            "aggregation": "none",
+            "lowerValue": "0",
+            "upperValue": "*",
+            "defaultValue": "0",
+            "isReadOnly": false,
+            "isStatic": false,
+            "isDerived": false,
+            "isDerivedUnion": false,
+            "isOrdered": false,
+            "isUnique": true,
+            "isID": false
+          }
+        ],
+        "comments": [
+          {
+            "id": "FSS_Documentation",
+            "type": "Comment",
+            "body": "Manages storage, distribution, and monitoring of aircraft fuel",
+            "annotatedElementId": "FuelStorageSystem"
+          }
+        ]
+      
+    }
+  },
+  "timestamp": "20250325_184354",
+  "provider": "qwen"
+}

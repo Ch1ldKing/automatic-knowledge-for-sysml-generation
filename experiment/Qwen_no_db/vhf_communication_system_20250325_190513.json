@@ -1,0 +1,499 @@
+{
+  "system_id": "vhf_communication_system",
+  "system_name": "VHF Communication System",
+  "specification": {
+    "designScenario": {
+      "name": "V H F Radio System",
+      "description": "The V H F Radio System is a critical avionics subsystem enabling short-range voice and data communication between aircraft and air traffic control (ATC). Designed for robust operation in electromagnetic environments, it supports digital voice transmission, automatic frequency tuning, and redundancy to ensure uninterrupted communication during flight. The system adheres to advanced aviation standards, integrates with cockpit digital systems, and incorporates environmental monitoring to maintain reliability under varying conditions.",
+      "requirements": [
+        {
+          "title": "Voice and Data Communication",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Enable secure, bidirectional voice communication with ATC and adjacent aircraft via the 118-137 MHz band using AM modulation."
+            },
+            {
+              "description": "Support Controller-Pilot Data Link Communications (CPDLC) for text-based messaging over VHF Digital Link (VDL) Mode 2."
+            }
+          ]
+        },
+        {
+          "title": "Low-Latency Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve end-to-end communication latency below 30ms for real-time voice and CPDLC message delivery."
+            },
+            {
+              "description": "Maintain bandwidth efficiency of 25 kHz per channel with adaptive frequency hopping to mitigate interference."
+            }
+          ]
+        },
+        {
+          "title": "Triple Redundancy and Fault Tolerance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement triple modular redundancy (TMR) across transceiver modules to ensure operation under single or dual component failures."
+            },
+            {
+              "description": "Automatically isolate faulty subcomponents and switch to redundant paths within 500ms of failure detection."
+            }
+          ]
+        },
+        {
+          "title": "Environmental and Regulatory Compliance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Meet RTCA/DO-178C (software) and DO-254 (hardware) certification standards for airborne systems."
+            },
+            {
+              "description": "Operate reliably within temperature ranges of -55°C to +70°C and withstand 14g peak acceleration."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "VHF Transceiver",
+        "type": "Multi-Channel Radio Transceiver",
+        "description": "Primary hardware module for transmitting and receiving voice/data signals. Integrates digital signal processing and adaptive filtering.",
+        "subComponents": [
+          {
+            "name": "RF Front End",
+            "description": "Handles signal amplification, filtering, and antenna interface with automatic gain control.",
+            "type": "Analog Signal Processor"
+          },
+          {
+            "name": "Digital Modem",
+            "description": "Performs AM modulation/demodulation and VDL Mode 2 data framing.",
+            "type": "Digital Signal Processor"
+          },
+          {
+            "name": "Frequency Synthesizer",
+            "description": "Generates precise VHF frequencies with ±0.005% accuracy for channel selection.",
+            "type": "Phase-Locked Loop (PLL) System"
+          }
+        ]
+      },
+      {
+        "name": "Control and Redundancy Manager",
+        "type": "Avionics Control Unit",
+        "description": "Manages transceiver operations, redundancy switching, and interfaces with aircraft systems.",
+        "subComponents": [
+          {
+            "name": "FPGA-Based Voting Logic",
+            "description": "Implements TMR consensus for critical subsystem outputs.",
+            "type": "Field-Programmable Gate Array (FPGA)"
+          },
+          {
+            "name": "Flight Management Interface",
+            "description": "Coordinates with the Flight Management System (FMS) for frequency tuning and priority messaging.",
+            "type": "ARINC 429/664 Interface"
+          }
+        ]
+      },
+      {
+        "name": "Power Distribution Unit",
+        "type": "Redundant Power Supply",
+        "description": "Provides isolated power rails with voltage regulation and fault isolation for critical components.",
+        "subComponents": null
+      },
+      {
+        "name": "Antenna Assembly",
+        "type": "Broadband VHF Antenna",
+        "description": "Optimized for omnidirectional coverage with built-in lightning protection and moisture sealing.",
+        "subComponents": null
+      },
+      {
+        "name": "Environmental Monitoring Module",
+        "type": "Sensor Interface Unit",
+        "description": "Monitors temperature, vibration, and humidity to trigger adaptive operational adjustments.",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "VHF Transceiver",
+        "target": "Control and Redundancy Manager",
+        "relationshipType": "association",
+        "description": "The Control Module configures transceiver parameters and receives status telemetry via a dedicated digital bus."
+      },
+      {
+        "source": "Control and Redundancy Manager",
+        "target": "Power Distribution Unit",
+        "relationshipType": "dependency",
+        "description": "The Control Module requires stable 28V DC power with hot-swappable redundancy from the Power Unit."
+      },
+      {
+        "source": "VHF Transceiver",
+        "target": "Antenna Assembly",
+        "relationshipType": "composition",
+        "description": "The Antenna is a physically integrated component of the transceiver's RF path."
+      },
+      {
+        "source": "Environmental Monitoring Module",
+        "target": "Control and Redundancy Manager",
+        "relationshipType": "aggregation",
+        "description": "Environmental data feeds into the Control Module to adjust operational parameters dynamically."
+      },
+      {
+        "source": "Control and Redundancy Manager",
+        "target": "Flight Management Interface",
+        "relationshipType": "association",
+        "description": "The Control Module exchanges flight plan data and priority channel assignments with the FMS."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "Operating Frequency Range",
+        "type": "string",
+        "value": "118.00-136.975 MHz",
+        "description": "Complies with ICAO allocated channels for ATC and aircraft communications."
+      },
+      {
+        "name": "Transmission Power",
+        "type": "string",
+        "value": "50W peak (25W nominal)",
+        "description": "Adjustable power output to balance range (up to 200 NM) and regulatory limits."
+      },
+      {
+        "name": "Receiver Sensitivity",
+        "type": "string",
+        "value": "-113 dBm at 12 dB SINAD",
+        "description": "Ensures reception of weak signals in high-noise environments."
+      },
+      {
+        "name": "Redundancy Level",
+        "type": "string",
+        "value": "Triple Modular Redundancy (TMR)",
+        "description": "Three independent processing chains to achieve ASIL-D safety integrity level."
+      },
+      {
+        "name": "Latency Target",
+        "type": "string",
+        "value": "<30ms (95th percentile)",
+        "description": "Guaranteed end-to-end delay for mission-critical voice/data packets."
+      },
+      {
+        "name": "Compliance Standards",
+        "type": "string",
+        "value": "RTCA/DO-178C Level A, DO-254 Level A, MIL-STD-461G",
+        "description": "Certification for airborne software, hardware, and electromagnetic compatibility."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "diagramType": {
+          "type": "string",
+          "const": "BDD"
+        },
+        "elements": {
+          "type": "object",
+          "properties": {
+            "blocks": [
+              {
+                "id": "VHFCOMMSYSTEM",
+                "type": "Block",
+                "name": "VHF Communication System",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "ATTR_001",
+                  "ATTR_002",
+                  "ATTR_003"
+                ],
+                "operationIds": [
+                  "OP_001",
+                  "OP_002"
+                ],
+                "constraintIds": [
+                  "CONSTRAINT_001",
+                  "CONSTRAINT_002"
+                ],
+                "partIds": [
+                  "ANTENNA",
+                  "VHFRADIO",
+                  "CONTROLUNIT",
+                  "AUDIOUNIT",
+                  "POWERUNIT"
+                ],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "ANTENNA",
+                "type": "Block",
+                "name": "VHF Antenna",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "ATTR_010",
+                  "ATTR_011"
+                ],
+                "operationIds": [],
+                "constraintIds": [
+                  "CONSTRAINT_010"
+                ],
+                "partIds": [],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "VHFRADIO",
+                "type": "Block",
+                "name": "VHF Radio Transceiver",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "ATTR_020",
+                  "ATTR_021",
+                  "ATTR_022"
+                ],
+                "operationIds": [
+                  "OP_020",
+                  "OP_021"
+                ],
+                "constraintIds": [
+                  "CONSTRAINT_020"
+                ],
+                "partIds": [],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "CONTROLUNIT",
+                "type": "Block",
+                "name": "VHF Control Unit",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "ATTR_030",
+                  "ATTR_031"
+                ],
+                "operationIds": [
+                  "OP_030",
+                  "OP_031"
+                ],
+                "constraintIds": [
+                  "CONSTRAINT_030"
+                ],
+                "partIds": [],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "AUDIOUNIT",
+                "type": "Block",
+                "name": "Audio Processing Unit",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "ATTR_040",
+                  "ATTR_041"
+                ],
+                "operationIds": [
+                  "OP_040",
+                  "OP_041"
+                ],
+                "constraintIds": [
+                  "CONSTRAINT_040"
+                ],
+                "partIds": [],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "POWERUNIT",
+                "type": "Block",
+                "name": "Power Supply Unit",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "ATTR_050",
+                  "ATTR_051"
+                ],
+                "operationIds": [
+                  "OP_050"
+                ],
+                "constraintIds": [
+                  "CONSTRAINT_050"
+                ],
+                "partIds": [],
+                "referenceIds": [],
+                "valueIds": []
+              }
+            ],
+            "interfaceBlocks": [
+              {
+                "id": "IF_VHFCOMM",
+                "type": "InterfaceBlock",
+                "name": "VHF Communication Interface",
+                "attributeIds": [
+                  "ATTR_004",
+                  "ATTR_005"
+                ],
+                "operationIds": [
+                  "OP_003",
+                  "OP_004"
+                ],
+                "signalIds": [
+                  "SIG_001"
+                ],
+                "constraintIds": [
+                  "CONSTRAINT_003"
+                ]
+              },
+              {
+                "id": "IF_AUDIO",
+                "type": "InterfaceBlock",
+                "name": "Audio Interface",
+                "attributeIds": [
+                  "ATTR_006"
+                ],
+                "operationIds": [
+                  "OP_005",
+                  "OP_006"
+                ],
+                "signalIds": [
+                  "SIG_002"
+                ],
+                "constraintIds": [
+                  "CONSTRAINT_004"
+                ]
+              },
+              {
+                "id": "IF_POWER",
+                "type": "InterfaceBlock",
+                "name": "Power Interface",
+                "attributeIds": [
+                  "ATTR_007"
+                ],
+                "operationIds": [
+                  "OP_007"
+                ],
+                "signalIds": [
+                  "SIG_003"
+                ],
+                "constraintIds": [
+                  "CONSTRAINT_005"
+                ]
+              }
+            ],
+            "ports": [
+              {
+                "id": "PORT_VHFCOMM",
+                "type": "FullPort",
+                "name": "VHFCommPort",
+                "blockId": "VHFCOMMSYSTEM",
+                "providedInterfaceIds": [
+                  "IF_VHFCOMM"
+                ],
+                "requiredInterfaceIds": [],
+                "isConjugated": false
+              },
+              {
+                "id": "PORT_AUDIOIN",
+                "type": "FlowPort",
+                "name": "AudioInputPort",
+                "blockId": "VHFCOMMSYSTEM",
+                "flowSpecificationId": "FLOW_AUDIO",
+                "isConjugated": false
+              },
+              {
+                "id": "PORT_AUDIOOUT",
+                "type": "FlowPort",
+                "name": "AudioOutputPort",
+                "blockId": "VHFCOMMSYSTEM",
+                "flowSpecificationId": "FLOW_AUDIO",
+                "isConjugated": true
+              },
+              {
+                "id": "PORT_POWER",
+                "type": "ProxyPort",
+                "name": "PowerPort",
+                "blockId": "VHFCOMMSYSTEM",
+                "providedInterfaceIds": [],
+                "requiredInterfaceIds": [
+                  "IF_POWER"
+                ],
+                "isConjugated": false
+              }
+            ],
+            "flowSpecifications": [
+              {
+                "id": "FLOW_AUDIO",
+                "type": "FlowSpecification",
+                "name": "AudioDataFlow",
+                "flowType": "DataFlow",
+                "dataType": "AudioSignal",
+                "unit": "kHz"
+              }
+            ],
+            "constraintBlocks": [
+              {
+                "id": "CONSTRAINT_001",
+                "type": "ConstraintBlock",
+                "name": "FrequencyRangeConstraint",
+                "expression": "operatingFrequency >= 118MHz AND operatingFrequency <= 137MHz",
+                "parameterIds": [
+                  "PARAM_001"
+                ]
+              }
+            ],
+            "enumerations": [
+              {
+                "id": "ENUM_MODE",
+                "type": "Enumeration",
+                "name": "OperatingMode",
+                "literals": [
+                  {
+                    "id": "ENUM_MODE_AM",
+                    "name": "AM"
+                  },
+                  {
+                    "id": "ENUM_MODE_FM",
+                    "name": "FM"
+                  }
+                ],
+                "attributeIds": []
+              }
+            ],
+            "valueTypes": [
+              {
+                "id": "VT_FREQUENCY",
+                "type": "ValueType",
+                "name": "FrequencyValueType",
+                "quantityKindId": "QK_FREQUENCY",
+                "unitId": "UNIT_MHZ",
+                "attributeIds": []
+              }
+            ],
+            "comments": [
+              {
+                "id": "COMMENT_001",
+                "body": "VHF Communication System provides voice communication between aircraft and ground stations in the 118-137MHz band",
+                "annotatedElementId": "VHFCOMMSYSTEM"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "timestamp": "20250325_190513",
+  "provider": "qwen"
+}

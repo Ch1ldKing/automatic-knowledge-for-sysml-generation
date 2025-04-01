@@ -1,0 +1,489 @@
+{
+  "system_id": "hf_communication_system",
+  "system_name": "HF Communication System",
+  "specification": {
+    "description": "HF Communication System的基本描述",
+    "requirements": [
+      "HF Communication System的基本需求"
+    ],
+    "parameters": {
+      "basic_param": "basic_value"
+    }
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "b_HFCommunicationSystem",
+          "type": "Block",
+          "name": "HF Communication System",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a_frequencyRange",
+            "a_transmissionPower",
+            "a_receiverSensitivity",
+            "a_communicationDelay"
+          ],
+          "operationIds": [
+            "o_transmitSignal",
+            "o_receiveSignal",
+            "o_switchRedundancy"
+          ],
+          "constraintIds": [
+            "c_latencyConstraint",
+            "c_reliabilityConstraint"
+          ],
+          "partIds": [
+            "p_transmitter",
+            "p_receiver",
+            "p_antenna",
+            "p_controlUnit"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b_Transmitter",
+          "type": "Block",
+          "name": "Transmitter",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a_outputPower",
+            "a_frequencyStability"
+          ],
+          "operationIds": [
+            "o_modulateSignal"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b_Receiver",
+          "type": "Block",
+          "name": "Receiver",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a_sensitivity",
+            "a_selectivity"
+          ],
+          "operationIds": [
+            "o_demodulateSignal"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b_Antenna",
+          "type": "Block",
+          "name": "Antenna",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a_gain",
+            "a_impedance"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "b_ControlUnit",
+          "type": "Block",
+          "name": "Control Unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "a_softwareVersion"
+          ],
+          "operationIds": [
+            "o_monitorStatus",
+            "o_manageRedundancy"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ib_RadioInterface",
+          "type": "InterfaceBlock",
+          "name": "Radio Interface",
+          "attributeIds": [],
+          "operationIds": [
+            "io_transmit",
+            "io_receive"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "ib_PowerInterface",
+          "type": "InterfaceBlock",
+          "name": "Power Interface",
+          "attributeIds": [
+            "ia_voltage",
+            "ia_current"
+          ],
+          "operationIds": [],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fs_RadioSignal",
+          "type": "FlowSpecification",
+          "name": "Radio Signal Flow",
+          "flowType": "information",
+          "dataType": "RadioSignal",
+          "unit": null,
+          "attributeIds": []
+        },
+        {
+          "id": "fs_Power",
+          "type": "FlowSpecification",
+          "name": "Power Flow",
+          "flowType": "energy",
+          "dataType": "Power",
+          "unit": "Watt",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "c_latencyConstraint",
+          "type": "ConstraintBlock",
+          "name": "Latency Constraint",
+          "parameterIds": [
+            "p_maxLatency"
+          ],
+          "expression": "communicationDelay <= maxLatency",
+          "attributeIds": []
+        },
+        {
+          "id": "c_reliabilityConstraint",
+          "type": "ConstraintBlock",
+          "name": "Redundancy Constraint",
+          "parameterIds": [],
+          "expression": "redundantComponents >= 2",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt_Frequency",
+          "type": "ValueType",
+          "name": "Frequency",
+          "quantityKindId": "qk_Frequency",
+          "unitId": "u_MHz",
+          "attributeIds": []
+        },
+        {
+          "id": "vt_Power",
+          "type": "ValueType",
+          "name": "Power",
+          "quantityKindId": "qk_Power",
+          "unitId": "u_Watt",
+          "attributeIds": []
+        },
+        {
+          "id": "vt_Time",
+          "type": "ValueType",
+          "name": "Time",
+          "quantityKindId": "qk_Time",
+          "unitId": "u_ms",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "e_RedundancyMode",
+          "type": "Enumeration",
+          "name": "Redundancy Mode",
+          "literals": [
+            {
+              "id": "l_primary",
+              "name": "PRIMARY"
+            },
+            {
+              "id": "l_secondary",
+              "name": "SECONDARY"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "p_radioIn",
+          "type": "FlowPort",
+          "name": "radioIn",
+          "portType": "flow",
+          "isConjugated": true,
+          "blockId": "b_HFCommunicationSystem",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs_RadioSignal",
+          "attributeIds": []
+        },
+        {
+          "id": "p_radioOut",
+          "type": "FlowPort",
+          "name": "radioOut",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b_HFCommunicationSystem",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs_RadioSignal",
+          "attributeIds": []
+        },
+        {
+          "id": "p_powerIn",
+          "type": "FlowPort",
+          "name": "powerIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "b_HFCommunicationSystem",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "fs_Power",
+          "attributeIds": []
+        }
+      ],
+      "proxyPorts": [
+        {
+          "id": "pp_controlInterface",
+          "type": "ProxyPort",
+          "name": "controlInterface",
+          "isConjugated": false,
+          "blockId": "b_HFCommunicationSystem",
+          "providedInterfaceIds": [
+            "ib_RadioInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp_transmitter",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b_HFCommunicationSystem",
+          "targetId": "b_Transmitter",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp_receiver",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b_HFCommunicationSystem",
+          "targetId": "b_Receiver",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp_antenna",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b_HFCommunicationSystem",
+          "targetId": "b_Antenna",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp_controlUnit",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "b_HFCommunicationSystem",
+          "targetId": "b_ControlUnit",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "a_frequencyRange",
+          "type": "Property",
+          "name": "frequencyRange",
+          "propertyType": "String",
+          "value": "118-137 MHz",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a_transmissionPower",
+          "type": "Property",
+          "name": "transmissionPower",
+          "propertyType": "Double",
+          "value": "25",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a_receiverSensitivity",
+          "type": "Property",
+          "name": "receiverSensitivity",
+          "propertyType": "Double",
+          "value": "1",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "a_communicationDelay",
+          "type": "Property",
+          "name": "communicationDelay",
+          "propertyType": "Double",
+          "value": "50",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "o_transmitSignal",
+          "type": "Operation",
+          "name": "transmitSignal",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "o_receiveSignal",
+          "type": "Operation",
+          "name": "receiveSignal",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "o_switchRedundancy",
+          "type": "Operation",
+          "name": "switchRedundancy",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "cmt_redundancyNote",
+          "type": "Comment",
+          "body": "System implements dual redundancy for transmitters and receivers",
+          "annotatedElementId": "b_HFCommunicationSystem"
+        },
+        {
+          "id": "cmt_latencyNote",
+          "type": "Comment",
+          "body": "End-to-end latency must not exceed 50ms under normal operating conditions",
+          "annotatedElementId": "c_latencyConstraint"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The HF Communication System operates within the VHF frequency band for communications, with an operational frequency range of 118-137 MHz. It has a transmission power of 25W and receiver sensitivity within 1dB accuracy. The system design includes dual redundant circuitry for reliability in case of component failures and ensures a communication delay latency below 50ms.",
+  "timestamp": "20250326_014014",
+  "provider": "dpsk"
+}

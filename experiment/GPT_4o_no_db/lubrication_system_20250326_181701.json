@@ -1,0 +1,341 @@
+{
+  "system_id": "lubrication_system",
+  "system_name": "Lubrication System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the maximum oil flow rate provided by the lubrication system to ensure effective distribution for engine component lubrication.",
+        "name": "maxFlowRate",
+        "type": "string",
+        "value": "100 liters/min"
+      },
+      {
+        "description": "Defines the normal operating pressure within the lubrication circuit, critical for maintaining optimal oil film thickness.",
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "5 bar"
+      },
+      {
+        "description": "Indicates the acceptable temperature range for oil performance, ensuring proper viscosity and reliability in various flight conditions.",
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "-40°C to 120°C"
+      },
+      {
+        "description": "Specifies the recommended oil viscosity grade suitable for the lubrication system under typical aerospace operating conditions.",
+        "name": "oilViscosityGrade",
+        "type": "string",
+        "value": "15W-40"
+      },
+      {
+        "description": "Represents the maintenance interval to inspect and replace lubrication components, which is essential for sustaining long-term system reliability.",
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "500 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Lubrication System is a critical sub-system within a passenger airplane, responsible for delivering pressurized oil to engine and auxiliary components. It minimizes friction, reduces wear, and assists in the cooling of moving parts under various flight regimes. Designed with aerospace-grade components, the system integrates advanced monitoring sensors and automated controls to ensure effective lubrication and protect against operational hazards. Its design supports dynamic adjustment of oil flow and pressure in response to engine operating conditions.",
+      "name": "Lubrication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Provide a controlled oil flow distribution to multiple critical engine components to reduce friction and improve operational efficiency."
+            },
+            {
+              "description": "Incorporate automatic flow adjustment mechanisms to respond to changes in engine load and sliding speeds."
+            }
+          ],
+          "title": "Controlled Oil Distribution",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain oil flow rate within ±5% variance under standard operating conditions to ensure consistent lubrication performance."
+            },
+            {
+              "description": "Achieve rapid pressure stabilization within 2 seconds following sudden changes in engine load."
+            }
+          ],
+          "title": "Flow and Pressure Stability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement a fail-safe low oil pressure alert system to automatically shut down lubrication flow in emergency scenarios, protecting engine components."
+            },
+            {
+              "description": "Ensure redundant sensor networks and pressure regulators to monitor and compensate for potential oil supply failures."
+            }
+          ],
+          "title": "Safety and Redundancy Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Facilitate ease of maintenance through modular design, allowing rapid replacement of components such as filters and pumps."
+            },
+            {
+              "description": "Ensure compatibility with a range of aerospace lubricants and adhere to the latest aviation regulatory standards."
+            }
+          ],
+          "title": "Modularity and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Oil Pump is dependent on the Oil Reservoir for a constant supply of lubrication oil to pressurize and distribute the fluid.",
+        "relationshipType": "dependency",
+        "source": "Oil Pump",
+        "target": "Oil Reservoir"
+      },
+      {
+        "description": "The Oil Pump delivers pressurized oil into the Lubrication Lines, establishing an association between these components.",
+        "relationshipType": "association",
+        "source": "Oil Pump",
+        "target": "Lubrication Lines"
+      },
+      {
+        "description": "The Lubrication Lines aggregate the Oil Filter, which removes impurities from the oil before reaching critical engine parts.",
+        "relationshipType": "aggregation",
+        "source": "Lubrication Lines",
+        "target": "Oil Filter"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The Oil Pump provides the necessary pressurization for oil circulation within the lubrication system. It is equipped with precision control mechanisms and sensor integration to adjust flow based on operational needs.",
+        "name": "Oil Pump",
+        "subComponents": [
+          {
+            "description": "An electric motor drives the pump, ensuring consistent performance across varying engine loads.",
+            "name": "Electric Motor",
+            "type": "Actuator"
+          },
+          {
+            "description": "A pump controller monitors flow rates and adjusts the pump performance in real time.",
+            "name": "Pump Controller",
+            "type": "Control Module"
+          }
+        ],
+        "type": "Hydraulic Pump"
+      },
+      {
+        "description": "The Oil Reservoir stores lubrication oil and provides a buffer supply to handle transient demands. Inbuilt sensors monitor oil levels continuously.",
+        "name": "Oil Reservoir",
+        "subComponents": [
+          {
+            "description": "An oil sensor monitors the oil level and quality, providing feedback to the control unit for maintenance alerts.",
+            "name": "Oil Sensor",
+            "type": "Sensor Module"
+          }
+        ],
+        "type": "Storage Module"
+      },
+      {
+        "description": "The Lubrication Lines consist of a network of pipes and channels that deliver pressurized oil from the pump to engine components. Valves within the system allow for flow regulation.",
+        "name": "Lubrication Lines",
+        "subComponents": [
+          {
+            "description": "Control valves regulate the oil flow rate and ensure that pressure is maintained throughout the system.",
+            "name": "Control Valves",
+            "type": "Regulatory Component"
+          }
+        ],
+        "type": "Distribution Network"
+      },
+      {
+        "description": "The Oil Filter cleans the oil by removing contaminants to ensure that only pure lubrication oil reaches critical engine parts, thereby enhancing longevity and performance.",
+        "name": "Oil Filter",
+        "subComponents": [
+          {
+            "description": "The filter element traps particulates and impurities from the oil.",
+            "name": "Filter Element",
+            "type": "Filtration Element"
+          },
+          {
+            "description": "A bypass valve allows oil to flow even when the filter is obstructed, ensuring continuous lubrication while signaling maintenance needs.",
+            "name": "Bypass Valve",
+            "type": "Safety Component"
+          }
+        ],
+        "type": "Filtration Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "Prop1",
+            "Prop2"
+          ],
+          "constraintIds": [
+            "Constr1"
+          ],
+          "id": "Block_LubSys",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "LubricationSystem",
+          "operationIds": [
+            "Op1"
+          ],
+          "partIds": [
+            "OilPumpPart",
+            "ReservoirPart"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Prop3",
+            "Prop4"
+          ],
+          "constraintIds": null,
+          "id": "Block_OilPump",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "OilPump",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Prop5"
+          ],
+          "constraintIds": null,
+          "id": "Block_Reservoir",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Reservoir",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [],
+      "compositions": [
+        {
+          "id": "Comp_LubSys_Pump",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "Block_LubSys",
+          "sourceMultiplicity": "1",
+          "targetId": "Block_OilPump",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "Comp_LubSys_Res",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "Block_LubSys",
+          "sourceMultiplicity": "1",
+          "targetId": "Block_Reservoir",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "PumpRate > 0.1",
+          "id": "Constr1",
+          "name": "PumpEfficiencyConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [],
+      "interfaceRealizations": null,
+      "interfaces": [],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "OilPumpPart",
+          "name": "Pump",
+          "of": "Block_LubSys",
+          "type": "Part"
+        },
+        {
+          "id": "ReservoirPart",
+          "name": "Res",
+          "of": "Block_LubSys",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT_FlowRate",
+          "name": "FlowRate",
+          "quantityKindId": "QK_VolumetricFlowRate",
+          "type": "ValueType",
+          "unitId": "Unit_LiterPerSec"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250326_181701",
+  "provider": "gpt"
+}

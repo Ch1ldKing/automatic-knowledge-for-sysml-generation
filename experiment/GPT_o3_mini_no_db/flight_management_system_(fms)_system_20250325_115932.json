@@ -1,0 +1,450 @@
+{
+  "system_id": "flight_management_system_(fms)_system",
+  "system_name": "Flight Management System (FMS) System",
+  "specification": {
+    "designScenario": {
+      "name": "Flight Management System (FMS) System",
+      "description": "Basic description of Flight Management System (FMS) System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "1.0",
+          "id": "FMS_Version",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": null,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "System Version",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Aerospace Inc.",
+          "id": "FMS_Manufacturer",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": null,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Manufacturer",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "GPS/INS Fusion",
+          "id": "Nav_CalculationMethod",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": null,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Navigation Calculation Method",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Kalman Filter",
+          "id": "DataAlgorithm",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": null,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Data Processing Algorithm",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "1080",
+          "id": "Display_Resolution",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": null,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "Display Resolution",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "∞",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Multi-Sensor",
+          "id": "Sensor_Type",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": null,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Sensor Type",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "ACARS/VHF",
+          "id": "Comm_Protocol",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": null,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Communication Protocol",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "FMS_Version",
+            "FMS_Manufacturer"
+          ],
+          "constraintIds": [],
+          "id": "FMSSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": null,
+          "name": "Flight Management System",
+          "operationIds": [
+            "op_ComputeFlightPlan"
+          ],
+          "partIds": [
+            "NavigationModule",
+            "FlightDataProcessingModule",
+            "DisplayModule",
+            "SensorInterface",
+            "CommunicationInterfaceModule"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "Nav_CalculationMethod"
+          ],
+          "constraintIds": [],
+          "id": "NavigationModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": null,
+          "name": "Navigation Module",
+          "operationIds": [
+            "op_CalculateRoute"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "DataAlgorithm"
+          ],
+          "constraintIds": [],
+          "id": "FlightDataProcessingModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": null,
+          "name": "Flight Data Processing Module",
+          "operationIds": [
+            "op_ProcessFlightData"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "Display_Resolution"
+          ],
+          "constraintIds": [],
+          "id": "DisplayModule",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": null,
+          "name": "Display Module",
+          "operationIds": [
+            "op_ShowFlightData"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "Sensor_Type"
+          ],
+          "constraintIds": [],
+          "id": "SensorInterface",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": null,
+          "name": "Sensor Interface Module",
+          "operationIds": [
+            "op_AcquireSensorData"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "Comm_Protocol"
+          ],
+          "constraintIds": [],
+          "id": "CommunicationInterfaceModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": null,
+          "name": "Communication Interface Module",
+          "operationIds": [
+            "op_CommunicateWithATC"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "FMSSystem",
+          "body": "The Flight Management System (FMS) integrates navigation, flight data processing, and display modules. It interfaces with sensor and communication systems to provide real-time flight plan updates and adheres to stringent aerospace engineering standards for performance, safety, and redundancy.",
+          "id": "Comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "ResponseTime < 2s AND RedundancyLevel >= 2",
+          "id": "FMSConstraintBlock",
+          "name": "FMS Performance and Safety Constraints",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": [],
+          "id": "FlightModeEnum",
+          "literals": [
+            {
+              "id": "Mode_Takeoff",
+              "name": "Takeoff"
+            },
+            {
+              "id": "Mode_Cruise",
+              "name": "Cruise"
+            },
+            {
+              "id": "Mode_Landing",
+              "name": "Landing"
+            }
+          ],
+          "name": "Flight Mode",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "FlightPlanData",
+          "flowType": "data flow",
+          "id": "FlightPlanFlowSpec",
+          "name": "Flight Plan Data Flow Specification",
+          "type": "FlowSpecification",
+          "unit": "N/A"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "DataBusInterface",
+          "name": "Data Bus Interface",
+          "operationIds": [
+            "op_TransferData"
+          ],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "ExternalCommInterface",
+          "name": "External Communication Interface",
+          "operationIds": [
+            "op_Transmit",
+            "op_Receive"
+          ],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [],
+      "parameters": null,
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "FMSSystem",
+          "flowSpecificationId": null,
+          "id": "FMS_ControlPort",
+          "isConjugated": false,
+          "name": "Control Port",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "DataBusInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "FMSSystem",
+          "flowSpecificationId": null,
+          "id": "FMS_DataFlowPort",
+          "isConjugated": false,
+          "name": "Data Flow Port",
+          "portType": "flow",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "FlightPlanFlowSpec"
+          ],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "FMSSystem",
+          "id": "FMS_ProxyPort",
+          "isConjugated": true,
+          "name": "Proxy Port for External Systems",
+          "providedInterfaceIds": [
+            "ExternalCommInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "AltitudeValueType",
+          "name": "Altitude Value Type",
+          "quantityKindId": "AltitudeKind",
+          "type": "ValueType",
+          "unitId": "Feet"
+        },
+        {
+          "attributeIds": [],
+          "id": "SpeedValueType",
+          "name": "Speed Value Type",
+          "quantityKindId": "SpeedKind",
+          "type": "ValueType",
+          "unitId": "Knots"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_115932"
+}

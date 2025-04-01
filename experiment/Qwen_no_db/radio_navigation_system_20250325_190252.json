@@ -1,0 +1,453 @@
+{
+  "system_id": "radio_navigation_system",
+  "system_name": "Radio Navigation System",
+  "specification": {
+    "designScenario": {
+      "name": "Radio Navigation System",
+      "description": "Design a robust Radio Navigation System for aircraft, integrating VOR (VHF Omnidirectional Range), DME (Distance Measuring Equipment), and ILS (Instrument Landing System) technologies to provide reliable navigation in all-weather conditions. The system must interface with flight control systems, provide precise radio-based positioning, and ensure compatibility with legacy navigation infrastructure while supporting modern digital avionics.",
+      "requirements": [
+        {
+          "title": "Radio-Based Positioning",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must compute aircraft position using VOR/DME triangulation and ILS glidepath signals."
+            },
+            {
+              "description": "Integrate with inertial navigation systems for continuous position updates during signal loss."
+            }
+          ]
+        },
+        {
+          "title": "Performance Specifications",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve lateral navigation accuracy of ±100 meters in en-route phases."
+            },
+            {
+              "description": "Provide vertical guidance accuracy of ±5 meters during ILS approaches."
+            }
+          ]
+        },
+        {
+          "title": "Safety and Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant VOR receivers to prevent critical navigation failures."
+            },
+            {
+              "description": "Automatically switch to backup DME transponder if primary unit fails."
+            }
+          ]
+        },
+        {
+          "title": "Interoperability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Ensure compatibility with standard aeronautical radio frequencies (108-118 MHz VOR, 962-1213 MHz DME)."
+            },
+            {
+              "description": "Provide clear audio and visual alerts for navigation anomalies."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Radio Navigation Computer",
+        "type": "Electronic Module",
+        "description": "Central processing unit for integrating VOR, DME, and ILS signals into navigation solutions.",
+        "subComponents": null
+      },
+      {
+        "name": "VOR Receiver Module",
+        "type": "Sensor Module",
+        "description": "Receives VHF signals from ground-based VOR stations to determine bearing.",
+        "subComponents": [
+          {
+            "name": "VOR Antenna",
+            "description": "Directional antenna for receiving VHF navigation signals.",
+            "type": "Antenna"
+          },
+          {
+            "name": "Bearing Calculator",
+            "description": "Signal processing unit to compute relative bearing from VOR signals.",
+            "type": "Processing Unit"
+          }
+        ]
+      },
+      {
+        "name": "DME Transponder",
+        "type": "Sensor Module",
+        "description": "Measures slant distance to ground stations via radio pulse interrogation.",
+        "subComponents": [
+          {
+            "name": "DME Antenna",
+            "description": "Omni-directional antenna for transmitting and receiving DME signals.",
+            "type": "Antenna"
+          },
+          {
+            "name": "Pulse Ranging Unit",
+            "description": "Handles interrogation pulses and calculates distance from round-trip time.",
+            "type": "Processing Unit"
+          }
+        ]
+      },
+      {
+        "name": "ILS Receiver",
+        "type": "Sensor Module",
+        "description": "Processes localizer and glidepath signals for precision landing guidance.",
+        "subComponents": [
+          {
+            "name": "Localizer Antenna",
+            "description": "Antenna for receiving lateral guidance signals.",
+            "type": "Antenna"
+          },
+          {
+            "name": "Glidepath Antenna",
+            "description": "Antenna for receiving vertical guidance signals.",
+            "type": "Antenna"
+          }
+        ]
+      },
+      {
+        "name": "Antenna Array",
+        "type": "Hardware Module",
+        "description": "Mounted antenna assembly for receiving multiple navigation signals.",
+        "subComponents": null
+      },
+      {
+        "name": "Redundant Radio Suite",
+        "type": "Redundancy Module",
+        "description": "Backup components to ensure continuous navigation during primary system failure.",
+        "subComponents": [
+          {
+            "name": "Backup VOR Receiver",
+            "description": "Secondary VOR receiver for redundancy.",
+            "type": "Sensor Module"
+          },
+          {
+            "name": "Backup DME Transponder",
+            "description": "Secondary DME unit for distance measurement redundancy.",
+            "type": "Sensor Module"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Radio Navigation Computer",
+        "target": "VOR Receiver Module",
+        "relationshipType": "aggregation",
+        "description": "The Radio Navigation Computer aggregates VOR bearing data for position computation."
+      },
+      {
+        "source": "Radio Navigation Computer",
+        "target": "DME Transponder",
+        "relationshipType": "aggregation",
+        "description": "The Radio Navigation Computer uses DME distance measurements for navigation solutions."
+      },
+      {
+        "source": "Radio Navigation Computer",
+        "target": "ILS Receiver",
+        "relationshipType": "aggregation",
+        "description": "The Radio Navigation Computer integrates ILS glidepath signals for landing guidance."
+      },
+      {
+        "source": "Radio Navigation Computer",
+        "target": "Map Database",
+        "relationshipType": "dependency",
+        "description": "The Radio Navigation Computer references terrain and waypoint data from the Map Database."
+      },
+      {
+        "source": "Redundant Radio Suite",
+        "target": "Radio Navigation Computer",
+        "relationshipType": "aggregation",
+        "description": "The Redundant Radio Suite provides failover data to the Radio Navigation Computer."
+      },
+      {
+        "source": "User Interface Module",
+        "target": "Radio Navigation Computer",
+        "relationshipType": "association",
+        "description": "The User Interface Module displays navigation data from the Radio Navigation Computer."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "positionalAccuracy",
+        "type": "string",
+        "value": "±100 meters (en-route), ±5 meters (ILS approach)",
+        "description": "Horizontal and vertical navigation accuracy under standard conditions."
+      },
+      {
+        "name": "updateRate",
+        "type": "string",
+        "value": "1 Hz (VOR/DME), 5 Hz (ILS)",
+        "description": "Update frequency for navigation data from radio-based systems."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual Redundancy (VOR/DME)",
+        "description": "Redundancy provided by backup receivers for critical navigation systems."
+      },
+      {
+        "name": "communicationFrequencies",
+        "type": "string",
+        "value": "VHF (108-118 MHz), UHF (962-1213 MHz)",
+        "description": "Operational frequency bands for VOR, DME, and ILS signals."
+      }
+    ]
+  },
+  "model": {
+
+      "diagramType": "BDD",
+      "elements": {
+        "blocks": [
+          {
+            "id": "RNSS-001",
+            "type": "Block",
+            "name": "Radio Navigation System",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "ATTR-001",
+              "ATTR-002"
+            ],
+            "operationIds": [
+              "OP-001",
+              "OP-002"
+            ],
+            "constraintIds": [
+              "CNSTR-001"
+            ],
+            "partIds": [
+              "RNSS-GNSS",
+              "RNSS-VOR",
+              "RNSS-NAVCOM"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "RNSS-GNSS",
+            "type": "Block",
+            "name": "GNSS Receiver Subsystem",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "ATTR-003",
+              "ATTR-004"
+            ],
+            "operationIds": [
+              "OP-003"
+            ],
+            "constraintIds": [
+              "CNSTR-002"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "RNSS-VOR",
+            "type": "Block",
+            "name": "VOR Receiver Subsystem",
+            "isAbstract": false,
+            "isActive": false,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "ATTR-005",
+              "ATTR-006"
+            ],
+            "operationIds": [
+              "OP-004"
+            ],
+            "constraintIds": [
+              "CNSTR-003"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "RNSS-NAVCOM",
+            "type": "Block",
+            "name": "Navigation Computer",
+            "isAbstract": false,
+            "isActive": true,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "ATTR-007",
+              "ATTR-008"
+            ],
+            "operationIds": [
+              "OP-005"
+            ],
+            "constraintIds": [
+              "CNSTR-004"
+            ],
+            "partIds": [],
+            "referenceIds": [],
+            "valueIds": []
+          }
+        ],
+        "interfaceBlocks": [
+          {
+            "id": "IF-001",
+            "type": "InterfaceBlock",
+            "name": "NavigationDataInterface",
+            "attributeIds": [
+              "ATTR-009"
+            ],
+            "operationIds": [],
+            "signalIds": [],
+            "constraintIds": []
+          },
+          {
+            "id": "IF-002",
+            "type": "InterfaceBlock",
+            "name": "ControlSignalInterface",
+            "attributeIds": [
+              "ATTR-010"
+            ],
+            "operationIds": [],
+            "signalIds": [],
+            "constraintIds": []
+          }
+        ],
+        "ports": [
+          {
+            "id": "PRT-001",
+            "type": "FullPort",
+            "name": "GNSS_DataOut",
+            "blockId": "RNSS-GNSS",
+            "portType": "full",
+            "isConjugated": false,
+            "providedInterfaceIds": [
+              "IF-001"
+            ],
+            "requiredInterfaceIds": [],
+            "flowSpecificationId": "FSPEC-001",
+            "attributeIds": []
+          },
+          {
+            "id": "PRT-002",
+            "type": "ProxyPort",
+            "name": "NavCmdIn",
+            "blockId": "RNSS-NAVCOM",
+            "portType": "proxy",
+            "isConjugated": true,
+            "providedInterfaceIds": [],
+            "requiredInterfaceIds": [
+              "IF-002"
+            ],
+            "flowSpecificationId": null,
+            "attributeIds": []
+          },
+          {
+            "id": "PRT-003",
+            "type": "FlowPort",
+            "name": "SystemDataFlow",
+            "blockId": "RNSS-001",
+            "portType": "flow",
+            "isConjugated": false,
+            "flowSpecificationId": "FSPEC-002",
+            "attributeIds": []
+          }
+        ],
+        "flowSpecifications": [
+          {
+            "id": "FSPEC-001",
+            "type": "FlowSpecification",
+            "name": "PositionDataFlow",
+            "flowType": "information",
+            "dataType": "GPSCoordinates",
+            "unit": "degrees",
+            "attributeIds": []
+          },
+          {
+            "id": "FSPEC-002",
+            "type": "FlowSpecification",
+            "name": "NavigationCommandFlow",
+            "flowType": "control",
+            "dataType": "NavigationCommands",
+            "unit": "N/A",
+            "attributeIds": []
+          }
+        ],
+        "constraintBlocks": [
+          {
+            "id": "CNSTR-001",
+            "type": "ConstraintBlock",
+            "name": "SystemAccuracyConstraint",
+            "parameterIds": [
+              "PARAM-001"
+            ],
+            "expression": "horizontalAccuracy <= 10 meters",
+            "attributeIds": []
+          }
+        ],
+        "enumerations": [
+          {
+            "id": "ENUM-001",
+            "type": "Enumeration",
+            "name": "NavigationMode",
+            "literals": [
+              {
+                "id": "LIT-001",
+                "name": "HEADING"
+              },
+              {
+                "id": "LIT-002",
+                "name": "APPROACH"
+              }
+            ],
+            "attributeIds": []
+          }
+        ],
+        "comments": [
+          {
+            "id": "CMNT-001",
+            "type": "Comment",
+            "body": "This block implements core navigation functions per RTCA DO-235B standards",
+            "annotatedElementId": "RNSS-NAVCOM"
+          }
+        ],
+        "attributes": [
+          {
+            "id": "ATTR-001",
+            "type": "Property",
+            "name": "systemFrequency",
+            "propertyType": "Double",
+            "value": "118.0",
+            "visibility": "public",
+            "aggregation": "none",
+            "lowerValue": "1",
+            "upperValue": "1",
+            "defaultValue": null
+          },
+          {
+            "id": "ATTR-009",
+            "type": "Property",
+            "name": "dataFormat",
+            "propertyType": "String",
+            "value": "NMEA 0183",
+            "visibility": "public",
+            "aggregation": "none",
+            "lowerValue": "1",
+            "upperValue": "1"
+          }
+        ]
+      
+    }
+  },
+  "timestamp": "20250325_190252",
+  "provider": "qwen"
+}

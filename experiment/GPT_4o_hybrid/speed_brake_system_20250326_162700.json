@@ -1,0 +1,434 @@
+{
+  "system_id": "speed_brake_system",
+  "system_name": "Speed Brake System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The actuation response time for deploying or retracting speed brakes.",
+        "name": "Actuation Time",
+        "type": "string",
+        "value": "<1s"
+      },
+      {
+        "description": "Maximum load-bearing capacity under aerodynamic forces during operation.",
+        "name": "Structural Integrity",
+        "type": "string",
+        "value": ">1500 MPa"
+      },
+      {
+        "description": "Range of operational environmental temperatures.",
+        "name": "Operational Temperature Range",
+        "type": "string",
+        "value": "-45°C to +100°C"
+      },
+      {
+        "description": "System lifespan under standard operating conditions.",
+        "name": "Operational Lifespan",
+        "type": "string",
+        "value": ">15 years of average use"
+      }
+    ],
+    "designScenario": {
+      "description": "The Speed Brake System is a critical subsystem in aircraft, providing the ability to slow the aircraft quickly during descent or emergencies by increasing drag. It ensures proportional, fail-safe control of surface deployment using hydraulic actuators governed by electrical commands from the control systems.",
+      "name": "Speed Brake System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Initiate deployment of speed brakes via pilot command or automated controls."
+            },
+            {
+              "description": "Translate electrical signals into precise hydraulic movements for reliable operation."
+            }
+          ],
+          "title": "Operational Deployment Functionality",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Actuate speed brakes entirely within one second of command receipt."
+            },
+            {
+              "description": "Withstand continuous operation during prolonged descents or high-stress scenarios."
+            }
+          ],
+          "title": "Quick Response and Durability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Include redundant actuation pathways to handle system failures."
+            },
+            {
+              "description": "Ensure safe operation under unexpected environmental factors such as wind gusts."
+            }
+          ],
+          "title": "Safety and Reliability",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Enable routine inspection and replacement with standardized visual and operational checks."
+            },
+            {
+              "description": "Use corrosion-resistant materials to maintain system integrity over prolonged periods."
+            }
+          ],
+          "title": "Maintainability and Longevity",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Speed Brake Control System sends commands to the hydraulic actuators for speed brake operation.",
+        "relationshipType": "dependency",
+        "source": "Speed Brake Control System",
+        "target": "Hydraulic Actuator System"
+      },
+      {
+        "description": "The Speed Brake System integrates into the Flight Control System for coordinated operation.",
+        "relationshipType": "composition",
+        "source": "Flight Control System",
+        "target": "Speed Brake System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The Speed Brake System increases aerodynamic drag to slow the aircraft efficiently.",
+        "name": "Speed Brake System",
+        "subComponents": [
+          {
+            "description": "Panels that rise into the airflow to create drag.",
+            "name": "Speed Brake Panels",
+            "type": "Aerodynamic Component"
+          },
+          {
+            "description": "Distributes hydraulic fluid pressure for actuation.",
+            "name": "Hydraulic Actuator System",
+            "type": "Hydraulic Mechanism"
+          },
+          {
+            "description": "Interfaces with pilot inputs and processes signals for operation.",
+            "name": "Speed Brake Control System",
+            "type": "Electronic Control System"
+          }
+        ],
+        "type": "Aerodynamic Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-speedbrake-panels-actuators",
+          "memberEndIds": null,
+          "name": "AggregatesPanelsAndActuators",
+          "ownedEndIds": null,
+          "sourceId": "block-speedbrake-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-hydraulic-actuator-system",
+          "targetMultiplicity": "*",
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-speedbrake-panels-electronics",
+          "memberEndIds": null,
+          "name": "AggregatesElectronicsAndActuators",
+          "ownedEndIds": null,
+          "sourceId": "block-speedbrake-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-speedbrake-control-system",
+          "targetMultiplicity": "*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "<1s",
+          "id": "attr-actuationTime",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "ActuationTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "<1s",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": ">1500 MPa",
+          "id": "attr-structuralIntegrity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "StructuralIntegrity",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": ">1500 MPa",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-45°C to +100°C",
+          "id": "attr-tempRange",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "OperationalTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-45°C to +100°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": ">15 years",
+          "id": "attr-lifespan",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "OperationalLifespan",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": ">15 years",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-actuationTime",
+            "attr-structuralIntegrity",
+            "attr-tempRange",
+            "attr-lifespan"
+          ],
+          "constraintIds": null,
+          "id": "block-speedbrake-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "SpeedBrakeSystem",
+          "operationIds": null,
+          "partIds": [
+            "block-speedbrake-panels",
+            "block-hydraulic-actuator-system",
+            "block-speedbrake-control-system"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-speedbrake-panels",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "SpeedBrakePanels",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-hydraulic-actuator-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "HydraulicActuatorSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-speedbrake-control-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "SpeedBrakeControlSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-speedbrake-system",
+          "body": "The Speed Brake System integrates hydraulic actuators and control electronics to ensure fail-safe, proportional deployment of panels for aerobraking.",
+          "id": "comment-speedbrake-intro",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-speedbrake-flightcontrol",
+          "memberEndIds": null,
+          "name": "ComposedWithFlightControl",
+          "ownedEndIds": null,
+          "sourceId": "block-flight-control-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-speedbrake-system",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "ActuationTime<1s and StructuralIntegrity>1500MPa",
+          "id": "constraint-safety-reliability",
+          "name": "SafetyAndReliability",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-speedbrake-to-hydraulics",
+          "name": "RequiresHydraulicsDependency",
+          "sourceId": "block-speedbrake-control-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-hydraulic-actuator-system",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-speedbrake-system",
+          "flowSpecificationId": "flow-spec-actuation-command-sbs",
+          "id": "flowport-command-in",
+          "isConjugated": false,
+          "name": "ActuationCommandInput",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "ControlCommand",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-actuation-command-sbs",
+          "name": "ActuationCommandFlowSBS",
+          "type": "FlowSpecification",
+          "unit": "ms"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-speedbrake",
+          "name": "SpeedBrakeInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [],
+      "proxyPorts": [],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-deploy-on-command",
+          "name": "DeployOnCommand",
+          "reqId": "REQ-SBS-001",
+          "text": "Initiate speed brake deployment based on pilot or system commands.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-precise-hydraulics",
+          "name": "PreciseHydraulicMovement",
+          "reqId": "REQ-SBS-002",
+          "text": "Translate electrical commands into proportional and accurate hydraulic actuation.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": [],
+      "valueTypes": []
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250326_162700",
+  "provider": "gpt"
+}

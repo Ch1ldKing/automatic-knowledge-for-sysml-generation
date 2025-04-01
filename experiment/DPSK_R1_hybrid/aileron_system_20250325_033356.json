@@ -1,0 +1,426 @@
+{
+  "system_id": "aileron_system",
+  "system_name": "Aileron System",
+  "specification": {
+    "designScenario": {
+      "name": "Aileron System",
+      "description": "The Aileron System is a critical flight control subsystem responsible for managing the aircraft's roll dynamics by asymmetrically deflecting wing-mounted ailerons. It converts electrical commands from the Actuator Control Module into precise mechanical movements, enabling controlled banking and stabilization during flight. The system integrates high-strength composite materials, redundant actuation mechanisms, and real-time feedback sensors to ensure reliability under extreme aerodynamic loads, temperature variations, and operational stress. Design priorities include minimal latency, fail-safe redundancy, corrosion resistance, and compatibility with adaptive flight control algorithms.",
+      "requirements": [
+        {
+          "title": "Asymmetric Roll Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Convert electrical command signals into differential aileron deflections to induce controlled roll moments."
+            },
+            {
+              "description": "Maintain synchronization between left and right aileron surfaces to prevent unintended yaw effects."
+            }
+          ]
+        },
+        {
+          "title": "High-Speed Actuation",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deflection range (±25°) within 50 milliseconds of command input."
+            },
+            {
+              "description": "Maintain angular positioning accuracy of ±0.1° under dynamic load fluctuations."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Load Paths",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Incorporate dual-channel hydraulic/electric actuators with automatic cross-over upon primary system failure."
+            },
+            {
+              "description": "Deploy mechanical load-limiting devices to prevent over-torque damage during extreme deflection scenarios."
+            }
+          ]
+        },
+        {
+          "title": "Environmental Hardening",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Utilize corrosion-resistant aluminum alloys and composite skins with operational capability between -55°C and +70°C."
+            },
+            {
+              "description": "Implement modular hinge and actuator designs for field-replaceable components without full wing disassembly."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Control Surface Assembly",
+        "description": "Primary aerodynamic structure comprising the aileron's movable surface, hinge mechanisms, and load-bearing spar connections.",
+        "type": "Mechanical Assembly",
+        "subComponents": [
+          {
+            "name": "Aileron Skin",
+            "description": "Aerodynamically shaped outer surface constructed from carbon-fiber-reinforced polymer (CFRP) for stiffness and fatigue resistance.",
+            "type": "Composite Structure"
+          },
+          {
+            "name": "Torque Tube",
+            "description": "Central structural member transmitting actuator forces to the aileron surface via integrated hinge points.",
+            "type": "Load-Bearing Component"
+          }
+        ]
+      },
+      {
+        "name": "Actuation Mechanism",
+        "description": "Dual-redundant electromechanical or hydraulic actuators converting control signals into linear/rotary motion.",
+        "type": "Actuation Subsystem",
+        "subComponents": [
+          {
+            "name": "Servo Actuator",
+            "description": "Primary force-generating unit with integrated servo valve and position feedback transducer.",
+            "type": "Electro-Hydraulic Component"
+          },
+          {
+            "name": "Ball Screw Drive",
+            "description": "Mechanical linkage converting rotary actuator motion into linear deflection of the aileron control horn.",
+            "type": "Motion Translation Assembly"
+          }
+        ]
+      },
+      {
+        "name": "Feedback Sensors",
+        "description": "Sensor suite monitoring real-time aileron position, hinge moments, and actuator health parameters.",
+        "type": "Avionics Subsystem",
+        "subComponents": [
+          {
+            "name": "LVDT Position Sensor",
+            "description": "Linear variable differential transformer providing high-resolution deflection angle measurements.",
+            "type": "Position Transducer"
+          },
+          {
+            "name": "Strain Gauge Array",
+            "description": "Distributed sensors quantifying bending and torsional loads on the aileron structure.",
+            "type": "Load Monitoring Device"
+          }
+        ]
+      },
+      {
+        "name": "Redundancy Module",
+        "description": "Fail-operational control unit managing actuator cross-over and load redistribution during system faults.",
+        "type": "Safety Critical Subsystem",
+        "subComponents": [
+          {
+            "name": "Cross-Channel Comparator",
+            "description": "Real-time monitoring of actuator outputs for discrepancy detection and automatic reconfiguration.",
+            "type": "Fault Detection Logic"
+          },
+          {
+            "name": "Backup Power Relay",
+            "description": "Isolated electrical supply ensuring actuator operation during primary power bus failures.",
+            "type": "Electrical Component"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Surfaces",
+        "target": "Aileron System",
+        "relationshipType": "aggregation",
+        "description": "The Aileron System is aggregated within the broader Flight Surfaces assembly, contributing specialized roll control functionality."
+      },
+      {
+        "source": "Actuator Control Module",
+        "target": "Aileron System",
+        "relationshipType": "dependency",
+        "description": "Aileron deflection commands originate from the Actuator Control Module's flight control computers via ARINC 429 data buses."
+      },
+      {
+        "source": "Actuation Mechanism",
+        "target": "Control Surface Assembly",
+        "relationshipType": "composition",
+        "description": "The Actuation Mechanism is physically integrated with the Control Surface Assembly through load-path-critical mechanical linkages."
+      },
+      {
+        "source": "Feedback Sensors",
+        "target": "Redundancy Module",
+        "relationshipType": "association",
+        "description": "Sensor outputs are continuously analyzed by the Redundancy Module to validate system integrity and initiate failover procedures."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "maxDeflectionAngle",
+        "type": "angularRange",
+        "value": "±25°",
+        "description": "Maximum allowable mechanical deflection in both upward and downward directions from neutral position."
+      },
+      {
+        "name": "hingeMomentCapacity",
+        "type": "torqueRating",
+        "value": "≥4500 Nm",
+        "description": "Peak torque resistance at hinge points during maximum dynamic pressure (Q) conditions."
+      },
+      {
+        "name": "actuatorForceOutput",
+        "type": "mechanicalForce",
+        "value": "22 kN @ 3000 psi",
+        "description": "Hydraulic actuator force generation capability under normal operating pressure."
+      },
+      {
+        "name": "harmonicResponse",
+        "type": "frequencyParameter",
+        "value": "≥35 Hz",
+        "description": "Minimum natural frequency of the aileron assembly to prevent flutter-induced oscillations."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "safetyClass",
+        "value": "DAL-A",
+        "description": "Design Assurance Level (DAL) certifying compliance with catastrophic failure probability requirements (<1E-9 per flight hour)."
+      },
+      {
+        "name": "surfaceRigidity",
+        "type": "structuralProperty",
+        "value": "<0.5° twist under max load",
+        "description": "Maximum torsional deformation allowance under limit aerodynamic loads."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-ailerons",
+          "type": "Block",
+          "name": "AileronSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-maxDeflection",
+            "attr-hingeMoment",
+            "attr-actuatorForce",
+            "attr-harmonicResponse",
+            "attr-redundancyLevel",
+            "attr-surfaceRigidity"
+          ],
+          "operationIds": null,
+          "constraintIds": [
+            "constraint-actuationSpeed",
+            "constraint-angularAccuracy"
+          ],
+          "partIds": [
+            "block-control-surface",
+            "block-actuation-mech",
+            "block-feedback-sensors",
+            "block-redundancy-mod"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-control-surface",
+          "type": "Block",
+          "name": "ControlSurfaceAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-skinMaterial",
+            "attr-torqueCapacity"
+          ],
+          "partIds": [
+            "block-aileron-skin",
+            "block-torque-tube"
+          ],
+          "referenceIds": null
+        },
+        {
+          "id": "block-actuation-mech",
+          "type": "Block",
+          "name": "ActuationMechanism",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-strokeLength",
+            "attr-pressureRating"
+          ],
+          "partIds": [
+            "block-servo-actuator",
+            "block-ball-screw"
+          ]
+        },
+        {
+          "id": "block-feedback-sensors",
+          "type": "Block",
+          "name": "FeedbackSensors",
+          "isAbstract": false,
+          "isActive": true,
+          "attributeIds": [
+            "attr-lvdtResolution",
+            "attr-strainGaugeRange"
+          ],
+          "partIds": [
+            "block-lvdt-sensor",
+            "block-strain-array"
+          ]
+        },
+        {
+          "id": "block-redundancy-mod",
+          "type": "Block",
+          "name": "RedundancyModule",
+          "isActive": true,
+          "attributeIds": [
+            "attr-failoverTime",
+            "attr-powerRedundancy"
+          ],
+          "partIds": [
+            "block-cross-channel",
+            "block-backup-relay"
+          ]
+        }
+      ],
+      "aggregations": [
+        {
+          "id": "agg-aileron-structure",
+          "type": "Aggregation",
+          "name": "AileronStructure",
+          "sourceId": "block-ailerons",
+          "targetId": "block-control-surface",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-actuation-linkage",
+          "type": "Composition",
+          "name": "MechanicalIntegration",
+          "sourceId": "block-actuation-mech",
+          "targetId": "block-control-surface",
+          "sourceMultiplicity": "2",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-sensor-redundancy",
+          "type": "Association",
+          "name": "HealthMonitoring",
+          "sourceId": "block-feedback-sensors",
+          "targetId": "block-redundancy-mod",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "fs-command",
+          "type": "FlowSpecification",
+          "name": "FlightControlCommand",
+          "flowType": "InformationFlow",
+          "dataType": "ARINC429",
+          "unit": "Hz"
+        },
+        {
+          "id": "fs-feedback",
+          "type": "FlowSpecification",
+          "name": "SurfaceTelemetry",
+          "flowType": "MaterialFlow",
+          "dataType": "IEEE1558",
+          "unit": "kbps"
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-cmd-in",
+          "type": "FlowPort",
+          "name": "CommandInput",
+          "blockId": "block-ailerons",
+          "flowSpecificationId": "fs-command",
+          "isConjugated": false
+        },
+        {
+          "id": "port-telem-out",
+          "type": "FlowPort",
+          "name": "TelemetryOutput",
+          "blockId": "block-ailerons",
+          "flowSpecificationId": "fs-feedback",
+          "isConjugated": true
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-actuationSpeed",
+          "type": "ConstraintBlock",
+          "name": "ActuationTiming",
+          "expression": "self.actuationDelay <= 50ms",
+          "parameterIds": [
+            "param-maxDelay"
+          ]
+        },
+        {
+          "id": "constraint-angularAccuracy",
+          "type": "ConstraintBlock",
+          "name": "PositionalPrecision",
+          "expression": "self.deflectionError <= ±0.1°",
+          "parameterIds": [
+            "param-tolerance"
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt-deflection",
+          "type": "ValueType",
+          "name": "AngularDisplacement",
+          "quantityKindId": "rotation",
+          "unitId": "degree"
+        },
+        {
+          "id": "vt-torque",
+          "type": "ValueType",
+          "name": "HingeMoment",
+          "quantityKindId": "torque",
+          "unitId": "newtonMeter"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-maxDeflection",
+          "type": "Property",
+          "name": "maxDeflectionAngle",
+          "propertyType": "vt-deflection",
+          "value": "±25°",
+          "aggregation": "none"
+        },
+        {
+          "id": "attr-hingeMoment",
+          "type": "Property",
+          "name": "hingeMomentCapacity",
+          "propertyType": "vt-torque",
+          "value": "≥4500",
+          "unit": "Nm"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-redundancy",
+          "type": "Comment",
+          "body": "Implements dual dissimilar actuators with mechanical summation for failure conditions per FAR 25.671",
+          "annotatedElementId": "block-redundancy-mod"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250325_033356"
+}

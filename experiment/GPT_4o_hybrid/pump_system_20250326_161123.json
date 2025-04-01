@@ -1,0 +1,550 @@
+{
+  "system_id": "pump_system",
+  "system_name": "Pump System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specify the range within which the pump maintains optimal performance.",
+        "name": "Operating Pressure Range",
+        "type": "string",
+        "value": "2000-4500 psi"
+      },
+      {
+        "description": "Detail the hydraulic oil required for operation.",
+        "name": "Hydraulic Fluid Type",
+        "type": "string",
+        "value": "Synthetic aviation-grade oil"
+      },
+      {
+        "description": "Define the expected service interval based on operational hours.",
+        "name": "Maintenance Interval",
+        "type": "string",
+        "value": "500 operational hours"
+      },
+      {
+        "description": "Specify the operating temperature withstand capability.",
+        "name": "Temperature Tolerance",
+        "type": "string",
+        "value": "-50°C to 120°C"
+      },
+      {
+        "description": "Identify the pump control integration features.",
+        "name": "Integration Capability",
+        "type": "string",
+        "value": "Advanced fly-by-wire systems"
+      }
+    ],
+    "designScenario": {
+      "description": "The Hydraulic Pump is designed to serve as a crucial component in aviation hydraulic systems by converting mechanical power into regulated hydraulic energy efficiently, remaining durable under extreme conditions, and featuring advanced safety mechanisms for operational reliability.",
+      "name": "Aviation-Grade Hydraulic Pump",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable efficient energy conversion from mechanical to hydraulic forms minimizing losses."
+            }
+          ],
+          "title": "Energy Conversion Efficiency",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Operate under a defined pressure range while maintaining stability under varying demands."
+            }
+          ],
+          "title": "Pressure Stability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Employ built-in diagnostics to preemptively indicate maintenance requirements or failures."
+            }
+          ],
+          "title": "Self-Diagnostic and Alert Systems",
+          "type": "nonFunctional"
+        },
+        {
+          "details": [
+            {
+              "description": "Include redundant fail-safe operations to ensure pressure stability under failure."
+            }
+          ],
+          "title": "Safety Fail-Safes",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide sustained operations even under extreme temperature variances."
+            }
+          ],
+          "title": "Environmental Adaptability",
+          "type": "performance"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The pump relies on an external mechanical driver.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Pump",
+        "target": "Driver Mechanism"
+      },
+      {
+        "description": "The pump incorporates an integral filter to maintain fluid cleanliness.",
+        "relationshipType": "composition",
+        "source": "Hydraulic Pump",
+        "target": "Internal Filter Unit"
+      },
+      {
+        "description": "The secondary pump manages overflow or backup pressure regulation.",
+        "relationshipType": "association",
+        "source": "Hydraulic Pump",
+        "target": "Auxiliary Pump"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Main unit responsible for hydraulic pressure generation from a mechanical input.",
+        "name": "Hydraulic Pump",
+        "subComponents": [
+          {
+            "description": "Provides rotational or reciprocating action for pump operation.",
+            "name": "Driver Mechanism",
+            "type": "Mechanical Input"
+          },
+          {
+            "description": "Maintains and regulates hydraulic fluid used by the system.",
+            "name": "Internal Fluid Regulator",
+            "type": "Subsystem"
+          }
+        ],
+        "type": "Primary Unit"
+      },
+      {
+        "description": "Secondary unit utilized for backup operations during main pump downtime.",
+        "name": "Auxiliary Pump",
+        "subComponents": [
+          {
+            "description": "Ensures primary functionalities are supplemented under varying demands.",
+            "name": "Auxiliary Drive Linkage",
+            "type": "Mechanical Coupling"
+          }
+        ],
+        "type": "Backup Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-pump-fluid-regulator",
+          "memberEndIds": null,
+          "name": "FluidRegulatorAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-hydraulic-pump",
+          "sourceMultiplicity": null,
+          "targetId": "block-internal-fluid-regulator",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-hp-auxiliary-pump",
+          "memberEndIds": null,
+          "name": "AuxiliaryPumpAssociation",
+          "ownedEndIds": null,
+          "sourceId": "block-hydraulic-pump",
+          "sourceMultiplicity": null,
+          "targetId": "block-auxiliary-pump",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "2000-4500 psi",
+          "id": "attr-operating-pressure-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "operatingPressureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "2000-4500 psi",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Synthetic aviation-grade oil",
+          "id": "attr-hydraulic-fluid-type",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "hydraulicFluidType",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Synthetic aviation-grade oil",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "500 operational hours",
+          "id": "attr-maintenance-interval",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "maintenanceInterval",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "500 operational hours",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-50°C to 120°C",
+          "id": "attr-temperature-tolerance",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "temperatureTolerance",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "-50°C to 120°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Advanced fly-by-wire systems",
+          "id": "attr-integration-capability",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "integrationCapability",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Advanced fly-by-wire systems",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-operating-pressure-range",
+            "attr-hydraulic-fluid-type",
+            "attr-maintenance-interval",
+            "attr-temperature-tolerance",
+            "attr-integration-capability"
+          ],
+          "constraintIds": null,
+          "id": "block-hydraulic-pump",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "HydraulicPump",
+          "operationIds": null,
+          "partIds": [
+            "part-driver-mechanism",
+            "part-internal-fluid-regulator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-driver-mechanism",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "DriverMechanism",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-internal-fluid-regulator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "InternalFluidRegulator",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-auxiliary-pump",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "AuxiliaryPump",
+          "operationIds": null,
+          "partIds": [
+            "part-auxiliary-drive-linkage"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-hydraulic-pump",
+          "body": "The Hydraulic Pump is a precision-engineered system tailored exclusively for aviation purposes, ensuring efficient energy conversion and operational reliability.",
+          "id": "comment-hp-design-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-hp-driver-mech",
+          "memberEndIds": null,
+          "name": "DriverMechanismComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-hydraulic-pump",
+          "sourceMultiplicity": null,
+          "targetId": "block-driver-mechanism",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "operatingPressure >= 2000 && operatingPressure <= 4500",
+          "id": "cons-operating-pressure",
+          "name": "OperatingPressureConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-pump-integrator-connections",
+          "name": "PumpIntegratorConnections",
+          "sourceId": "block-hydraulic-pump",
+          "sourceMultiplicity": null,
+          "targetId": "block-integration-interface",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-pump-operational-status",
+          "literals": [
+            {
+              "id": "literal-on",
+              "name": "On"
+            },
+            {
+              "id": "literal-off",
+              "name": "Off"
+            },
+            {
+              "id": "literal-maintenance-required",
+              "name": "MaintenanceRequired"
+            }
+          ],
+          "name": "PumpOperationalStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "HydraulicFluid",
+          "flowType": "MaterialFlow",
+          "id": "flow-spec-fluid-transfer",
+          "name": "FluidTransfer",
+          "type": "FlowSpecification",
+          "unit": "psi"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-hydraulic-pump",
+          "id": "port-output-hydraulic",
+          "isConjugated": false,
+          "name": "HydraulicOutput",
+          "providedInterfaceIds": [
+            "if-block-fluid-output"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-fluid-output",
+          "name": "FluidOutputInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-driver-mechanism",
+          "name": "DriverMechanismPart",
+          "of": "block-hydraulic-pump",
+          "type": "Part"
+        },
+        {
+          "id": "part-internal-fluid-regulator",
+          "name": "InternalFluidRegulatorPart",
+          "of": "block-hydraulic-pump",
+          "type": "Part"
+        },
+        {
+          "id": "part-auxiliary-drive-linkage",
+          "name": "AuxiliaryDriveLinkage",
+          "of": "block-auxiliary-pump",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-hydraulic-pump",
+          "flowSpecificationId": "flow-spec-fluid-transfer",
+          "id": "flow-port-pump-output",
+          "isConjugated": false,
+          "name": "PumpOutputFlowPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-hydraulic-pump",
+          "id": "proxyport-control-interface",
+          "isConjugated": false,
+          "name": "ControlInterfaceProxyPort",
+          "providedInterfaceIds": [
+            "if-block-fluid-output"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-conversion-efficiency",
+          "name": "EnergyConversionEfficiency",
+          "reqId": null,
+          "text": "Facilitate efficient mechanical-to-hydraulic energy conversion minimizing entropy.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-environmental-adapt",
+          "name": "EnvironmentalAdaptability",
+          "reqId": null,
+          "text": "Operate within -50°C to 120°C maintaining performance and reliability.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-hydraulic-pressure",
+          "name": "HydraulicPressure",
+          "quantityKindId": "PressureKind",
+          "type": "ValueType",
+          "unitId": "psi"
+        }
+      ]
+    }
+  },
+  "reference_system": "hydraulic_pump",
+  "parent_system": null,
+  "timestamp": "20250326_161123",
+  "provider": "gpt"
+}

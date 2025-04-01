@@ -1,0 +1,696 @@
+{
+  "system_id": "air_supply_system",
+  "system_name": "Air Supply System",
+  "specification": {
+    "designScenario": {
+      "name": "Air Supply System",
+      "description": "The Air Supply System (ASS) is a critical subsystem of the Environmental Control System (ECS) responsible for sourcing, conditioning, and distributing breathable air to the aircraft cabin. It integrates bleed air extraction from engines/APU, filtration, temperature preconditioning, and pressure regulation to ensure a continuous supply of air meeting aviation safety standards. The system maintains cabin pressurization, oxygen levels, and air circulation while coordinating with fire suppression and emergency oxygen systems.",
+      "requirements": [
+        {
+          "title": "Airflow Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall regulate airflow between 800-2500 CFM based on cabin occupancy and flight phase using variable-frequency fan drives."
+            }
+          ]
+        },
+        {
+          "title": "Cabin Pressurization",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Maintain cabin pressure altitude below 8,000 ft (0.75-1.1 atm) during all flight phases using outflow valve control."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Air Sources",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Provide dual redundant air sources (engine bleed/APU/electric compressor) with automatic failover within 3 seconds of pressure loss."
+            }
+          ]
+        },
+        {
+          "title": "Particulate Filtration",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Remove 99.97% of airborne particulates ≥0.3 microns using HEPA filters with differential pressure monitoring."
+            }
+          ]
+        },
+        {
+          "title": "Emergency Pressurization",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Maintain cabin pressure during rapid decompression events with <15 second recovery to safe levels (≤15,000 ft equivalent)."
+            }
+          ]
+        },
+        {
+          "title": "Crew Interface",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide touchscreen controls with synoptic displays showing airflow rates, filter status, and pressure differentials."
+            }
+          ]
+        },
+        {
+          "title": "Line Replaceable Units",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Design all components as LRUs (Line Replaceable Units) with <30 minute MTTR (Mean Time To Repair)."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Air Supply Management Unit",
+        "description": "Central controller managing air source selection, flow distribution, and interface with ECS",
+        "type": "Control Module",
+        "subComponents": [
+          {
+            "name": "Bleed Air Controller",
+            "description": "Regulates engine/APU bleed air extraction pressures",
+            "type": "Electronic Control Unit"
+          },
+          {
+            "name": "Flow Distribution Module",
+            "description": "Directs air to cabin zones via electrically actuated valves",
+            "type": "Pneumatic Actuator"
+          }
+        ]
+      },
+      {
+        "name": "Bleed Air System",
+        "description": "High-pressure air extraction and preconditioning system",
+        "type": "Pneumatic Subsystem",
+        "subComponents": [
+          {
+            "name": "Bleed Air Valve",
+            "description": "Modulating valve controlling bleed air extraction rate",
+            "type": "Pneumatic Valve"
+          },
+          {
+            "name": "Pre-Cooler",
+            "description": "Air-to-air heat exchanger reducing bleed air temperature",
+            "type": "Heat Exchanger"
+          },
+          {
+            "name": "Pressure Regulator",
+            "description": "Reduces bleed air pressure to cabin service levels",
+            "type": "Regulator"
+          }
+        ]
+      },
+      {
+        "name": "Cabin Air Distribution Network",
+        "description": "Ducting and nozzles for optimized air distribution",
+        "type": "Pneumatic Subsystem",
+        "subComponents": [
+          {
+            "name": "Primary Distribution Ducts",
+            "description": "Aluminum alloy ducts with acoustic lining",
+            "type": "Conduit"
+          },
+          {
+            "name": "Gasper Outlets",
+            "description": "Adjustable personal ventilation nozzles",
+            "type": "Flow Regulator"
+          }
+        ]
+      },
+      {
+        "name": "Air Filtration Unit",
+        "description": "Particulate and gaseous contaminant removal system",
+        "type": "Filter Subsystem",
+        "subComponents": [
+          {
+            "name": "HEPA Filter Bank",
+            "description": "High-efficiency particulate air filters",
+            "type": "Filter"
+          },
+          {
+            "name": "Charcoal Filter",
+            "description": "Adsorbs odors and organic vapors",
+            "type": "Chemical Filter"
+          }
+        ]
+      },
+      {
+        "name": "Pressure Regulation System",
+        "description": "Active cabin pressure control subsystem",
+        "type": "Pneumatic Subsystem",
+        "subComponents": [
+          {
+            "name": "Outflow Valve",
+            "description": "Electro-pneumatic valve controlling cabin exhaust",
+            "type": "Actuated Valve"
+          },
+          {
+            "name": "Pressure Sensors",
+            "description": "Redundant absolute pressure transducers",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Redundant Air Supply Unit",
+        "description": "Emergency air compression and delivery system",
+        "type": "Backup System",
+        "subComponents": [
+          {
+            "name": "Electric Compressor",
+            "description": "300V DC motor-driven centrifugal compressor",
+            "type": "Actuator"
+          },
+          {
+            "name": "Isolation Valves",
+            "description": "Prevent reverse flow during emergency operation",
+            "type": "Solenoid Valve"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Air Supply Management Unit",
+        "target": "Bleed Air System",
+        "relationshipType": "aggregation",
+        "description": "The management unit aggregates and controls bleed air system components"
+      },
+      {
+        "source": "Bleed Air System",
+        "target": "Engine Bleed Ports",
+        "relationshipType": "dependency",
+        "description": "Depends on engine compressor bleed ports for air source"
+      },
+      {
+        "source": "Pressure Regulation System",
+        "target": "Air Supply Management Unit",
+        "relationshipType": "association",
+        "description": "Exchanges pressure data and valve position feedback"
+      },
+      {
+        "source": "Cabin Air Distribution Network",
+        "target": "Distribution Ducts",
+        "relationshipType": "composition",
+        "description": "Network is physically composed of primary distribution ducts"
+      },
+      {
+        "source": "Redundant Air Supply Unit",
+        "target": "Air Supply Management Unit",
+        "relationshipType": "aggregation",
+        "description": "Managed as part of the overall air supply control strategy"
+      },
+      {
+        "source": "Air Filtration Unit",
+        "target": "Cabin Air Distribution Network",
+        "relationshipType": "association",
+        "description": "Supplies filtered air to the distribution network"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "airflowCapacity",
+        "type": "string",
+        "value": "800-2500 CFM",
+        "description": "Adjustable airflow rate based on cabin occupancy and flight phase"
+      },
+      {
+        "name": "pressureRange",
+        "type": "string",
+        "value": "0.75-1.1 atm",
+        "description": "Operational cabin pressure range from sea level to 8,000 ft equivalent"
+      },
+      {
+        "name": "filtrationEfficiency",
+        "type": "string",
+        "value": "99.97% @ 0.3μm",
+        "description": "HEPA filtration performance for particulate removal"
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual redundant",
+        "description": "Fail-operational architecture for critical air supply components"
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "<3 sec",
+        "description": "Maximum allowable delay for redundancy activation"
+      },
+      {
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "15°C-30°C",
+        "description": "Conditioned air temperature range post-mixing"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "AirSupplySystem",
+          "type": "Block",
+          "name": "Air Supply System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr1",
+            "attr2"
+          ],
+          "operationIds": [
+            "op1"
+          ],
+          "constraintIds": [
+            "constraint1"
+          ],
+          "partIds": [
+            "AHU"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "AHU",
+          "type": "Block",
+          "name": "Air Handling Unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr3",
+            "attr4",
+            "attr5",
+            "attr6",
+            "attr7"
+          ],
+          "operationIds": [
+            "op2"
+          ],
+          "constraintIds": [
+            "constraint2"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IAirSupplyControl",
+          "type": "InterfaceBlock",
+          "name": "IAirSupplyControl",
+          "attributeIds": [],
+          "operationIds": [
+            "op3"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "AirFlowSpec",
+          "type": "FlowSpecification",
+          "name": "AirFlowSpecification",
+          "flowType": "material",
+          "dataType": "AirFlow",
+          "unit": "CFM",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint1",
+          "type": "ConstraintBlock",
+          "name": "SystemPressureConstraint",
+          "parameterIds": [
+            "param1"
+          ],
+          "expression": "pressure >= 0.8 and pressure <= 1.2",
+          "attributeIds": []
+        },
+        {
+          "id": "constraint2",
+          "type": "ConstraintBlock",
+          "name": "TemperatureConstraint",
+          "parameterIds": [
+            "param2"
+          ],
+          "expression": "temperature >= 10 and temperature <= 40",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "AirFlow",
+          "type": "ValueType",
+          "name": "AirFlow",
+          "quantityKindId": "FlowRate",
+          "unitId": "CFM",
+          "attributeIds": []
+        },
+        {
+          "id": "Pressure",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "Pressure",
+          "unitId": "atm",
+          "attributeIds": []
+        },
+        {
+          "id": "Temperature",
+          "type": "ValueType",
+          "name": "Temperature",
+          "quantityKindId": "Temperature",
+          "unitId": "Celsius",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "NoiseLevel",
+          "type": "Enumeration",
+          "name": "NoiseLevel",
+          "literals": [
+            {
+              "id": "low",
+              "name": "Low"
+            },
+            {
+              "id": "moderate",
+              "name": "Moderate"
+            },
+            {
+              "id": "high",
+              "name": "High"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "airInlet",
+          "type": "FlowPort",
+          "name": "airInlet",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "AHU",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "AirFlowSpec",
+          "attributeIds": []
+        },
+        {
+          "id": "airOutlet",
+          "type": "FlowPort",
+          "name": "airOutlet",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "AHU",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "AirFlowSpec",
+          "attributeIds": []
+        },
+        {
+          "id": "controlPort",
+          "type": "ProxyPort",
+          "name": "controlPort",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "AirSupplySystem",
+          "providedInterfaceIds": [
+            "IAirSupplyControl"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp1",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "AirSupplySystem",
+          "targetId": "AHU",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr1",
+          "type": "Property",
+          "name": "operatingPressure",
+          "propertyType": "Pressure",
+          "value": "1.0",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "1.0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr2",
+          "type": "Property",
+          "name": "maintenanceInterval",
+          "propertyType": "Integer",
+          "value": "500",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "500",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr3",
+          "type": "Property",
+          "name": "airflowCapacity",
+          "propertyType": "AirFlow",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr4",
+          "type": "Property",
+          "name": "operatingTemperature",
+          "propertyType": "Temperature",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr5",
+          "type": "Property",
+          "name": "pressureRange",
+          "propertyType": "Pressure",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr6",
+          "type": "Property",
+          "name": "noiseLevel",
+          "propertyType": "NoiseLevel",
+          "value": "moderate",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "moderate",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr7",
+          "type": "Property",
+          "name": "maintenanceCycle",
+          "propertyType": "Integer",
+          "value": "500",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "500",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "op1",
+          "type": "Operation",
+          "name": "regulatePressure",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "op2",
+          "type": "Operation",
+          "name": "controlTemperature",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "op3",
+          "type": "Operation",
+          "name": "adjustFlowRate",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "param1",
+          "type": "Parameter",
+          "name": "pressure",
+          "parameterType": "Pressure",
+          "defaultValue": null
+        },
+        {
+          "id": "param2",
+          "type": "Parameter",
+          "name": "temperature",
+          "parameterType": "Temperature",
+          "defaultValue": null
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment1",
+          "type": "Comment",
+          "body": "The Air Supply System provides conditioned air to the aircraft cabin",
+          "annotatedElementId": "AirSupplySystem"
+        },
+        {
+          "id": "comment2",
+          "type": "Comment",
+          "body": "AHU must maintain cabin pressure between 0.8 and 1.2 atm",
+          "annotatedElementId": "constraint1"
+        },
+        {
+          "id": "comment3",
+          "type": "Comment",
+          "body": "AHU operating temperature range is 10-40°C for reliable performance",
+          "annotatedElementId": "constraint2"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "Air Handling Unit (AHU) is a critical subsystem within the Environmental Control System designed for passenger airplanes. It specifies the airflow capacity delivered by the Air Handling Unit, ensuring sufficient ventilation and mixing across the cabin. The optimal operating temperature range for reliable performance under various flight conditions is 10°C - 40°C. The system's compatible pressure range ensures proper integration with the overall cabin environmental control, ranging from 0.8 atm to 1.2 atm. The noise level emitted by the unit during operation is low to moderate, which is important for passenger comfort. The recommended maintenance cycle to ensure long-term reliability and safety is every 500 flight hours.",
+  "timestamp": "20250326_013707",
+  "provider": "dpsk"
+}

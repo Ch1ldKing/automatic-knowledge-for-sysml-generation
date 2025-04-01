@@ -1,0 +1,300 @@
+{
+  "system_id": "flight_management_system_(fms)_system",
+  "system_name": "Flight Management System (FMS) System",
+  "specification": {
+    "designScenario": {
+      "name": "Flight Management System (FMS) System",
+      "description": "Basic description of Flight Management System (FMS) System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": null,
+          "id": "A_ProcessSensor_001",
+          "name": "ProcessSensorData",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": null,
+          "id": "A_OptimizeFlight_001",
+          "name": "OptimizeFlightTrajectory",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_FMS_001",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "FMS_System",
+          "operationIds": null,
+          "partIds": [
+            "P_Nav_001",
+            "P_AutoPilot_001",
+            "P_Comm_001",
+            "P_Fuel_001"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_NavModule_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "NavigationModule",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_AutoPilot_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AutopilotModule",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_CommInterface_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CommunicationInterface",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_FuelMgmt_001",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FuelManagementModule",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "CycleTime <= 100ms",
+          "id": "CB_RT_001",
+          "name": "RealTimeCycleConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "SensorAccuracy <= 5m",
+          "id": "CB_NavAcc_001",
+          "name": "NavSensorAccuracyConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "P_Nav_001",
+          "name": "NavModulePart",
+          "of": "B_NavModule_001",
+          "type": "Part"
+        },
+        {
+          "id": "P_AutoPilot_001",
+          "name": "AutoPilotPart",
+          "of": "B_AutoPilot_001",
+          "type": "Part"
+        },
+        {
+          "id": "P_Comm_001",
+          "name": "CommInterfacePart",
+          "of": "B_CommInterface_001",
+          "type": "Part"
+        },
+        {
+          "id": "P_Fuel_001",
+          "name": "FuelMgmtPart",
+          "of": "B_FuelMgmt_001",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B_FMS_001",
+          "flowSpecificationId": null,
+          "id": "Port_SensorInput_001",
+          "isConjugated": false,
+          "name": "SensorInput",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B_FMS_001",
+          "flowSpecificationId": null,
+          "id": "Port_AutoPilotCmd_001",
+          "isConjugated": false,
+          "name": "AutoPilotOutput",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B_FMS_001",
+          "flowSpecificationId": null,
+          "id": "Port_Comm_001",
+          "isConjugated": false,
+          "name": "CommInterface",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "REQ_FMS_Performance_001",
+          "name": "Update Frequency",
+          "reqId": "REQ-001",
+          "text": "FMS shall update sensor data at 1Hz.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "REQ_FMS_Redundancy_001",
+          "name": "Module Redundancy",
+          "reqId": "REQ-002",
+          "text": "FMS shall ensure dual or triple module redundancy for high reliability.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "REQ_FMS_Security_001",
+          "name": "Security Protocols",
+          "reqId": "REQ-003",
+          "text": "FMS shall implement AES-256 and RSA encryption for secure communication.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "REQ_FMS_RealTime_001",
+          "name": "Real-Time Processing",
+          "reqId": "REQ-004",
+          "text": "FMS shall have a real-time processing cycle of 100ms.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "REQ_FMS_NavAccuracy_001",
+          "name": "Navigation Accuracy",
+          "reqId": "REQ-005",
+          "text": "Navigation sensors shall have an accuracy within 5 meters.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": null,
+          "id": "S_Idle_001",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "S_Active_001",
+          "name": "Active",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "S_Fault_001",
+          "name": "Fault",
+          "type": "State"
+        }
+      ],
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "Flight Management System (FMS)是一个集成的航空电子解决方案，提供关键的飞行计划、导航和自动驾驶接口功能。它设计用于处理来自多个导航仪器的传感器输入，优化飞行轨迹，管理燃料消耗，并与机载和外部通信网络进行接口。FMS确保高可靠性、精度，并符合现代航空运营的安全标准。其规格包括更新频率为1Hz，冗余级别为双重或三重模块冗余，实时处理周期时间为100ms，导航传感器精度在5米以内，安全协议包括AES-256和RSA加密。",
+  "timestamp": "20250325_203333",
+  "provider": "gpt"
+}

@@ -1,0 +1,537 @@
+{
+  "system_id": "fuel_delivery_system",
+  "system_name": "Fuel Delivery System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the aviation-grade fuel type compatible with modern turbine engines, ensuring optimal combustion and efficiency.",
+        "name": "fuelType",
+        "type": "string",
+        "value": "Jet-A1"
+      },
+      {
+        "description": "Specifies the maximum storage capacity of the fuel tank, ensuring extended flight operations under peak load conditions.",
+        "name": "tankCapacity",
+        "type": "string",
+        "value": "3200 liters"
+      },
+      {
+        "description": "Indicates the acceptable operating temperature range for fuel to maintain consistency and prevent degradation.",
+        "name": "fuelTemperatureRange",
+        "type": "string",
+        "value": "-40°C to +60°C"
+      },
+      {
+        "description": "Defines the optimized fuel pump operating pressure range to deliver consistent fuel flow during rapid throttle variations.",
+        "name": "pumpPressureRange",
+        "type": "string",
+        "value": "4-6 Bar"
+      },
+      {
+        "description": "Specifies the system redundancy level to ensure continuous operation through triple backup circuits in critical components.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple redundant system"
+      },
+      {
+        "description": "Indicates the efficiency of fuel filtration required to maintain engine integrity and performance.",
+        "name": "filterEffectiveness",
+        "type": "string",
+        "value": "99.99% particulate removal"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fuel System is a critical subsystem in passenger airplanes, designed to safely store, regulate, and distribute aviation fuel to power the engines. It is engineered to operate efficiently under varying flight conditions, including fluctuations in altitude, pressure, and temperature. Featuring advanced sensor integration and adaptive control mechanisms, the system guarantees optimal fuel delivery and rapid response to engine demands, while incorporating multiple layers of safety and redundancy to ensure compliance with the highest aviation standards.",
+      "name": "Fuel System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall dynamically adjust fuel flow in real-time using sensor feedback to match the varying demands of engine operation during different flight phases."
+            }
+          ],
+          "title": "Adaptive Fuel Flow Control",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The fuel pump must operate within a pressure range of 4-6 Bar and deliver fuel with minimal delay, ensuring engine responsiveness, even under rapid throttle demands."
+            }
+          ],
+          "title": "Enhanced Fuel Pump Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement integrated safety mechanisms, including leak detection sensors, overpressure shutoff valves, and isolated circuit designs to mitigate risks of fuel spills and fire hazards."
+            }
+          ],
+          "title": "Safety Redundancy and Leak Prevention",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design shall emphasize modularity for ease of maintenance, providing clear diagnostic interfaces and ensuring a mean time between failures of at least 5000 flight hours."
+            }
+          ],
+          "title": "Maintenance and Reliability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Fuel Pump Assembly relies on the Fuel Storage Tank for a continuous supply of fuel; any compromise in storage directly affects pump performance.",
+        "relationshipType": "dependency",
+        "source": "Fuel Pump Assembly",
+        "target": "Fuel Storage Tank"
+      },
+      {
+        "description": "The Fuel Control Unit is associated with the Fuel Pump Assembly to regulate and modulate fuel flow in response to sensor inputs.",
+        "relationshipType": "association",
+        "source": "Fuel Control Unit",
+        "target": "Fuel Pump Assembly"
+      },
+      {
+        "description": "The Fuel Distribution Network is composed within the Fuel Control Unit to ensure precise routing of fuel through manual and automatic control valves.",
+        "relationshipType": "composition",
+        "source": "Fuel Control Unit",
+        "target": "Fuel Distribution Network"
+      },
+      {
+        "description": "The Sensor Array aggregates critical data from the Fuel Storage Tank to monitor fuel levels and temperature in real-time.",
+        "relationshipType": "aggregation",
+        "source": "Sensor Array",
+        "target": "Fuel Storage Tank"
+      },
+      {
+        "description": "The Sensor Array also gathers operational data from the Fuel Pump Assembly, enhancing predictive maintenance and adaptive control.",
+        "relationshipType": "aggregation",
+        "source": "Sensor Array",
+        "target": "Fuel Pump Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A robust storage module engineered to safely house aviation fuel, with reinforced structure and integrated sensor monitoring for fuel level and temperature.",
+        "name": "Fuel Storage Tank",
+        "subComponents": [
+          {
+            "description": "Reinforced tank wall designed to withstand high pressures and prevent structural deformation.",
+            "name": "Reinforced Tank Wall",
+            "type": "Structural Element"
+          },
+          {
+            "description": "Internal insulation layer that maintains fuel temperature stability and prevents thermal losses.",
+            "name": "Internal Insulation",
+            "type": "Insulation Layer"
+          },
+          {
+            "description": "Sensor module incorporating multiple sensors to continuously monitor fuel level and temperature.",
+            "name": "Tank Sensor Module",
+            "type": "Sensor Module"
+          }
+        ],
+        "type": "Container"
+      },
+      {
+        "description": "An advanced pump assembly designed to deliver fuel consistently under varying operating conditions with minimal latency.",
+        "name": "Fuel Pump Assembly",
+        "subComponents": [
+          {
+            "description": "High-performance fuel pump optimized for rapid fuel delivery and precise control under dynamic conditions.",
+            "name": "High-Performance Pump",
+            "type": "Actuator"
+          },
+          {
+            "description": "Flow sensor integrated to monitor and regulate the fuel flow rate, ensuring alignment with engine demands.",
+            "name": "Flow Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Actuator"
+      },
+      {
+        "description": "The central electronic module responsible for processing sensor data, managing fuel flow, and coordinating safety protocols.",
+        "name": "Fuel Control Unit",
+        "subComponents": [
+          {
+            "description": "A central microcontroller that processes real-time sensor data and executes fuel flow algorithms.",
+            "name": "Central Microcontroller",
+            "type": "Controller"
+          },
+          {
+            "description": "Diagnostic interface allowing ground crews and onboard systems to perform maintenance checks and system diagnostics.",
+            "name": "Diagnostic Interface",
+            "type": "Interface Module"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "A dedicated filtration module that removes impurities from the fuel to prevent engine damage and ensure optimal combustion.",
+        "name": "Fuel Filtration Module",
+        "subComponents": [
+          {
+            "description": "Primary filter designed for high throughput and effective removal of large particulates.",
+            "name": "Primary Filter",
+            "type": "Filter"
+          },
+          {
+            "description": "Secondary filter providing additional purification to achieve near-total particulate elimination.",
+            "name": "Secondary Filter",
+            "type": "Filter"
+          }
+        ],
+        "type": "Filter"
+      },
+      {
+        "description": "A network of distribution components that manage the routing of fuel to various engine sectors through both manual and automated controls.",
+        "name": "Fuel Distribution Network",
+        "subComponents": [
+          {
+            "description": "Manual override valve enabling pilot intervention during emergency operations for immediate shutdown or rerouting of fuel.",
+            "name": "Manual Override Valve",
+            "type": "Control Valve"
+          },
+          {
+            "description": "Automatic control valve that receives commands from the Fuel Control Unit for precision fuel distribution.",
+            "name": "Automatic Control Valve",
+            "type": "Control Valve"
+          }
+        ],
+        "type": "Control Component"
+      },
+      {
+        "description": "An integrated sensor array that provides comprehensive monitoring of fuel system parameters to support adaptive control and predictive maintenance.",
+        "name": "Sensor Array",
+        "subComponents": [
+          {
+            "description": "Pressure sensor providing real-time data on fuel line pressure to assist in safe pump operation.",
+            "name": "Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Temperature sensor continuously monitoring fuel temperature to ensure fuel quality and system safety.",
+            "name": "Temperature Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Flow rate sensor that monitors fuel delivery speed for precise calibration of pump performance.",
+            "name": "Flow Rate Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "Act_MCF",
+          "name": "Monitor and Control Fuel Flow",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_FDS",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Fuel Delivery System",
+          "operationIds": [],
+          "partIds": [
+            "B_FP",
+            "B_FCU",
+            "B_SS"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_FP",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Fuel Pump",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_FCU",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Fuel Control Unit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "B_SS",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Safety Subsystem",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": [
+        {
+          "id": "Comp_FP",
+          "memberEndIds": null,
+          "name": "Fuel Delivery System includes Fuel Pump",
+          "ownedEndIds": null,
+          "sourceId": "B_FDS",
+          "sourceMultiplicity": null,
+          "targetId": "B_FP",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "Comp_FCU",
+          "memberEndIds": null,
+          "name": "Fuel Delivery System includes Fuel Control Unit",
+          "ownedEndIds": null,
+          "sourceId": "B_FDS",
+          "sourceMultiplicity": null,
+          "targetId": "B_FCU",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "Comp_SS",
+          "memberEndIds": null,
+          "name": "Fuel Delivery System includes Safety Subsystem",
+          "ownedEndIds": null,
+          "sourceId": "B_FDS",
+          "sourceMultiplicity": null,
+          "targetId": "B_SS",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": [
+        {
+          "constrainedElementIds": null,
+          "id": "C_PR1",
+          "name": "Fuel Pressure Constraint",
+          "specification": "Fuel pump pressure must be maintained between 3 and 5 Bar.",
+          "type": "Constraint"
+        },
+        {
+          "constrainedElementIds": null,
+          "id": "C_FR1",
+          "name": "Fuel Flow Rate Constraint",
+          "specification": "Fuel flow rate must support rapid engine response during emergency maneuvers.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "Dep_FD",
+          "name": "Fuel Pump satisfies Performance Requirement",
+          "sourceId": "B_FP",
+          "sourceMultiplicity": null,
+          "targetId": "Req_FD1",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        },
+        {
+          "id": "Dep_FS",
+          "name": "Safety Subsystem satisfies Safety Requirement",
+          "sourceId": "B_SS",
+          "sourceMultiplicity": null,
+          "targetId": "Req_FS1",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "State_Takeoff",
+          "name": "Takeoff",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "State_Cruise",
+          "name": "Cruise",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "State_Landing",
+          "name": "Landing",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "State_Emergency",
+          "name": "Emergency",
+          "represents": null,
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B_FP",
+          "flowSpecificationId": null,
+          "id": "P_FP_IN",
+          "isConjugated": false,
+          "name": "Fuel Inlet Port",
+          "portType": "flow",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_FP",
+          "flowSpecificationId": null,
+          "id": "P_FP_OUT",
+          "isConjugated": false,
+          "name": "Fuel Outlet Port",
+          "portType": "flow",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_FCU",
+          "flowSpecificationId": null,
+          "id": "P_FCU_CONTROL",
+          "isConjugated": false,
+          "name": "Control Signal Port",
+          "portType": "proxy",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "Req_FD1",
+          "name": "Fuel Delivery Performance Requirement",
+          "reqId": "FD-REQ-001",
+          "text": "The fuel pump must deliver fuel at a pressure between 3-5 Bar with a flow rate sufficient to support rapid engine response in emergency maneuvers.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "Req_FS1",
+          "name": "Fuel Safety Requirement",
+          "reqId": "FS-REQ-001",
+          "text": "The system shall include overpressure shutoff, leak detection sensors, and isolation valves to prevent fuel spills and fire hazards.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "State_Takeoff",
+          "name": "Takeoff",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "State_Cruise",
+          "name": "Cruise",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "State_Landing",
+          "name": "Landing",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "State_Emergency",
+          "name": "Emergency",
+          "type": "State"
+        }
+      ],
+      "transitions": null,
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": [],
+          "id": "UC_FDS",
+          "name": "Fuel Delivery System Use Case",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Fuel Delivery System is designed to precisely regulate and distribute fuel to critical aerodynamic surfaces. It ensures optimal fuel flow, monitoring, and safety even under dynamically varying altitude, pressure, and temperature conditions. The system must precisely control the fuel flow rate and pressure to meet the varying demands during different phases of flight including takeoff, cruise, and landing. The fuel pump must deliver fuel at a pressure range between 3-5 Bar with a flow rate that supports rapid engine response in emergency maneuvers. Safety mechanisms such as overpressure shutoff, leak detection sensors, and isolation valves are included to prevent fuel spills and fire hazards. The system is designed for high reliability, ease of maintenance, and long service intervals, with a failure rate that meets or exceeds aviation industry standards.",
+  "timestamp": "20250325_202202",
+  "provider": "gpt"
+}

@@ -1,0 +1,412 @@
+{
+  "system_id": "fuel_storage_system",
+  "system_name": "Fuel Storage System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The type of fuel to be stored and utilized, ensuring compatibility with aircraft engines.",
+        "name": "fuelType",
+        "type": "string",
+        "value": "Jet-A"
+      },
+      {
+        "description": "The total storage capacity of the fuel system, influencing aircraft range and payload.",
+        "name": "storageCapacity",
+        "type": "string",
+        "value": "3000 liters"
+      },
+      {
+        "description": "The structural material used in the tank to guarantee durability under extreme conditions.",
+        "name": "tankMaterial",
+        "type": "string",
+        "value": "Aluminum Alloy 7475"
+      },
+      {
+        "description": "The operating temperature ranges in which the fuel system components can function appropriately.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-50°C to 60°C"
+      },
+      {
+        "description": "The redundancy level to ensure operational reliability and safety margins.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "N+1 Configuration"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fuel Storage System is meticulously engineered to safely store aviation fuel, provide optimal distribution to the aircraft engines, and integrate seamlessly with fuel management systems, ensuring performance and compliance under all operational conditions.",
+      "name": "Fuel Storage System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall store and contain aviation fuel securely, preventing leakage or contamination."
+            }
+          ],
+          "title": "Fuel Containment and Purity",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system's material and construction shall withstand operating pressure fluctuations due to altitude changes."
+            }
+          ],
+          "title": "Structural Integrity Under Pressure",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Include mechanisms like overflow prevention and leak detection sensors to avoid hazardous situations."
+            }
+          ],
+          "title": "Safety Provisions for Fuel Management",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "System components should be modular and easy to maintain, meeting aviation standards for maintenance intervals."
+            }
+          ],
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The tank provides fuel to the pumping system, which is necessary for operation.",
+        "relationshipType": "dependency",
+        "source": "Storage Tank",
+        "target": "Pump Assembly"
+      },
+      {
+        "description": "The sensor network collects data from the tank and other components to monitor status.",
+        "relationshipType": "aggregation",
+        "source": "Sensor Network",
+        "target": "Storage Tank"
+      },
+      {
+        "description": "The pump assembly integrates directly with the valves to ensure accurate directional fuel flow.",
+        "relationshipType": "composition",
+        "source": "Pump Assembly",
+        "target": "Distribution Valves"
+      },
+      {
+        "description": "The filtration unit is associated with the pump, ensuring clean fuel delivery.",
+        "relationshipType": "association",
+        "source": "Filtration System",
+        "target": "Pump Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Provides secure storage for aviation fuel and serves as the primary reservoir.",
+        "name": "Storage Tank",
+        "subComponents": [
+          {
+            "description": "Prevents contamination and corrosion inside the tank.",
+            "name": "Internal Lining",
+            "type": "Protective Layer"
+          },
+          {
+            "description": "Measures fuel level and provides input to the monitoring system.",
+            "name": "Level Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Container"
+      },
+      {
+        "description": "Responsible for transporting fuel to the engines with consistent pressure.",
+        "name": "Pump Assembly",
+        "subComponents": [
+          {
+            "description": "An electronically driven centrifugal pump ensuring precise fuel flow.",
+            "name": "Electric Pump",
+            "type": "Actuator"
+          },
+          {
+            "description": "Monitors output pressure to maintain operational stability.",
+            "name": "Pressure Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Actuator"
+      },
+      {
+        "description": "Monitors and maintains fuel purity, protecting against engine fouling.",
+        "name": "Filtration System",
+        "subComponents": [
+          {
+            "description": "Removes suspended particles from the fuel before delivery.",
+            "name": "Particle Filter",
+            "type": "Filter"
+          },
+          {
+            "description": "Alerts when a replacement is needed for the filtration element.",
+            "name": "Filter Condition Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Filter Unit"
+      },
+      {
+        "description": "Regulates and routes fuel appropriately to engines and ancillary systems.",
+        "name": "Distribution Valves",
+        "subComponents": [
+          {
+            "description": "Automatically controls the fuel path to designated systems.",
+            "name": "Solenoid Valve",
+            "type": "Control Valve"
+          },
+          {
+            "description": "Enables manual control for maintenance operations.",
+            "name": "Override Valve",
+            "type": "Manual Valve"
+          }
+        ],
+        "type": "Control Component"
+      },
+      {
+        "description": "Collects and communicates real-time data across the system to optimize operations.",
+        "name": "Sensor Network",
+        "subComponents": [
+          {
+            "description": "Measures real-time temperature within the storage tank.",
+            "name": "Temperature Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Monitors the differential pressure across the filtration unit.",
+            "name": "Differential Pressure Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring System"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc_FuelTank_to_Sensors",
+          "memberEndIds": [
+            "FuelTank",
+            "Sensors"
+          ],
+          "name": "association: FuelTank to Sensors",
+          "ownedEndIds": null,
+          "sourceId": "FuelTank",
+          "sourceMultiplicity": "1",
+          "targetId": "Sensors",
+          "targetMultiplicity": "2",
+          "type": "Association"
+        }
+      ],
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "fuelCapacity",
+            "operatingPressureRange",
+            "material"
+          ],
+          "constraintIds": [
+            "cons_pressure_limits"
+          ],
+          "id": "FuelTank",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "FuelTank",
+          "operationIds": [
+            "op_integrityCheck"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "sensorType",
+            "redundancy"
+          ],
+          "constraintIds": null,
+          "id": "Sensors",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Sensors",
+          "operationIds": [
+            "op_sensorCalibration"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "FuelTank",
+          "body": "Keep the tank material aerospace-grade for weight and durability concerns.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp_FuelStorageSystem",
+          "memberEndIds": [
+            "FuelTank"
+          ],
+          "name": "FuelStorageSystem Composition",
+          "ownedEndIds": null,
+          "sourceId": "FuelStorageSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "FuelTank",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [
+            "upperPressureLimit",
+            "lowerPressureLimit"
+          ],
+          "expression": "lowerPressureLimit <= operatingPressure AND operatingPressure <= upperPressureLimit",
+          "id": "cons_pressure_limits",
+          "name": "Pressure limits constraint",
+          "parameterIds": [
+            "lowerPressureLimit_id",
+            "upperPressureLimit_id"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "FuelTank"
+          ],
+          "id": "pressureConformity",
+          "name": "pressureConformity",
+          "specification": "Ensure operatingPressure is within valid thresholds",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "MaterialType",
+          "literals": [
+            {
+              "id": "mt1",
+              "name": "Composite"
+            },
+            {
+              "id": "mt2",
+              "name": "Aluminum"
+            },
+            {
+              "id": "mt3",
+              "name": "Steel"
+            }
+          ],
+          "name": "MaterialType",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [],
+      "flowSpecifications": [],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "Sensors",
+          "id": "SensorInterfacePort",
+          "isConjugated": false,
+          "name": "Sensor Port for monitoring",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "3000",
+          "id": "fuelCapacity",
+          "name": "Fuel Tank Capacity",
+          "parameterType": "Integer",
+          "type": "Parameter"
+        }
+      ],
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req_safetyMonitoring",
+          "name": "Safety Monitoring System",
+          "reqId": "req1",
+          "text": "Implement double-redundancy for sensors to support flight-critical operations.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "operatingPressureRange",
+          "name": "OperatingPressureRange",
+          "quantityKindId": "Pressure",
+          "type": "ValueType",
+          "unitId": "Bar"
+        }
+      ]
+    }
+  },
+  "rag_context": "The Fuel Storage Tank subsystem is a critical component in the aircraft's fuel system. It is engineered to safely contain and preserve fuel quality under diverse environmental conditions, including extreme temperatures and high pressure. Designed with aerospace-grade materials and advanced composite liners, the tank ensures minimal contamination and structural integrity throughout its operational life. The design supports integrated sensor monitoring and compatibility with upstream fuel pumps and downstream distribution systems. The tank has a fuel capacity of 3000 liters and a safe operating pressure range of up to 5 Bar. It also features dual redundant sensor integration for monitoring and control interfaces. The system requirements include secure fuel containment, environmental performance, safety monitoring and leak detection, and maintainability and reliability.",
+  "timestamp": "20250326_174351",
+  "provider": "gpt"
+}

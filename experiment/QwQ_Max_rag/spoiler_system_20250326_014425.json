@@ -1,0 +1,469 @@
+{
+  "system_id": "spoiler_system",
+  "system_name": "Spoiler System",
+  "specification": {
+    "designScenario": {
+      "name": "Spoiler System",
+      "description": "The Spoiler System is designed to reduce lift, control descent rates, and manage aircraft deceleration during flight phases such as landing and turbulence. It operates by deploying spoiler panels to disrupt airflow over the wings, converting lift into drag. The system integrates with the Flight Control Module to synchronize with other control surfaces like flaps and ailerons. Key design priorities include rapid deployment, precise force application, structural resilience under cyclic loading, and fail-safe operation in extreme environmental conditions.",
+      "requirements": [
+        {
+          "title": "Spoiler Deployment and Retraction",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Deploy spoilers symmetrically or asymmetrically in response to flight control commands to modulate lift and drag."
+            },
+            {
+              "description": "Retract spoilers automatically upon loss of command signal or during takeoff acceleration."
+            }
+          ]
+        },
+        {
+          "title": "Performance Specifications",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full spoiler deployment within 200 milliseconds of command initiation."
+            },
+            {
+              "description": "Maintain actuation forces of at least 5000 N to ensure deployment under high aerodynamic loads."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe and Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant sensors to detect deployment misalignment or actuator failure."
+            },
+            {
+              "description": "Automatically revert to manual override mode if primary control electronics fail."
+            }
+          ]
+        },
+        {
+          "title": "Durability and Maintainability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Use corrosion-resistant materials and coatings to withstand exposure to moisture, salt, and de-icing chemicals."
+            },
+            {
+              "description": "Design modularSpoiler Panels for rapid replacement without dismantling wing structures."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Spoiler System",
+        "type": "Aircraft Control Subsystem",
+        "description": "The primary assembly managing spoiler deployment, retraction, and coordination with flight control systems.",
+        "subComponents": [
+          {
+            "name": "Spoiler Panels",
+            "type": "Aerodynamic Control Surface",
+            "description": "Deployable panels attached to the wing surfaces to disrupt airflow and reduce lift."
+          },
+          {
+            "name": "Actuation Mechanisms",
+            "type": "Hydraulic/Electromechanical Actuator",
+            "description": "High-force actuators driving spoiler panel movement in response to control signals."
+          },
+          {
+            "name": "Control Electronics",
+            "type": "Flight Control Unit",
+            "description": "Processes input signals from the Flight Control Module and manages actuator commands."
+          },
+          {
+            "name": "Structural Mounts",
+            "type": "Composite Wing Attachment",
+            "description": "Composite brackets and fasteners securing spoilers to the wing structure."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Spoiler System",
+        "target": "Flight Control Module",
+        "relationshipType": "dependency",
+        "description": "The Spoiler System receives deployment commands and flight data from the Flight Control Module to coordinate with other control surfaces."
+      },
+      {
+        "source": "Spoiler System",
+        "target": "Spoiler Panels",
+        "relationshipType": "aggregation",
+        "description": "Spoiler Panels are integral components of the Spoiler System, directly affecting lift modulation."
+      },
+      {
+        "source": "Spoiler System",
+        "target": "Actuation Mechanisms",
+        "relationshipType": "aggregation",
+        "description": "Actuation Mechanisms provide the mechanical force to deploy and retract spoiler panels."
+      },
+      {
+        "source": "Spoiler System",
+        "target": "Control Electronics",
+        "relationshipType": "aggregation",
+        "description": "Control Electronics manage the system's actuation commands and sensor feedback."
+      },
+      {
+        "source": "Spoiler System",
+        "target": "Structural Mounts",
+        "relationshipType": "aggregation",
+        "description": "Structural Mounts ensure secure attachment of spoilers to the wing while allowing rotational movement."
+      },
+      {
+        "source": "Actuation Mechanisms",
+        "target": "Control Electronics",
+        "relationshipType": "dependency",
+        "description": "Actuation Mechanisms rely on Control Electronics to receive real-time command signals."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "deploymentSpeed",
+        "type": "string",
+        "value": "<200ms",
+        "description": "Maximum time for full spoiler deployment from command initiation under nominal conditions."
+      },
+      {
+        "name": "actuationForce",
+        "type": "string",
+        "value": "5000 N",
+        "description": "Minimum force applied by actuators to deploy/retract spoilers under high aerodynamic loads."
+      },
+      {
+        "name": "materialDurability",
+        "type": "string",
+        "value": "Composite materials with >1200 MPa fatigue strength",
+        "description": "Material composition ensures resistance to cyclic stress from repeated spoiler operations."
+      },
+      {
+        "name": "environmentalResistance",
+        "type": "string",
+        "value": "-40°C to +85°C; corrosion-resistant coatings applied",
+        "description": "Operational temperature range and protective coatings to prevent material degradation."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "S1",
+          "type": "Block",
+          "name": "Spoiler_System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "S1_Status",
+            "S1_CommandedAngle"
+          ],
+          "operationIds": [
+            "DeploySpoilers",
+            "RetractSpoilers"
+          ],
+          "constraintIds": [
+            "C1"
+          ],
+          "partIds": [
+            "S2",
+            "S3",
+            "S4",
+            "S5"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "S2",
+          "type": "Block",
+          "name": "Spoiler_Actuator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "S2_Position",
+            "S2_Pressure"
+          ],
+          "operationIds": [
+            "MoveToAngle"
+          ],
+          "constraintIds": [
+            "C2"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "S3",
+          "type": "Block",
+          "name": "Spoiler_ControlComputer",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "S3_Command",
+            "S3_FaultStatus"
+          ],
+          "operationIds": [
+            "ProcessInputs",
+            "ValidateCommands"
+          ],
+          "constraintIds": [
+            "C3"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "S4",
+          "type": "Block",
+          "name": "Spoiler_PositionSensor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "S4_Angle"
+          ],
+          "operationIds": [
+            "ReadPosition"
+          ],
+          "constraintIds": [
+            "C4"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "S5",
+          "type": "Block",
+          "name": "Hydraulic_Interface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "S5_Pressure"
+          ],
+          "operationIds": [
+            "SupplyPressure"
+          ],
+          "constraintIds": [
+            "C5"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "I1",
+          "type": "InterfaceBlock",
+          "name": "Control_Interface",
+          "attributeIds": [
+            "I1_Command"
+          ],
+          "operationIds": [
+            "I1_ExecuteCommand"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "I2",
+          "type": "InterfaceBlock",
+          "name": "Sensor_Interface",
+          "attributeIds": [
+            "I2_Angle"
+          ],
+          "operationIds": [
+            "I2_GetReading"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "P1",
+          "type": "Port",
+          "name": "Control_Port",
+          "blockId": "S1",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "I1"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "P2",
+          "type": "Port",
+          "name": "Sensor_Port",
+          "blockId": "S1",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "I2"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "E1",
+          "type": "Enumeration",
+          "name": "SpoilerStatus",
+          "literals": [
+            {
+              "id": "L1",
+              "name": "Deployed"
+            },
+            {
+              "id": "L2",
+              "name": "Retracted"
+            },
+            {
+              "id": "L3",
+              "name": "Faulted"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "C1",
+          "type": "ConstraintBlock",
+          "name": "SpoilerPositionConstraint",
+          "expression": "S1_Status == Deployed → S4_Angle >= 0 AND S4_Angle <= 30",
+          "parameterIds": [
+            "S1_Status",
+            "S4_Angle"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "Comp1",
+          "type": "Composition",
+          "name": "Spoiler_SystemComposition",
+          "sourceId": "S1",
+          "targetId": "S2",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "Comp2",
+          "type": "Composition",
+          "name": "Spoiler_SystemComposition",
+          "sourceId": "S1",
+          "targetId": "S3",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "Comp3",
+          "type": "Composition",
+          "name": "Spoiler_SystemComposition",
+          "sourceId": "S1",
+          "targetId": "S4",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "Comp4",
+          "type": "Composition",
+          "name": "Spoiler_SystemComposition",
+          "sourceId": "S1",
+          "targetId": "S5",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment1",
+          "type": "Comment",
+          "body": "Manages deployment/retraction of spoilers through hydraulic actuators",
+          "annotatedElementId": "S1"
+        },
+        {
+          "id": "Comment2",
+          "type": "Comment",
+          "body": "Provides position feedback to control computer",
+          "annotatedElementId": "S4"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "S1_Status",
+          "type": "Property",
+          "name": "Status",
+          "propertyType": "Enumeration",
+          "value": "Retracted",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "Retracted",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "I1_Command",
+          "type": "Property",
+          "name": "Command",
+          "propertyType": "String",
+          "value": "Deploy",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "Retract",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "valueTypes": [],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "There is no information provided about a \"Spoiler System\" in the context.",
+  "timestamp": "20250326_014425",
+  "provider": "qwen"
+}

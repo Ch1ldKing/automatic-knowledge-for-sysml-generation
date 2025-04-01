@@ -1,0 +1,733 @@
+{
+  "system_id": "ignition_system",
+  "system_name": "Ignition System",
+  "specification": {
+    "designScenario": {
+      "name": "Ignition System",
+      "description": "The Ignition System is responsible for initiating and sustaining combustion in the aircraft engine under all operational conditions. It interfaces with the Engine Control Computer to receive timing and sequencing commands, ensures reliable spark generation across multiple igniter units, and monitors flame stability. Designed for redundancy and fault tolerance, it operates in extreme environmental conditions while maintaining synchronization with engine rotational speed, fuel flow, and altitude parameters.",
+      "requirements": [
+        {
+          "title": "Spark Generation and Timing Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Generate high-energy sparks across igniter units with precise timing synchronized to engine RPM and compressor stages."
+            },
+            {
+              "description": "Automatically adjust ignition frequency and duration based on inputs from the Engine Control Computer during start-up, climb, and relight scenarios."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy and Fault Isolation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Maintain dual independent ignition channels with cross-channel monitoring to ensure continuous operation during single-channel failures."
+            },
+            {
+              "description": "Implement arc fault detection and automatic deactivation of faulty igniter circuits to prevent system-wide failures."
+            }
+          ]
+        },
+        {
+          "title": "High-Altitude Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Deliver spark energies ≥ 4 joules per ignition event to ensure reliable combustion at altitudes above 40,000 feet."
+            },
+            {
+              "description": "Maintain ignition timing accuracy within ±0.5 milliseconds across -40°C to +200°C operational temperature ranges."
+            }
+          ]
+        },
+        {
+          "title": "Maintenance Diagnostics",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide capacitive discharge counters and spark energy degradation metrics through the aircraft's central maintenance system."
+            },
+            {
+              "description": "Support on-wing testing of ignition exciters without engine rotation via built-in test equipment (BITE)."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Ignition Control Unit",
+        "description": "Primary controller managing spark timing, energy output, and health monitoring of ignition channels.",
+        "type": "Electronic Ignition Controller",
+        "subComponents": [
+          {
+            "name": "Spark Timing Controller",
+            "description": "FPGA-based module processing engine position signals and calculating ignition advance angles.",
+            "type": "Timing Processor"
+          },
+          {
+            "name": "Redundant Controller Module",
+            "description": "Backup control path with independent power supply and signal processing chain.",
+            "type": "Failover Controller"
+          }
+        ]
+      },
+      {
+        "name": "High-Energy Igniter Units",
+        "description": "Capacitive discharge-based spark generators mounted on engine combustor casing.",
+        "type": "Ignition Exciters",
+        "subComponents": [
+          {
+            "name": "Pulse Transformer",
+            "description": "Steps up input voltage to 20kV range for spark generation.",
+            "type": "Voltage Amplifier"
+          },
+          {
+            "name": "Semiconductor Switching Stack",
+            "description": "Thyristor-based array controlling discharge timing and energy.",
+            "type": "Power Electronics"
+          }
+        ]
+      },
+      {
+        "name": "Flame Detection Sensors",
+        "description": "UV/IR-based sensors monitoring combustion stability in the turbine section.",
+        "type": "Optical Sensors",
+        "subComponents": [
+          {
+            "name": "Photodiode Array",
+            "description": "Multi-spectral sensor array detecting flame signature wavelengths.",
+            "type": "Optical Receiver"
+          },
+          {
+            "name": "Signal Processor",
+            "description": "Filters and amplifies raw sensor data for flame presence determination.",
+            "type": "Signal Conditioning Module"
+          }
+        ]
+      },
+      {
+        "name": "Ignition Power Supply",
+        "description": "Dual-redundant 28VDC-to-400VDC converters for exciter capacitor charging.",
+        "type": "Power Conversion Unit",
+        "subComponents": [
+          {
+            "name": "High-Voltage Capacitor Bank",
+            "description": "Energy storage system for spark discharge events.",
+            "type": "Energy Storage"
+          },
+          {
+            "name": "Voltage Regulation Circuit",
+            "description": "Maintains stable charging voltage across temperature variations.",
+            "type": "Power Management"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Ignition System",
+        "target": "Engine Control Computer",
+        "relationshipType": "composition",
+        "description": "The Ignition System operates as a subordinate module within the Engine Control Computer architecture."
+      },
+      {
+        "source": "Ignition Control Unit",
+        "target": "Spark Timing Controller",
+        "relationshipType": "composition",
+        "description": "Spark Timing Controller is an integral sub-component of the Ignition Control Unit."
+      },
+      {
+        "source": "Ignition Control Unit",
+        "target": "Engine Sensor Interface",
+        "relationshipType": "association",
+        "description": "Receives engine speed and phase reference signals from the Engine Sensor Interface."
+      },
+      {
+        "source": "Ignition Control Unit",
+        "target": "High-Energy Igniter Units",
+        "relationshipType": "aggregation",
+        "description": "Manages and monitors multiple igniter units distributed around the engine combustor."
+      },
+      {
+        "source": "Ignition Control Unit",
+        "target": "Ignition Power Supply",
+        "relationshipType": "dependency",
+        "description": "Requires stable high-voltage input from the Ignition Power Supply for operation."
+      },
+      {
+        "source": "Flame Detection Sensors",
+        "target": "Diagnostic Interface",
+        "relationshipType": "association",
+        "description": "Transmits combustion stability data to the central diagnostic system for performance monitoring."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "sparkEnergy",
+        "type": "integer",
+        "value": "4 Joules",
+        "description": "Minimum energy per spark event required for high-altitude ignition assurance"
+      },
+      {
+        "name": "ignitionTimingAccuracy",
+        "type": "float",
+        "value": "±0.5 ms",
+        "description": "Maximum allowable timing deviation from commanded ignition instant"
+      },
+      {
+        "name": "operatingAltitude",
+        "type": "string",
+        "value": "0-50,000 ft",
+        "description": "Certified operational altitude range with maintained performance"
+      },
+      {
+        "name": "redundantChannels",
+        "type": "integer",
+        "value": "2",
+        "description": "Number of independent ignition paths for fault tolerance"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "IgnitionSystem",
+          "type": "Block",
+          "name": "Ignition System",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ignitionTiming",
+            "sparkEnergy"
+          ],
+          "operationIds": [
+            "generateSpark",
+            "adjustTiming"
+          ],
+          "constraintIds": [
+            "sparkEnergyConstraint"
+          ],
+          "partIds": [
+            "IgnitionCoil",
+            "SparkPlug",
+            "IgnitionControlUnit"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "IgnitionCoil",
+          "type": "Block",
+          "name": "Ignition Coil",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "primaryVoltage",
+            "secondaryVoltage"
+          ],
+          "operationIds": [
+            "stepUpVoltage"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SparkPlug",
+          "type": "Block",
+          "name": "Spark Plug",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "gapSize",
+            "heatRange"
+          ],
+          "operationIds": [
+            "igniteMixture"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "IgnitionControlUnit",
+          "type": "Block",
+          "name": "Ignition Control Unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "timingAdvance"
+          ],
+          "operationIds": [
+            "calculateTiming"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IIgnitionControl",
+          "type": "InterfaceBlock",
+          "name": "IIgnitionControl",
+          "attributeIds": [],
+          "operationIds": [
+            "sendTimingSignal"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "HighVoltageFlow",
+          "type": "FlowSpecification",
+          "name": "High Voltage Flow",
+          "flowType": "energy",
+          "dataType": "Voltage",
+          "unit": "kV",
+          "attributeIds": []
+        },
+        {
+          "id": "TimingSignalFlow",
+          "type": "FlowSpecification",
+          "name": "Timing Signal Flow",
+          "flowType": "information",
+          "dataType": "DigitalSignal",
+          "unit": null,
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "sparkEnergyConstraint",
+          "type": "ConstraintBlock",
+          "name": "Spark Energy Constraint",
+          "parameterIds": [
+            "minEnergy"
+          ],
+          "expression": "sparkEnergy >= minEnergy",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "Voltage",
+          "type": "ValueType",
+          "name": "Voltage",
+          "quantityKindId": "ElectricalPotential",
+          "unitId": "Volt",
+          "attributeIds": []
+        },
+        {
+          "id": "DigitalSignal",
+          "type": "ValueType",
+          "name": "Digital Signal",
+          "quantityKindId": "Information",
+          "unitId": null,
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "IgnitionStatus",
+          "type": "Enumeration",
+          "name": "Ignition Status",
+          "literals": [
+            {
+              "id": "active",
+              "name": "Active"
+            },
+            {
+              "id": "standby",
+              "name": "Standby"
+            },
+            {
+              "id": "fault",
+              "name": "Fault"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "highVoltagePort",
+          "type": "FlowPort",
+          "name": "High Voltage Port",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "IgnitionCoil",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "HighVoltageFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "controlPort",
+          "type": "ProxyPort",
+          "name": "Control Port",
+          "portType": "proxy",
+          "isConjugated": false,
+          "blockId": "IgnitionControlUnit",
+          "providedInterfaceIds": [
+            "IIgnitionControl"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "ignitionSystemComposition",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "IgnitionSystem",
+          "targetId": "IgnitionCoil",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..4",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "ignitionSystemComposition2",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "IgnitionSystem",
+          "targetId": "SparkPlug",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "ignitionSystemComposition3",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "IgnitionSystem",
+          "targetId": "IgnitionControlUnit",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "ignitionControlRealization",
+          "type": "InterfaceRealization",
+          "name": "Ignition Control Realization",
+          "sourceId": "IgnitionControlUnit",
+          "targetId": "IIgnitionControl"
+        }
+      ],
+      "itemFlows": [
+        {
+          "id": "highVoltageFlow",
+          "type": "ItemFlow",
+          "name": "High Voltage Flow",
+          "sourceId": "IgnitionCoil",
+          "targetId": "SparkPlug",
+          "flowSpecificationId": "HighVoltageFlow",
+          "itemPropertyIds": []
+        },
+        {
+          "id": "timingSignalFlow",
+          "type": "ItemFlow",
+          "name": "Timing Signal Flow",
+          "sourceId": "IgnitionControlUnit",
+          "targetId": "IgnitionCoil",
+          "flowSpecificationId": "TimingSignalFlow",
+          "itemPropertyIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "ignitionTiming",
+          "type": "Property",
+          "name": "ignitionTiming",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "sparkEnergy",
+          "type": "Property",
+          "name": "sparkEnergy",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "primaryVoltage",
+          "type": "Property",
+          "name": "primaryVoltage",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "secondaryVoltage",
+          "type": "Property",
+          "name": "secondaryVoltage",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "gapSize",
+          "type": "Property",
+          "name": "gapSize",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "heatRange",
+          "type": "Property",
+          "name": "heatRange",
+          "propertyType": "Integer",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "timingAdvance",
+          "type": "Property",
+          "name": "timingAdvance",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "generateSpark",
+          "type": "Property",
+          "name": "generateSpark",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "adjustTiming",
+          "type": "Property",
+          "name": "adjustTiming",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "stepUpVoltage",
+          "type": "Property",
+          "name": "stepUpVoltage",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "igniteMixture",
+          "type": "Property",
+          "name": "igniteMixture",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "calculateTiming",
+          "type": "Property",
+          "name": "calculateTiming",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "sendTimingSignal",
+          "type": "Property",
+          "name": "sendTimingSignal",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "minEnergy",
+          "type": "Parameter",
+          "name": "minEnergy",
+          "parameterType": "Real",
+          "defaultValue": "50"
+        }
+      ],
+      "comments": [
+        {
+          "id": "ignitionSystemComment",
+          "type": "Comment",
+          "body": "The Ignition System generates a reliable ignition spark to initiate combustion at the precise moment required.",
+          "annotatedElementId": "IgnitionSystem"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Ignition System generates a reliable ignition spark to initiate combustion at the precise moment required.",
+  "timestamp": "20250326_014144",
+  "provider": "dpsk"
+}

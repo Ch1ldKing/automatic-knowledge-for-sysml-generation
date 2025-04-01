@@ -1,0 +1,339 @@
+{
+  "system_id": "fuel_delivery_system",
+  "system_name": "Fuel Delivery System",
+  "specification": {
+    "designScenario": {
+      "name": "Fuel System",
+      "description": "An advanced aeronautical fuel management system engineered to optimize storage, distribution, and combustion efficiency across all flight regimes. Incorporates adaptive pressure control, real-time contamination detection, and thermal management to meet modern aviation demands. Designed with fail-operational architecture to comply with DO-178C and DO-254 standards for safety-critical systems.",
+      "requirements": [
+        {
+          "title": "Adaptive Fuel Flow Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must automatically adjust fuel flow rates between 50-500 GPH (gallons per hour) based on engine thrust requirements, altitude variations, and aerodynamic loading."
+            }
+          ]
+        },
+        {
+          "title": "High-Pressure Fuel Delivery",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Multi-stage centrifugal pumps must maintain 5-8 Bar line pressure with ±2% stability during supersonic transitions and high-G maneuvers."
+            }
+          ]
+        },
+        {
+          "title": "Fuel Jettison Capability",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Integrated emergency dump system capable of jettisoning 40% of total fuel load within 8 minutes while maintaining aircraft CG (center of gravity) limits."
+            }
+          ]
+        },
+        {
+          "title": "Corrosion Resistance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All wetted components must demonstrate 10,000-hour service life in JP-8 fuel environment per MIL-STD-810H corrosion standards."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Composite Fuel Cell",
+        "type": "Storage",
+        "description": "Lightweight self-sealing fuel bladder with integral surge protection and ballistic tolerance, constructed from hybrid polymer-nanoclay composites.",
+        "subComponents": [
+          {
+            "name": "Slosh Baffle System",
+            "description": "3D-printed titanium wave-reduction baffles minimizing fuel slosh during turbulent conditions",
+            "type": "Structural"
+          },
+          {
+            "name": "Dielectric Sensor Array",
+            "description": "Capacitive fuel quantity measurement system with ±0.5% accuracy across -40°C to 80°C operational range",
+            "type": "Sensing"
+          }
+        ]
+      },
+      {
+        "name": "Variable Displacement Pump",
+        "type": "Actuation",
+        "description": "Electro-hydrostatic fuel pressurization unit with dual-wound brushless motors and dynamic flow compensation.",
+        "subComponents": [
+          {
+            "name": "Pressure Relief Cartridge",
+            "description": "Piezoelectric-controlled relief valve with 0.1ms response time for surge suppression",
+            "type": "Safety"
+          },
+          {
+            "name": "Magnetic Coupling",
+            "description": "Hermetically sealed drive system eliminating rotating shaft seals",
+            "type": "Mechanical"
+          }
+        ]
+      },
+      {
+        "name": "Fuel Control Unit",
+        "type": "Electronics",
+        "description": "FADEC-integrated (Full Authority Digital Engine Control) metering module with MIL-STD-704F power quality compliance.",
+        "subComponents": [
+          {
+            "name": "Fuel Flow Servovalve",
+            "description": "Moog-style direct-drive metering valve with 12-bit resolution flow control",
+            "type": "Actuation"
+          },
+          {
+            "name": "Crystal-Free RF Transceiver",
+            "description": "SAE AS6802-compliant network interface for deterministic fuel data transmission",
+            "type": "Communication"
+          }
+        ]
+      },
+      {
+        "name": "Phase Separation Detector",
+        "type": "Monitoring",
+        "description": "Laser-based optical analyzer detecting water/fuel emulsions and microbial growth in real-time",
+        "subComponents": null
+      },
+      {
+        "name": "Cryogenic Cooling Jacket",
+        "type": "Thermal",
+        "description": "Regenerative cooling system maintaining fuel temperature below 45°C during high-Mach operation",
+        "subComponents": [
+          {
+            "name": "Vapor Cycle Chiller",
+            "description": "R-134a refrigerant-based heat exchanger with 15kW cooling capacity",
+            "type": "Thermodynamic"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Variable Displacement Pump",
+        "target": "Composite Fuel Cell",
+        "relationshipType": "dependency",
+        "description": "Pump operation requires minimum 0.5 Bar positive pressure from fuel cell header space to prevent cavitation"
+      },
+      {
+        "source": "Fuel Control Unit",
+        "target": "Variable Displacement Pump",
+        "relationshipType": "association",
+        "description": "Digital twin-based predictive control linking pump speed to FCU demand signals"
+      },
+      {
+        "source": "Cryogenic Cooling Jacket",
+        "target": "Composite Fuel Cell",
+        "relationshipType": "composition",
+        "description": "Integrated cooling channels form structural part of fuel cell end caps"
+      },
+      {
+        "source": "Phase Separation Detector",
+        "target": "Composite Fuel Cell",
+        "relationshipType": "aggregation",
+        "description": "Optical probe array samples fuel from multiple cell quadrants for contamination analysis"
+      },
+      {
+        "source": "Fuel Control Unit",
+        "target": "Phase Separation Detector",
+        "relationshipType": "dependency",
+        "description": "FCU requires real-time water content data to adjust combustion parameters"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "fuelFlashPoint",
+        "type": "float",
+        "value": "38°C minimum",
+        "description": "Minimum autoignition temperature for stored fuel per FAA TSO-C153b"
+      },
+      {
+        "name": "thermalEfficiency",
+        "type": "percentage",
+        "value": "92% heat recovery",
+        "description": "Regenerative cooling system effectiveness during supersonic cruise"
+      },
+      {
+        "name": "jettisonRate",
+        "type": "string",
+        "value": "1200 L/min",
+        "description": "Emergency fuel dump capacity with dual redundant dump valves"
+      },
+      {
+        "name": "vaporPressure",
+        "type": "string",
+        "value": "7-49 kPa @ 20°C",
+        "description": "Maintained fuel vapor pressure envelope to prevent cavitation or vapor lock"
+      },
+      {
+        "name": "filtrationLevel",
+        "type": "string",
+        "value": "5 micron absolute",
+        "description": "Multi-stage filtration with coalescer elements meeting SAE ARP9013A"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "FDS_001",
+          "type": "Block",
+          "name": "FuelDeliverySystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "FDS_001_ATTR1",
+            "FDS_001_ATTR2"
+          ],
+          "operationIds": [
+            "FDS_001_OP1"
+          ],
+          "constraintIds": [
+            "FDS_001_CONST1"
+          ],
+          "partIds": [
+            "FDS_TANK_001",
+            "FDS_PUMP_001",
+            "FDS_VALVE_001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "FDS_TANK_001",
+          "type": "Block",
+          "name": "FuelTankAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "FDS_TANK_ATTR1"
+          ],
+          "operationIds": [
+            "FDS_TANK_OP1"
+          ],
+          "constraintIds": [
+            "FDS_TANK_CONST1"
+          ],
+          "partIds": [
+            "TANK_STRUCTURE",
+            "QUANTITY_SENSOR"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB_FUEL_FLOW",
+          "type": "InterfaceBlock",
+          "name": "FuelFlowInterface",
+          "attributeIds": [
+            "IB_ATTR1"
+          ],
+          "operationIds": [
+            "IB_OP1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_FUEL",
+          "type": "FlowSpecification",
+          "name": "JP8_FuelFlow",
+          "flowType": "Material",
+          "dataType": "FuelType",
+          "unit": "LitersPerMinute",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB_PRESSURE",
+          "type": "ConstraintBlock",
+          "name": "PressureConstraints",
+          "parameterIds": [
+            "PARAM_P1"
+          ],
+          "expression": "pumpOutputPressure >= minRequiredPressure",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_FLOWRATE",
+          "type": "ValueType",
+          "name": "FlowRate",
+          "quantityKindId": "QK_RATE",
+          "unitId": "UNIT_LPM",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_VALVESTATE",
+          "type": "Enumeration",
+          "name": "ValveStates",
+          "literals": [
+            {
+              "id": "LIT_OPEN",
+              "name": "OPEN"
+            },
+            {
+              "id": "LIT_CLOSED",
+              "name": "CLOSED"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "PORT_FUEL_OUT",
+          "type": "FlowPort",
+          "name": "FuelOutlet",
+          "blockId": "FDS_PUMP_001",
+          "flowSpecificationId": "FS_FUEL",
+          "isConjugated": false,
+          "attributeIds": []
+        }
+      ],
+      "proxyPorts": [
+        {
+          "id": "PROXY_CTRL",
+          "type": "ProxyPort",
+          "name": "ControlInterface",
+          "blockId": "FDS_VALVE_001",
+          "providedInterfaceIds": [
+            "IB_CTRL"
+          ],
+          "requiredInterfaceIds": [],
+          "isConjugated": false,
+          "attributeIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "COMMENT_001",
+          "type": "Comment",
+          "body": "Main fuel delivery system must maintain positive pressure at all times",
+          "annotatedElementId": "FDS_001"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_143743",
+  "provider": "dpsk"
+}

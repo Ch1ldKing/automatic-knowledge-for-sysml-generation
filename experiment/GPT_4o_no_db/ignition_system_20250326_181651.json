@@ -1,0 +1,373 @@
+{
+  "system_id": "ignition_system",
+  "system_name": "Ignition System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The voltage level required for the ignition system to produce a spark sufficient to ignite the fuel-air mixture.",
+        "name": "sparkVoltage",
+        "type": "string",
+        "value": "20,000-30,000V"
+      },
+      {
+        "description": "Specifies the energy delivered per spark to ensure complete and reliable combustion.",
+        "name": "sparkEnergy",
+        "type": "string",
+        "value": "15-25 Joules"
+      },
+      {
+        "description": "Defines the precision required for ignition timing to align with engine RPM and operational cycles.",
+        "name": "ignitionTiming",
+        "type": "string",
+        "value": "Precision within ±2 ms"
+      },
+      {
+        "description": "Specifies the level of redundancy built into the ignition circuits for fail-safe operations.",
+        "name": "systemRedundancy",
+        "type": "string",
+        "value": "Dual redundant circuitry"
+      },
+      {
+        "description": "Operational temperature range ensuring reliable ignition even under extreme atmospheric conditions.",
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "-40°C to 85°C"
+      }
+    ],
+    "designScenario": {
+      "description": "The Ignition System is a critical aeronautical subsystem designed to generate high-voltage sparks that reliably ignite the fuel-air mixture within an aircraft engine. It is engineered to provide rapid and controlled ignition during engine startup and throughout flight operations. Leveraging advanced electronic control and redundant power supplies, the system guarantees consistent performance under diverse environmental conditions and adheres to strict aviation safety standards.",
+      "name": "Ignition System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must generate a high-energy spark on demand to reliably initiate engine combustion during startup."
+            }
+          ],
+          "title": "Spark Generation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The ignition system must deliver a spark within a response time of less than 5ms, ensuring timely engine ignition across all flight phases."
+            }
+          ],
+          "title": "Response Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Integrate fail-safe circuitry and redundant ignition pathways to prevent misfires and minimize the risk of engine damage in case of component failure."
+            }
+          ],
+          "title": "Redundant Safety Mechanisms",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system should be designed for ease of maintenance with quick diagnostics and compliance with aviation industry reliability standards."
+            }
+          ],
+          "title": "Maintainability and Reliability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Igniter Control Module requires a stable power input from the Power Supply Unit to function correctly.",
+        "relationshipType": "dependency",
+        "source": "Igniter Control Module",
+        "target": "Power Supply Unit"
+      },
+      {
+        "description": "The Ignition Transformer collaborates with the Power Supply Unit to elevate voltage levels for effective spark generation.",
+        "relationshipType": "association",
+        "source": "Ignition Transformer",
+        "target": "Power Supply Unit"
+      },
+      {
+        "description": "The Spark Generation Circuit is an integral part of the Igniter Control Module, crucial for producing the ignition spark.",
+        "relationshipType": "composition",
+        "source": "Igniter Control Module",
+        "target": "Spark Generation Circuit"
+      },
+      {
+        "description": "The Diagnostic and Control Interface aggregates real-time data from the Igniter Control Module to assist in system monitoring and maintenance.",
+        "relationshipType": "aggregation",
+        "source": "Diagnostic and Control Interface",
+        "target": "Igniter Control Module"
+      },
+      {
+        "description": "The Spark Plug Assembly depends on the precise timing signals provided by the Igniter Control Module for accurate spark delivery.",
+        "relationshipType": "dependency",
+        "source": "Spark Plug Assembly",
+        "target": "Igniter Control Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central electronic unit responsible for controlling spark generation, managing ignition timing, and monitoring safety parameters.",
+        "name": "Igniter Control Module",
+        "subComponents": [
+          {
+            "description": "Circuit that produces the high voltage spark when triggered.",
+            "name": "Spark Generation Circuit",
+            "type": "Controller"
+          },
+          {
+            "description": "Sensor that monitors engine RPM to optimize the timing of the spark.",
+            "name": "Ignition Timing Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Assembly comprising of spark plugs designed to deliver the ignition spark into the engine's combustion chamber.",
+        "name": "Spark Plug Assembly",
+        "subComponents": [
+          {
+            "description": "High performance spark plug engineered for repeated ignition cycles in harsh conditions.",
+            "name": "Spark Plug",
+            "type": "Combustion Component"
+          }
+        ],
+        "type": "Combustion Component"
+      },
+      {
+        "description": "Unit that supplies and regulates the electrical power necessary for high voltage spark generation.",
+        "name": "Power Supply Unit",
+        "subComponents": [
+          {
+            "description": "Primary source of electrical energy ensuring consistent power delivery.",
+            "name": "Primary Power Source",
+            "type": "Power Source"
+          },
+          {
+            "description": "Backup battery unit that provides power redundancy in case of primary source failure.",
+            "name": "Backup Battery",
+            "type": "Battery"
+          }
+        ],
+        "type": "Power Component"
+      },
+      {
+        "description": "Component that steps up the voltage from the power supply to levels necessary for spark generation.",
+        "name": "Ignition Transformer",
+        "subComponents": null,
+        "type": "Transformer"
+      },
+      {
+        "description": "Interface module that provides diagnostics, system monitoring, and manual override capabilities to the maintenance crew.",
+        "name": "Diagnostic and Control Interface",
+        "subComponents": [
+          {
+            "description": "User-friendly Human Machine Interface (HMI) for real-time system monitoring and control.",
+            "name": "Human Machine Interface",
+            "type": "Interface Module"
+          }
+        ],
+        "type": "Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc_1",
+          "memberEndIds": [
+            "attr_IS_to_EC",
+            "attr_EC_to_IS"
+          ],
+          "name": "IgnitionSystem-ElectricalConnection",
+          "ownedEndIds": null,
+          "sourceId": "block_IS",
+          "sourceMultiplicity": "1",
+          "targetId": "block_EC",
+          "targetMultiplicity": "1..*",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr_IS_to_EC",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "ignitionOutput",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr_EC_to_IS",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "powerIntake",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr_IS_property",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "maxVoltage",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "24.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr_EC_property",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "wireCount",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "4",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_IS_property"
+          ],
+          "constraintIds": null,
+          "id": "block_IS",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "IgnitionSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "attr_EC_property"
+          ],
+          "constraintIds": null,
+          "id": "block_EC",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ElectricalConnection",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block_IS",
+          "body": "Core system responsible for providing ignition spark to the engine.",
+          "id": "comment_1",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block_EC",
+          "body": "Subsystem that provides electrical connectivity within the ignition system.",
+          "id": "comment_2",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "timestamp": "20250326_181651",
+  "provider": "gpt"
+}

@@ -1,0 +1,569 @@
+{
+  "system_id": "oxygen_system",
+  "system_name": "Oxygen System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum oxygen delivery pressure for passenger masks.",
+        "name": "oxygenDeliveryPressure",
+        "type": "string",
+        "value": "60 PSI"
+      },
+      {
+        "description": "Oxygen generation system efficiency.",
+        "name": "oxygenGenerationEfficiency",
+        "type": "string",
+        "value": "95%"
+      },
+      {
+        "description": "Backup oxygen storage capacity in emergency situations.",
+        "name": "backupOxygenCapacity",
+        "type": "string",
+        "value": "50 liters"
+      },
+      {
+        "description": "Number of passenger outlets supported simultaneously.",
+        "name": "passengerOutletCapacity",
+        "type": "number",
+        "value": "200"
+      },
+      {
+        "description": "System reaction time for automatic oxygen mask deployment.",
+        "name": "maskDeploymentResponseTime",
+        "type": "string",
+        "value": "Under 3 seconds"
+      }
+    ],
+    "designScenario": {
+      "description": "This design document outlines the Oxygen System used in passenger airplanes for emergency oxygen generation and delivery. This system is pivotal for ensuring passenger safety during cabin depressurization events.",
+      "name": "Oxygen System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall generate oxygen through chemical reactions to supply emergency oxygen masks."
+            }
+          ],
+          "title": "Oxygen Generation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide oxygen to each passenger within 3 seconds of cabin depressurization."
+            }
+          ],
+          "title": "Deployment Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Store sufficient oxygen to address worst-case emergencies lasting up to 20 minutes."
+            }
+          ],
+          "title": "Emergency Storage",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The distribution network shall be resilient to single-point failures, ensuring all passengers receive oxygen."
+            }
+          ],
+          "title": "Distribution Redundancy",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Oxygen Generation System supplies oxygen to the Distribution Network.",
+        "relationshipType": "association",
+        "source": "Oxygen Generation System",
+        "target": "Distribution Network"
+      },
+      {
+        "description": "The Control Unit monitors oxygen levels and coordinates deployment.",
+        "relationshipType": "dependency",
+        "source": "Control Unit",
+        "target": "Oxygen Generation System"
+      },
+      {
+        "description": "The Distribution Network is composed of a series of tubing connected to passenger outlets.",
+        "relationshipType": "composition",
+        "source": "Distribution Network",
+        "target": "Tubing"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Generates oxygen through a chemical process or compressed storage system.",
+        "name": "Oxygen Generation System",
+        "subComponents": [
+          {
+            "description": "Chemical canisters that release oxygen upon activation.",
+            "name": "Chemical Canisters",
+            "type": "Activator"
+          },
+          {
+            "description": "Oxygen sensors monitoring generation efficacy.",
+            "name": "Oxygen Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Coordinates oxygen distribution and monitors system performance.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "System monitoring interface for crew feedback.",
+            "name": "Monitoring Interface",
+            "type": "Display"
+          },
+          {
+            "description": "Automated fault detection algorithms for safety assurance.",
+            "name": "Safety Algorithms",
+            "type": "Algorithm"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Distributes oxygen to passenger masks through an engineered pipeline.",
+        "name": "Distribution Network",
+        "subComponents": [
+          {
+            "description": "Pressurized tubing ensuring airflow.",
+            "name": "Tubing",
+            "type": "Transport"
+          },
+          {
+            "description": "Passenger mask outlets with regulators.",
+            "name": "Mask Outlets",
+            "type": "Interface"
+          }
+        ],
+        "type": "Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg_oxygen_gen_distrib",
+          "memberEndIds": [
+            "attr_gen_distrib_source",
+            "attr_gen_distrib_target"
+          ],
+          "name": "OxygenGenerationDistributesTo",
+          "ownedEndIds": null,
+          "sourceId": "block-oxygen-generation-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-distribution-network",
+          "targetMultiplicity": "1..*",
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg_distrib_tubing",
+          "memberEndIds": [
+            "attr_distrib_tubing_source",
+            "attr_distrib_tubing_target"
+          ],
+          "name": "NetworkComposedOfTubing",
+          "ownedEndIds": null,
+          "sourceId": "block-distribution-network",
+          "sourceMultiplicity": "1",
+          "targetId": "block-tubing",
+          "targetMultiplicity": "*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc_control_oxygen",
+          "memberEndIds": null,
+          "name": "ControlMonitorsOxygenSystem",
+          "ownedEndIds": null,
+          "sourceId": "block-control-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-oxygen-generation-system",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "60 PSI",
+          "id": "attr_oxygen_pressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "OxygenDeliveryPressure",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "60 PSI",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Under 3 seconds",
+          "id": "attr_mask_deploy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "MaskDeploymentResponse",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Under 3 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "95%",
+          "id": "attr_oxygen_efficiency",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "OxygenGenerationEfficiency",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "95%",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "50 liters",
+          "id": "attr_backup_capacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "BackupOxygenCapacity",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "50 liters",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "200",
+          "id": "attr_outlet_capacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "PassengerOutletCapacity",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "200",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_oxygen_pressure",
+            "attr_mask_deploy",
+            "attr_oxygen_efficiency",
+            "attr_backup_capacity",
+            "attr_outlet_capacity"
+          ],
+          "constraintIds": [
+            "constraint_pressure_limit",
+            "constraint_response_time",
+            "constraint_efficiency_limit",
+            "constraint_backup_storage"
+          ],
+          "id": "block-oxygen-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "OxygenSystem",
+          "operationIds": [],
+          "partIds": [
+            "part-oxygen-generation-system",
+            "part-distribution-network",
+            "part-control-unit"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-oxygen-generation-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "OxygenGenerationSystem",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-distribution-network",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "DistributionNetwork",
+          "operationIds": [],
+          "partIds": [
+            "part-mask-outlets"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-control-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "ControlUnit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-mask-outlets",
+          "isAbstract": true,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "MaskOutlets",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-tubing",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Tubing",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-oxygen-system",
+          "body": "This system ensures passenger safety by providing oxygen during cabin depressurization.",
+          "id": "comment_oxygen_system_overview",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block-oxygen-generation-system",
+          "body": "The subsystem responsible for oxygen generation during decomposition of its chemical canisters.",
+          "id": "comment_oxygen_generation",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "Ensure oxygen delivery pressure does not exceed 60 PSI.",
+          "id": "constraint_pressure_limit",
+          "name": "PressureConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "Activation time under 3 seconds upon detection of cabin depressurization.",
+          "id": "constraint_response_time",
+          "name": "ResponseConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "System efficiency to maintain a minimum of 95%.",
+          "id": "constraint_efficiency_limit",
+          "name": "EfficiencyConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "Capability to store 50 liters in emergency scenario.",
+          "id": "constraint_backup_storage",
+          "name": "BackupStorageConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep_control_sensor",
+          "name": "ControlMonitorsSensors",
+          "sourceId": "block-control-unit",
+          "sourceMultiplicity": "1",
+          "targetId": "block-oxygen-generation-system",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": [
+        {
+          "id": "dir_assoc_generation_distrib",
+          "memberEndIds": null,
+          "name": "GenerationToDistribution",
+          "ownedEndIds": null,
+          "sourceId": "block-oxygen-generation-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-distribution-network",
+          "targetMultiplicity": "1",
+          "type": "DirectedAssociation"
+        }
+      ],
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-oxygen-generation-system",
+          "name": "Oxygen Generation System",
+          "of": "block-oxygen-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-distribution-network",
+          "name": "Distribution Network",
+          "of": "block-oxygen-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-control-unit",
+          "name": "Control Unit",
+          "of": "block-oxygen-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-mask-outlets",
+          "name": "Mask Outlets",
+          "of": "block-distribution-network",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req_oxygen_generation",
+          "name": "Oxygen Generation",
+          "reqId": null,
+          "text": "The system shall generate oxygen through a chemical process.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req_mask_activation",
+          "name": "Mask Activation",
+          "reqId": null,
+          "text": "Masks must deploy within three seconds.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req_system_efficiency",
+          "name": "System Efficiency",
+          "reqId": null,
+          "text": "The oxygen system shall maintain at least 95% efficiency.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": null,
+  "parent_system": "environmental_control_system",
+  "timestamp": "20250326_165323",
+  "provider": "gpt"
+}

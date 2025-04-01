@@ -1,0 +1,417 @@
+{
+  "system_id": "horizontal_stabilizer_system",
+  "system_name": "Horizontal Stabilizer System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The max angular deflection tolerance of the control surfaces.",
+        "name": "angularDeflectionPrecision",
+        "type": "string",
+        "value": "±0.05°"
+      },
+      {
+        "description": "The actuation speed for the horizontal stabilizer adjustments.",
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<30 ms"
+      },
+      {
+        "description": "The material tensile strength used for the horizontal stabilizer components.",
+        "name": "materialStrength",
+        "type": "string",
+        "value": "High-grade composites, >1800 MPa"
+      }
+    ],
+    "designScenario": {
+      "description": "This Horizontal Stabilizer System provides aerodynamic stability during flight by controlling pitch. It ensures fine-tuned adjustments to the tailplane angle to meet performance and safety criteria.",
+      "name": "Horizontal Stabilizer System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Generate precise adjustments of the horizontal tail surfaces to alter the aircraft pitch."
+            },
+            {
+              "description": "Respond dynamically to pilot inputs and autopilot systems."
+            }
+          ],
+          "title": "Pitch Control Capability",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Adjust surface positions within 30 milliseconds to control inputs."
+            },
+            {
+              "description": "Provide efficient damping responses to stabilize pitch motion."
+            }
+          ],
+          "title": "Dynamic Response Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Include redundant electrical and mechanical systems to prevent single-point failure."
+            },
+            {
+              "description": "Implement safety stops to prevent over-actuation or runaway motion."
+            }
+          ],
+          "title": "Intrinsic Safety Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Construct using high-durability materials for consistent performance over extreme conditions."
+            },
+            {
+              "description": "Enable maintenance-friendly assembly for component inspection and replacement."
+            }
+          ],
+          "title": "Durability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Provides pitch control by adjusting tailplane angle.",
+        "relationshipType": "dependency",
+        "source": "Actuator Control Module",
+        "target": "Horizontal Stabilizer"
+      },
+      {
+        "description": "Each actuator controls a section of the horizontal stabilizer for synchronized movement.",
+        "relationshipType": "composition",
+        "source": "Actuators",
+        "target": "Horizontal Stabilizer"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The movable plane at the tail of the aircraft that adjusts its angle to control pitch.",
+        "name": "Horizontal Stabilizer",
+        "subComponents": [
+          {
+            "description": "Actuators that adjust the angle of the horizontal tail surfaces.",
+            "name": "Actuators",
+            "type": "Mechanical Actuator"
+          },
+          {
+            "description": "Sensors monitoring surface angle and aerodynamic pressure.",
+            "name": "Stabilizer Sensors",
+            "type": "InputDevice"
+          }
+        ],
+        "type": "Aerodynamic Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-horizontal-stabilizer-actuators",
+          "memberEndIds": null,
+          "name": "CompositionWithActuators",
+          "ownedEndIds": null,
+          "sourceId": "block-HorizontalStabilizerSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "block-Actuators",
+          "targetMultiplicity": "1",
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-horizontal-stabilizer-sensors",
+          "memberEndIds": null,
+          "name": "CompositionWithSensors",
+          "ownedEndIds": null,
+          "sourceId": "block-HorizontalStabilizerSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "block-Sensors",
+          "targetMultiplicity": "1..*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-dependency-actuatorcontrol",
+          "memberEndIds": null,
+          "name": "ActuatorControlDependency",
+          "ownedEndIds": null,
+          "sourceId": "block-ActuatorControlModule",
+          "sourceMultiplicity": "1",
+          "targetId": "block-HorizontalStabilizerSystem",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "±0.05°",
+          "id": "attr-angular-deflection-precision",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "angularDeflectionPrecision",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "±0.05°",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "<30 ms",
+          "id": "attr-actuation-speed",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "actuationSpeed",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "<30 ms",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "High-grade composites, >1800 MPa",
+          "id": "attr-material-strength",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "materialStrength",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "High-grade composites, >1800 MPa",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-angular-deflection-precision",
+            "attr-actuation-speed",
+            "attr-material-strength"
+          ],
+          "constraintIds": [
+            "constraint-actuation-time"
+          ],
+          "id": "block-HorizontalStabilizerSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "HorizontalStabilizerSystem",
+          "operationIds": null,
+          "partIds": [
+            "block-Actuators",
+            "block-Sensors"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-Actuators",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Actuators",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-Sensors",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Sensors",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-HorizontalStabilizerSystem",
+          "body": "The Horizontal Stabilizer System provides pitch control through precise adjustments to the tailplane angle, employing high-grade materials and ensuring redundancy for safety.",
+          "id": "comment-HorizontalStabilizer",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "AdjustmentTime < 30ms",
+          "id": "constraint-actuation-time",
+          "name": "ActuationTimeLimit",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-actuator-stabilizer",
+          "name": "ActuatorToStabilizerDependency",
+          "sourceId": "block-ActuatorControlModule",
+          "sourceMultiplicity": "1",
+          "targetId": "block-HorizontalStabilizerSystem",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": [
+        {
+          "attributeIds": null,
+          "id": "domain-flight-control",
+          "name": "FlightControl",
+          "type": "Domain"
+        }
+      ],
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-HorizontalStabilizerSystem",
+          "flowSpecificationId": "flow-spec-actuation-command",
+          "id": "flowport-stabilizer-control",
+          "isConjugated": false,
+          "name": "StabilizerControlInput",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "ControlCommand",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-actuation-command",
+          "name": "StabilizerControlFlow",
+          "type": "FlowSpecification",
+          "unit": "ms"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-HorizontalStabilizerSystem",
+          "flowSpecificationId": "flow-spec-actuation-command",
+          "id": "port-stabilizer-command",
+          "isConjugated": false,
+          "name": "ControlCommandInput",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-precise-actuation",
+          "name": "Precise Actuation",
+          "reqId": "REQ-HS-001",
+          "text": "Ensure precise adjustments to achieve desired pitch modifications within aerodynamic constraints.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-dynamic-response",
+          "name": "Dynamic Response",
+          "reqId": "REQ-HS-002",
+          "text": "Maintain performance criteria of maximum response times below 30 ms.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-material-integrity",
+          "name": "Material Integrity",
+          "reqId": "REQ-HS-003",
+          "text": "Utilize high-strength composites exceeding 1800 MPa for durability and performance consistency.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-period",
+          "name": "MillisecondPeriod",
+          "quantityKindId": "TimeQuantity",
+          "type": "ValueType",
+          "unitId": "millisecond"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250326_162713",
+  "provider": "gpt"
+}

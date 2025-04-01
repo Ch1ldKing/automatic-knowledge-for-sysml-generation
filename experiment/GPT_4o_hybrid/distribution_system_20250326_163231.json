@@ -1,0 +1,482 @@
+{
+  "system_id": "distribution_system",
+  "system_name": "Distribution System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operational pressure range to ensure consistent fluid delivery within engineering parameters.",
+        "name": "fluidPressureRange",
+        "type": "string",
+        "value": "3-6 bar"
+      },
+      {
+        "description": "The flow rate capacity to meet operational demands under various scenarios.",
+        "name": "fluidFlowRate",
+        "type": "string",
+        "value": "40-120 L/min"
+      },
+      {
+        "description": "Material focus on durability against physical and chemical stressors.",
+        "name": "componentMaterial",
+        "type": "string",
+        "value": "Lightweight corrosion-resistant alloys"
+      },
+      {
+        "description": "Integration capability for redundancy and reliable operation without interruptions.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple redundancy"
+      },
+      {
+        "description": "System compliance with international aviation and fluid transport regulations.",
+        "name": "certificationStandard",
+        "type": "string",
+        "value": "FAA/EASA approved"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fluid Distribution System is optimized for the controlled transportation of critical fluids, ensuring consistent performance under variable conditions.",
+      "name": "Fluid Distribution System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall efficiently route fluids to designated endpoints as per operational criteria."
+            }
+          ],
+          "title": "Fluid Routing and Control",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Capable of maintaining a flow rate and pressure under prescribed limits for operational effectiveness."
+            }
+          ],
+          "title": "Flow Regulation and Pressure Maintenance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Components including pipings and regulators must redundantly support operations with built-in fault tolerance."
+            }
+          ],
+          "title": "Safety and Redundancy Features",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design should support modular component replacements and include diagnostic tools for maintenance."
+            }
+          ],
+          "title": "Serviceability and Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Composition relationship linking the distribution subsystem with its integral controller.",
+        "relationshipType": "composition",
+        "source": "Fluid Distribution System",
+        "target": "Distribution Controller"
+      },
+      {
+        "description": "Association linking monitoring sensors with adjustment mechanisms for real-time operation alignment.",
+        "relationshipType": "association",
+        "source": "System Sensors",
+        "target": "Adjustment Controllers"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core distribution subsystem for fluid transmission.",
+        "name": "Fluid Distribution Subsystem",
+        "subComponents": [
+          {
+            "description": "Component for regulating and metering fluid flow to specified parameters.",
+            "name": "Flow Regulator",
+            "type": "Regulator"
+          },
+          {
+            "description": "Safety mechanism to isolate flows during unsuitable operational conditions.",
+            "name": "Isolation Valve",
+            "type": "Valving Mechanics"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Collection of sensors for monitoring pressure, flow, and fluid integrity.",
+        "name": "System Sensors",
+        "subComponents": [
+          {
+            "description": "Sensor for detecting flow rate deviations.",
+            "name": "Flow Meter",
+            "type": "Sensor"
+          },
+          {
+            "description": "Sensor for pressure evaluation and response activation.",
+            "name": "Pressure Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Instrumentation"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-system-sensors-adjustment-ctrl",
+          "memberEndIds": null,
+          "name": "MonitorControlAssociation",
+          "ownedEndIds": null,
+          "sourceId": "block-system-sensors",
+          "sourceMultiplicity": "1",
+          "targetId": "block-adjustment-controllers",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "3-6 bar",
+          "id": "attr-fluid-pressure-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "fluidPressureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3-6 bar",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "40-120 L/min",
+          "id": "attr-fluid-flow-rate",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "fluidFlowRate",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "40-120 L/min",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Lightweight corrosion-resistant alloys",
+          "id": "attr-component-material",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "componentMaterial",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Lightweight corrosion-resistant alloys",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Triple redundancy",
+          "id": "attr-redundancy-level",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Triple redundancy",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "FAA/EASA approved",
+          "id": "attr-certification-standard",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "certificationStandard",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "FAA/EASA approved",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-fluid-pressure-range",
+            "attr-fluid-flow-rate",
+            "attr-component-material",
+            "attr-redundancy-level",
+            "attr-certification-standard"
+          ],
+          "constraintIds": [
+            "constraint-operational-limits"
+          ],
+          "id": "block-fluid-distribution-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FluidDistributionSystem",
+          "operationIds": [
+            "op-routeFluids",
+            "op-maintainPressure",
+            "op-detectFaults"
+          ],
+          "partIds": [
+            "part-fluid-distribution-subsystem",
+            "part-system-sensors"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-fluid-distribution-subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "FluidDistributionSubsystem",
+          "operationIds": [
+            "op-regulateFlow",
+            "op-monitorFlow"
+          ],
+          "partIds": [
+            "part-flow-regulator",
+            "part-isolation-valve"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-system-sensors",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "SystemSensors",
+          "operationIds": [
+            "op-measureFlowRate",
+            "op-detectPressureDeviation"
+          ],
+          "partIds": [
+            "part-flow-meter",
+            "part-pressure-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-fluid-distribution-system",
+          "body": "The Fluid Distribution System ensures efficient routing, regulation, and monitoring of critical fluids under aircraft operational parameters.",
+          "id": "comment-fluid-distribution-doc",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-fluid-main-to-subsystem",
+          "memberEndIds": null,
+          "name": "MainSystemToSubsystemComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-fluid-distribution-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-fluid-distribution-subsystem",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-fluid-system-to-sensors",
+          "memberEndIds": null,
+          "name": "MainSystemToSensorsComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-fluid-distribution-system",
+          "sourceMultiplicity": "1",
+          "targetId": "block-system-sensors",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "fluidPressureRange >= 3 bar && fluidPressureRange <= 6 bar; fluidFlowRate >= 40 && fluidFlowRate <= 120",
+          "id": "constraint-operational-limits",
+          "name": "OperatingConditionsConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-fluid-distribution-system",
+          "flowSpecificationId": "flow-spec-fluid-distribution",
+          "id": "flowport-fluid-inlet",
+          "isConjugated": false,
+          "name": "FluidInletPort",
+          "type": "FlowPort"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-fluid-distribution-system",
+          "flowSpecificationId": "flow-spec-fluid-distribution",
+          "id": "flowport-fluid-outlet",
+          "isConjugated": false,
+          "name": "FluidOutletPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "FluidVolume",
+          "flowType": "FluidFlow",
+          "id": "flow-spec-fluid-distribution",
+          "name": "FluidFlowSpecification",
+          "type": "FlowSpecification",
+          "unit": "L/min"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-fluid-distribution-subsystem",
+          "name": "FluidDistributionSubsystem",
+          "of": "block-fluid-distribution-subsystem",
+          "type": "Part"
+        },
+        {
+          "id": "part-system-sensors",
+          "name": "SystemSensors",
+          "of": "block-system-sensors",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-routing-functionality",
+          "name": "RoutingFunctionality",
+          "reqId": null,
+          "text": "The system shall ensure routing fluids according to operational demands.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-pressure-maintenance",
+          "name": "PressureMaintenance",
+          "reqId": null,
+          "text": "System shall maintain pressure within prescribed limits.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-safety-redundancy",
+          "name": "SafetyRedundancyRequirements",
+          "reqId": null,
+          "text": "All components must incorporate redundancy and fault-tolerance.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-pressure",
+          "name": "PressureValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": "Bar"
+        }
+      ]
+    }
+  },
+  "reference_system": "fluid_distribution_system",
+  "parent_system": null,
+  "timestamp": "20250326_163231",
+  "provider": "gpt"
+}

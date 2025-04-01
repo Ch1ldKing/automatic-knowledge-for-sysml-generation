@@ -1,0 +1,399 @@
+{
+  "system_id": "nose_landing_gear_system",
+  "system_name": "Nose Landing Gear System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum load capacity ensuring the gear supports and safely distributes aircraft weight during maximum stress landings.",
+        "name": "maxLoadCapacity",
+        "type": "string",
+        "value": "Up to 160,000 lbs"
+      },
+      {
+        "description": "Time from command initiation to complete gear extension or retraction under nominal flight conditions.",
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "Under 2.5 seconds"
+      },
+      {
+        "description": "Advanced shock absorption rating utilizing composite damping materials to mitigate landing impact forces.",
+        "name": "shockAbsorption",
+        "type": "string",
+        "value": "Enhanced composite damping with energy dissipation efficiency > 95%"
+      },
+      {
+        "description": "Hydraulic system pressure necessary for efficient actuation and braking under all operating conditions.",
+        "name": "hydraulicPressure",
+        "type": "string",
+        "value": "Approximately 3200 PSI"
+      },
+      {
+        "description": "Acoustic and vibration parameters ensuring reduced noise and minimal vibration transmission during operation.",
+        "name": "noiseVibration",
+        "type": "string",
+        "value": "Ultra-quiet operation with vibration levels within advanced aerospace limits"
+      }
+    ],
+    "designScenario": {
+      "description": "Develop a next-generation Landing Gear System tailored for modern high-performance aircraft. The system integrates robust, lightweight structural components with advanced hydraulic and actuator systems. Safety is ensured through redundant control and sensor modules, while aerodynamics benefit from streamlined retractable designs. Emphasis is placed on rapid deployment, enhanced shock absorption using composite materials, and a modular architecture for simplified maintenance and upgrades.",
+      "name": "Landing Gear System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The landing gear system must reliably extend and retract in response to flight control inputs during takeoff, landing, and emergency scenarios."
+            },
+            {
+              "description": "Integration of precise sensor feedback loops to confirm gear position and proper actuation."
+            }
+          ],
+          "title": "Gear Actuation and Positioning",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must complete extension or retraction in under 2.5 seconds under normal and extreme weather conditions."
+            },
+            {
+              "description": "Hydraulic actuators should maintain consistent performance even at low temperatures and high altitudes."
+            }
+          ],
+          "title": "Rapid Deployment Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Redundant locking and fail-safe mechanisms must secure the gear in the deployed position to prevent collapse even in case of system failures."
+            },
+            {
+              "description": "Emergency extension protocols must be activated in the event of hydraulic or control system anomalies."
+            }
+          ],
+          "title": "Safety Redundancy and Emergency Protocols",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design should facilitate streamlined maintenance procedures through modular component design and easy access panels."
+            },
+            {
+              "description": "System components must comply with international aerospace durability and environmental standards to reduce operational downtime."
+            }
+          ],
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Central Control Module communicates with the Sensor Suite to receive gear status and condition reports.",
+        "relationshipType": "association",
+        "source": "Central Control Module",
+        "target": "Sensor Suite"
+      },
+      {
+        "description": "The Actuation Assembly depends on the Hydraulic System to generate sufficient force for rapid gear movement.",
+        "relationshipType": "dependency",
+        "source": "Actuation Assembly",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "The Brake Assembly is incorporated as a part of the Wheel Assembly, ensuring synchronized deceleration upon touchdown.",
+        "relationshipType": "composition",
+        "source": "Brake Assembly",
+        "target": "Wheel Assembly"
+      },
+      {
+        "description": "The Structural Framework is aggregated with the Actuation Assembly to allow coordinated movement and load distribution.",
+        "relationshipType": "aggregation",
+        "source": "Structural Framework",
+        "target": "Actuation Assembly"
+      },
+      {
+        "description": "Redundant Safety Modules are integrated with the Central Control Module for continuous monitoring and quick response to emergencies.",
+        "relationshipType": "aggregation",
+        "source": "Safety Module",
+        "target": "Central Control Module"
+      },
+      {
+        "description": "The Steering Module exchanges directional commanding data with the Wheel Assembly to control ground maneuvering.",
+        "relationshipType": "association",
+        "source": "Steering Module",
+        "target": "Wheel Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Primary electronic control unit responsible for processing sensor data and managing gear actuation commands.",
+        "name": "Central Control Module",
+        "subComponents": null,
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Hydraulic system providing pressurized fluid to power actuation, braking, and steering operations.",
+        "name": "Hydraulic System",
+        "subComponents": [
+          {
+            "description": "Hydraulic Pump responsible for generating the high-pressure fluid required for actuation.",
+            "name": "Hydraulic Pump",
+            "type": "Actuator"
+          },
+          {
+            "description": "Fluid Reservoir and conditioning unit ensuring stable hydraulic fluid supply.",
+            "name": "Hydraulic Reservoir",
+            "type": "Storage Unit"
+          },
+          {
+            "description": "Control Valves that regulate fluid distribution to various subsystems.",
+            "name": "Hydraulic Control Valves",
+            "type": "Control Device"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Mechanism that physically moves the landing gear through coordinated actuation, featuring high-speed linear actuators and integrated sensors.",
+        "name": "Actuation Assembly",
+        "subComponents": [
+          {
+            "description": "High-speed Linear Actuators providing rapid extension and retraction.",
+            "name": "Linear Actuators",
+            "type": "Actuator"
+          },
+          {
+            "description": "Position Verification Sensors incorporated within the actuator to ensure accurate gear placement.",
+            "name": "Actuator Position Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Composite structural framework that supports landing loads and integrates advanced shock-absorbing components.",
+        "name": "Structural Framework",
+        "subComponents": [
+          {
+            "description": "Primary Composite Struts designed for maximal load distribution with minimal weight.",
+            "name": "Composite Struts",
+            "type": "Structural Component"
+          },
+          {
+            "description": "Advanced Shock Absorbers employing composite materials to dampen impact forces.",
+            "name": "Composite Shock Absorbers",
+            "type": "Damping Device"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      },
+      {
+        "description": "Brake system integrated within the landing gear to facilitate deceleration once the aircraft touches down.",
+        "name": "Brake Assembly",
+        "subComponents": [
+          {
+            "description": "High-performance Brake Calipers delivering controlled frictional braking.",
+            "name": "Brake Calipers",
+            "type": "Actuator"
+          },
+          {
+            "description": "Brake Discs designed to dissipate heat and sustain repeated braking actions.",
+            "name": "Brake Discs",
+            "type": "Friction Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Steering module responsible for directional control during taxiing and ground maneuvers.",
+        "name": "Steering Module",
+        "subComponents": [
+          {
+            "description": "Electromechanical Steering Actuator that adjusts nose gear orientation.",
+            "name": "Steering Actuator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Angular Position Sensors ensuring precise steering angle feedback.",
+            "name": "Steering Position Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Wheel assemblies including both main landing wheels and nose gear, integrated with braking and steering functions.",
+        "name": "Wheel Assembly",
+        "subComponents": [
+          {
+            "description": "Main Landing Wheels engineered for high durability and energy dispersion.",
+            "name": "Main Landing Wheels",
+            "type": "Mechanical Component"
+          },
+          {
+            "description": "Nose Gear Wheel capable of directional adjustments via the Steering Module.",
+            "name": "Nose Gear Wheel",
+            "type": "Mechanical Component"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      },
+      {
+        "description": "Consolidated sensor suite for monitoring gear status, hydraulic pressure, and structural stress with real-time feedback to the control module.",
+        "name": "Sensor Suite",
+        "subComponents": [
+          {
+            "description": "Pressure Sensors monitoring hydraulic system performance.",
+            "name": "Pressure Sensors",
+            "type": "Sensor"
+          },
+          {
+            "description": "Gear Position Sensors confirming accurate deployment and retraction.",
+            "name": "Gear Position Sensors",
+            "type": "Sensor"
+          },
+          {
+            "description": "Load Sensors tracking force distribution and structural strain during operations.",
+            "name": "Load Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      },
+      {
+        "description": "Redundant safety system that continuously verifies critical system parameters and initiates emergency protocols when necessary.",
+        "name": "Safety Module",
+        "subComponents": [
+          {
+            "description": "Backup Hydraulic Pressure Sensors for emergency monitoring of the hydraulic system.",
+            "name": "Backup Pressure Sensors",
+            "type": "Sensor"
+          },
+          {
+            "description": "Emergency Gear Lock Sensors ensuring the gear remains fixed in position during failure events.",
+            "name": "Emergency Gear Lock Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "composite",
+          "defaultValue": null,
+          "id": "Attr_NLG_RetractActuator_LoadCapacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "LoadCapacity",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "Attr_NLG_RetractActuator_LoadCapacity"
+          ],
+          "constraintIds": null,
+          "id": "Block_NLG_RetractActuator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "RetractActuator",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "Block_NoseLandingGearSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "NoseLandingGearSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "Block_NoseLandingGearSystem",
+          "body": "This block represents the airplane's nose landing gear system, including structure and mechanisms for deployment and retraction.",
+          "id": "Comment_NLG",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [],
+      "ports": [],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": []
+    }
+  },
+  "timestamp": "20250326_181359",
+  "provider": "gpt"
+}

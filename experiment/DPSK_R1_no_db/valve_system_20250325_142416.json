@@ -1,0 +1,336 @@
+{
+  "system_id": "valve_system",
+  "system_name": "Valve System",
+  "specification": {
+    "designScenario": {
+      "name": "Aircraft Hydraulic Valve System",
+      "description": "The Valve System regulates hydraulic fluid flow within the aircraft's hydraulic network to ensure precise actuation of flight control surfaces, landing gear, and braking systems. It operates under extreme pressure and temperature conditions while maintaining fail-safe redundancy and rapid response to pilot/autopilot commands.",
+      "requirements": [
+        {
+          "title": "Fluid Routing Precision",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall direct hydraulic fluid to specified actuators with positional accuracy of ±1% to ensure synchronized control surface movements."
+            }
+          ]
+        },
+        {
+          "title": "High-Pressure Endurance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Valves shall maintain structural integrity at sustained pressures up to 5000 psi with peak tolerance of 6500 psi for 30-second durations."
+            }
+          ]
+        },
+        {
+          "title": "Dual Redundant Actuation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Critical fluid paths shall implement parallel valve assemblies with automatic switchover capability upon primary system failure detection."
+            }
+          ]
+        },
+        {
+          "title": "EMI Hardening",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All electronic valve control components shall meet DO-160G Section 20 Category R EMI/EMC standards for aviation environments."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Primary Flow Control Module",
+        "type": "Electro-Hydraulic Valve Assembly",
+        "description": "Main control unit containing servo valves and pressure regulators for primary hydraulic circuit management.",
+        "subComponents": [
+          {
+            "name": "Proportional Servo Valve",
+            "type": "Solenoid-Actuated Valve",
+            "description": "Precision metering valve with LVDT feedback for closed-loop flow control (±0.5% repeatability)."
+          },
+          {
+            "name": "Pressure Compensator",
+            "type": "Mechanical Regulator",
+            "description": "Automatic pressure-balancing mechanism maintaining constant flow despite pump output variations."
+          }
+        ]
+      },
+      {
+        "name": "Backup Hydraulic Gate",
+        "type": "Mechanical Safety System",
+        "description": "Passive pressure-actuated bypass valves that engage during electronic system failures.",
+        "subComponents": [
+          {
+            "name": "Shear Seal Cartridge",
+            "type": "Pressure-Relief Assembly",
+            "description": "Sacrificial mechanical fuse that isolates damaged hydraulic lines at 7000 psi overpressure."
+          }
+        ]
+      },
+      {
+        "name": "Valve Control Electronics",
+        "type": "Avionics Subsystem",
+        "description": "ARINC 429-compliant controller implementing FBW (Fly-By-Wire) command processing with 3 redundant channels.",
+        "subComponents": [
+          {
+            "name": "Solenoid Driver Array",
+            "type": "High-Current Amplifier",
+            "description": "Quad-redundant H-bridge circuits delivering 20A pulsed outputs for valve actuation."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Primary Flow Control Module",
+        "target": "Hydraulic Pump",
+        "relationshipType": "association",
+        "description": "Receives pressurized fluid input from engine-driven hydraulic pumps via high-pressure lines."
+      },
+      {
+        "source": "Backup Hydraulic Gate",
+        "target": "Flight Control Actuators",
+        "relationshipType": "composition",
+        "description": "Direct mechanical linkage to aileron/spoiler actuators through dedicated fluid paths."
+      },
+      {
+        "source": "Valve Control Electronics",
+        "target": "Primary Flow Control Module",
+        "relationshipType": "aggregation",
+        "description": "Embedded control logic governs servo valve positioning through PWM signals."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "Hysteresis Tolerance",
+        "type": "Performance Metric",
+        "value": "<0.15% FS",
+        "description": "Maximum allowable hysteresis in valve positioning across full operational temperature range."
+      },
+      {
+        "name": "Fluid Contamination Level",
+        "type": "Maintenance Parameter",
+        "value": "NAS 1638 Class 6",
+        "description": "Maximum particulate contamination level before requiring filter replacement."
+      },
+      {
+        "name": "Thermal Shock Rating",
+        "type": "Environmental Spec",
+        "value": "-65°C to +150°C ΔT/min",
+        "description": "Certified temperature transition rate without performance degradation."
+      },
+      {
+        "name": "MTBF",
+        "type": "Reliability Metric",
+        "value": "85,000 FH",
+        "description": "Mean Time Between Failures calculated per MIL-HDBK-217F guidelines."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "VS001",
+          "type": "Block",
+          "name": "ValveSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "VS001_ATTR1",
+            "VS001_ATTR2"
+          ],
+          "operationIds": [
+            "VS001_OP1"
+          ],
+          "constraintIds": [
+            "VS001_CONST1"
+          ],
+          "partIds": [
+            "CU001",
+            "AA001",
+            "VM001",
+            "SA001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "CU001",
+          "type": "Block",
+          "name": "ControlUnit",
+          "attributeIds": [
+            "CU001_ATTR1"
+          ],
+          "operationIds": [
+            "CU001_OP1"
+          ],
+          "constraintIds": [
+            "CU001_CONST1"
+          ],
+          "partIds": [
+            "VC001",
+            "PS001"
+          ],
+          "referenceIds": []
+        },
+        {
+          "id": "AA001",
+          "type": "Block",
+          "name": "ActuatorAssembly",
+          "attributeIds": [
+            "AA001_ATTR1"
+          ],
+          "operationIds": [
+            "AA001_OP1"
+          ],
+          "constraintIds": [
+            "AA001_CONST1"
+          ],
+          "partIds": [
+            "EA001",
+            "HA001"
+          ],
+          "referenceIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IF001",
+          "type": "InterfaceBlock",
+          "name": "IElectricalPower",
+          "attributeIds": [
+            "IF001_ATTR1"
+          ],
+          "operationIds": [
+            "IF001_OP1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "IF002",
+          "type": "InterfaceBlock",
+          "name": "IFluidFlow",
+          "attributeIds": [
+            "IF002_ATTR1"
+          ],
+          "operationIds": [
+            "IF002_OP1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS001",
+          "type": "FlowSpecification",
+          "name": "ElectricalFlow",
+          "flowType": "Energy",
+          "dataType": "Current",
+          "unit": "Ampere",
+          "attributeIds": [
+            "FS001_ATTR1"
+          ]
+        },
+        {
+          "id": "FS002",
+          "type": "FlowSpecification",
+          "name": "FluidFlow",
+          "flowType": "Material",
+          "dataType": "Pressure",
+          "unit": "kPa",
+          "attributeIds": [
+            "FS002_ATTR1"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB001",
+          "type": "ConstraintBlock",
+          "name": "MaxPressureConstraint",
+          "parameterIds": [
+            "CB001_PARAM1"
+          ],
+          "expression": "pressure <= 3450 kPa",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT001",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "QK001",
+          "unitId": "U001",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "EN001",
+          "type": "Enumeration",
+          "name": "ValveState",
+          "literals": [
+            {
+              "id": "EN001_L1",
+              "name": "OPEN"
+            },
+            {
+              "id": "EN001_L2",
+              "name": "CLOSED"
+            },
+            {
+              "id": "EN001_L3",
+              "name": "FAILSAFE"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "P001",
+          "type": "ProxyPort",
+          "name": "ppMainControl",
+          "blockId": "VS001",
+          "providedInterfaceIds": [
+            "IF001"
+          ],
+          "requiredInterfaceIds": [
+            "IF002"
+          ]
+        },
+        {
+          "id": "P002",
+          "type": "FlowPort",
+          "name": "fpFluidInput",
+          "blockId": "VM001",
+          "flowSpecificationId": "FS002",
+          "isConjugated": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "CM001",
+          "type": "Comment",
+          "body": "Manages aircraft fluid flow systems including fuel and hydraulics",
+          "annotatedElementId": "VS001"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_142416",
+  "provider": "dpsk"
+}

@@ -1,0 +1,437 @@
+{
+  "system_id": "rudder_system",
+  "system_name": "Rudder System",
+  "specification": {
+    "designScenario": {
+      "name": "Rudder",
+      "description": "The Rudder is a critical aerodynamic control surface responsible for managing an aircraft's yaw axis stability and directional control. It operates in concert with other flight control surfaces to counteract adverse yaw, maintain course accuracy during turns, and ensure responsiveness to pilot or autopilot inputs. The design prioritizes rapid actuation, precision deflection under varying load conditions, structural resilience against aerodynamic stresses, and fail-operational redundancy for enhanced safety. The system is engineered for minimal maintenance downtime and environmental durability across extreme operational envelopes.",
+      "requirements": [
+        {
+          "title": "Yaw Control Authority",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Provide proportional deflection in response to pilot/autopilot input to effectuate yaw adjustments across all flight regimes."
+            },
+            {
+              "description": "Integrate with flight control computers to modulate deflection based on airspeed, altitude, and crosswind conditions."
+            }
+          ]
+        },
+        {
+          "title": "Dynamic Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deflection within 30 milliseconds from command initiation during high-authority maneuvers."
+            },
+            {
+              "description": "Maintain deflection accuracy within ±0.05° under 200 knots indicated airspeed."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Control Systems",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual-redundant actuation pathways with cross-channel validation to prevent single-point failures."
+            },
+            {
+              "description": "Execute controlled deflection reversal to neutral position within 2 seconds upon detecting actuator failure."
+            }
+          ]
+        },
+        {
+          "title": "Environmental Robustness",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Withstand repeated exposure to icing conditions at -50°C and thermal cycling between -55°C and +95°C."
+            },
+            {
+              "description": "Maintain structural integrity after 10,000 cycles of full deflection under maximum design load."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Rudder Assembly",
+        "description": "Primary control surface assembly responsible for generating yaw control forces through aerodynamic deflection.",
+        "type": "Aerodynamic Control Surface",
+        "subComponents": [
+          {
+            "name": "Aeroelastic Rudder Panel",
+            "description": "Composite skin structure optimized for low drag and flutter resistance at Mach 0.85.",
+            "type": "Structural Component"
+          },
+          {
+            "name": "Ball Screw Actuator",
+            "description": "Precision linear actuator with integral position feedback to ensure repeatable deflection accuracy.",
+            "type": "Electromechanical Actuator"
+          },
+          {
+            "name": "Hinge Mechanism",
+            "description": "Low-friction pivot assembly with carbon fiber bearings to minimize deflection torque requirements.",
+            "type": "Kinematic Joint"
+          }
+        ]
+      },
+      {
+        "name": "Flight Control Electronics Module",
+        "description": "Computational unit responsible for translating pilot inputs into actuator commands and monitoring system health.",
+        "type": "Avionics Subsystem",
+        "subComponents": null
+      },
+      {
+        "name": "Hydraulic Power Unit",
+        "description": "Auxiliary power source providing backup actuation force in case of primary electrical system failure.",
+        "type": "Energy Subsystem",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Control Surfaces",
+        "target": "Rudder Assembly",
+        "relationshipType": "aggregation",
+        "description": "The rudder forms part of the integrated flight control system managing aircraft stability."
+      },
+      {
+        "source": "Flight Control Electronics Module",
+        "target": "Rudder Assembly",
+        "relationshipType": "dependency",
+        "description": "Electronic module provides actuation commands and monitors deflection position in real time."
+      },
+      {
+        "source": "Rudder Assembly",
+        "target": "Ball Screw Actuator",
+        "relationshipType": "composition",
+        "description": "Actuator forms integral part of the rudder's mechanical deflection mechanism."
+      },
+      {
+        "source": "Hydraulic Power Unit",
+        "target": "Ball Screw Actuator",
+        "relationshipType": "dependency",
+        "description": "Hydraulic system provides backup power for actuation under electrical failure conditions."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "Max Deflection Range",
+        "type": "string",
+        "value": "-30° to +30°",
+        "description": "Operating deflection limits to prevent structural overstress during aggressive maneuvers."
+      },
+      {
+        "name": "Actuation Force Capacity",
+        "type": "string",
+        "value": "4500 N continuous / 6000 N peak",
+        "description": "Force output capability of the primary actuator under normal and emergency conditions."
+      },
+      {
+        "name": "Material Fatigue Life",
+        "type": "string",
+        "value": "200,000 load cycles at 120% design load",
+        "description": "Certified fatigue life for composite components under cyclic aerodynamic loading."
+      },
+      {
+        "name": "Environmental Sealing",
+        "type": "string",
+        "value": "IP67 ingress protection",
+        "description": "Dust/water resistance rating for electronics and actuator components."
+      },
+      {
+        "name": "Deflection Hysteresis",
+        "type": "string",
+        "value": "≤0.02°",
+        "description": "Maximum allowable difference between commanded and actual deflection under steady-state conditions."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "RudderSystem_1",
+          "type": "Block",
+          "name": "Rudder System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_RudderDeflectionRange_10"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "Constraint_MaxDeflectionRate_20"
+          ],
+          "partIds": [
+            "ActuationSub_2",
+            "ControlSub_3",
+            "SensorSub_4"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ActuationSub_2",
+          "type": "Block",
+          "name": "Actuation Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_MaxActuatorForce_11"
+          ],
+          "operationIds": [
+            "Oper_MoveRudder_21"
+          ],
+          "constraintIds": [
+            "Constraint_MinResponseTime_22"
+          ],
+          "partIds": [
+            "HydraulicActuator_5"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "HydraulicActuator_5",
+          "type": "Block",
+          "name": "Hydraulic Actuator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_StrokeLength_12"
+          ],
+          "operationIds": [
+            "Oper_ExtendActuator_23"
+          ],
+          "constraintIds": [
+            "Constraint_MaxPressure_24"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ControlSub_3",
+          "type": "Block",
+          "name": "Control Subsystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_ControlLaw_13"
+          ],
+          "operationIds": [
+            "Oper_CalculateDeflection_25"
+          ],
+          "constraintIds": [
+            "Constraint_InputLatency_26"
+          ],
+          "partIds": [
+            "RudderController_6"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "RudderController_6",
+          "type": "Block",
+          "name": "Rudder Controller",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_PIDGains_14"
+          ],
+          "operationIds": [
+            "Oper_UpdateSetpoint_27"
+          ],
+          "constraintIds": [
+            "Constraint_SoftwareSafety_28"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SensorSub_4",
+          "type": "Block",
+          "name": "Sensor Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_SensorResolution_15"
+          ],
+          "operationIds": [
+            "Oper_ReadPosition_29"
+          ],
+          "constraintIds": [
+            "Constraint_NoiseTolerance_30"
+          ],
+          "partIds": [
+            "PositionSensor_7"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PositionSensor_7",
+          "type": "Block",
+          "name": "Position Sensor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_MaxOperatingTemp_16"
+          ],
+          "operationIds": [
+            "Oper_GetAngle_31"
+          ],
+          "constraintIds": [
+            "Constraint_TemperatureRange_32"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IF_RudderControl_8",
+          "type": "InterfaceBlock",
+          "name": "Rudder Control Interface",
+          "attributeIds": [
+            "Attr_ControlSignal_17"
+          ],
+          "operationIds": [
+            "Oper_SendCommand_33"
+          ],
+          "signalIds": [
+            "Sig_FaultAlarm_34"
+          ],
+          "constraintIds": [
+            "Constraint_SignalBandwidth_35"
+          ]
+        },
+        {
+          "id": "IF_HydraulicSupply_9",
+          "type": "InterfaceBlock",
+          "name": "Hydraulic Supply Interface",
+          "attributeIds": [
+            "Attr_PressureLevel_18"
+          ],
+          "operationIds": [
+            "Oper_AdjustPressure_36"
+          ],
+          "signalIds": [],
+          "constraintIds": [
+            "Constraint_PressureStability_37"
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "Port_RudderCtrlPort_19",
+          "type": "Port",
+          "name": "RudderControlPort",
+          "blockId": "RudderSystem_1",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "IF_RudderControl_8"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null
+        },
+        {
+          "id": "Port_HydraulicPort_20",
+          "type": "Port",
+          "name": "HydraulicPort",
+          "blockId": "ActuationSub_2",
+          "portType": "flow",
+          "isConjugated": true,
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "IF_HydraulicSupply_9"
+          ],
+          "flowSpecificationId": "Flow_HydraulicFluid_38"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "Flow_HydraulicFluid_38",
+          "type": "FlowSpecification",
+          "name": "Hydraulic Fluid Flow",
+          "flowType": "energy flow",
+          "dataType": "HydraulicPressure",
+          "unit": "MPa",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "Constraint_MaxDeflectionRate_20",
+          "type": "ConstraintBlock",
+          "name": "Max Deflection Rate",
+          "expression": "deflectionRate <= 20 deg/s",
+          "parameterIds": [
+            "Param_RudderDeflectionRate_39"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_AngleDegrees_40",
+          "type": "ValueType",
+          "name": "AngleDegrees",
+          "quantityKindId": "QK_Angle_41",
+          "unitId": "Unit_Degree_42",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_RudderState_43",
+          "type": "Enumeration",
+          "name": "RudderState",
+          "literals": [
+            {
+              "id": "Lit_Neutral_44",
+              "name": "Neutral"
+            },
+            {
+              "id": "Lit_MaxLeft_45",
+              "name": "MaxLeft"
+            },
+            {
+              "id": "Lit_MaxRight_46",
+              "name": "MaxRight"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comm_RudderSystemDesc_47",
+          "type": "Comment",
+          "body": "Manages aircraft yaw control via rudder deflection with hydraulic actuation and closed-loop feedback",
+          "annotatedElementId": "RudderSystem_1"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_182355",
+  "provider": "qwen"
+}

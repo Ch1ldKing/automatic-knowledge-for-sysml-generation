@@ -1,0 +1,521 @@
+{
+  "system_id": "flight_management_system_fms_system",
+  "system_name": "Flight Management System (FMS) System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The frequency of sensor data updates for flight computations.",
+        "name": "sensorUpdateRate",
+        "type": "string",
+        "value": "10Hz"
+      },
+      {
+        "description": "Level of system redundancy to maintain operational integrity.",
+        "name": "systemRedundancy",
+        "type": "string",
+        "value": "Triple Modular Redundancy"
+      },
+      {
+        "description": "Real-time operational cycle delay limit.",
+        "name": "processingLatency",
+        "type": "string",
+        "value": "50ms"
+      },
+      {
+        "description": "Data security encryption standard for safeguarding communication.",
+        "name": "communicationEncryption",
+        "type": "string",
+        "value": "TLS 1.3"
+      },
+      {
+        "description": "Accuracy level for flight path determination.",
+        "name": "pathAccuracy",
+        "type": "string",
+        "value": "Deviation within 2 meters"
+      }
+    ],
+    "designScenario": {
+      "description": "The Flight Management System (FMS) integrates advanced avionic functionalities to ensure seamless flight operations, optimizing navigation, enhancing safety, and facilitating communication.",
+      "name": "Flight Management System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Process dynamic flight routes using real-time geographic and atmospheric data."
+            },
+            {
+              "description": "Adapt routes based on potential airspace obstructions or constraints."
+            }
+          ],
+          "title": "Dynamic Route Adjustment",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Transition between autonomous operation modes within permissible extra handling time limits."
+            },
+            {
+              "description": "Update guidance commands immediately following sensor input integration."
+            }
+          ],
+          "title": "Real-Time Command Processing",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain primary functions in scenarios of partial sensor failure through subsystem cross-validation."
+            },
+            {
+              "description": "Alert operators in instances of configuration or operational anomalies."
+            }
+          ],
+          "title": "Safety Protocols",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Enable seamless firmware updates without affecting system availability."
+            },
+            {
+              "description": "Design ergonomic user interfaces for quick assimilation by aviation professionals."
+            }
+          ],
+          "title": "User Interaction and System Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The core processing unit translates navigation modules' outputs into actionable commands.",
+        "relationshipType": "composition",
+        "source": "Central Processing Unit",
+        "target": "Navigation Modules"
+      },
+      {
+        "description": "The interface module interacts directly with external communication frameworks for accurate data exchange.",
+        "relationshipType": "dependency",
+        "source": "External Communication Unit",
+        "target": "Central Processing Unit"
+      },
+      {
+        "description": "Aggregates environmental data for the navigation computations.",
+        "relationshipType": "aggregation",
+        "source": "Environmental Sensors",
+        "target": "Navigation Modules"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central computational and management hub.",
+        "name": "Central Processing Unit",
+        "subComponents": [
+          {
+            "description": "Computes flight dynamics and trajectory planning.",
+            "name": "Trajectory Calculation Engine",
+            "type": "Subprocessor"
+          }
+        ],
+        "type": "Processor"
+      },
+      {
+        "description": "Modules for determining aircraft positioning and monitoring environmental conditions.",
+        "name": "Navigation Modules",
+        "subComponents": [
+          {
+            "description": "Provides geospatial coordinates.",
+            "name": "GPS Navigator",
+            "type": "Sensor"
+          },
+          {
+            "description": "Monitors atmospheric conditions affecting flight routes.",
+            "name": "Barometric Altimeter",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Suite"
+      },
+      {
+        "description": "Facilitates communication between the FMS and external systems.",
+        "name": "External Communication Unit",
+        "subComponents": [
+          {
+            "description": "Handles satellite-based data exchanges.",
+            "name": "Satellite Link Module",
+            "type": "Communication Device"
+          }
+        ],
+        "type": "Communication System"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-central-navigation",
+          "memberEndIds": null,
+          "name": "Aggregates Navigation Data",
+          "ownedEndIds": null,
+          "sourceId": "blk-central-processing-unit",
+          "sourceMultiplicity": null,
+          "targetId": "blk-navigation-modules",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-sensors-navigation",
+          "memberEndIds": null,
+          "name": "Aggregates Sensor Data",
+          "ownedEndIds": null,
+          "sourceId": "blk-environmental-sensors",
+          "sourceMultiplicity": null,
+          "targetId": "blk-navigation-modules",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-navigation-comm",
+          "memberEndIds": null,
+          "name": "NavigationAndComm",
+          "ownedEndIds": null,
+          "sourceId": "blk-navigation-modules",
+          "sourceMultiplicity": null,
+          "targetId": "blk-external-comm-unit",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "10Hz",
+          "id": "attr-sensor-update-rate",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "SensorUpdateRate",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "10Hz",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Triple Modular Redundancy",
+          "id": "attr-system-redundancy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "SystemRedundancy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Triple Modular Redundancy",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-sensor-update-rate",
+            "attr-system-redundancy"
+          ],
+          "constraintIds": null,
+          "id": "blk-flight-management-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Flight Management System",
+          "operationIds": null,
+          "partIds": [
+            "part-central-processing-unit",
+            "part-navigation-modules",
+            "part-external-comm-unit",
+            "part-environmental-sensors"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "blk-central-processing-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Central Processing Unit",
+          "operationIds": null,
+          "partIds": [
+            "part-trajectory-calculation-engine"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "blk-navigation-modules",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Navigation Modules",
+          "operationIds": null,
+          "partIds": [
+            "part-gps-navigator",
+            "part-barometric-altimeter"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "blk-external-comm-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "External Communication Unit",
+          "operationIds": null,
+          "partIds": [
+            "part-satellite-link-module"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "blk-environmental-sensors",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Environmental Sensors",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "blk-flight-management-system",
+          "body": "The Flight Management System seamlessly integrates avionics for route optimization and safety.",
+          "id": "cmt-fms-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-central-navigation",
+          "memberEndIds": null,
+          "name": "Navigation Processing",
+          "ownedEndIds": null,
+          "sourceId": "blk-central-processing-unit",
+          "sourceMultiplicity": null,
+          "targetId": "blk-navigation-modules",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "UpdateRate >= 10 and UpdateRate <= 60",
+          "id": "constraint-updateRate-limits",
+          "name": "Update Rate Limits",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": [
+        {
+          "id": "dirassoc-comm-central",
+          "memberEndIds": null,
+          "name": "Central Comms",
+          "ownedEndIds": null,
+          "sourceId": "blk-external-comm-unit",
+          "sourceMultiplicity": null,
+          "targetId": "blk-central-processing-unit",
+          "targetMultiplicity": null,
+          "type": "DirectedAssociation"
+        }
+      ],
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enumeration-updateUnits",
+          "literals": [
+            {
+              "id": "literal-hz",
+              "name": "Hz"
+            },
+            {
+              "id": "literal-ms",
+              "name": "ms"
+            }
+          ],
+          "name": "Update Units",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "CommandData",
+          "flowType": "InformationFlow",
+          "id": "flowspec-command-data",
+          "name": "Command Data Flow",
+          "type": "FlowSpecification",
+          "unit": "bits"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "blk-central-processing-unit",
+          "id": "port-central-command",
+          "isConjugated": false,
+          "name": "Central Command Port",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifblk-comm-interface",
+          "name": "Communication Interface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "ifrealize-central-comm",
+          "name": "Central Comm Realization",
+          "sourceId": "blk-central-processing-unit",
+          "targetId": "ifblk-comm-interface",
+          "type": "InterfaceRealization"
+        }
+      ],
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "pkg-fms",
+          "name": "FMS Package",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-central-processing-unit",
+          "name": "Central Processing Unit",
+          "of": "blk-central-processing-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-navigation-modules",
+          "name": "Navigation Modules",
+          "of": "blk-navigation-modules",
+          "type": "Part"
+        },
+        {
+          "id": "part-external-comm-unit",
+          "name": "External Communication Unit",
+          "of": "blk-external-comm-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-environmental-sensors",
+          "name": "Environmental Sensors",
+          "of": "blk-environmental-sensors",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-adjust-route",
+          "name": "Dynamic Route Adjustment",
+          "reqId": "REQ-001",
+          "text": "System shall handle dynamic flight routes using real-time data inputs.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "valuetype-update-frequency",
+          "name": "Update Frequency",
+          "quantityKindId": "qkind-frequency",
+          "type": "ValueType",
+          "unitId": "unit-Hz"
+        }
+      ]
+    }
+  },
+  "reference_system": "flight_management_system",
+  "parent_system": null,
+  "timestamp": "20250326_165213",
+  "provider": "gpt"
+}

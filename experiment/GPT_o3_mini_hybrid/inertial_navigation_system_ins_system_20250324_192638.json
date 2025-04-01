@@ -1,0 +1,680 @@
+{
+  "system_id": "inertial_navigation_system_ins_system",
+  "system_name": "Inertial Navigation System (INS) System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Sampling frequency for inertial sensor outputs to capture fine-grain motion dynamics.",
+        "name": "sampleFrequency",
+        "type": "string",
+        "value": "2kHz"
+      },
+      {
+        "description": "Redundancy strategy implemented to maintain continuous navigation computations even upon component failures.",
+        "name": "redundancyStrategy",
+        "type": "string",
+        "value": "Dual-Redundant with Cross-Check"
+      },
+      {
+        "description": "Processing interval required to compute sensor fusion outputs in real-time.",
+        "name": "computationInterval",
+        "type": "string",
+        "value": "8ms"
+      },
+      {
+        "description": "Navigation precision including computed position, velocity, and attitude with minimal drift.",
+        "name": "navigationAccuracy",
+        "type": "string",
+        "value": "Within 1.5 meters positional error"
+      },
+      {
+        "description": "Data encryption and secure communication protocols safeguarding system integrity against cyber interference.",
+        "name": "dataSecurity",
+        "type": "string",
+        "value": "TLS 1.3 with ECC-based cryptography"
+      }
+    ],
+    "designScenario": {
+      "description": "The Inertial Navigation System (INS) is engineered as a primary avionics subsystem to deliver autonomous, high-accuracy navigation data. It fuses inputs from precision accelerometers and gyroscopes, ensuring continuous computation of aircraft trajectory, orientation, and velocity. Designed for operation in both nominal and degraded environments, it enhances overall flight safety and performance by supplying real-time data to the central flight management suite. The system is modular, scalable, and certified to meet stringent aviation standards, making it integral to modern high-speed, agile aircraft.",
+      "name": "Inertial Navigation System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Compute accurate three-dimensional position, velocity, and attitude by fusing data from advanced inertial sensors every 8ms."
+            },
+            {
+              "description": "Function autonomously without external navigational aids, ensuring operational continuity in GNSS-denied conditions."
+            }
+          ],
+          "title": "Autonomous Real-Time Navigation Computation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain a high sampling rate of 2kHz and processing cycle of 8ms to support rapid dynamic flight conditions."
+            },
+            {
+              "description": "Deliver processed navigational outputs with minimal latency to support split-second flight control decisions."
+            }
+          ],
+          "title": "High-Speed Data Acquisition and Processing",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement dual-redundant sensor arrays with cross-check algorithms to provide continuous fault detection and correction."
+            },
+            {
+              "description": "Integrate real-time health monitoring and diagnostic routines that trigger immediate alerts upon anomaly detection."
+            }
+          ],
+          "title": "Robust Fault Tolerance and Safety Monitoring",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure seamless integration with the Central Flight Management Interface via standardized data buses."
+            },
+            {
+              "description": "Adopt state-of-the-art cybersecurity measures for system maintainability and protection against external threats."
+            }
+          ],
+          "title": "Modular Integration and Cybersecurity Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Inertial Navigation Unit comprises the Advanced Accelerometer Array, providing critical linear acceleration data.",
+        "relationshipType": "composition",
+        "source": "Inertial Navigation Unit",
+        "target": "Advanced Accelerometer Array"
+      },
+      {
+        "description": "The Inertial Navigation Unit comprises the Gyroscope Array to capture angular motion and rotational dynamics.",
+        "relationshipType": "composition",
+        "source": "Inertial Navigation Unit",
+        "target": "Gyroscope Array"
+      },
+      {
+        "description": "The Sensor Fusion Engine aggregates data from both the Accelerometer Array and Gyroscope Array to compute navigation parameters.",
+        "relationshipType": "association",
+        "source": "Inertial Navigation Unit",
+        "target": "Sensor Fusion Engine"
+      },
+      {
+        "description": "The Fault Diagnostic Module monitors the performance of the sensor apparatus and communicates issues to the Central Flight Management Interface.",
+        "relationshipType": "dependency",
+        "source": "Inertial Navigation Unit",
+        "target": "Central Flight Management Interface"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Primary computing unit for inertial data acquisition, sensor fusion, and health diagnostics.",
+        "name": "Inertial Navigation Unit",
+        "subComponents": [
+          {
+            "description": "A high-precision array of accelerometers designed to measure multi-axis linear movements with enhanced sensitivity.",
+            "name": "Advanced Accelerometer Array",
+            "type": "Sensor"
+          },
+          {
+            "description": "A set of high-fidelity gyroscopes that capture angular velocity, critical for attitude determination.",
+            "name": "Gyroscope Array",
+            "type": "Sensor"
+          },
+          {
+            "description": "A dedicated processing core that fuses sensor outputs to derive real-time navigational information.",
+            "name": "Sensor Fusion Engine",
+            "type": "Processing Unit"
+          },
+          {
+            "description": "A subsystem that continuously monitors sensor inputs and system diagnostics, triggering alerts on fault detection.",
+            "name": "Fault Diagnostic Module",
+            "type": "Diagnostic Tool"
+          }
+        ],
+        "type": "Avionics Sensor Suite"
+      },
+      {
+        "description": "Interface module that integrates INS outputs with the aircraft's central flight control and navigation management systems.",
+        "name": "Central Flight Management Interface",
+        "subComponents": null,
+        "type": "Avionics Control Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "op-calc-ins",
+          "name": "calculateINS()",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-ins-fusion-link",
+          "memberEndIds": null,
+          "name": "INSCommunicatesWithSensorFusion",
+          "ownedEndIds": null,
+          "sourceId": "block-ins-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-sensor-fusion-engine",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "2kHz",
+          "id": "attr-sample-frequency",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "sampleFrequency",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "2kHz",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual-Redundant with Cross-Check",
+          "id": "attr-ins-redundancy-strategy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "redundancyStrategy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Dual-Redundant with Cross-Check",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "8ms",
+          "id": "attr-ins-computation-interval",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "computationInterval",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "8ms",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Within 1.5 meters positional error",
+          "id": "attr-ins-navigation-accuracy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "navigationAccuracy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Within 1.5 meters positional error",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "TLS 1.3 with ECC-based cryptography",
+          "id": "attr-ins-data-security",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "dataSecurity",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "TLS 1.3 with ECC-based cryptography",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-sample-frequency",
+            "attr-ins-redundancy-strategy",
+            "attr-ins-computation-interval",
+            "attr-ins-navigation-accuracy",
+            "attr-ins-data-security"
+          ],
+          "constraintIds": null,
+          "id": "block-ins-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "InertialNavigationSystem",
+          "operationIds": [
+            "op-calc-ins"
+          ],
+          "partIds": [
+            "part-accelerometer-array",
+            "part-gyroscope-array",
+            "part-sensor-fusion-engine",
+            "part-fault-diagnostic-module"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-accelerometer-array",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "AdvancedAccelerometerArray",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-gyroscope-array",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "GyroscopeArray",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-sensor-fusion-engine",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "SensorFusionEngine",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-fault-diagnostic-module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "FaultDiagnosticModule",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-cfms-interface",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "CentralFlightManagementInterface",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-ins-system",
+          "body": "The Inertial Navigation System (INS) integrates advanced inertial sensors and processing modules to compute high-accuracy aircraft trajectory and attitude. Designed for both nominal and degraded scenarios, it assures real-time performance and robust fault detection.",
+          "id": "comment-ins-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-ins-accelerometer",
+          "memberEndIds": null,
+          "name": "INSComposition_AccelerometerArray",
+          "ownedEndIds": null,
+          "sourceId": "block-ins-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-accelerometer-array",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-ins-gyroscope",
+          "memberEndIds": null,
+          "name": "INSComposition_GyroscopeArray",
+          "ownedEndIds": null,
+          "sourceId": "block-ins-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-gyroscope-array",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-ins-sensorfusion",
+          "memberEndIds": null,
+          "name": "INSComposition_SensorFusionEngine",
+          "ownedEndIds": null,
+          "sourceId": "block-ins-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-sensor-fusion-engine",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-ins-faultdiagnostic",
+          "memberEndIds": null,
+          "name": "INSComposition_FaultDiagnosticModule",
+          "ownedEndIds": null,
+          "sourceId": "block-ins-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-fault-diagnostic-module",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "computationInterval <= 8ms",
+          "id": "constraint-ins-computation",
+          "name": "INSComputationIntervalConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-ins-to-cfms",
+          "name": "INSDependency_ToCFMSInterface",
+          "sourceId": "block-ins-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-cfms-interface",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": [],
+          "id": "enum-redundancy-strategy",
+          "literals": [
+            {
+              "id": "lit-single",
+              "name": "Single"
+            },
+            {
+              "id": "lit-dual",
+              "name": "Dual-Redundant"
+            },
+            {
+              "id": "lit-triple",
+              "name": "TripleRedundant"
+            }
+          ],
+          "name": "RedundancyStrategyEnum",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "block-ins-system",
+          "flowSpecificationId": "flow-spec-ins-navigation",
+          "id": "flow-port-ins-output",
+          "isConjugated": false,
+          "name": "INSNavigationDataPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "NavigationData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-ins-navigation",
+          "name": "INSNavigationDataFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "block-ins-system",
+          "id": "port-ins-full",
+          "isConjugated": false,
+          "name": "INSFullInterfacePort",
+          "providedInterfaceIds": [
+            "if-block-ins-interface"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "if-block-ins-interface",
+          "name": "InertialNavigationInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "lifeline-ins-operation",
+          "name": "INSOperationLifeline",
+          "represents": "op-calc-ins",
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-accelerometer-array",
+          "name": "AccelerometerArrayPart",
+          "of": "block-accelerometer-array",
+          "type": "Part"
+        },
+        {
+          "id": "part-gyroscope-array",
+          "name": "GyroscopeArrayPart",
+          "of": "block-gyroscope-array",
+          "type": "Part"
+        },
+        {
+          "id": "part-sensor-fusion-engine",
+          "name": "SensorFusionEnginePart",
+          "of": "block-sensor-fusion-engine",
+          "type": "Part"
+        },
+        {
+          "id": "part-fault-diagnostic-module",
+          "name": "FaultDiagnosticModulePart",
+          "of": "block-fault-diagnostic-module",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "block-ins-system",
+          "flowSpecificationId": "flow-spec-ins-navigation",
+          "id": "port-ins-proxy",
+          "isConjugated": true,
+          "name": "INSProxyPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-ins-interface"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "block-ins-system",
+          "id": "proxy-port-ins-secure",
+          "isConjugated": true,
+          "name": "INSSecureProxyPort",
+          "providedInterfaceIds": [
+            "if-block-ins-interface"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": [
+        {
+          "id": "realization-ins-compute",
+          "name": "INSComputationRealization",
+          "sourceId": "block-ins-system",
+          "sourceMultiplicity": null,
+          "targetId": "op-calc-ins",
+          "targetMultiplicity": null,
+          "type": "Realization"
+        }
+      ],
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "req-ins-autonomous-navigation",
+          "name": "AutonomousRealTimeNavigation",
+          "reqId": "REQ-INS-001",
+          "text": "Compute accurate 3D position, velocity, and attitude every 8ms using fused sensor data while operating autonomously without external aids.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req-ins-high-speed-processing",
+          "name": "HighSpeedDataAcquisition",
+          "reqId": "REQ-INS-002",
+          "text": "Maintain a 2kHz sampling frequency with an 8ms processing interval to support dynamic flight conditions and low-latency control decisions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req-ins-fault-tolerance",
+          "name": "RobustFaultTolerance",
+          "reqId": "REQ-INS-003",
+          "text": "Implement dual-redundant sensor arrays with cross-check algorithms for continuous fault detection and rapid diagnostic alerts.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "req-ins-cybersecurity",
+          "name": "ModularIntegrationAndSecurity",
+          "reqId": "REQ-INS-004",
+          "text": "Ensure secure, standardized interfacing with the Central Flight Management System using modern cybersecurity protocols.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": [],
+          "id": "usecase-ins-operation",
+          "name": "INSOperationUseCase",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": [
+        {
+          "attributeIds": [
+            "attr-ins-computation-interval"
+          ],
+          "id": "value-type-time-ms",
+          "name": "TimeInMilliseconds",
+          "quantityKindId": "time",
+          "type": "ValueType",
+          "unitId": "ms"
+        }
+      ]
+    }
+  },
+  "reference_system": "inertial_navigation_system",
+  "parent_system": null,
+  "timestamp": "20250324_192638"
+}

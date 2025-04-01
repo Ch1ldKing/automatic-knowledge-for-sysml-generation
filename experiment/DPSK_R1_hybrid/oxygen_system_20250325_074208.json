@@ -1,0 +1,477 @@
+{
+  "system_id": "oxygen_system",
+  "system_name": "Oxygen System",
+  "specification": {
+    "designScenario": {
+      "name": "Oxygen System",
+      "description": "The Oxygen System is a critical safety system designed to provide breathable oxygen to passengers and crew during cabin decompression events or loss of cabin pressure. It integrates chemical oxygen generators, distribution networks, and mask deployment mechanisms to ensure rapid oxygen supply. The system is engineered for high reliability, fail-safe operation, and compliance with aviation safety regulations (e.g., FAA, EASA). It operates in tandem with the Environmental Control System to monitor cabin altitude and trigger emergency oxygen deployment when thresholds are exceeded.",
+      "requirements": [
+        {
+          "title": "Oxygen Generation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall generate breathable oxygen via chemical oxygen generators or stored gaseous oxygen, activated automatically during cabin depressurization."
+            }
+          ]
+        },
+        {
+          "title": "Mask Deployment",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Automatically deploy passenger and crew oxygen masks within 5 seconds of cabin altitude exceeding 14,000 feet."
+            }
+          ]
+        },
+        {
+          "title": "Oxygen Flow Rate",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Deliver a minimum oxygen flow rate of 2.4 liters per minute per passenger mask for at least 15 minutes."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Activation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant activation pathways (electrical and mechanical) to ensure mask deployment under all failure conditions."
+            }
+          ]
+        },
+        {
+          "title": "Monitoring Interface",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide real-time oxygen system status and fault diagnostics to the cockpit crew via the central Environmental Control System interface."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Oxygen Generators",
+        "description": "Chemical or gaseous oxygen sources that produce breathable oxygen upon activation.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Chemical Oxygen Canisters",
+            "description": "Sodium chlorate-based generators activated by pyrotechnic charges during decompression.",
+            "type": "Oxygen Source"
+          },
+          {
+            "name": "Activation Mechanism",
+            "description": "Electromechanical trigger initiating oxygen generation via thermal decomposition.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Oxygen Purity Sensor",
+            "description": "Monitors O2 concentration in generated gas to ensure ≥99% purity.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Distribution Network",
+        "description": "Ducting and valves regulating oxygen flow from generators to masks.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Oxygen Ducts",
+            "description": "Fire-resistant polymer conduits distributing oxygen to mask assemblies.",
+            "type": "Conduit"
+          },
+          {
+            "name": "Flow Control Valves",
+            "description": "Electropneumatic valves modulating oxygen pressure and flow rates.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Pressure Regulator",
+            "description": "Maintains 4-6 psi outlet pressure for mask delivery systems.",
+            "type": "Regulator"
+          }
+        ]
+      },
+      {
+        "name": "Masks Deployment System",
+        "description": "Mechanism storing and releasing passenger/crew oxygen masks.",
+        "type": "Subsystem",
+        "subComponents": [
+          {
+            "name": "Mask Assemblies",
+            "description": "Oxygen masks with rebreather bags and elastic lanyards.",
+            "type": "Safety Device"
+          },
+          {
+            "name": "Release Mechanism",
+            "description": "Spring-loaded panel doors activated by cabin altitude sensors.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Lanyard Sensor",
+            "description": "Detects mask pull-to-activate action to initiate oxygen flow.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Oxygen Monitoring System",
+        "description": "Sensors and controllers tracking oxygen system status.",
+        "type": "Monitoring Module",
+        "subComponents": [
+          {
+            "name": "Cabin Altitude Sensor",
+            "description": "Barometric sensor triggering deployment at 14,000 ft cabin altitude.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Oxygen Pressure Sensor",
+            "description": "Measures line pressure in distribution network.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Oxygen Control Unit",
+        "description": "Central processor managing activation thresholds and crew alerts.",
+        "type": "Electronic Module",
+        "subComponents": [
+          {
+            "name": "Fault Detection Circuit",
+            "description": "Continuous built-in-test (BIT) of oxygen system components.",
+            "type": "Diagnostic Module"
+          },
+          {
+            "name": "Crew Alerting Panel",
+            "description": "Visual/aural warnings for low oxygen pressure or generator faults.",
+            "type": "Interface"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Oxygen Control Unit",
+        "target": "Oxygen Monitoring System",
+        "relationshipType": "aggregation",
+        "description": "The Control Unit aggregates pressure and altitude data from the Monitoring System to determine deployment timing."
+      },
+      {
+        "source": "Distribution Network",
+        "target": "Oxygen Generators",
+        "relationshipType": "dependency",
+        "description": "The Distribution Network depends on oxygen supply from Generators during emergency operations."
+      },
+      {
+        "source": "Masks Deployment System",
+        "target": "Release Mechanism",
+        "relationshipType": "composition",
+        "description": "The Deployment System is composed of Release Mechanisms integrated into overhead panel assemblies."
+      },
+      {
+        "source": "Oxygen Monitoring System",
+        "target": "Oxygen Control Unit",
+        "relationshipType": "association",
+        "description": "The Monitoring System transmits real-time sensor data to the Control Unit via CAN bus."
+      },
+      {
+        "source": "Distribution Network",
+        "target": "Masks Deployment System",
+        "relationshipType": "association",
+        "description": "Oxygen ducts interface with mask lanyards to supply oxygen when masks are deployed."
+      },
+      {
+        "source": "Oxygen Control Unit",
+        "target": "Environmental Control System",
+        "relationshipType": "dependency",
+        "description": "The Oxygen System relies on cabin altitude data from the Environmental Control System's pressure sensors."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "oxygenFlowRate",
+        "type": "string",
+        "value": "2.4 - 4.0 L/min",
+        "description": "Guaranteed oxygen flow rate per mask under decompression conditions."
+      },
+      {
+        "name": "deploymentAltitude",
+        "type": "string",
+        "value": "14,000 ft",
+        "description": "Cabin altitude threshold for automatic mask deployment."
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "≤5 seconds",
+        "description": "Maximum allowable delay between altitude threshold breach and mask deployment."
+      },
+      {
+        "name": "oxygenCapacity",
+        "type": "string",
+        "value": "15-22 minutes",
+        "description": "Minimum duration of oxygen supply at maximum flow rate."
+      },
+      {
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "4-6 psi",
+        "description": "Regulated oxygen pressure at mask interface."
+      },
+      {
+        "name": "oxygenPurity",
+        "type": "string",
+        "value": "≥99%",
+        "description": "Minimum oxygen concentration in delivered gas mixture."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-oxygen-system",
+          "type": "Block",
+          "name": "OxygenSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-oxygen-flow-rate",
+            "attr-deployment-altitude",
+            "attr-response-time",
+            "attr-oxygen-capacity",
+            "attr-operating-pressure",
+            "attr-oxygen-purity"
+          ],
+          "partIds": [
+            "part-generators",
+            "part-distribution",
+            "part-masks",
+            "part-monitoring",
+            "part-control"
+          ],
+          "constraintIds": [
+            "constraint-response-time",
+            "constraint-purity"
+          ]
+        },
+        {
+          "id": "block-oxygen-generators",
+          "type": "Block",
+          "name": "OxygenGenerators",
+          "partIds": [
+            "part-canisters",
+            "part-activation",
+            "part-purity-sensor"
+          ]
+        },
+        {
+          "id": "block-distribution-network",
+          "type": "Block",
+          "name": "DistributionNetwork",
+          "partIds": [
+            "part-ducts",
+            "part-flow-valves",
+            "part-regulator"
+          ]
+        },
+        {
+          "id": "block-masks-deployment",
+          "type": "Block",
+          "name": "MasksDeploymentSystem",
+          "partIds": [
+            "part-mask-assemblies",
+            "part-release-mech",
+            "part-lanyard-sensor"
+          ]
+        },
+        {
+          "id": "block-oxygen-monitoring",
+          "type": "Block",
+          "name": "OxygenMonitoringSystem",
+          "partIds": [
+            "part-altitude-sensor",
+            "part-pressure-sensor"
+          ]
+        },
+        {
+          "id": "block-control-unit",
+          "type": "Block",
+          "name": "OxygenControlUnit",
+          "partIds": [
+            "part-fault-circuit",
+            "part-alert-panel"
+          ]
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb-environmental-interface",
+          "type": "InterfaceBlock",
+          "name": "EnvironmentalSystemInterface"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-oxygen",
+          "type": "FlowSpecification",
+          "name": "OxygenFlow",
+          "flowType": "MaterialFlow",
+          "dataType": "O2",
+          "unit": "L/min"
+        },
+        {
+          "id": "flow-spec-electrical",
+          "type": "FlowSpecification",
+          "name": "ElectricalSignal",
+          "flowType": "InformationFlow",
+          "dataType": "CANBus"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-response-time",
+          "type": "ConstraintBlock",
+          "name": "DeploymentTimeConstraint",
+          "expression": "responseTime ≤ 5 seconds when cabinAltitude ≥ 14000ft"
+        },
+        {
+          "id": "constraint-purity",
+          "type": "ConstraintBlock",
+          "name": "OxygenPurityConstraint",
+          "expression": "O2Concentration ≥ 99% during operation"
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt-oxygen-flow",
+          "type": "ValueType",
+          "name": "OxygenFlowRate",
+          "quantityKindId": "flowrate",
+          "unitId": "unit-lpm"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-system-status",
+          "type": "Enumeration",
+          "name": "OperationalStatus",
+          "literals": [
+            {
+              "id": "lit-normal",
+              "name": "Normal"
+            },
+            {
+              "id": "lit-warning",
+              "name": "Warning"
+            },
+            {
+              "id": "lit-critical",
+              "name": "Critical"
+            }
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-env-interface",
+          "type": "Port",
+          "name": "EnvironmentalInterface",
+          "blockId": "block-oxygen-system",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-environmental-interface"
+          ]
+        },
+        {
+          "id": "port-power",
+          "type": "FlowPort",
+          "name": "ElectricalPower",
+          "blockId": "block-oxygen-system",
+          "flowSpecificationId": "flow-spec-electrical"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "id": "proxy-oxygen-out",
+          "type": "ProxyPort",
+          "name": "OxygenDistribution",
+          "blockId": "block-oxygen-system",
+          "providedInterfaceIds": [
+            "ifb-environmental-interface"
+          ]
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-control-monitoring",
+          "type": "Association",
+          "name": "ControlMonitoringLink",
+          "sourceId": "block-control-unit",
+          "targetId": "block-oxygen-monitoring",
+          "description": "Dual redundant CAN bus connection"
+        },
+        {
+          "id": "assoc-generator-distribution",
+          "type": "Association",
+          "name": "OxygenSupplyLine",
+          "sourceId": "block-oxygen-generators",
+          "targetId": "block-distribution-network"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-oxy-system",
+          "type": "Composition",
+          "sourceId": "block-oxygen-system",
+          "targetId": "block-oxygen-generators",
+          "description": "Structural composition of generators"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-ecs-data",
+          "type": "Dependency",
+          "sourceId": "block-oxygen-system",
+          "targetId": "EnvironmentalControlSystem",
+          "description": "Cabin altitude data dependency"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-oxygen-flow-rate",
+          "type": "Property",
+          "name": "oxygenFlowRate",
+          "propertyType": "String",
+          "value": "2.4-4.0 L/min"
+        },
+        {
+          "id": "attr-deployment-altitude",
+          "type": "Property",
+          "name": "deploymentAltitude",
+          "propertyType": "String",
+          "value": "14000 ft"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-main",
+          "type": "Comment",
+          "body": "Primary emergency oxygen supply system meeting FAA 25.1447 regulations",
+          "annotatedElementId": "block-oxygen-system"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "environmental_control_system",
+  "timestamp": "20250325_074208"
+}

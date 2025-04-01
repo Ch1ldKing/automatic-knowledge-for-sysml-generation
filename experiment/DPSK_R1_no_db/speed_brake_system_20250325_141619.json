@@ -1,0 +1,355 @@
+{
+  "system_id": "speed_brake_system",
+  "system_name": "Speed Brake System",
+  "specification": {
+    "designScenario": {
+      "name": "Speed Brake System",
+      "description": "The Speed Brake System is an aerodynamically actuated system designed to deploy and retract speed brake panels on the aircraft's wings or fuselage to increase drag and reduce airspeed during flight. It operates in coordination with flight control systems to manage deceleration during approach, landing, or in-flight maneuvers. The system ensures controlled deployment angles, symmetrical operation, and structural integrity under high aerodynamic loads. It incorporates redundancy, fail-safe mechanisms, and real-time monitoring to prevent asymmetric deployment and maintain stability. The design prioritizes rapid response, minimal mechanical wear, and compatibility with hydraulic or electromechanical actuation systems.",
+      "requirements": [
+        {
+          "title": "Drag Generation and Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Deploy and retract speed brake panels symmetrically to modulate aerodynamic drag without inducing yaw or roll moments."
+            },
+            {
+              "description": "Integrate with flight control computers to adjust deployment angles based on airspeed, altitude, and phase of flight."
+            }
+          ]
+        },
+        {
+          "title": "Deployment Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deployment of speed brake panels within 1 second of command initiation."
+            },
+            {
+              "description": "Synchronize panel movement across all actuators with a maximum asymmetry tolerance of ±0.5°."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy and Failure Mitigation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual hydraulic or redundant electromechanical actuators to ensure retraction capability during primary system failure."
+            },
+            {
+              "description": "Detect and alert asymmetrical deployment or jamming via position feedback sensors."
+            }
+          ]
+        },
+        {
+          "title": "Operational Durability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Design panels and actuators to withstand >200,000 deployment cycles without degradation in performance."
+            },
+            {
+              "description": "Use corrosion-resistant alloys and seals to ensure operation in environments ranging from -50°C to +70°C."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Speed Brake Panels",
+        "description": "Aerodynamically shaped surfaces mounted on the wings or fuselage, designed to extend into the airflow to increase drag.",
+        "type": "Mechanical Assembly",
+        "subComponents": [
+          {
+            "name": "Panel Hinges",
+            "description": "High-load bearings enabling smooth deployment/retraction while resisting aerodynamic forces.",
+            "type": "Mechanical Joint"
+          },
+          {
+            "name": "Composite Panels",
+            "description": "Lightweight, high-stiffness composite structures with erosion-resistant coatings.",
+            "type": "Aerodynamic Surface"
+          }
+        ]
+      },
+      {
+        "name": "Actuation Mechanism",
+        "description": "Hydraulic or electromechanical actuators providing force to deploy/retract speed brake panels.",
+        "type": "Actuation System",
+        "subComponents": [
+          {
+            "name": "Linear Actuators",
+            "description": "Electro-hydraulic servo actuators converting hydraulic pressure or electric power into linear motion.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Mechanical Linkages",
+            "description": "Rigid pushrods and bell cranks transmitting actuator force to the panels.",
+            "type": "Mechanical Transmission"
+          }
+        ]
+      },
+      {
+        "name": "Control Module",
+        "description": "Electronic unit processing commands from flight computers and monitoring sensor feedback.",
+        "type": "Electronic Control Unit",
+        "subComponents": [
+          {
+            "name": "Deployment Logic Controller",
+            "description": "FPGA-based processor executing deployment sequencing and symmetry checks.",
+            "type": "Digital Processor"
+          },
+          {
+            "name": "Power Distribution Unit",
+            "description": "Manages electrical power to electromechanical actuators and sensors.",
+            "type": "Electrical Subsystem"
+          }
+        ]
+      },
+      {
+        "name": "Position Sensors",
+        "description": "Linear variable differential transformers (LVDTs) or resolvers providing real-time panel position feedback.",
+        "type": "Sensing System",
+        "subComponents": null
+      },
+      {
+        "name": "Hydraulic Power Supply",
+        "description": "Dedicated hydraulic pump and reservoir providing pressurized fluid to hydraulic actuators (if applicable).",
+        "type": "Hydraulic System",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Control Computer",
+        "target": "Control Module",
+        "relationshipType": "dependency",
+        "description": "The Flight Control Computer sends deployment commands and receives status updates from the Speed Brake System's Control Module."
+      },
+      {
+        "source": "Actuation Mechanism",
+        "target": "Speed Brake Panels",
+        "relationshipType": "composition",
+        "description": "The Actuation Mechanism is physically and functionally integral to the operation of the Speed Brake Panels."
+      },
+      {
+        "source": "Hydraulic Power Supply",
+        "target": "Actuation Mechanism",
+        "relationshipType": "dependency",
+        "description": "Hydraulic actuators rely on continuous pressurized fluid supply from the Hydraulic Power Supply."
+      },
+      {
+        "source": "Position Sensors",
+        "target": "Control Module",
+        "relationshipType": "dependency",
+        "description": "Position Sensors provide real-time feedback to the Control Module for closed-loop deployment control."
+      },
+      {
+        "source": "Speed Brake System",
+        "target": "Speed Brake Panels, Actuation Mechanism, Control Module",
+        "relationshipType": "aggregation",
+        "description": "The Speed Brake System aggregates mechanical, actuation, and control components into a cohesive operational unit."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "<1s",
+        "description": "Maximum allowable time from command initiation to full panel deployment."
+      },
+      {
+        "name": "actuationForce",
+        "type": "string",
+        "value": "≥25 kN per actuator",
+        "description": "Minimum force capacity of actuators to overcome aerodynamic loads during deployment."
+      },
+      {
+        "name": "operationalTemperature",
+        "type": "string",
+        "value": "-50°C to +70°C",
+        "description": "Certified operating temperature range for all mechanical and electronic components."
+      },
+      {
+        "name": "materialStrength",
+        "type": "string",
+        "value": "High-strength aluminum alloys (≥400 MPa yield) with titanium hinges",
+        "description": "Structural materials for panels and load-bearing components."
+      },
+      {
+        "name": "asymmetryTolerance",
+        "type": "string",
+        "value": "±0.5° angular deviation",
+        "description": "Maximum permissible differential between left/right panel deployment angles."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "SB_001",
+          "type": "Block",
+          "name": "SpeedBrakeSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "SB_ATTR_001",
+            "SB_ATTR_002"
+          ],
+          "operationIds": [
+            "SB_OP_001",
+            "SB_OP_002"
+          ],
+          "constraintIds": [
+            "SB_CONST_001"
+          ],
+          "partIds": [
+            "SB_ACTUATOR",
+            "SB_CONTROLLER",
+            "SB_MECH"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SB_ACTUATOR",
+          "type": "Block",
+          "name": "ActuationSubsystem",
+          "isAbstract": false,
+          "isActive": true,
+          "attributeIds": [
+            "ACT_ATTR_001"
+          ],
+          "operationIds": [
+            "ACT_OP_001"
+          ],
+          "partIds": [
+            "HYD_ACT",
+            "ELEC_MOTOR"
+          ],
+          "referenceIds": []
+        },
+        {
+          "id": "SB_CONTROLLER",
+          "type": "Block",
+          "name": "ControlSubsystem",
+          "isAbstract": false,
+          "isActive": true,
+          "attributeIds": [
+            "CTRL_ATTR_001"
+          ],
+          "operationIds": [
+            "CTRL_OP_001"
+          ],
+          "partIds": [
+            "FCP",
+            "SENSORS"
+          ],
+          "referenceIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB_001",
+          "type": "InterfaceBlock",
+          "name": "ISpeedBrakeCommands",
+          "operationIds": [
+            "CMD_OP_001"
+          ],
+          "signalIds": [
+            "SIG_001"
+          ]
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FLOW_001",
+          "type": "FlowSpecification",
+          "name": "HydraulicFlowSpec",
+          "flowType": "物质流",
+          "dataType": "HydraulicFluid",
+          "unit": "l/min"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "SB_CONST_001",
+          "type": "ConstraintBlock",
+          "name": "DeploymentTimeConstraint",
+          "expression": "t_deploy <= 5.0",
+          "parameterIds": [
+            "PARAM_001"
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_001",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "QK_001",
+          "unitId": "UNIT_001"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_001",
+          "type": "Enumeration",
+          "name": "SpeedBrakeState",
+          "literals": [
+            {
+              "id": "LIT_001",
+              "name": "DEPLOYED"
+            },
+            {
+              "id": "LIT_002",
+              "name": "RETRACTED"
+            }
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "P_001",
+          "type": "ProxyPort",
+          "name": "cmdPort",
+          "blockId": "SB_001",
+          "providedInterfaceIds": [
+            "IB_001"
+          ]
+        },
+        {
+          "id": "P_002",
+          "type": "FlowPort",
+          "name": "hydPort",
+          "blockId": "HYD_ACT",
+          "flowSpecificationId": "FLOW_001"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "COMP_001",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "SB_001",
+          "targetId": "SB_ACTUATOR"
+        }
+      ],
+      "comments": [
+        {
+          "id": "CMT_001",
+          "type": "Comment",
+          "body": "Primary speed brake control interface",
+          "annotatedElementId": "P_001"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_141619",
+  "provider": "dpsk"
+}

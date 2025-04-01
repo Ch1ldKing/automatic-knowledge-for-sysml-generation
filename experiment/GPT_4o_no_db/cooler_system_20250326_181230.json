@@ -1,0 +1,347 @@
+{
+  "system_id": "cooler_system",
+  "system_name": "Cooler System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The maximum cooling capacity, representing the power output of the cooling system.",
+        "name": "coolingCapacity",
+        "type": "string",
+        "value": "6 kW"
+      },
+      {
+        "description": "The range of operating temperatures for which the cooling system is optimized to maintain passenger comfort.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "Maintain below 24°C under high load"
+      },
+      {
+        "description": "The maximum allowable delay for initiating the cooling process once a temperature threshold is exceeded.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 4 seconds"
+      },
+      {
+        "description": "The precision level of the temperature measurement sensors integrated within the cooling system.",
+        "name": "measurementAccuracy",
+        "type": "string",
+        "value": "±0.3°C"
+      },
+      {
+        "description": "The minimal control granularity available for modulating cooling output to precisely balance cabin temperature.",
+        "name": "controlPrecision",
+        "type": "string",
+        "value": "±0.15°C"
+      },
+      {
+        "description": "Energy efficiency rating characterizing the system's power consumption relative to cooling performance.",
+        "name": "energyEfficiency",
+        "type": "string",
+        "value": "High Efficiency (A+ Rating)"
+      }
+    ],
+    "designScenario": {
+      "description": "The Advanced Airborne Cooling System (AACS) is an innovative subsystem designed for commercial aircraft cabins. It employs an integrated thermodynamic cycle with a variable frequency compressor, smart expansion valve, and optimized heat exchangers to deliver rapid, efficient, and precise cooling. The system is engineered with a network of high-accuracy sensors and a digital control module to effectively manage cabin temperatures under varying flight conditions while ensuring passenger comfort and operational reliability.",
+      "name": "Airborne Precision Cooler",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The cooler must automatically initiate the refrigeration cycle when cabin temperature exceeds the preset threshold, ensuring proactive thermal management."
+            }
+          ],
+          "title": "Automated Cooling Activation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Upon detection of excessive temperature, the system must reduce cabin temperature within 4 seconds to maintain optimal comfort levels."
+            }
+          ],
+          "title": "Rapid Temperature Reduction",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate redundant cooling paths and sensor feedback controls to maintain operational stability in case of any component failure."
+            }
+          ],
+          "title": "Redundant Safety Protocols",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design shall support modular maintenance and provide comprehensive remote diagnostics to minimize downtime during flight operations."
+            }
+          ],
+          "title": "Serviceability and Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Airborne Precision Cooler is a composite subsystem that integrates its core Cooling Unit with several crucial sub-components.",
+        "relationshipType": "composition",
+        "source": "Airborne Precision Cooler",
+        "target": "Cooling Unit"
+      },
+      {
+        "description": "The Cooling Control Module relies on data from the Temperature Sensor Network to dynamically adjust the cooling output.",
+        "relationshipType": "dependency",
+        "source": "Cooling Control Module",
+        "target": "Temperature Sensor Network"
+      },
+      {
+        "description": "The Cooling Control Module maintains an association with the Cooling Unit to modulate component performance in real-time.",
+        "relationshipType": "association",
+        "source": "Cooling Control Module",
+        "target": "Cooling Unit"
+      },
+      {
+        "description": "The Airborne Precision Cooler depends on the aircraft's central Air Handling Unit for efficient distribution of cooled air within the cabin.",
+        "relationshipType": "dependency",
+        "source": "Airborne Precision Cooler",
+        "target": "Air Handling Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Primary unit responsible for executing the refrigeration cycle and reducing cabin temperature through active cooling.",
+        "name": "Cooling Unit",
+        "subComponents": [
+          {
+            "description": "A high-efficiency compressor that adjusts refrigerant pressure and provides the primary cooling force.",
+            "name": "High-Efficiency Compressor",
+            "type": "Actuator"
+          },
+          {
+            "description": "An innovative condenser that expels absorbed heat to the aircraft's external environment.",
+            "name": "Innovative Condenser",
+            "type": "Heat Exchanger"
+          },
+          {
+            "description": "An optimized evaporator that extracts heat from the cabin air through the phase change of the refrigerant.",
+            "name": "Optimized Evaporator",
+            "type": "Heat Exchanger"
+          },
+          {
+            "description": "A smart expansion valve that precisely controls the flow of refrigerant to maintain efficient cooling.",
+            "name": "Smart Expansion Valve",
+            "type": "Control Element"
+          },
+          {
+            "description": "A variable speed cooling fan designed to distribute chilled air uniformly throughout the cabin.",
+            "name": "Variable Speed Cooling Fan",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Module that aggregates and processes temperature data from various sensors deployed across the cabin.",
+        "name": "Temperature Sensor Network",
+        "subComponents": [
+          {
+            "description": "Sensor monitoring the ambient outside-cabin temperature to provide context for in-cabin thermal management.",
+            "name": "Ambient Temperature Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Sensor dedicated to tracking the passenger cabin temperature with high accuracy.",
+            "name": "Cabin Temperature Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Sensor measuring cabin pressure, aiding in precise adjustment of the cooling cycle during varying flight altitudes.",
+            "name": "Cabin Pressure Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor"
+      },
+      {
+        "description": "Centralized module responsible for processing sensor data and coordinating the operations of the Cooling Unit for optimized performance.",
+        "name": "Cooling Control Module",
+        "subComponents": null,
+        "type": "Controller"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": [],
+          "id": "CoolerSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CoolerSystem",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": [],
+          "id": "AirIntake",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AirIntake",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": [],
+          "id": "HeatExchanger",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HeatExchanger",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": [],
+          "id": "CoolantPump",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CoolantPump",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": [],
+          "id": "Outlet",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Outlet",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [],
+      "compositions": [
+        {
+          "id": "CompAirIntake",
+          "memberEndIds": null,
+          "name": "Composition",
+          "ownedEndIds": null,
+          "sourceId": "CoolerSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "AirIntake",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        },
+        {
+          "id": "CompHeatExchanger",
+          "memberEndIds": null,
+          "name": "Composition",
+          "ownedEndIds": null,
+          "sourceId": "CoolerSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "HeatExchanger",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        },
+        {
+          "id": "CompCoolantPump",
+          "memberEndIds": null,
+          "name": "Composition",
+          "ownedEndIds": null,
+          "sourceId": "CoolerSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "CoolantPump",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        },
+        {
+          "id": "CompOutlet",
+          "memberEndIds": null,
+          "name": "Composition",
+          "ownedEndIds": null,
+          "sourceId": "CoolerSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "Outlet",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [],
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "timestamp": "20250326_181230",
+  "provider": "gpt"
+}

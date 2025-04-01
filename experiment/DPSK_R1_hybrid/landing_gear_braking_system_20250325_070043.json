@@ -1,0 +1,414 @@
+{
+  "system_id": "landing_gear_braking_system",
+  "system_name": "Landing Gear Braking System",
+  "specification": {
+    "designScenario": {
+      "name": "Landing Gear Braking System",
+      "description": "The Landing Gear Braking System is a critical subsystem responsible for decelerating the aircraft during landing, taxiing, and aborted takeoffs. It integrates friction-based braking, hydraulic actuation, and anti-skid control to ensure safe and reliable deceleration across diverse runway conditions. The system is designed to withstand extreme thermal loads, provide redundancy for fail-safe operation, and maintain compatibility with aircraft weight distribution and avionics interfaces.",
+      "requirements": [
+        {
+          "title": "Functional Deceleration Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must apply controlled braking force to all landing gear wheels proportionally to pilot input and aircraft weight distribution."
+            },
+            {
+              "description": "Integrate with anti-skid systems to prevent wheel lockup during low-friction runway conditions."
+            }
+          ]
+        },
+        {
+          "title": "Thermal and Mechanical Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Dissipate 2.5 MW of thermal energy during maximum effort braking without structural degradation."
+            },
+            {
+              "description": "Achieve full braking torque within 0.3 seconds of hydraulic pressure application."
+            }
+          ]
+        },
+        {
+          "title": "Operational Safety",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Maintain braking capability with 50% hydraulic system failure through redundant fluid circuits."
+            },
+            {
+              "description": "Implement automatic brake temperature monitoring with cockpit alerts for critical thermal thresholds."
+            }
+          ]
+        },
+        {
+          "title": "Maintenance and Certification",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Enable brake pad replacement within 90 minutes per wheel assembly using standard ground service equipment."
+            },
+            {
+              "description": "Comply with EASA CS-25 and FAA FAR Part 25 certification requirements for braking systems."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Brake Actuators",
+        "description": "Electro-hydraulic units converting fluid pressure into mechanical clamping force on brake discs.",
+        "type": "Actuation Subsystem",
+        "subComponents": [
+          {
+            "name": "Pressure Pistons",
+            "description": "Titanium alloy pistons transmitting hydraulic pressure to brake pads",
+            "type": "Mechanical Component"
+          }
+        ]
+      },
+      {
+        "name": "Carbon-Ceramic Brake Discs",
+        "description": "High-temperature composite discs providing friction surface for energy dissipation",
+        "type": "Friction Assembly",
+        "subComponents": [
+          {
+            "name": "Vented Rotors",
+            "description": "Axially ventilated disc structures enhancing convective cooling",
+            "type": "Thermal Management Component"
+          }
+        ]
+      },
+      {
+        "name": "Hydraulic Control Unit",
+        "description": "Dual-channel proportional valve system regulating brake fluid pressure",
+        "type": "Fluid Power Subsystem",
+        "subComponents": null
+      },
+      {
+        "name": "Wheel Speed Sensors",
+        "description": "Hall-effect sensors monitoring rotational velocity for anti-skid calculations",
+        "type": "Avionics Component",
+        "subComponents": null
+      },
+      {
+        "name": "Anti-Skid Control Unit",
+        "description": "Digital controller modulating brake pressure based on wheel slip calculations",
+        "type": "Electronic Control Subsystem",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Landing Gear Braking System",
+        "target": "Brake Actuators",
+        "relationshipType": "composition",
+        "description": "Brake actuators form an integral part of the braking system's mechanical actuation chain"
+      },
+      {
+        "source": "Landing Gear Braking System",
+        "target": "Carbon-Ceramic Brake Discs",
+        "relationshipType": "composition",
+        "description": "Brake discs are essential friction components permanently integrated into the braking assembly"
+      },
+      {
+        "source": "Landing Gear Braking System",
+        "target": "Hydraulic Control Unit",
+        "relationshipType": "dependency",
+        "description": "Braking system operation depends on hydraulic pressure regulation from the control unit"
+      },
+      {
+        "source": "Landing Gear Braking System",
+        "target": "Anti-Skid Control Unit",
+        "relationshipType": "association",
+        "description": "Integrated control interface between braking actuators and aircraft anti-skid systems"
+      },
+      {
+        "source": "Brake Actuators",
+        "target": "Wheel Speed Sensors",
+        "relationshipType": "aggregation",
+        "description": "Actuators utilize speed sensor data through the aircraft's central braking computer"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "peakDeceleration",
+        "type": "Performance Metric",
+        "value": "3.8 m/s²",
+        "description": "Maximum sustainable deceleration rate at MTOW (Maximum Takeoff Weight)"
+      },
+      {
+        "name": "thermalCapacity",
+        "type": "Thermal Characteristic",
+        "value": "12 MJ per wheel",
+        "description": "Energy absorption capacity before requiring cooling cycle"
+      },
+      {
+        "name": "hydraulicPressure",
+        "type": "Operational Parameter",
+        "value": "3000 psi",
+        "description": "Maximum operating pressure in brake actuator circuits"
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "Safety Attribute",
+        "value": "Dual-channel",
+        "description": "Independent hydraulic and control pathways for fault tolerance"
+      },
+      {
+        "name": "serviceInterval",
+        "type": "Maintenance Metric",
+        "value": "1500 cycles",
+        "description": "Typical brake disc replacement interval under normal operating conditions"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-lgbs",
+          "type": "Block",
+          "name": "LandingGearBrakingSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-peak-decel",
+            "attr-thermal-cap",
+            "attr-hyd-pressure",
+            "attr-redundancy",
+            "attr-service-int"
+          ],
+          "partIds": [
+            "part-actuators",
+            "part-brake-discs",
+            "part-hydraulic-ctrl",
+            "part-speed-sensors",
+            "part-anti-skid"
+          ],
+          "constraintIds": [
+            "const-thermal-dissipation",
+            "const-response-time",
+            "const-redundancy"
+          ]
+        },
+        {
+          "id": "block-brake-actuator",
+          "type": "Block",
+          "name": "BrakeActuatorAssembly",
+          "attributeIds": [
+            "attr-piston-material",
+            "attr-max-force"
+          ]
+        },
+        {
+          "id": "block-carbon-disc",
+          "type": "Block",
+          "name": "CarbonCeramicBrakeDisc",
+          "attributeIds": [
+            "attr-disc-diameter",
+            "attr-vent-design"
+          ]
+        },
+        {
+          "id": "block-hydraulic-ctrl",
+          "type": "Block",
+          "name": "HydraulicControlUnit",
+          "attributeIds": [
+            "attr-valve-response",
+            "attr-pressure-range"
+          ]
+        },
+        {
+          "id": "block-speed-sensor",
+          "type": "Block",
+          "name": "WheelSpeedSensorAssembly",
+          "attributeIds": [
+            "attr-sampling-rate",
+            "attr-resolution"
+          ]
+        },
+        {
+          "id": "block-anti-skid",
+          "type": "Block",
+          "name": "AntiSkidControlUnit",
+          "attributeIds": [
+            "attr-algo-version",
+            "attr-cycle-time"
+          ]
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "if-hydraulic-interface",
+          "type": "InterfaceBlock",
+          "name": "HydraulicInterface",
+          "operationIds": [
+            "op-pressure-command",
+            "op-feedback-monitoring"
+          ]
+        },
+        {
+          "id": "if-avionics-data",
+          "type": "InterfaceBlock",
+          "name": "AvionicsDataInterface",
+          "operationIds": [
+            "op-wheel-speed-data",
+            "op-brake-temp-data"
+          ]
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-hydraulic-fluid",
+          "type": "FlowSpecification",
+          "name": "HydraulicFluidFlow",
+          "flowType": "MaterialFlow",
+          "dataType": "HydraulicFluid",
+          "unit": "L/min"
+        },
+        {
+          "id": "flow-brake-signal",
+          "type": "FlowSpecification",
+          "name": "BrakeCommandSignal",
+          "flowType": "InformationFlow",
+          "dataType": "ControlSignal",
+          "unit": "V"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "const-thermal-dissipation",
+          "type": "ConstraintBlock",
+          "name": "ThermalDissipationConstraint",
+          "expression": "energyDissipationRate >= 2.5 MW"
+        },
+        {
+          "id": "const-response-time",
+          "type": "ConstraintBlock",
+          "name": "ActuationResponseConstraint",
+          "expression": "responseTime <= 0.3s"
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt-deceleration",
+          "type": "ValueType",
+          "name": "Deceleration",
+          "quantityKindId": "acceleration",
+          "unitId": "m/s²"
+        },
+        {
+          "id": "vt-thermal-energy",
+          "type": "ValueType",
+          "name": "ThermalEnergy",
+          "quantityKindId": "energy",
+          "unitId": "MJ"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-brake-status",
+          "type": "Enumeration",
+          "name": "BrakeStatus",
+          "literals": [
+            {
+              "id": "lit-normal",
+              "name": "Normal"
+            },
+            {
+              "id": "lit-overheat",
+              "name": "Overheat"
+            },
+            {
+              "id": "lit-fault",
+              "name": "Fault"
+            }
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-hydraulic-in",
+          "type": "FlowPort",
+          "name": "HydraulicInPort",
+          "blockId": "block-lgbs",
+          "flowSpecificationId": "flow-hydraulic-fluid",
+          "isConjugated": false
+        },
+        {
+          "id": "port-cmd-signal",
+          "type": "ProxyPort",
+          "name": "CommandSignalPort",
+          "blockId": "block-lgbs",
+          "providedInterfaceIds": [
+            "if-avionics-data"
+          ]
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-actuators",
+          "type": "Composition",
+          "sourceId": "block-lgbs",
+          "targetId": "block-brake-actuator"
+        },
+        {
+          "id": "comp-brake-discs",
+          "type": "Composition",
+          "sourceId": "block-lgbs",
+          "targetId": "block-carbon-disc"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-sensor-link",
+          "type": "Association",
+          "sourceId": "block-brake-actuator",
+          "targetId": "block-speed-sensor"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-hydraulic",
+          "type": "Dependency",
+          "sourceId": "block-lgbs",
+          "targetId": "block-hydraulic-ctrl"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-peak-decel",
+          "type": "Property",
+          "name": "peakDeceleration",
+          "propertyType": "Real",
+          "value": "3.8 m/s²",
+          "unit": "vt-deceleration"
+        },
+        {
+          "id": "attr-thermal-cap",
+          "type": "Property",
+          "name": "thermalCapacity",
+          "propertyType": "Real",
+          "value": "12 MJ",
+          "unit": "vt-thermal-energy"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-actuators",
+          "type": "Comment",
+          "body": "Electro-hydraulic actuators convert pilot input to clamping force through titanium pistons",
+          "annotatedElementId": "block-brake-actuator"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "brake_system",
+  "timestamp": "20250325_070043"
+}

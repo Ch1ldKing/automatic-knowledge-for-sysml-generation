@@ -1,0 +1,168 @@
+{
+  "system_id": "elevator_system",
+  "system_name": "Elevator System",
+  "specification": {
+    "designScenario": {
+      "name": "Elevators",
+      "description": "The Elevators subsystem is a critical flight control surface responsible for modulating aircraft pitch during all flight phases. It integrates with advanced fly-by-wire systems to convert digital control inputs into precise deflections. The design emphasizes ultra-fast actuation, adaptive load management, and multi-layer redundancy to ensure stability under extreme aerodynamic conditions. The system is engineered for lightweight durability, real-time health monitoring, and seamless integration with avionics, enabling agile maneuvers while maintaining structural integrity.",
+      "requirements": [
+        {
+          "title": "Adaptive Pitch Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Adjust deflection angles in real-time based on flight phase (takeoff, cruise, landing) and external load conditions."
+            },
+            {
+              "description": "Synchronize elevator movements with stabilizer trim commands to optimize pitch authority."
+            }
+          ]
+        },
+        {
+          "title": "Ultra-Fast Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deflection within 30 milliseconds from command initiation under nominal conditions."
+            },
+            {
+              "description": "Maintain response consistency across -60°C to +95°C operational temperatures and altitudes exceeding 12,000 m."
+            }
+          ]
+        },
+        {
+          "title": "Triple Redundancy Architecture",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement three independent hydraulic/electromechanical actuators with voting logic to detect and isolate failures."
+            },
+            {
+              "description": "Automatically deploy emergency deflection locks to prevent uncommanded movement during critical failures."
+            }
+          ]
+        },
+        {
+          "title": "Structural Integrity Monitoring",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Integrate fiber-optic strain sensors to continuously monitor composite material degradation and report anomalies to the health management system."
+            },
+            {
+              "description": "Design for 15,000 flight-hour service life with corrosion resistance exceeding FAA Part 25 Appendix C requirements."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Elevators",
+        "type": "Flight Control Surface",
+        "description": "Primary aerodynamic surface responsible for pitch control through coordinated deflection of left/right elevator units.",
+        "subComponents": [
+          {
+            "name": "Left Elevator Surface",
+            "type": "Aerodynamic Structure",
+            "description": "Carbon-fiber-reinforced composite component with integrated leading-edge serrations to reduce turbulence."
+          },
+          {
+            "name": "Right Elevator Surface",
+            "type": "Aerodynamic Structure",
+            "description": "Mirrored left elevator unit with dual-axis position encoders for redundancy."
+          },
+          {
+            "name": "Actuation Assembly",
+            "type": "Hydraulic/Electromechanical System",
+            "description": "Triple-redundant actuator package with independent power supplies and force-sensing feedback loops."
+          },
+          {
+            "name": "Sensor Suite",
+            "type": "Aerospace Sensor Array",
+            "description": "Contains angular position, load cell, and vibration sensors networked to the flight control computer."
+          },
+          {
+            "name": "Structural Health Monitor",
+            "type": "Condition Monitoring System",
+            "description": "Embedded fiber Bragg grating (FBG) sensors and wireless telemetry for real-time material stress analysis."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Elevators",
+        "target": "Flight Control Computer",
+        "relationshipType": "dependency",
+        "description": "Receives digital pitch commands from the fly-by-wire system and transmits real-time health data."
+      },
+      {
+        "source": "Elevators",
+        "target": "Central Hydraulic System",
+        "relationshipType": "dependency",
+        "description": "Draws pressurized fluid from redundant hydraulic circuits for actuation power."
+      },
+      {
+        "source": "Structural Health Monitor",
+        "target": "Aircraft Health Management System",
+        "relationshipType": "association",
+        "description": "Shares structural integrity data with the central aircraft monitoring architecture."
+      },
+      {
+        "source": "Flight Surfaces",
+        "target": "Elevators",
+        "relationshipType": "composition",
+        "description": "Integral component within the aircraft's primary flight control system ensemble."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "maxDeflectionRange",
+        "type": "string",
+        "value": "±25°",
+        "description": "Maximum deflection capability to enable aggressive pitch adjustments during emergency maneuvers."
+      },
+      {
+        "name": "actuationForce",
+        "type": "string",
+        "value": "12,000 N",
+        "description": "Peak actuation force capacity to counter high aerodynamic loads at transonic speeds."
+      },
+      {
+        "name": "compositeModulus",
+        "type": "string",
+        "value": "280 GPa",
+        "description": "Elastic modulus of carbon-epoxy composite structure to maintain rigidity during high-g maneuvers."
+      },
+      {
+        "name": "sensorRefreshRate",
+        "type": "string",
+        "value": "1 kHz",
+        "description": "Real-time sensor data sampling rate for closed-loop actuation control."
+      },
+      {
+        "name": "operationalEnvelope",
+        "type": "string",
+        "value": "Mach 0.6–0.85, -65°C to +90°C",
+        "description": "Design parameters accommodating extreme temperature and speed conditions."
+      }
+    ]
+  },
+  "model": {
+    "id": "elevator_system",
+    "name": "Elevator System",
+    "type": "SysMLModel",
+    "elements": {
+      "blocks": [],
+      "interfaceBlocks": [],
+      "valueTypes": [],
+      "constraintBlocks": [],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Elevator System is a crucial flight control surface responsible for modulating the aircraft's pitch. It focuses on rapid actuation, high precision, structural durability, and robust safety features. The system ensures precise mechanical movements for accurate pitch modulation, rapid response time within 50 milliseconds, and redundant fail-safe operations. The elevator system plays a fundamental role in achieving desired pitch attitudes, directly impacting the overall stability and maneuverability of the aircraft.",
+  "timestamp": "20250326_014711",
+  "provider": "qwen"
+}

@@ -1,0 +1,416 @@
+{
+  "system_id": "spoiler_system",
+  "system_name": "Spoiler System",
+  "specification": {
+    "designScenario": {
+      "name": "Spoiler System",
+      "description": "The Spoiler System is a critical flight control subsystem responsible for modulating aerodynamic lift and drag during flight. It consists of deployable surfaces on the wings that disrupt airflow to reduce lift, enhance roll control, and assist in ground deceleration. The system operates in coordination with ailerons for roll augmentation, acts as speed brakes in-flight, and deploys fully as ground spoilers post-landing. Design priorities include rapid deployment, precise angular control, structural resilience under high aerodynamic loads, and seamless integration with flight control computers. The system incorporates redundancy, fault detection, and environmental hardening to ensure reliability across all flight phases.",
+      "requirements": [
+        {
+          "title": "Aerodynamic Lift/Drag Modulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Deploy spoiler panels asymmetrically to disrupt wing lift for roll control augmentation alongside ailerons."
+            },
+            {
+              "description": "Activate symmetrically as speed brakes to increase drag and reduce airspeed during flight."
+            },
+            {
+              "description": "Fully deploy ground spoilers upon landing to maximize wheel braking efficiency by eliminating residual lift."
+            }
+          ]
+        },
+        {
+          "title": "High-Load Actuation Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full spoiler deployment (0° to 60° deflection) within 100 milliseconds under maximum aerodynamic load."
+            },
+            {
+              "description": "Maintain angular synchronization within ±0.5° between left/right spoiler pairs during asymmetric operation."
+            },
+            {
+              "description": "Sustain operation under shear stresses up to 1200 kPa during high-speed deployments."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Load Paths",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual hydraulic actuators per spoiler panel with mechanical locking in stowed position upon hydraulic failure."
+            },
+            {
+              "description": "Integrate strain gauge arrays to detect jamming or over-torque conditions, triggering automatic retraction sequences."
+            }
+          ]
+        },
+        {
+          "title": "Fatigue Resistance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Construct spoiler panels from carbon-fiber reinforced polymer (CFRP) with titanium leading edges to withstand >100,000 deployment cycles."
+            },
+            {
+              "description": "Apply erosion-resistant coatings to hinge mechanisms for operation in particulate-heavy environments."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Spoiler Assembly",
+        "description": "Primary aerodynamic surfaces mounted on wing upper surfaces, mechanically linked to actuation systems.",
+        "type": "Control Surface Assembly",
+        "subComponents": [
+          {
+            "name": "Spoiler Panel",
+            "description": "Aerodynamically profiled CFRP panel with integrated hinge points and load transfer fittings.",
+            "type": "Composite Control Surface"
+          },
+          {
+            "name": "Hinge Mechanism",
+            "description": "Low-friction rotary hinge with integrated position sensors and lubrication ports.",
+            "type": "Mechanical Joint"
+          }
+        ]
+      },
+      {
+        "name": "Dual Hydraulic Actuator",
+        "description": "Redundant linear actuators converting hydraulic pressure into spoiler deflection torque.",
+        "type": "Power Transmission",
+        "subComponents": [
+          {
+            "name": "Piston Assembly",
+            "description": "Hardened steel piston with dual sealing rings and pressure-balanced design.",
+            "type": "Hydraulic Component"
+          },
+          {
+            "name": "Torque Tube",
+            "description": "Spline-coupled shaft transmitting actuator force to spoiler hinge points.",
+            "type": "Load-Bearing Structure"
+          }
+        ]
+      },
+      {
+        "name": "Spoiler Control Module (SCM)",
+        "description": "Dual-channel computer processing flight control commands into actuator displacement signals.",
+        "type": "Avionics Subsystem",
+        "subComponents": [
+          {
+            "name": "Command Interface",
+            "description": "ARINC 429/629 databus interface for receiving deployment demands from flight control computers.",
+            "type": "Communication Module"
+          },
+          {
+            "name": "Actuator Drive Circuit",
+            "description": "Electro-hydraulic servo valves controlling hydraulic flow to actuators.",
+            "type": "Power Electronics"
+          }
+        ]
+      },
+      {
+        "name": "Load Monitoring Package",
+        "description": "Distributed sensor suite measuring real-time aerodynamic forces on spoiler surfaces.",
+        "type": "Structural Health Monitoring",
+        "subComponents": [
+          {
+            "name": "Strain Gauge Array",
+            "description": "Rosette-pattern gauges detecting panel bending moments and shear forces.",
+            "type": "Sensing Element"
+          },
+          {
+            "name": "Accelerometer",
+            "description": "MEMS-based vibration sensor monitoring flutter tendencies during deployment.",
+            "type": "Inertial Sensor"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Actuator Control Module",
+        "target": "Spoiler System",
+        "relationshipType": "dependency",
+        "description": "The Spoiler Control Module (SCM) receives real-time deployment commands from the central Actuator Control Module via avionics databus protocols."
+      },
+      {
+        "source": "Spoiler System",
+        "target": "Flight Surfaces",
+        "relationshipType": "aggregation",
+        "description": "Spoiler assemblies are integrated into the wing structure as subordinate components of the broader Flight Surfaces system."
+      },
+      {
+        "source": "Dual Hydraulic Actuator",
+        "target": "Spoiler Assembly",
+        "relationshipType": "composition",
+        "description": "Each spoiler panel contains two permanently mounted hydraulic actuators that cannot function independently of the spoiler assembly."
+      },
+      {
+        "source": "Load Monitoring Package",
+        "target": "Spoiler Assembly",
+        "relationshipType": "association",
+        "description": "Strain gauges and accelerometers are physically mounted on spoiler panels but operate as a logically separate monitoring system."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "maxDeflectionAngle",
+        "type": "angularRange",
+        "value": "0° to +60°",
+        "description": "Total angular travel range from fully stowed to maximum deployed position."
+      },
+      {
+        "name": "asymmetricSyncTolerance",
+        "type": "angularDeviation",
+        "value": "±0.5°",
+        "description": "Maximum permitted angular difference between left/right spoiler pairs during roll control operations."
+      },
+      {
+        "name": "deploymentForce",
+        "type": "hydraulicPressure",
+        "value": "3000 psi",
+        "description": "Operating hydraulic pressure required to overcome aerodynamic loads at maximum airspeed."
+      },
+      {
+        "name": "harmonicVibrationResistance",
+        "type": "frequencyRange",
+        "value": "5-200 Hz",
+        "description": "Vibration spectrum withstood without resonant structural failure during deployment."
+      },
+      {
+        "name": "temperatureOperatingRange",
+        "type": "thermalTolerance",
+        "value": "-55°C to +125°C",
+        "description": "Ambient temperature limits for reliable mechanical operation, accounting for aerodynamic heating."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-spoiler-system",
+          "type": "Block",
+          "name": "SpoilerSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-maxDeflectionAngle",
+            "attr-asymmetricSyncTolerance",
+            "attr-deploymentForce",
+            "attr-harmonicVibrationResistance",
+            "attr-temperatureOperatingRange"
+          ],
+          "partIds": [
+            "block-spoiler-assembly",
+            "block-dual-hydraulic-actuator",
+            "block-scm",
+            "block-load-monitoring"
+          ],
+          "constraintIds": [
+            "constraint-deployment-time",
+            "constraint-sync-tolerance"
+          ]
+        },
+        {
+          "id": "block-spoiler-assembly",
+          "type": "Block",
+          "name": "SpoilerAssembly",
+          "partIds": [
+            "block-spoiler-panel",
+            "block-hinge-mechanism"
+          ],
+          "attributeIds": [
+            "attr-panelMaterial"
+          ]
+        },
+        {
+          "id": "block-dual-hydraulic-actuator",
+          "type": "Block",
+          "name": "DualHydraulicActuator",
+          "partIds": [
+            "block-piston-assembly",
+            "block-torque-tube"
+          ],
+          "attributeIds": [
+            "attr-actuatorPressure"
+          ]
+        },
+        {
+          "id": "block-scm",
+          "type": "Block",
+          "name": "SpoilerControlModule",
+          "partIds": [
+            "block-command-interface",
+            "block-drive-circuit"
+          ],
+          "attributeIds": [
+            "attr-processingLatency"
+          ]
+        },
+        {
+          "id": "block-load-monitoring",
+          "type": "Block",
+          "name": "LoadMonitoringPackage",
+          "partIds": [
+            "block-strain-gauge",
+            "block-accelerometer"
+          ],
+          "attributeIds": [
+            "attr-samplingRate"
+          ]
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb-spoiler-commands",
+          "type": "InterfaceBlock",
+          "name": "SpoilerCommandInterface",
+          "operationIds": [
+            "op-setDeflectionAngle",
+            "op-emergencyRetract"
+          ]
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-actuation-command",
+          "type": "FlowSpecification",
+          "name": "ActuationCommandFlow",
+          "flowType": "InformationFlow",
+          "dataType": "ControlCommand",
+          "unit": "degrees"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-deployment-time",
+          "type": "ConstraintBlock",
+          "name": "DeploymentTimeConstraint",
+          "expression": "deploymentTime <= 100ms",
+          "parameterIds": [
+            "param-deploymentTime"
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "value-type-degrees",
+          "type": "ValueType",
+          "name": "AngularMeasure",
+          "quantityKindId": "quantity-angle",
+          "unitId": "unit-degrees"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-spoiler-mode",
+          "type": "Enumeration",
+          "name": "SpoilerOperatingMode",
+          "literals": [
+            {
+              "id": "mode-stowed",
+              "name": "STOWED"
+            },
+            {
+              "id": "mode-roll",
+              "name": "ROLL_ASSIST"
+            },
+            {
+              "id": "mode-speedbrake",
+              "name": "SPEEDBRAKE"
+            }
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-actuation-cmd",
+          "type": "FlowPort",
+          "name": "ActuationCommand",
+          "blockId": "block-spoiler-system",
+          "flowSpecificationId": "flow-spec-actuation-command",
+          "isConjugated": false
+        }
+      ],
+      "proxyPorts": [
+        {
+          "id": "proxyport-sensor-fb",
+          "type": "ProxyPort",
+          "name": "SensorFeedback",
+          "blockId": "block-spoiler-system",
+          "providedInterfaceIds": [
+            "ifb-spoiler-commands"
+          ]
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-spoiler-actuators",
+          "type": "Composition",
+          "sourceId": "block-spoiler-assembly",
+          "targetId": "block-dual-hydraulic-actuator",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-load-monitoring",
+          "type": "Association",
+          "sourceId": "block-load-monitoring",
+          "targetId": "block-spoiler-assembly",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-scu-to-scm",
+          "type": "Dependency",
+          "sourceId": "block-actuator-control-module",
+          "targetId": "block-scm",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-maxDeflectionAngle",
+          "type": "Property",
+          "name": "maxDeflectionAngle",
+          "propertyType": "AngularMeasure",
+          "value": "60°",
+          "lowerValue": "0°",
+          "upperValue": "60°"
+        },
+        {
+          "id": "attr-actuatorPressure",
+          "type": "Property",
+          "name": "operatingPressure",
+          "propertyType": "Pressure",
+          "value": "3000 psi"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-cfrp-construction",
+          "type": "Comment",
+          "body": "Spoiler panels constructed with CFRP-titanium hybrid structure for 100k+ cycle fatigue life",
+          "annotatedElementId": "block-spoiler-assembly"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250325_035616"
+}

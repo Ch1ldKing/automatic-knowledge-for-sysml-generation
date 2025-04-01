@@ -1,0 +1,844 @@
+{
+  "system_id": "protection_system",
+  "system_name": "Protection System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum allowable response time for threat detection and alert activation in emergency security situations.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "3 seconds"
+      },
+      {
+        "description": "Operational temperature range to ensure sensor and electronics performance under various environmental conditions.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-30°C to 80°C"
+      },
+      {
+        "description": "System redundancy level to guarantee continuous protection without single point failures.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Quad redundant systems"
+      },
+      {
+        "description": "Mean Time Between Failures (MTBF) for the protection system ensuring high reliability.",
+        "name": "MTBF",
+        "type": "string",
+        "value": "25000 hours"
+      },
+      {
+        "description": "Backup power specifications ensuring continuous operation during primary power loss.",
+        "name": "powerBackup",
+        "type": "string",
+        "value": "Integrated dual power supply with lithium-ion battery backup"
+      },
+      {
+        "description": "Data encryption level ensuring secure communication and sensor data integrity.",
+        "name": "encryptionLevel",
+        "type": "string",
+        "value": "AES-256"
+      }
+    ],
+    "designScenario": {
+      "description": "The Protection System is a comprehensive security framework for passenger airplanes aimed at detecting, preventing, and mitigating unauthorized access, sabotage, and potential external threats. This system integrates advanced sensor technologies, biometric access control, and real-time threat analysis, ensuring immediate activation of emergency protocols and secure communication between flight deck, maintenance, and ground control. Leveraging redundant modules and robust cyber-security measures, the system is engineered following stringent airplane engineering standards and safety regulations.",
+      "name": "Protection System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Continuously monitor environmental conditions and detect unauthorized access or suspicious activities using multiple sensor arrays."
+            },
+            {
+              "description": "Automatically trigger alerts and lock-down protocols upon detection of security breaches."
+            }
+          ],
+          "title": "Real-Time Threat Detection",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure threat detection and alert generation within 3 seconds of anomaly detection."
+            },
+            {
+              "description": "Process sensor data from multiple modules concurrently with minimal latency."
+            }
+          ],
+          "title": "High-Speed Data Processing",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain system integrity under component failures by activating redundant modules automatically."
+            },
+            {
+              "description": "Integrate fail-safe mechanisms to isolate compromised modules and prevent cascading failures."
+            }
+          ],
+          "title": "Fail-Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide secure, intuitive interfaces for flight crew and security personnel featuring real-time status updates."
+            },
+            {
+              "description": "Ensure the system is maintainable through regular self-diagnostics, remote firmware updates, and cybersecurity patches."
+            }
+          ],
+          "title": "Interface & Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Threat Detection Unit aggregates input data from the Security Surveillance Module sensors to monitor for potential security breaches.",
+        "relationshipType": "aggregation",
+        "source": "Threat Detection Unit",
+        "target": "Security Surveillance Module"
+      },
+      {
+        "description": "The Emergency Response Coordination Module is associated with the Threat Detection Unit, facilitating immediate alert dissemination and command actions.",
+        "relationshipType": "association",
+        "source": "Emergency Response Coordination Module",
+        "target": "Threat Detection Unit"
+      },
+      {
+        "description": "The Access Control Module depends on data from the Threat Detection Unit to authorize or deny access in real-time, ensuring system integrity.",
+        "relationshipType": "dependency",
+        "source": "Access Control Module",
+        "target": "Threat Detection Unit"
+      },
+      {
+        "description": "The Power Backup Module is composed of dedicated Battery Module and Dual Power Module to ensure continuous operation of the Protection System.",
+        "relationshipType": "composition",
+        "source": "Power Backup Module",
+        "target": "Battery Module"
+      },
+      {
+        "description": "The Power Backup Module is composed of dedicated Battery Module and Dual Power Module to ensure continuous operation of the Protection System.",
+        "relationshipType": "composition",
+        "source": "Power Backup Module",
+        "target": "Dual Power Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Centralized unit that processes input from various threat sensors and initiates immediate protective measures. It serves as the brain of the Protection System.",
+        "name": "Threat Detection Unit",
+        "subComponents": [
+          {
+            "description": "Infrared sensor array to detect unusual heat signatures indicative of external threats or tampering.",
+            "name": "Infrared Sensor Array",
+            "type": "Sensor"
+          },
+          {
+            "description": "Acoustic sensors to pick up anomalous sounds or potential breaches in the aircraft hull.",
+            "name": "Acoustic Sensor Module",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Electronic Control Module"
+      },
+      {
+        "description": "Module responsible for continuous surveillance using optical and radar technologies, monitoring both internal and external environments.",
+        "name": "Security Surveillance Module",
+        "subComponents": [
+          {
+            "description": "Optical cameras designed for low-light conditions with high-resolution imaging capabilities.",
+            "name": "Optical Camera System",
+            "type": "Sensor"
+          },
+          {
+            "description": "Radar sensors to monitor external movements and detect approaching objects.",
+            "name": "Radar Sensor Array",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Ensures controlled access to sensitive areas of the aircraft by integrating biometric verification and electronic locking mechanisms.",
+        "name": "Access Control Module",
+        "subComponents": [
+          {
+            "description": "Biometric scanner for verifying authorized personnel using fingerprint and iris recognition.",
+            "name": "Biometric Scanner",
+            "type": "Sensor"
+          },
+          {
+            "description": "Electronic locking system that can automatically engage in response to detected security threats.",
+            "name": "Electronic Locking Mechanism",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Security Module"
+      },
+      {
+        "description": "Coordinates immediate emergency responses by communicating system status and alerts to the flight deck and security teams.",
+        "name": "Emergency Response Coordination Module",
+        "subComponents": [
+          {
+            "description": "Audio-visual alert system providing real-time notifications to crew and security personnel.",
+            "name": "Alert Notification System",
+            "type": "Interface"
+          },
+          {
+            "description": "Command panel for manual override and system diagnostics during emergencies.",
+            "name": "Command and Control Panel",
+            "type": "Display"
+          }
+        ],
+        "type": "Control Module"
+      },
+      {
+        "description": "Provides uninterrupted power supply to the Protection System ensuring full operational capability during primary power losses.",
+        "name": "Power Backup Module",
+        "subComponents": [
+          {
+            "description": "Battery unit engineered for high surge outputs during critical emergency operations.",
+            "name": "Battery Module",
+            "type": "Power Unit"
+          },
+          {
+            "description": "Dual-input power converter that facilitates seamless transition between main power and backup sources.",
+            "name": "Dual Power Module",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Power Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-threatdetection-surveillance",
+          "memberEndIds": null,
+          "name": "ThreatDetectionAggregatesSurveillance",
+          "ownedEndIds": null,
+          "sourceId": "block-threat-detection-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-security-surveillance-module",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-erc-threatdetection",
+          "memberEndIds": null,
+          "name": "EmergencyResponseAssociatedThreatDetection",
+          "ownedEndIds": null,
+          "sourceId": "block-emergency-response-coordination-module",
+          "sourceMultiplicity": null,
+          "targetId": "block-threat-detection-unit",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "3 seconds",
+          "id": "attr-prot-response-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-30°C to 80°C",
+          "id": "attr-prot-operating-temperature-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operatingTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-30°C to 80°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Quad redundant systems",
+          "id": "attr-prot-redundancy-level",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Quad redundant systems",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "25000 hours",
+          "id": "attr-prot-MTBF",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "MTBF",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "25000 hours",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Integrated dual power supply with lithium-ion battery backup",
+          "id": "attr-prot-power-backup",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "powerBackup",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Integrated dual power supply with lithium-ion battery backup",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "AES-256",
+          "id": "attr-prot-encryption-level",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "encryptionLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "AES-256",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-prot-response-time",
+            "attr-prot-operating-temperature-range",
+            "attr-prot-redundancy-level",
+            "attr-prot-MTBF",
+            "attr-prot-power-backup",
+            "attr-prot-encryption-level"
+          ],
+          "constraintIds": null,
+          "id": "block-protection-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ProtectionSystem",
+          "operationIds": [
+            "op-initiateSecurityProtocol",
+            "op-runSystemDiagnostic"
+          ],
+          "partIds": [
+            "part-threat-detection-unit",
+            "part-security-surveillance-module",
+            "part-access-control-module",
+            "part-emergency-response-coordination-module",
+            "part-power-backup-module-prot"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-threat-detection-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ThreatDetectionUnit",
+          "operationIds": [
+            "op-processSensorData",
+            "op-triggerThreatAlert"
+          ],
+          "partIds": [
+            "part-infrared-sensor-array",
+            "part-acoustic-sensor-module"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-security-surveillance-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "SecuritySurveillanceModule",
+          "operationIds": [
+            "op-monitorVisualData",
+            "op-processRadarSignals"
+          ],
+          "partIds": [
+            "part-optical-camera-system",
+            "part-radar-sensor-array"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-access-control-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AccessControlModule",
+          "operationIds": [
+            "op-verifyBiometrics",
+            "op-engageLockingMechanism"
+          ],
+          "partIds": [
+            "part-biometric-scanner",
+            "part-electronic-locking-mechanism"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-emergency-response-coordination-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "EmergencyResponseCoordinationModule",
+          "operationIds": [
+            "op-disseminateAlert",
+            "op-performSystemCheck"
+          ],
+          "partIds": [
+            "part-alert-notification-system",
+            "part-command-control-panel"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-power-backup-module-prot",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "PowerBackupModule_Protection",
+          "operationIds": [
+            "op-monitorPowerStatus",
+            "op-switchToBackup"
+          ],
+          "partIds": [
+            "part-battery-module-prot",
+            "part-dual-power-module-prot"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-battery-module-prot",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "BatteryModule_Protection",
+          "operationIds": [
+            "op-deliverBatteryPower"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-dual-power-module-prot",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "DualPowerModule_Protection",
+          "operationIds": [
+            "op-convertAndRegulatePower"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-protection-system",
+          "body": "Protection System integrates advanced sensor fusion, biometric access control, real-time threat analysis, and redundant power backup to ensure comprehensive airplane security.",
+          "id": "comment-prot-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-prot-power-backup-battery",
+          "memberEndIds": null,
+          "name": "ProtectionPowerBackupCompositionBattery",
+          "ownedEndIds": null,
+          "sourceId": "block-power-backup-module-prot",
+          "sourceMultiplicity": null,
+          "targetId": "block-battery-module-prot",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-prot-power-backup-dual",
+          "memberEndIds": null,
+          "name": "ProtectionPowerBackupCompositionDualPower",
+          "ownedEndIds": null,
+          "sourceId": "block-power-backup-module-prot",
+          "sourceMultiplicity": null,
+          "targetId": "block-dual-power-module-prot",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "responseTime <= '3 seconds' and MTBF >= '25000 hours' and encryptionLevel = 'AES-256'",
+          "id": "constraint-prot-timing",
+          "name": "ProtectionTimingAndSecurityConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-accesscontrol-threatdetection",
+          "name": "AccessControlDependsOnThreatDetection",
+          "sourceId": "block-access-control-module",
+          "sourceMultiplicity": null,
+          "targetId": "block-threat-detection-unit",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": [
+        {
+          "attributeIds": null,
+          "id": "domain-emergency",
+          "name": "EmergencyDomain",
+          "type": "Domain"
+        }
+      ],
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-alert-level",
+          "literals": [
+            {
+              "id": "literal-alert-normal",
+              "name": "Normal"
+            },
+            {
+              "id": "literal-alert-warning",
+              "name": "Warning"
+            },
+            {
+              "id": "literal-alert-critical",
+              "name": "Critical"
+            }
+          ],
+          "name": "AlertLevel",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-protection-system",
+          "flowSpecificationId": "flow-spec-prot-sensor-data",
+          "id": "flow-port-prot-sensor",
+          "isConjugated": false,
+          "name": "ProtectionSensorInPort",
+          "type": "FlowPort"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-protection-system",
+          "flowSpecificationId": "flow-spec-prot-alert",
+          "id": "flow-port-prot-alert",
+          "isConjugated": false,
+          "name": "ProtectionAlertOutPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "SensorData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-prot-sensor-data",
+          "name": "ProtectionSensorDataFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        },
+        {
+          "attributeIds": null,
+          "dataType": "AlertMessage",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-prot-alert",
+          "name": "ProtectionAlertMessageFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-prot-sensor",
+          "name": "ProtectionSensorInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-prot-control",
+          "name": "ProtectionControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-protection",
+          "name": "ProtectionSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-threat-detection-unit",
+          "name": "ThreatDetectionUnitPart",
+          "of": "block-threat-detection-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-security-surveillance-module",
+          "name": "SecuritySurveillanceModulePart",
+          "of": "block-security-surveillance-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-access-control-module",
+          "name": "AccessControlModulePart",
+          "of": "block-access-control-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-emergency-response-coordination-module",
+          "name": "EmergencyResponseCoordinationModulePart",
+          "of": "block-emergency-response-coordination-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-power-backup-module-prot",
+          "name": "PowerBackupModuleProtectionPart",
+          "of": "block-power-backup-module-prot",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-protection-system",
+          "flowSpecificationId": "flow-spec-prot-sensor-data",
+          "id": "port-prot-sensor-in",
+          "isConjugated": false,
+          "name": "ProtectionSensorIn",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-prot-sensor"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-protection-system",
+          "flowSpecificationId": "flow-spec-prot-alert",
+          "id": "port-prot-alert-out",
+          "isConjugated": false,
+          "name": "ProtectionAlertOut",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "ifb-prot-control"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-protection-system",
+          "id": "proxy-port-prot-access-control",
+          "isConjugated": false,
+          "name": "ProtectionAccessControlProxyPort",
+          "providedInterfaceIds": [
+            "ifb-prot-control"
+          ],
+          "requiredInterfaceIds": [
+            "ifb-prot-sensor"
+          ],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-prot-real-time-threat-detection",
+          "name": "Real-Time Threat Detection",
+          "reqId": null,
+          "text": "Continuously monitors environmental conditions and sensor arrays to detect unauthorized access and potential threats.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-prot-high-speed-data-processing",
+          "name": "High-Speed Data Processing",
+          "reqId": null,
+          "text": "Ensures threat detection and alert generation within 3 seconds and processes data concurrently from multiple sensor modules.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-prot-fail-safe-operation",
+          "name": "Fail-Safe Operation",
+          "reqId": null,
+          "text": "Maintains system integrity by activating redundant modules and isolating compromised subsystems automatically.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-prot-interface-maintainability",
+          "name": "Interface & Maintainability",
+          "reqId": null,
+          "text": "Provides secure, intuitive interfaces for crew and security personnel with real-time status updates and remote maintenance capabilities.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-time",
+          "name": "TimeValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-temperature",
+          "name": "TemperatureValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "safety_emergency_systems",
+  "timestamp": "20250324_182957"
+}

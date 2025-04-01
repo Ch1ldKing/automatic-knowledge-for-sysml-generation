@@ -1,0 +1,194 @@
+{
+  "system_id": "hf_communication_system",
+  "system_name": "HF Communication System",
+  "specification": {
+    "description": "HF Communication System的基本描述",
+    "requirements": [
+      "HF Communication System的基本需求"
+    ],
+    "parameters": {
+      "basic_param": "basic_value"
+    }
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "HF_Comm_System",
+          "type": "Block",
+          "name": "HF Communication System",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr1",
+            "attr2"
+          ],
+          "operationIds": [
+            "op1",
+            "op2"
+          ],
+          "constraintIds": [
+            "constraint1"
+          ],
+          "partIds": [
+            "HF_Transceiver",
+            "Antenna_System",
+            "Control_Unit"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "HF_Transceiver",
+          "type": "Block",
+          "name": "HF Transceiver",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr3",
+            "attr4"
+          ],
+          "operationIds": [
+            "op3"
+          ],
+          "constraintIds": [
+            "constraint2"
+          ],
+          "partIds": [
+            "Power_Amplifier",
+            "Modem"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Antenna_System",
+          "type": "Block",
+          "name": "Antenna System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr5"
+          ],
+          "operationIds": [
+            "op4"
+          ],
+          "constraintIds": [
+            "constraint3"
+          ],
+          "partIds": [
+            "Antenna_Tuner",
+            "Coupler"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ARINC429_Interface",
+          "type": "InterfaceBlock",
+          "name": "ARINC429 Interface",
+          "attributeIds": [],
+          "operationIds": [],
+          "signalIds": [
+            "sig1"
+          ],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "RF_Flow",
+          "type": "FlowSpecification",
+          "name": "RF Signal Flow",
+          "flowType": "Energy",
+          "dataType": "RF_Signal",
+          "unit": "dBm",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "Power_Constraint",
+          "type": "ConstraintBlock",
+          "name": "Power Consumption Limit",
+          "parameterIds": [
+            "param1"
+          ],
+          "expression": "self.outputPower <= 400W",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_Watts",
+          "type": "ValueType",
+          "name": "Watts",
+          "quantityKindId": "Power",
+          "unitId": "Watt",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "Comm_Status",
+          "type": "Enumeration",
+          "name": "Communication Status",
+          "literals": [
+            {
+              "id": "lit1",
+              "name": "Connected"
+            },
+            {
+              "id": "lit2",
+              "name": "Disconnected"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "p1",
+          "type": "FlowPort",
+          "name": "RF_Out",
+          "blockId": "HF_Transceiver",
+          "portType": "flow",
+          "isConjugated": false,
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "RF_Flow",
+          "attributeIds": []
+        }
+      ],
+      "directedCompositions": [
+        {
+          "id": "comp1",
+          "type": "DirectedComposition",
+          "name": null,
+          "sourceId": "HF_Comm_System",
+          "targetId": "HF_Transceiver",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment1",
+          "type": "Comment",
+          "body": "HF System operating range 2-30 MHz",
+          "annotatedElementId": "HF_Comm_System"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_150323",
+  "provider": "dpsk"
+}

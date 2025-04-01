@@ -1,0 +1,484 @@
+{
+  "system_id": "filter_system",
+  "system_name": "Filter System",
+  "specification": {
+    "designScenario": {
+      "name": "Filter Module",
+      "description": "The Filter Module is a critical subsystem within the Air Handling Unit (AHU) of a passenger airplane, employing an advanced multi-stage filtration process. It integrates pre-filtration to capture large particulates, HEPA filtering for microscopic particles, active carbon for odors and gaseous contaminants, UV-C sterilization to neutralize biological threats, and an integrated real-time monitoring system. Engineered to stringent aerospace standards, it ensures high air quality with minimal pressure drop, operates across a broad temperature range, and supports rapid maintenance through modular design.",
+      "requirements": [
+        {
+          "title": "Enhanced Filtration Efficiency",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The Filter Module shall capture at least 99.99% of airborne particulates of 0.1 microns or larger, including pathogens, ensuring cabin air quality meets WHO and FAA standards."
+            }
+          ]
+        },
+        {
+          "title": "Pressure Drop Optimization",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system must maintain a pressure drop between 0.2 and 0.4 inH2O across the filter to guarantee adequate airflow without compromising filtration performance."
+            }
+          ]
+        },
+        {
+          "title": "Real-Time Monitoring and Safety Alarms",
+          "type": "safety",
+          "details": [
+            {
+              "description": "The Filter Module shall include integrated sensors and a monitoring system to continuously track filtration efficiency, pressure drop, and UV-C output, triggering alerts for clogging, degradation, or system failure."
+            }
+          ]
+        },
+        {
+          "title": "Modular Design for Rapid Maintenance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Design must support quick, tool-free replacement of filter stages and monitoring components, reducing downtime during maintenance to under 15 minutes."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Filter Module",
+        "type": "Subsystem",
+        "description": "The core filtration subsystem integrating multi-stage filtration, sterilization, and monitoring to deliver contaminant-free air for cabin environments.",
+        "subComponents": [
+          {
+            "name": "Pre-Filter",
+            "type": "Filter Element",
+            "description": "A coarse filtration layer designed to capture large particulates, dust, and debris, extending the lifespan of downstream filters."
+          },
+          {
+            "name": "HEPA Filter",
+            "type": "Filter Element",
+            "description": "A high-efficiency particulate air filter meeting ISO 16890 standards, removing 99.99% of particles down to 0.1 microns."
+          },
+          {
+            "name": "Active Carbon Filter",
+            "type": "Filter Element",
+            "description": "A carbon-based adsorption layer targeting volatile organic compounds (VOCs), odors, and gaseous contaminants."
+          },
+          {
+            "name": "UV-C Sterilization Unit",
+            "type": "Electromechanical",
+            "description": "A UV-C light array positioned post-filtration to neutralize airborne pathogens, viruses, and bacteria."
+          },
+          {
+            "name": "Filter Housing",
+            "type": "Structural",
+            "description": "A reinforced composite housing providing structural integrity, environmental sealing, and secure mounting for all filtration components."
+          },
+          {
+            "name": "Real-Time Monitoring Unit",
+            "type": "Electromechanical",
+            "description": "An integrated system with sensors and alarms to monitor filtration efficiency, pressure drop, UV-C output, and temperature, transmitting data to the aircraft's health management system."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Filter Module",
+        "target": "Pre-Filter",
+        "relationshipType": "composition",
+        "description": "The Filter Module contains the Pre-Filter as its first stage of particulate capture."
+      },
+      {
+        "source": "Filter Module",
+        "target": "HEPA Filter",
+        "relationshipType": "composition",
+        "description": "The Filter Module incorporates the HEPA Filter to remove sub-micron particulates."
+      },
+      {
+        "source": "Filter Module",
+        "target": "Active Carbon Filter",
+        "relationshipType": "composition",
+        "description": "The Active Carbon Filter is integrated to adsorb gaseous contaminants post-HEPA filtration."
+      },
+      {
+        "source": "Filter Module",
+        "target": "UV-C Sterilization Unit",
+        "relationshipType": "composition",
+        "description": "The UV-C Sterilization Unit is positioned post-filtration to neutralize biological contaminants."
+      },
+      {
+        "source": "Filter Module",
+        "target": "Filter Housing",
+        "relationshipType": "composition",
+        "description": "The Filter Housing provides structural support and environmental protection for all filtration components."
+      },
+      {
+        "source": "Filter Module",
+        "target": "Real-Time Monitoring Unit",
+        "relationshipType": "composition",
+        "description": "The Real-Time Monitoring Unit is embedded within the Filter Module to ensure continuous performance tracking."
+      },
+      {
+        "source": "Filter Module",
+        "target": "Air Handling Unit",
+        "relationshipType": "dependency",
+        "description": "The Filter Module depends on the Air Handling Unit for regulated airflow and pressure distribution."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "filtrationEfficiency",
+        "type": "string",
+        "value": "99.99%",
+        "description": "Ensures the filter captures at least 99.99% of airborne particulate matter of 0.1 microns or larger, guaranteeing superior air quality."
+      },
+      {
+        "name": "pressureDrop",
+        "type": "string",
+        "value": "0.2 - 0.4 inH2O",
+        "description": "Specifies the pressure drop across the filtering medium, maintaining optimal airflow while ensuring effective filtration."
+      },
+      {
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "5°C - 50°C",
+        "description": "Operating temperature range ensuring stable filtration and UV-C sterilization performance across flight conditions."
+      },
+      {
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "Every 400 flight hours",
+        "description": "Recommended interval for filter replacement and system calibration to maintain consistent performance."
+      },
+      {
+        "name": "uvCIntensity",
+        "type": "string",
+        "value": "254 nm wavelength, 100 mJ/cm²",
+        "description": "Specifies UV-C light parameters to ensure effective pathogen neutralization post-filtration."
+      },
+      {
+        "name": "monitoringResponseTime",
+        "type": "string",
+        "value": "5 seconds",
+        "description": "Real-time monitoring system responds within 5 seconds to detect filter clogging or UV-C output degradation."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "FilterSystem_1",
+          "type": "Block",
+          "name": "FilterSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_FilterEfficiency",
+            "Attr_PressureDrop",
+            "Attr_TemperatureRange",
+            "Attr_MaintenanceInterval"
+          ],
+          "operationIds": [
+            "Oper_FilterAir",
+            "Oper_PerformMaintenance"
+          ],
+          "constraintIds": [
+            "Constr_PressureDrop",
+            "Constr_Temperature",
+            "Constr_MaintenanceInterval"
+          ],
+          "partIds": [
+            "PreFilter_1",
+            "HEPAFilter_1",
+            "CarbonFilter_1"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PreFilter_1",
+          "type": "Block",
+          "name": "PreFilter",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_PreEfficiency"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "HEPAFilter_1",
+          "type": "Block",
+          "name": "HEPAFilter",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_HEPAEfficiency"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "CarbonFilter_1",
+          "type": "Block",
+          "name": "CarbonFilter",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_CarbonEfficiency"
+          ],
+          "operationIds": [],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "Port_AirInput",
+          "type": "FlowPort",
+          "name": "AirInput",
+          "blockId": "FilterSystem_1",
+          "flowSpecificationId": "FS_AirFlow",
+          "isConjugated": false,
+          "attributeIds": []
+        },
+        {
+          "id": "Port_AirOutput",
+          "type": "FlowPort",
+          "name": "AirOutput",
+          "blockId": "FilterSystem_1",
+          "flowSpecificationId": "FS_AirFlow",
+          "isConjugated": false,
+          "attributeIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_AirFlow",
+          "type": "FlowSpecification",
+          "name": "AirFlow",
+          "flowType": "material",
+          "dataType": "Air",
+          "unit": "m³/s",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "Constr_PressureDrop",
+          "type": "ConstraintBlock",
+          "name": "PressureDropConstraint",
+          "expression": "PressureDrop >= 0.3 AND PressureDrop <= 0.5",
+          "parameterIds": [
+            "Param_PressureDrop"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "Constr_Temperature",
+          "type": "ConstraintBlock",
+          "name": "TemperatureConstraint",
+          "expression": "Temperature >= 10 AND Temperature <= 40",
+          "parameterIds": [
+            "Param_Temperature"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "Constr_MaintenanceInterval",
+          "type": "ConstraintBlock",
+          "name": "MaintenanceConstraint",
+          "expression": "MaintenanceInterval == 500",
+          "parameterIds": [
+            "Param_MaintenanceInterval"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_Pressure",
+          "type": "ValueType",
+          "name": "PressureValueType",
+          "quantityKindId": "Pressure",
+          "unitId": "inH2O",
+          "attributeIds": []
+        },
+        {
+          "id": "VT_Temperature",
+          "type": "ValueType",
+          "name": "TemperatureValueType",
+          "quantityKindId": "Temperature",
+          "unitId": "°C",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "Enum_FilterType",
+          "type": "Enumeration",
+          "name": "FilterType",
+          "literals": [
+            {
+              "id": "LT_Prefilter",
+              "name": "PreFilter"
+            },
+            {
+              "id": "LT_HEPA",
+              "name": "HEPA"
+            },
+            {
+              "id": "LT_Carbon",
+              "name": "Carbon"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "Comp_FilterSystem_PreFilter",
+          "type": "Composition",
+          "name": "ContainsPreFilter",
+          "sourceId": "FilterSystem_1",
+          "targetId": "PreFilter_1",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "Comp_FilterSystem_HEPA",
+          "type": "Composition",
+          "name": "ContainsHEPAFilter",
+          "sourceId": "FilterSystem_1",
+          "targetId": "HEPAFilter_1",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "Comp_FilterSystem_Carbon",
+          "type": "Composition",
+          "name": "ContainsCarbonFilter",
+          "sourceId": "FilterSystem_1",
+          "targetId": "CarbonFilter_1",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "Attr_FilterEfficiency",
+          "type": "Property",
+          "name": "filtrationEfficiency",
+          "propertyType": "Double",
+          "value": "99.97",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "Attr_PressureDrop",
+          "type": "Property",
+          "name": "pressureDrop",
+          "propertyType": "VT_Pressure",
+          "value": "0.3-0.5",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "Attr_TemperatureRange",
+          "type": "Property",
+          "name": "operatingTemperature",
+          "propertyType": "VT_Temperature",
+          "value": "10-40",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "Attr_MaintenanceInterval",
+          "type": "Property",
+          "name": "maintenanceInterval",
+          "propertyType": "Integer",
+          "value": "500",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment_FilterSystem",
+          "type": "Comment",
+          "body": "Main filter system integrating pre-, HEPA, and carbon filters",
+          "annotatedElementId": "FilterSystem_1"
+        },
+        {
+          "id": "Comment_HEPA",
+          "type": "Comment",
+          "body": "Ensures 99.97% microscopic particle removal",
+          "annotatedElementId": "HEPAFilter_1"
+        }
+      ],
+      "interfaceBlocks": [],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Filter Module is a critical subsystem within the Air Handling Unit (AHU) of a passenger airplane, employing a multi-stage filtration process. It integrates pre-filtration to capture large particulates, HEPA filtering to ensure microscopic particle removal, and active carbon filtering to eliminate odors and gaseous contaminants. The module is engineered under strict aerospace standards to provide reliable air quality control with minimal pressure drop, operating optimally within the specified temperature range and supporting rapid maintenance procedures. The filtration efficiency is 99.97%, the pressure drop is maintained between 0.3 and 0.5 inH2O, the operating temperature range is 10°C - 40°C, and the recommended maintenance interval is every 500 flight hours.",
+  "timestamp": "20250326_014706",
+  "provider": "qwen"
+}

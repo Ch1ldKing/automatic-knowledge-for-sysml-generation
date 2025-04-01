@@ -1,0 +1,332 @@
+{
+  "system_id": "reservoir_system",
+  "system_name": "Reservoir System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The operating pressure range required for optimal performance under variable flight loads.",
+        "name": "operatingPressureRange",
+        "type": "string",
+        "value": "1600-5500 psi"
+      },
+      {
+        "description": "Adjustable flow rate capability to manage dynamic hydraulic requirements during flight maneuvers.",
+        "name": "flowRateControl",
+        "type": "string",
+        "value": "Adjustable based on load conditions"
+      },
+      {
+        "description": "Type of hydraulic fluid used, ensuring compatibility with aerospace standards and system components.",
+        "name": "fluidType",
+        "type": "string",
+        "value": "Aerospace-spec hydraulic fluid"
+      },
+      {
+        "description": "The level of integration with the aircraft's overall hydraulic network, ensuring seamless system interoperability.",
+        "name": "systemIntegration",
+        "type": "string",
+        "value": "Full integration with primary hydraulic systems"
+      },
+      {
+        "description": "Maintenance cycle optimized for extended reliability and reduced downtime in service operations.",
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "750 flight hours or per OEM recommendations"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fluid Reservoir is engineered as an advanced hydraulic fluid management unit for modern aircraft. It is designed to store, regulate, and deliver pressurized hydraulic fluid under extreme operational conditions. With robust construction, integrated smart filtration systems, and precise pressure monitoring, this reservoir plays a key role in ensuring the reliable performance of flight control surfaces, landing gear actuation, and braking systems while complying with rigorous aerospace safety standards.",
+      "name": "Advanced Fluid Reservoir",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall securely store a predetermined volume of hydraulic fluid to ensure consistent supply during all flight phases including take-off, cruise, and landing."
+            }
+          ],
+          "title": "Fluid Storage Assurance",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The reservoir must maintain stable pressure within the range of 1600-5500 psi even under dynamic load conditions, ensuring uninterrupted hydraulic performance."
+            }
+          ],
+          "title": "Pressure Stability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "An integrated smart filtration assembly shall remove particulate matter and potential contaminants from the hydraulic fluid, safeguarding downstream flight control mechanisms."
+            }
+          ],
+          "title": "Contamination Control",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must provide enhanced durability with low maintenance requirements, featuring self-diagnostic capabilities and extended service intervals, thereby reducing operational disruptions."
+            }
+          ],
+          "title": "Durability and Low Maintenance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Fluid Reservoir aggregates the Internal Tank which holds the hydraulic fluid under pressure.",
+        "relationshipType": "aggregation",
+        "source": "Fluid Reservoir",
+        "target": "Internal Tank"
+      },
+      {
+        "description": "The Filtration Assembly is a compositional part of the Fluid Reservoir ensuring the purity of the hydraulic fluid.",
+        "relationshipType": "composition",
+        "source": "Fluid Reservoir",
+        "target": "Filtration Assembly"
+      },
+      {
+        "description": "The Hydraulic Control System depends on the Fluid Reservoir to supply consistent, pressurized hydraulic fluid for critical actuation tasks.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Control System",
+        "target": "Fluid Reservoir"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary storage unit designed to securely house and manage hydraulic fluid in aerospace applications.",
+        "name": "Fluid Reservoir",
+        "subComponents": [
+          {
+            "description": "A structurally robust container engineered to withstand high-pressure conditions and variable loads while securely storing hydraulic fluid.",
+            "name": "Internal Tank",
+            "type": "Container"
+          },
+          {
+            "description": "An integrated filtration assembly designed to continuously filter the hydraulic fluid, removing contaminants and ensuring fluid integrity.",
+            "name": "Filtration Assembly",
+            "type": "Filter"
+          },
+          {
+            "description": "A sophisticated sensor module that monitors internal pressure and fluid levels, providing real-time data to the flight control systems.",
+            "name": "Pressure Sensor Module",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Storage Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "ACT_FLUID_MANAGE",
+          "name": "Fluid Management Activity",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "1500-5000 psi",
+          "id": "ATTR_PRESSURE",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": true,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1500",
+          "name": "Operating Pressure",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "5000",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "consistent",
+          "id": "ATTR_FLOW",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Flow Consistency",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "ATTR_PRESSURE",
+            "ATTR_FLOW"
+          ],
+          "constraintIds": [],
+          "id": "BLK_RESERVOIR_SYS",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Reservoir System",
+          "operationIds": [],
+          "partIds": [
+            "PART_STRUCT_FRAME",
+            "PART_INT_FILTER",
+            "PART_LIQ_MANAGEMENT"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": [
+        {
+          "constrainedElementIds": [],
+          "id": "CNSTR_PRESSURE",
+          "name": "Pressure Constraint",
+          "specification": "Maintain hydraulic pressure between 1500 and 5000 psi.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "PART_STRUCT_FRAME",
+          "name": "Structural Frame",
+          "of": "BLK_RESERVOIR_SYS",
+          "type": "Part"
+        },
+        {
+          "id": "PART_INT_FILTER",
+          "name": "Integrated Filter",
+          "of": "BLK_RESERVOIR_SYS",
+          "type": "Part"
+        },
+        {
+          "id": "PART_LIQ_MANAGEMENT",
+          "name": "Liquid Management Subsystem",
+          "of": "BLK_RESERVOIR_SYS",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "BLK_RESERVOIR_SYS",
+          "flowSpecificationId": null,
+          "id": "PRT_FLUID_INLET",
+          "isConjugated": false,
+          "name": "Fluid Inlet Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "BLK_RESERVOIR_SYS",
+          "flowSpecificationId": null,
+          "id": "PRT_FLUID_OUTLET",
+          "isConjugated": false,
+          "name": "Fluid Outlet Port",
+          "portType": "full",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "REQ_PRESSURE",
+          "name": "Operating Pressure Requirement",
+          "reqId": "RS-REQ-001",
+          "text": "Reservoir System must operate with hydraulic pressure between 1500 and 5000 psi.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "REQ_FLOW",
+          "name": "Flow Control Requirement",
+          "reqId": "RS-REQ-002",
+          "text": "The system must provide smooth and consistent fluid flow for optimal performance.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": [],
+          "id": "STATE_OPERATIONAL",
+          "name": "Operational",
+          "type": "State"
+        },
+        {
+          "attributeIds": [],
+          "id": "STATE_MAINTENANCE",
+          "name": "Maintenance",
+          "type": "State"
+        }
+      ],
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "Fluid Reservoir是一个用于存储和供应液压液体的系统元素，设计用于航空液压系统中。它具有坚固的结构、集成的过滤系统和精确的液体管理，确保持续供应清洁、加压的液体，对于现代飞机中控制表面、起落架和制动系统的正确执行至关重要。其规格说明包括操作压力在1500-5000 psi范围内、流量控制以确保流体传递的平稳性和一致性、使用航空级液压油、高度集成化以确保与泵、蓄能器和控制阀的互操作性、维护周期支持600飞行小时或OEM指定的服务间隔。",
+  "timestamp": "20250325_200845",
+  "provider": "gpt"
+}

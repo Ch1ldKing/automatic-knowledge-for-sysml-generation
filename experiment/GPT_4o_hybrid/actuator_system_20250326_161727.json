@@ -1,0 +1,509 @@
+{
+  "system_id": "actuator_system",
+  "system_name": "Actuator System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the range of motion, both linear and angular, achievable by the actuator for operational flexibility.",
+        "name": "motionRange",
+        "type": "string",
+        "value": "10 to 180 degrees; up to 1 meter linear"
+      },
+      {
+        "description": "Specifies the operating power required by the actuator to achieve its movements.",
+        "name": "powerRequirement",
+        "type": "string",
+        "value": "24V DC or 100-250V AC"
+      },
+      {
+        "description": "Details the maximum load, in terms of force and moment, the actuator can handle during operation.",
+        "name": "maximumLoad",
+        "type": "string",
+        "value": "2000 N; 50 Nm"
+      },
+      {
+        "description": "Describes the assurance level of operation under adverse conditions.",
+        "name": "environmentalResistance",
+        "type": "string",
+        "value": "IP67; -55°C to +105°C"
+      },
+      {
+        "description": "Indicates the predictive maintenance systems integrated within the actuator.",
+        "name": "maintenanceMonitoring",
+        "type": "string",
+        "value": "Embedded sensors for wear and tear detection"
+      }
+    ],
+    "designScenario": {
+      "description": "The Actuators System is crucial in aerospace technology by enabling precise movements of control surfaces, extending landing gears, and brake operations. It is engineered with attention to durability, precision, and integration.",
+      "name": "Advanced Aerospace Actuators",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable precise movements in control surfaces within operational parameters for flight stability."
+            }
+          ],
+          "title": "Precision Servo Capability",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Reach full deflection within 0.75 seconds to accommodate high-demand maneuvers."
+            }
+          ],
+          "title": "High-Speed Operation",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate fault detection systems to alert or self-correct malfunctions."
+            }
+          ],
+          "title": "Integrated Safety Mechanisms",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Employ corrosion-resistant materials for extended lifespan in various climates."
+            }
+          ],
+          "title": "Material Durability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Actuators and directional control valves interact to manage fluid flow for motion control.",
+        "relationshipType": "association",
+        "source": "Directional Control Valves",
+        "target": "Actuators"
+      },
+      {
+        "description": "Sensors are integrated into actuators to provide real-time data on actuator status and performance.",
+        "relationshipType": "aggregation",
+        "source": "Actuators",
+        "target": "Sensors"
+      },
+      {
+        "description": "Control systems send movement commands to actuators, ensuring coordinated operation.",
+        "relationshipType": "dependency",
+        "source": "Control Systems",
+        "target": "Actuators"
+      },
+      {
+        "description": "Actuators comprise sub-components like power units and mechanical modules.",
+        "relationshipType": "composition",
+        "source": "Actuators",
+        "target": "Power Units"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The main assembly responsible for converting electrical or pneumatic power into mechanical action.",
+        "name": "Actuators",
+        "subComponents": [
+          {
+            "description": "Handles motion along a single axis, precise for elongated structural movements.",
+            "name": "Linear Actuator",
+            "type": "Mechanical Actuator"
+          },
+          {
+            "description": "Provides rotational forces for angular adjustments necessary in control surfaces.",
+            "name": "Rotary Actuator",
+            "type": "Mechanical Actuator"
+          }
+        ],
+        "type": "Control System Component"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "aggreg-actuators-sensors",
+          "memberEndIds": null,
+          "name": "ActuatorsToSensors",
+          "ownedEndIds": null,
+          "sourceId": "block-actuators",
+          "sourceMultiplicity": null,
+          "targetId": "block-sensors",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-control-systems-actuators",
+          "memberEndIds": null,
+          "name": "ControlSystemsToActuators",
+          "ownedEndIds": null,
+          "sourceId": "block-control-systems",
+          "sourceMultiplicity": null,
+          "targetId": "block-actuators",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr-motion-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "motionRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "10 to 180 degrees; up to 1 meter linear",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr-power-requirement",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "powerRequirement",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "24V DC or 100-250V AC",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr-env-resistance",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "environmentalResistance",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "IP67; -55°C to +105°C",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-motion-range",
+            "attr-power-requirement",
+            "attr-env-resistance"
+          ],
+          "constraintIds": null,
+          "id": "block-actuators",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Actuators",
+          "operationIds": [],
+          "partIds": [
+            "part-linear-actuator",
+            "part-rotary-actuator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-linear-actuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Linear Actuator",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-rotary-actuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Rotary Actuator",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-sensors",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Sensors",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-control-systems",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Control Systems",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-actuators",
+          "body": "The Actuators block represents components responsible for motion operation in aerospace systems, enabling precision and durability under extreme conditions.",
+          "id": "comment-actuators-doc",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-actuators-linear",
+          "memberEndIds": null,
+          "name": "ActuatorsToLinearActuator",
+          "ownedEndIds": null,
+          "sourceId": "block-actuators",
+          "sourceMultiplicity": "1",
+          "targetId": "block-linear-actuator",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp-actuators-rotary",
+          "memberEndIds": null,
+          "name": "ActuatorsToRotaryActuator",
+          "ownedEndIds": null,
+          "sourceId": "block-actuators",
+          "sourceMultiplicity": "1",
+          "targetId": "block-rotary-actuator",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "motionRange in {10..180 degrees, up to 1 meter linear}",
+          "id": "cons-motion-constraint",
+          "name": "MotionRangeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-actuator-operational-mode",
+          "literals": [
+            {
+              "id": "literal-dormant",
+              "name": "Dormant"
+            },
+            {
+              "id": "literal-operating",
+              "name": "Operating"
+            },
+            {
+              "id": "literal-fault",
+              "name": "Fault"
+            }
+          ],
+          "name": "ActuatorOperationalMode",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-actuators",
+          "flowSpecificationId": "flow-spec-power",
+          "id": "flowport-power-in",
+          "isConjugated": false,
+          "name": "PowerInputPort",
+          "type": "FlowPort"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-actuators",
+          "flowSpecificationId": "flow-spec-status",
+          "id": "flowport-status-out",
+          "isConjugated": false,
+          "name": "StatusOutputPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "PowerData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-power",
+          "name": "PowerInputFlow",
+          "type": "FlowSpecification",
+          "unit": "Volts"
+        },
+        {
+          "attributeIds": null,
+          "dataType": "StatusData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-status",
+          "name": "StatusOutputFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-actuator-monitor",
+          "name": "ActuatorMonitorInterface",
+          "operationIds": [],
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-linear-actuator",
+          "name": "LinearActuatorPart",
+          "of": "block-linear-actuator",
+          "type": "Part"
+        },
+        {
+          "id": "part-rotary-actuator",
+          "name": "RotaryActuatorPart",
+          "of": "block-rotary-actuator",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-actuators",
+          "flowSpecificationId": "flow-spec-power",
+          "id": "port-power-in",
+          "isConjugated": false,
+          "name": "PowerFlowPort",
+          "portType": "flow",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-actuators",
+          "id": "proxyport-actuator-monitoring",
+          "isConjugated": false,
+          "name": "ActuatorMonitoringProxyPort",
+          "providedInterfaceIds": [
+            "ifb-actuator-monitor"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-precise-movement",
+          "name": "Precise Movement",
+          "reqId": null,
+          "text": "Enable precise movements for enhanced flight control and operational accuracy.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "vt-operation-time",
+          "name": "OperationTime",
+          "quantityKindId": "TimePeriod",
+          "type": "ValueType",
+          "unitId": "Seconds"
+        }
+      ]
+    }
+  },
+  "reference_system": "actuators",
+  "parent_system": null,
+  "timestamp": "20250326_161727",
+  "provider": "gpt"
+}

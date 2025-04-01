@@ -1,0 +1,281 @@
+{
+  "system_id": "temperature_control_system",
+  "system_name": "Temperature Control System",
+  "specification": {
+    "designScenario": {
+      "name": "Advanced Cabin Temperature Control System",
+      "description": "A next-generation thermal management system utilizing predictive algorithms and zonal climate control to maintain optimal cabin conditions. Integrated with aircraft power management and flight phase awareness to balance passenger comfort with energy efficiency. Operates within aviation environmental control system (ECS) architecture while supporting emergency temperature protocols.",
+      "requirements": [
+        {
+          "title": "Adaptive Temperature Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall maintain cabin temperature between 16°C (61°F) and 28°C (82°F) with zonal control resolution of ±1°C per cabin section using variable-speed compressors and electric heating elements."
+            }
+          ]
+        },
+        {
+          "title": "Dynamic Response Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Shall achieve 90% deviation correction within 3 seconds for critical zones (flight deck/premium cabins) and 5 seconds for economy zones during normal operation."
+            }
+          ]
+        },
+        {
+          "title": "Fault-Tolerant Operation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Triple-redundant temperature sensors with voting logic and emergency ram air ventilation activation capability during total electrical failure."
+            }
+          ]
+        },
+        {
+          "title": "Energy-Optimized Operation",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Shall implement load-shedding algorithms reducing HVAC power consumption by 25% during takeoff/climb phases without perceptible comfort impact."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Thermal Management Unit",
+        "type": "Subsystem",
+        "description": "Central control unit integrating temperature regulation, airflow management, and power distribution for cabin climate systems",
+        "subComponents": [
+          {
+            "name": "Predictive Climate Processor",
+            "type": "Controller",
+            "description": "AI-powered controller using flight phase data, passenger load, and external conditions to anticipate thermal demands"
+          },
+          {
+            "name": "Variable Refrigerant Flow Module",
+            "type": "Actuator",
+            "description": "High-efficiency heat pump system with inverter-driven compressors for precise temperature control"
+          },
+          {
+            "name": "Multi-Zone Infrared Sensor Array",
+            "type": "Sensor",
+            "description": "16-point non-contact temperature monitoring system with passenger occupancy detection"
+          }
+        ]
+      },
+      {
+        "name": "Emergency Thermal Control",
+        "type": "Safety Subsystem",
+        "description": "Backup system for smoke/fume purge and extreme temperature conditions",
+        "subComponents": [
+          {
+            "name": "Ram Air Ventilation Actuator",
+            "type": "Mechanical",
+            "description": "Pneumatically-operated intake for emergency cooling during loss of electrical power"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Thermal Management Unit",
+        "target": "Air Data Computer",
+        "relationshipType": "association",
+        "description": "Receives real-time altitude and airspeed data for pressure-compensated temperature control"
+      },
+      {
+        "source": "Emergency Thermal Control",
+        "target": "Thermal Management Unit",
+        "relationshipType": "composition",
+        "description": "Emergency systems are integral components of the primary thermal management architecture"
+      },
+      {
+        "source": "Thermal Management Unit",
+        "target": "Power Distribution Panel",
+        "relationshipType": "dependency",
+        "description": "Requires 115V AC three-phase power with uninterrupted power supply (UPS) backup"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "16°C - 28°C",
+        "description": "Extended operational envelope with frost prevention and hyperthermia protection modes"
+      },
+      {
+        "name": "zonalControlResolution",
+        "type": "string",
+        "value": "±1°C",
+        "description": "Minimum temperature differential maintainable between adjacent cabin zones"
+      },
+      {
+        "name": "emergencyCoolingRate",
+        "type": "string",
+        "value": "5°C/min",
+        "description": "Minimum temperature reduction capability during smoke/fume emergency purge"
+      },
+      {
+        "name": "sensorRefreshRate",
+        "type": "string",
+        "value": "500ms",
+        "description": "Maximum interval between full-cabin temperature scans"
+      },
+      {
+        "name": "powerEfficiency",
+        "type": "string",
+        "value": "≤3kW/ton",
+        "description": "Energy efficiency ratio during cruise phase operation"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "TCS_001",
+          "type": "Block",
+          "name": "TemperatureControlSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "TCS_ATTR_001",
+            "TCS_ATTR_002"
+          ],
+          "operationIds": [
+            "TCS_OP_001",
+            "TCS_OP_002"
+          ],
+          "constraintIds": [
+            "TCS_CON_001"
+          ],
+          "partIds": [
+            "ACU_001",
+            "TS_001",
+            "CU_001"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ACU_001",
+          "type": "Block",
+          "name": "AirConditioningUnit",
+          "attributeIds": [
+            "ACU_ATTR_001",
+            "ACU_ATTR_002"
+          ],
+          "operationIds": [
+            "ACU_OP_001"
+          ],
+          "constraintIds": [
+            "ACU_CON_001"
+          ]
+        },
+        {
+          "id": "TS_001",
+          "type": "Block",
+          "name": "TemperatureSensor",
+          "attributeIds": [
+            "TS_ATTR_001"
+          ],
+          "operationIds": [
+            "TS_OP_001"
+          ]
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB_001",
+          "type": "InterfaceBlock",
+          "name": "ITemperatureControl",
+          "operationIds": [
+            "IB_OP_001",
+            "IB_OP_002"
+          ]
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_001",
+          "type": "FlowSpecification",
+          "name": "Airflow",
+          "flowType": "material",
+          "dataType": "AirflowData",
+          "unit": "CFM"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB_001",
+          "type": "ConstraintBlock",
+          "name": "CabinTemperatureConstraint",
+          "expression": "temperature >= 18.0 && temperature <= 25.0",
+          "parameterIds": [
+            "CB_PARAM_001"
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_001",
+          "type": "ValueType",
+          "name": "Celsius",
+          "quantityKindId": "QK_001",
+          "unitId": "UNIT_001"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_001",
+          "type": "Enumeration",
+          "name": "SystemStatus",
+          "literals": [
+            {
+              "id": "LIT_001",
+              "name": "NORMAL"
+            },
+            {
+              "id": "LIT_002",
+              "name": "STANDBY"
+            }
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "P_001",
+          "type": "FlowPort",
+          "name": "airOutput",
+          "blockId": "ACU_001",
+          "flowSpecificationId": "FS_001"
+        }
+      ],
+      "generalizations": [
+        {
+          "id": "GEN_001",
+          "type": "Generalization",
+          "name": "ControlInterface",
+          "sourceId": "CU_001",
+          "targetId": "IB_001"
+        }
+      ],
+      "comments": [
+        {
+          "id": "COMM_001",
+          "type": "Comment",
+          "body": "Maintains cabin temperature between 18-25°C",
+          "annotatedElementId": "TCS_001"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_144745",
+  "provider": "dpsk"
+}

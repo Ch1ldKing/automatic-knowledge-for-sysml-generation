@@ -1,0 +1,624 @@
+{
+  "system_id": "landing_gear_retraction_system",
+  "system_name": "Landing Gear Retraction System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum load capacity of the landing gear retraction system ensuring safe handling of full aircraft weight during retraction.",
+        "name": "loadCapacity",
+        "type": "string",
+        "value": "Up to 150,000 lbs"
+      },
+      {
+        "description": "Time required to complete gear retraction operation from command initiation to full retraction under normal conditions.",
+        "name": "retractionTime",
+        "type": "string",
+        "value": "< 3 seconds"
+      },
+      {
+        "description": "Shock absorption parameters designed to mitigate impact loads and vibrational stresses during retraction and subsequent landing operations.",
+        "name": "shockAbsorption",
+        "type": "string",
+        "value": "High energy absorption with advanced damping"
+      },
+      {
+        "description": "Hydraulic pressure required to operate the actuation and braking systems that facilitate gear retraction.",
+        "name": "hydraulicPressure",
+        "type": "string",
+        "value": "Approx. 3000 PSI"
+      },
+      {
+        "description": "Noise and vibration performance limits ensuring compliance with aviation operational and passenger comfort standards.",
+        "name": "noiseVibration",
+        "type": "string",
+        "value": "Low to moderate levels compliant with aviation standards"
+      }
+    ],
+    "designScenario": {
+      "description": "Design a robust and fail-safe Landing Gear Retraction System for passenger aircraft. This system is engineered with rapid retraction capabilities following takeoff and emergency extension functionalities upon landing. The system utilizes advanced hydraulic and actuation components to ensure quick, reliable, and safe gear retraction. Integrated sensor packages and redundant safety systems monitor system parameters in real-time, ensuring compliance with strict aviation standards under both normal and contingency operations.",
+      "name": "Landing Gear Retraction System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The retraction mechanism must reliably transition the landing gear from its extended state to a fully retracted position upon command."
+            },
+            {
+              "description": "System must include sensor feedback for real-time verification of gear position during the retraction sequence."
+            }
+          ],
+          "title": "Gear Retraction Operation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The retraction process must be completed within 3 seconds to ensure timely aerodynamic configuration changes."
+            },
+            {
+              "description": "Hydraulic actuators must function effectively even under variations in ambient temperature and pressure conditions."
+            }
+          ],
+          "title": "Retraction Time and Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "System design should incorporate redundant actuation and sensor pathways to guarantee gear retraction in the event of component failures."
+            },
+            {
+              "description": "Failsafe measures must be enacted to secure the landing gear in a safe configuration if anomalies are detected during retraction."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system should be engineered for ease of maintenance, including straightforward access to hydraulic and mechanical components."
+            },
+            {
+              "description": "Components must adhere to aviation environmental standards and be resistant to corrosion and fatigue over prolonged operational cycles."
+            }
+          ],
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Unit processes signals from the Sensor Module to verify gear status and sends retraction commands to the Actuation System.",
+        "relationshipType": "association",
+        "source": "Control Unit",
+        "target": "Sensor Module"
+      },
+      {
+        "description": "The Actuation System depends on the Hydraulic System to supply the necessary pressure for retracting the landing gear.",
+        "relationshipType": "dependency",
+        "source": "Actuation System",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "The Safety Sensor Array is aggregated with the Control Unit to monitor critical parameters such as hydraulic pressure and gear position continuously.",
+        "relationshipType": "aggregation",
+        "source": "Safety Sensor Array",
+        "target": "Control Unit"
+      },
+      {
+        "description": "The Structural Strut Assembly is mechanically coupled with the Actuation System to manage load transmission and structural integrity during retraction.",
+        "relationshipType": "dependency",
+        "source": "Structural Strut Assembly",
+        "target": "Actuation System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central computerized module responsible for processing sensor input and issuing gear retraction commands. It serves as the command center for the retraction operation.",
+        "name": "Control Unit",
+        "subComponents": null,
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Hydraulic system supplying the required pressurized fluid to actuate the gear retraction as well as braking systems.",
+        "name": "Hydraulic System",
+        "subComponents": [
+          {
+            "description": "Hydraulic Pump generating pressurized fluid for system actuation.",
+            "name": "Hydraulic Pump",
+            "type": "Actuator"
+          },
+          {
+            "description": "Hydraulic Reservoir for fluid storage and management to ensure consistent hydraulic pressure.",
+            "name": "Hydraulic Reservoir",
+            "type": "Storage Unit"
+          },
+          {
+            "description": "Hydraulic Valves controlling the flow of hydraulic fluid to various components based on system commands.",
+            "name": "Hydraulic Valves",
+            "type": "Control Device"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Mechanical assembly responsible for the physical retraction of the landing gear via linear actuators and precise positional control.",
+        "name": "Actuation System",
+        "subComponents": [
+          {
+            "description": "Linear Actuator for precise and rapid gear movement.",
+            "name": "Linear Actuator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Position sensor within the actuator to confirm that gear retraction has been fully achieved.",
+            "name": "Actuator Position Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Structural assembly that supports the landing gear during retraction by absorbing mechanical loads and dampening impacts.",
+        "name": "Structural Strut Assembly",
+        "subComponents": [
+          {
+            "description": "Primary Strut that bears load and transfers forces during retraction.",
+            "name": "Primary Strut",
+            "type": "Structural Component"
+          },
+          {
+            "description": "Shock Absorber units that mitigate vibrational stresses and absorb impact forces.",
+            "name": "Shock Absorber",
+            "type": "Damping Device"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      },
+      {
+        "description": "Sensor package that continuously monitors gear position, hydraulic pressure, and load conditions to inform control decisions.",
+        "name": "Sensor Module",
+        "subComponents": [
+          {
+            "description": "Pressure Sensor for monitoring hydraulic fluid pressure within the system.",
+            "name": "Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Gear Position Sensor for tracking the exact state of gear retraction.",
+            "name": "Gear Position Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Load Sensor to measure mechanical stresses on the structural components during retraction.",
+            "name": "Load Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      },
+      {
+        "description": "An array of redundant sensors that provide backup monitoring and enhance the fail-safe capabilities of the retraction system.",
+        "name": "Safety Sensor Array",
+        "subComponents": [
+          {
+            "description": "Redundant Pressure Sensor for emergency monitoring of the hydraulic system.",
+            "name": "Redundant Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Emergency Gear Sensor to ensure landing gear is locked in the safe configuration.",
+            "name": "Emergency Gear Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": [],
+      "activities": [],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "InTransition",
+          "id": "A1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Status",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.0",
+          "id": "A2",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "RetractionForce",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.0",
+          "id": "A3",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "ActuatorPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Unknown",
+          "id": "A4",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "GearPosition",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Automatic",
+          "id": "A5",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "CommandMode",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "1.0",
+          "id": "A6",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "TransmissionEfficiency",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "A1",
+            "A2"
+          ],
+          "constraintIds": [],
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "LandingGearRetractionSystem",
+          "operationIds": [
+            "OP1",
+            "OP2"
+          ],
+          "partIds": [
+            "B2",
+            "B3",
+            "B4",
+            "B5"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A3"
+          ],
+          "constraintIds": [],
+          "id": "B2",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ActuatorAssembly",
+          "operationIds": [
+            "OP3"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A4"
+          ],
+          "constraintIds": [],
+          "id": "B3",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "GearPositionSensor",
+          "operationIds": [
+            "OP4"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A5"
+          ],
+          "constraintIds": [],
+          "id": "B4",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ControlUnit",
+          "operationIds": [
+            "OP5"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A6"
+          ],
+          "constraintIds": [],
+          "id": "B5",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "TransmissionMechanism",
+          "operationIds": [
+            "OP6"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B1",
+          "body": "This model represents the Landing Gear Retraction System for an aircraft. It includes all key components such as the actuator assembly, gear position sensor, control unit, and transmission mechanism that collectively manage the retraction and extension of the landing gear. Interfaces, ports, and constraints ensure safe and precise operations under aerospace standards.",
+          "id": "CM1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "RetractionForce > 5000",
+          "id": "CB1",
+          "name": "RetractionForceConstraintBlock",
+          "parameterIds": [
+            "A2"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "A2"
+          ],
+          "id": "C1",
+          "name": "RetractionForceConstraint",
+          "specification": "RetractionForce must exceed minimum threshold during retraction",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": [],
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [
+        {
+          "attributeIds": [],
+          "id": "E1",
+          "literals": [
+            {
+              "id": "L1",
+              "name": "Retracted"
+            },
+            {
+              "id": "L2",
+              "name": "Extended"
+            },
+            {
+              "id": "L3",
+              "name": "InTransition"
+            }
+          ],
+          "name": "LandingGearStatusEnum",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": [],
+      "flowPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "B1",
+          "flowSpecificationId": "FS1",
+          "id": "FP2",
+          "isConjugated": false,
+          "name": "HydraulicFlowPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "Double",
+          "flowType": "fluid",
+          "id": "FS1",
+          "name": "HydraulicFlowSpec",
+          "type": "FlowSpecification",
+          "unit": "psi"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "B1",
+          "id": "FP1",
+          "isConjugated": false,
+          "name": "ControlCommandPort",
+          "providedInterfaceIds": [
+            "IB1"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "IB1",
+          "name": "ElectricalInterface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [],
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "P1",
+          "isConjugated": false,
+          "name": "GenericPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": [],
+          "blockId": "B1",
+          "id": "PP1",
+          "isConjugated": true,
+          "name": "SensorDataPort",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": [],
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "R1",
+          "name": "RetractionTimeRequirement",
+          "reqId": "LT-REQ-001",
+          "text": "The landing gear must complete retraction within 3 seconds from the command.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT1",
+          "name": "PressureValue",
+          "quantityKindId": "QK1",
+          "type": "ValueType",
+          "unitId": "UNIT1"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_115033"
+}

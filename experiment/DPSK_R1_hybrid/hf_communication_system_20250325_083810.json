@@ -1,0 +1,235 @@
+{
+  "system_id": "hf_communication_system",
+  "system_name": "HF Communication System",
+  "specification": {
+    "description": "HF Communication System的基本描述",
+    "requirements": [
+      "HF Communication System的基本需求"
+    ],
+    "parameters": {
+      "basic_param": "basic_value"
+    }
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-hf-communication-system",
+          "type": "Block",
+          "name": "HFCommunicationSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-hf-frequency-range",
+            "attr-hf-output-power",
+            "attr-hf-modulation-types"
+          ],
+          "partIds": [
+            "part-hf-transceiver",
+            "part-hf-antenna-coupler",
+            "part-hf-antenna",
+            "part-hf-power-amplifier",
+            "part-hf-modem",
+            "part-hf-control-unit",
+            "part-hf-power-supply"
+          ]
+        },
+        {
+          "id": "block-hf-transceiver",
+          "type": "Block",
+          "name": "HFTransceiver",
+          "attributeIds": [
+            "attr-hf-tx-frequency",
+            "attr-hf-rx-sensitivity"
+          ]
+        },
+        {
+          "id": "block-hf-antenna-coupler",
+          "type": "Block",
+          "name": "HFAntennaCoupler",
+          "attributeIds": [
+            "attr-hf-coupling-efficiency"
+          ]
+        },
+        {
+          "id": "block-hf-antenna",
+          "type": "Block",
+          "name": "HFAntenna",
+          "attributeIds": [
+            "attr-hf-antenna-gain",
+            "attr-hf-vswr"
+          ]
+        },
+        {
+          "id": "block-hf-power-amplifier",
+          "type": "Block",
+          "name": "HFPowerAmplifier",
+          "attributeIds": [
+            "attr-hf-pa-efficiency"
+          ]
+        },
+        {
+          "id": "block-hf-modem",
+          "type": "Block",
+          "name": "HFModem",
+          "attributeIds": [
+            "attr-hf-modem-data-rate"
+          ]
+        },
+        {
+          "id": "block-hf-control-unit",
+          "type": "Block",
+          "name": "HFControlUnit",
+          "attributeIds": [
+            "attr-hf-squelch-level"
+          ]
+        },
+        {
+          "id": "block-hf-power-supply",
+          "type": "Block",
+          "name": "HFPowerSupply",
+          "attributeIds": [
+            "attr-hf-psu-voltage"
+          ]
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-hf-system-transceiver",
+          "type": "Composition",
+          "name": "SystemComposesTransceiver",
+          "sourceId": "block-hf-communication-system",
+          "targetId": "block-hf-transceiver"
+        },
+        {
+          "id": "assoc-transceiver-pa",
+          "type": "Aggregation",
+          "name": "TransceiverAggregatesPA",
+          "sourceId": "block-hf-transceiver",
+          "targetId": "block-hf-power-amplifier"
+        },
+        {
+          "id": "assoc-coupler-antenna",
+          "type": "Association",
+          "name": "CouplerAntennaAssociation",
+          "sourceId": "block-hf-antenna-coupler",
+          "targetId": "block-hf-antenna"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-hf-frequency-range",
+          "type": "Property",
+          "name": "frequencyRange",
+          "propertyType": "String",
+          "value": "2-30 MHz",
+          "defaultValue": "2-30 MHz"
+        },
+        {
+          "id": "attr-hf-output-power",
+          "type": "Property",
+          "name": "outputPower",
+          "propertyType": "PowerValue",
+          "value": "400W"
+        },
+        {
+          "id": "attr-hf-tx-frequency",
+          "type": "Property",
+          "name": "txFrequency",
+          "propertyType": "FrequencyMHz"
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "if-block-hf-control",
+          "type": "InterfaceBlock",
+          "name": "IHFControlInterface"
+        },
+        {
+          "id": "if-block-hf-audio",
+          "type": "InterfaceBlock",
+          "name": "IHFAudioInterface"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-hf-rf",
+          "type": "FlowSpecification",
+          "name": "HFRFFlow",
+          "flowType": "EnergyFlow",
+          "dataType": "RF Signal"
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-hf-control",
+          "type": "Port",
+          "name": "ControlPort",
+          "blockId": "block-hf-communication-system",
+          "providedInterfaceIds": [
+            "if-block-hf-control"
+          ],
+          "portType": "proxy"
+        },
+        {
+          "id": "port-hf-rf",
+          "type": "FlowPort",
+          "name": "RFFlowPort",
+          "blockId": "block-hf-antenna",
+          "flowSpecificationId": "flow-spec-hf-rf"
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "value-type-hf-freq",
+          "type": "ValueType",
+          "name": "FrequencyMHz",
+          "unitId": "unit-mhz",
+          "quantityKindId": "frequency"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-hf-modulation",
+          "type": "Enumeration",
+          "name": "HFModulationType",
+          "literals": [
+            {
+              "id": "literal-lsb",
+              "name": "LSB"
+            },
+            {
+              "id": "literal-usb",
+              "name": "USB"
+            },
+            {
+              "id": "literal-am",
+              "name": "AM"
+            }
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-hf-freq",
+          "type": "ConstraintBlock",
+          "name": "HFFrequencyConstraint",
+          "expression": "frequency >= 2 MHz and frequency <= 30 MHz"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-hf-system",
+          "type": "Comment",
+          "body": "HF Communication System operating in 2-30 MHz band with 400W output power for long-range aircraft communication",
+          "annotatedElementId": "block-hf-communication-system"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "communication_system",
+  "timestamp": "20250325_083810"
+}

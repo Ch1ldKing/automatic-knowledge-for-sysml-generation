@@ -1,0 +1,579 @@
+{
+  "system_id": "cooler_system",
+  "system_name": "Cooler System",
+  "specification": {
+    "designScenario": {
+      "name": "Cooler Subsystem",
+      "description": "The Cooler Subsystem is a critical component of the aircraft's environmental control system, engineered to maintain cabin temperature within optimal ranges during flight. It employs a high-efficiency vapor-compression refrigeration cycle integrated with advanced thermal management technologies. Key features include a variable-speed compressor, smart phase-change material heat sinks, and a redundant sensor array. The subsystem is designed for low energy consumption, minimal noise output, and seamless interoperability with the aircraft's avionics and power management systems, ensuring passenger comfort and regulatory compliance under all flight conditions.",
+      "requirements": [
+        {
+          "title": "Thermal Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The cooler shall maintain cabin temperature between 18°C and 24°C with ±1°C deviation under nominal flight conditions."
+            }
+          ]
+        },
+        {
+          "title": "Adaptive Cooling Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The subsystem must achieve full cooling capacity within 2 seconds of activation during rapid temperature spikes exceeding 25°C."
+            },
+            {
+              "description": "Cooling capacity must scale proportionally to external heat load variations (±5% efficiency tolerance)."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe Thermal Management",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Dual redundant temperature sensors must trigger automatic compressor shutdown if internal component temperatures exceed 70°C."
+            },
+            {
+              "description": "The system must maintain baseline cooling functionality via passive heat dissipation for 30 minutes in case of primary power failure."
+            }
+          ]
+        },
+        {
+          "title": "Modular Maintainability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All cooling components must support hot-swappable replacement with standardized quick-release connectors."
+            },
+            {
+              "description": "Diagnostic interfaces must provide real-time data logging for compressor wear, refrigerant levels, and heat exchanger efficiency."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Active Cooling Unit",
+        "type": "Subsystem",
+        "description": "Core refrigeration module responsible for heat extraction using a closed-loop vapor-compression cycle.",
+        "subComponents": [
+          {
+            "name": "Variable-Speed Compressor",
+            "description": "Scroll-type compressor with adaptive RPM control to modulate refrigerant pressure and flow.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Phase-Change Condenser",
+            "description": "High-efficiency heat exchanger using nanomaterials for rapid thermal dissipation.",
+            "type": "Heat Exchanger"
+          },
+          {
+            "name": "Thermal Expansion Valve",
+            "description": "Electronically controlled valve regulating refrigerant flow to the evaporator matrix.",
+            "type": "Control Element"
+          },
+          {
+            "name": "Low-Pressure Evaporator",
+            "description": "Copper-alloy evaporator coil with integrated frost-prevention coating.",
+            "type": "Heat Exchanger"
+          },
+          {
+            "name": "Silent Axial Fan",
+            "description": "Brushless DC fan with aerodynamic blade design for uniform airflow distribution.",
+            "type": "Actuator"
+          }
+        ]
+      },
+      {
+        "name": "Thermal Sensing Array",
+        "type": "Sensor",
+        "description": "Network of distributed sensors measuring cabin, component, and refrigerant temperatures.",
+        "subComponents": null
+      },
+      {
+        "name": "Climate Control Processor",
+        "type": "Controller",
+        "description": "Flight-certified microcontroller managing cooling algorithms and system diagnostics.",
+        "subComponents": null
+      },
+      {
+        "name": "Refrigerant Management System",
+        "type": "Subsystem",
+        "description": "Closed-loop refrigerant circuit with leak detection and recovery mechanisms.",
+        "subComponents": [
+          {
+            "name": "Pressure Regulator",
+            "description": "Automated valve maintaining optimal refrigerant pressure across flight altitudes.",
+            "type": "Control Element"
+          },
+          {
+            "name": "Liquid Separator",
+            "description": "Coalescing filter preventing liquid refrigerant from entering the compressor.",
+            "type": "Filter"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Cooler Subsystem",
+        "target": "Environmental Control System",
+        "relationshipType": "composition",
+        "description": "Integral component providing cooling functionality within the ECS architecture."
+      },
+      {
+        "source": "Active Cooling Unit",
+        "target": "Refrigerant Management System",
+        "relationshipType": "dependency",
+        "description": "Dependent on refrigerant circulation and pressure regulation for operational integrity."
+      },
+      {
+        "source": "Climate Control Processor",
+        "target": "Avionics Data Network",
+        "relationshipType": "association",
+        "description": "Communicates real-time thermal data via ARINC 664 protocol for flight deck monitoring."
+      },
+      {
+        "source": "Silent Axial Fan",
+        "target": "Air Distribution Ductwork",
+        "relationshipType": "aggregation",
+        "description": "Integral component within the cabin airflow distribution system."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "Cooling Capacity",
+        "type": "string",
+        "value": "6.5 kW",
+        "description": "Maximum heat removal rate under standard atmospheric conditions."
+      },
+      {
+        "name": "Operating Altitude Range",
+        "type": "string",
+        "value": "0–12,500 m",
+        "description": "Altitude envelope where cooling performance remains within specified tolerances."
+      },
+      {
+        "name": "Temperature Setpoint Accuracy",
+        "type": "string",
+        "value": "±0.3°C",
+        "description": "Precision of cabin temperature regulation under stable conditions."
+      },
+      {
+        "name": "Noise Emission",
+        "type": "string",
+        "value": "<45 dB(A)",
+        "description": "Maximum sound pressure level at 1 meter distance during full operation."
+      },
+      {
+        "name": "Energy Efficiency Ratio",
+        "type": "string",
+        "value": "3.2 kW/W",
+        "description": "Ratio of cooling capacity to electrical power consumption under nominal load."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "CoolerSystem",
+          "type": "Block",
+          "name": "CoolerSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "AS001",
+            "AS002",
+            "AS003"
+          ],
+          "operationIds": [
+            "OP001",
+            "OP002",
+            "OP003"
+          ],
+          "constraintIds": [
+            "CT001",
+            "CT002",
+            "CT003"
+          ],
+          "partIds": [
+            "Compressor",
+            "Condenser",
+            "Evaporator",
+            "ExpansionValve",
+            "CoolingFan"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "Compressor",
+          "type": "Block",
+          "name": "Compressor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "AS101",
+            "AS102"
+          ],
+          "operationIds": [
+            "OP101"
+          ],
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "Condenser",
+          "type": "Block",
+          "name": "Condenser",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "AS201",
+            "AS202"
+          ],
+          "operationIds": [
+            "OP201"
+          ],
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "Evaporator",
+          "type": "Block",
+          "name": "Evaporator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "AS301",
+            "AS302"
+          ],
+          "operationIds": [
+            "OP301"
+          ],
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "ExpansionValve",
+          "type": "Block",
+          "name": "ExpansionValve",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "AS401",
+            "AS402"
+          ],
+          "operationIds": [
+            "OP401"
+          ],
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "CoolingFan",
+          "type": "Block",
+          "name": "CoolingFan",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "AS501",
+            "AS502"
+          ],
+          "operationIds": [
+            "OP501"
+          ],
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ControlInterface",
+          "type": "InterfaceBlock",
+          "name": "ControlInterface",
+          "attributeIds": [
+            "IF001"
+          ],
+          "operationIds": [
+            "OP004"
+          ],
+          "signalIds": null,
+          "constraintIds": null
+        },
+        {
+          "id": "DataInterface",
+          "type": "InterfaceBlock",
+          "name": "DataInterface",
+          "attributeIds": [
+            "IF002"
+          ],
+          "operationIds": null,
+          "signalIds": null,
+          "constraintIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "ControlPort",
+          "type": "FullPort",
+          "name": "ControlPort",
+          "blockId": "CoolerSystem",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "ControlInterface"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": null,
+          "attributeIds": null
+        },
+        {
+          "id": "DataPort",
+          "type": "FullPort",
+          "name": "DataPort",
+          "blockId": "CoolerSystem",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "DataInterface"
+          ],
+          "requiredInterfaceIds": null,
+          "flowSpecificationId": null,
+          "attributeIds": null
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CT001",
+          "type": "ConstraintBlock",
+          "name": "ResponseTimeConstraint",
+          "parameterIds": [
+            "PAR001"
+          ],
+          "expression": "responseTime <= 5",
+          "attributeIds": null
+        },
+        {
+          "id": "CT002",
+          "type": "ConstraintBlock",
+          "name": "TemperatureThresholdConstraint",
+          "parameterIds": [
+            "PAR002"
+          ],
+          "expression": "currentTemperature > 26.0",
+          "attributeIds": null
+        },
+        {
+          "id": "CT003",
+          "type": "ConstraintBlock",
+          "name": "RedundancyConstraint",
+          "parameterIds": [
+            "PAR003"
+          ],
+          "expression": "numberOfOperationalCompressors >= 1",
+          "attributeIds": null
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT001",
+          "type": "ValueType",
+          "name": "TemperatureType",
+          "quantityKindId": "QuantityKind_Temperature",
+          "unitId": "Unit_Celsius",
+          "attributeIds": null
+        },
+        {
+          "id": "VT002",
+          "type": "ValueType",
+          "name": "TimeType",
+          "quantityKindId": "QuantityKind_Time",
+          "unitId": "Unit_Seconds",
+          "attributeIds": null
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM001",
+          "type": "Enumeration",
+          "name": "OperationalStatus",
+          "literals": [
+            {
+              "id": "LIT001",
+              "name": "ACTIVE"
+            },
+            {
+              "id": "LIT002",
+              "name": "STANDBY"
+            },
+            {
+              "id": "LIT003",
+              "name": "FAULT"
+            }
+          ],
+          "attributeIds": null
+        }
+      ],
+      "attributes": [
+        {
+          "id": "AS001",
+          "type": "Property",
+          "name": "currentTemperature",
+          "propertyType": "TemperatureType",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "AS002",
+          "type": "Property",
+          "name": "operationalStatus",
+          "propertyType": "OperationalStatus",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "STANDBY",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "AS003",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "TimeType",
+          "value": null,
+          "visibility": "private",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "0",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "compositions": [
+        {
+          "id": "CMP001",
+          "type": "Composition",
+          "name": "CoolerSystemComposition",
+          "sourceId": "CoolerSystem",
+          "targetId": "Compressor",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": null,
+          "ownedEndIds": null
+        },
+        {
+          "id": "CMP002",
+          "type": "Composition",
+          "name": "CoolerSystemComposition",
+          "sourceId": "CoolerSystem",
+          "targetId": "Condenser",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": null,
+          "ownedEndIds": null
+        },
+        {
+          "id": "CMP003",
+          "type": "Composition",
+          "name": "CoolerSystemComposition",
+          "sourceId": "CoolerSystem",
+          "targetId": "Evaporator",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": null,
+          "ownedEndIds": null
+        },
+        {
+          "id": "CMP004",
+          "type": "Composition",
+          "name": "CoolerSystemComposition",
+          "sourceId": "CoolerSystem",
+          "targetId": "ExpansionValve",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": null,
+          "ownedEndIds": null
+        },
+        {
+          "id": "CMP005",
+          "type": "Composition",
+          "name": "CoolerSystemComposition",
+          "sourceId": "CoolerSystem",
+          "targetId": "CoolingFan",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": null,
+          "ownedEndIds": null
+        }
+      ],
+      "comments": [
+        {
+          "id": "CM001",
+          "type": "Comment",
+          "body": "Ensures rapid cooling response within 5 seconds upon temperature threshold breach.",
+          "annotatedElementId": "CT001"
+        },
+        {
+          "id": "CM002",
+          "type": "Comment",
+          "body": "Triggers cooling cycle when cabin temperature exceeds 26°C.",
+          "annotatedElementId": "CT002"
+        },
+        {
+          "id": "CM003",
+          "type": "Comment",
+          "body": "Maintains at least one operational compressor for redundancy.",
+          "annotatedElementId": "CT003"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "Cooler系统是飞机环境控制系统的一个专用组件，旨在在条件超出定义的舒适阈值时迅速准确地降低机舱温度。它利用先进的制冷循环，集成了压缩机、冷凝器、蒸发器、膨胀阀和冷却风扇。该子系统被设计为高效、快速响应和具有强大的安全冗余性，确保温度偏差最小，并与中央控制单元和空气处理单元无缝集成。它在维持乘客舒适度和操作稳定性方面发挥着关键作用，即使在动态热负荷下也是如此。Cooler系统的要求包括主动降低机舱温度，当环境条件超过26°C时启动制冷循环，并在检测到温度偏差时，在5秒内实现所需的温度降低以确保最佳机舱舒适度。此外，必须采用故障安全措施，包括冗余传感器反馈和压缩机旁路，以确保即使在组件故障的情况下也能持续运行。设计还必须支持模块化维护，具有直观的诊断界面和远程监控功能，以便进行简单的故障排除和升级。Cooler子系统是温度控制系统的一个组成部分，与加热元件配合工作以平衡机舱气候。",
+  "timestamp": "20250326_014615",
+  "provider": "qwen"
+}

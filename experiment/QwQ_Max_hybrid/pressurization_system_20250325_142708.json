@@ -1,0 +1,494 @@
+{
+  "system_id": "pressurization_system",
+  "system_name": "Pressurization System",
+  "specification": {
+    "designScenario": {
+      "name": "Pressurization System",
+      "description": "The Pressurization System is designed to regulate cabin pressure within safe and comfortable parameters during aircraft operations. It ensures the cabin maintains a pressure equivalent to sea-level conditions (1 atm) at cruising altitudes, preventing altitude sickness and structural stress. The system employs outflow valves, pressure sensors, and a control unit to modulate airflow and maintain pressure equilibrium. It is engineered for redundancy, rapid response, and compliance with aviation safety standards, integrating with the broader Environmental Control System (ECS) for cohesive operation.",
+      "requirements": [
+        {
+          "title": "Pressure Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall maintain cabin pressure between 0.8 atm and 1.2 atm at all flight phases using regulated airflow through outflow valves and pressurization controllers."
+            }
+          ]
+        },
+        {
+          "title": "Altitude Compensation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Automatically adjust cabin pressure during ascent and descent to match external atmospheric conditions, ensuring passenger comfort and aircraft structural integrity."
+            }
+          ]
+        },
+        {
+          "title": "Emergency Depressurization",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Initiate emergency depressurization protocols if cabin pressure exceeds 1.2 atm or drops below 0.8 atm, including automatic valve activation and crew alerts."
+            }
+          ]
+        },
+        {
+          "title": "Response Time",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Ensure pressure adjustments occur within 5 seconds of detecting deviations from the setpoint to maintain stability."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy and Fault Tolerance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant pressure sensors and backup control channels to mitigate single-point failures."
+            }
+          ]
+        },
+        {
+          "title": "User Interface Integration",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide a dedicated cabin pressure display unit with real-time data and fault indicators accessible to the flight crew."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Outflow Valve Assembly",
+        "type": "Actuator Subsystem",
+        "description": "Controls airflow out of the cabin to regulate pressure. Includes variable-position valves and actuators.",
+        "subComponents": [
+          {
+            "name": "Primary Outflow Valve",
+            "description": "Adjustable valve that modulates cabin pressure by varying airflow rate.",
+            "type": "Valve"
+          },
+          {
+            "name": "Actuator Motor",
+            "description": "Electric motor driving the valve position based on control signals.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Position Sensor",
+            "description": "Monitors valve position to confirm alignment with control commands.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Pressure Control Unit",
+        "type": "Electronic Controller",
+        "description": "Central processor managing pressure regulation algorithms and valve actuation commands.",
+        "subComponents": [
+          {
+            "name": "Pressure Regulator",
+            "description": "PID controller calculating required valve adjustments based on sensor inputs.",
+            "type": "Controller"
+          },
+          {
+            "name": "Input/Output Interface",
+            "description": "Connects to pressure sensors, valves, and cockpit displays.",
+            "type": "Interface Module"
+          }
+        ]
+      },
+      {
+        "name": "Pressure Sensor Array",
+        "type": "Monitoring Module",
+        "description": "Network of sensors distributed in the cabin and fuselage to measure pressure differentials.",
+        "subComponents": [
+          {
+            "name": "Differential Pressure Sensor",
+            "description": "Measures pressure difference between cabin and external atmosphere.",
+            "type": "Sensor"
+          },
+          {
+            "name": "Altitude Sensor",
+            "description": "Detects aircraft altitude to adjust pressure setpoints during climb/descent.",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Cabin Pressure Display Unit",
+        "type": "User Interface",
+        "description": "Cockpit-mounted display showing real-time cabin pressure, altitude, and system status.",
+        "subComponents": null
+      },
+      {
+        "name": "Relief Valve System",
+        "type": "Safety Subsystem",
+        "description": "Emergency pressure relief valves that open automatically if pressure exceeds safe thresholds.",
+        "subComponents": [
+          {
+            "name": "Overpressure Relief Valve",
+            "description": "Mechanical valve activated by pressure differential exceeding 1.2 atm.",
+            "type": "Safety Device"
+          },
+          {
+            "name": "Underpressure Relief Valve",
+            "description": "Prevents cabin collapse by closing if pressure drops below 0.8 atm.",
+            "type": "Safety Device"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Outflow Valve Assembly",
+        "target": "Pressure Control Unit",
+        "relationshipType": "dependency",
+        "description": "The Outflow Valve Assembly receives control signals from the Pressure Control Unit to adjust valve positions."
+      },
+      {
+        "source": "Pressure Sensor Array",
+        "target": "Pressure Control Unit",
+        "relationshipType": "aggregation",
+        "description": "Sensor data from the Pressure Sensor Array is aggregated by the Pressure Control Unit for decision-making."
+      },
+      {
+        "source": "Pressure Control Unit",
+        "target": "Cabin Pressure Display Unit",
+        "relationshipType": "association",
+        "description": "The Pressure Control Unit transmits real-time pressure data to the Cabin Pressure Display Unit for crew monitoring."
+      },
+      {
+        "source": "Relief Valve System",
+        "target": "Pressure Control Unit",
+        "relationshipType": "composition",
+        "description": "The Relief Valve System is a safety-critical component under direct control of the Pressure Control Unit during emergencies."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "pressureRange",
+        "type": "string",
+        "value": "0.8 atm - 1.2 atm",
+        "description": "Operating pressure range maintained within the cabin during flight."
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 5 seconds",
+        "description": "Maximum allowed time for the system to respond to pressure deviations."
+      },
+      {
+        "name": "valveFlowRate",
+        "type": "string",
+        "value": "0 - 1000 CFM",
+        "description": "Adjustable airflow capacity of the primary outflow valve."
+      },
+      {
+        "name": "sensorAccuracy",
+        "type": "string",
+        "value": "±0.01 atm",
+        "description": "Precision of differential pressure sensors in measuring cabin pressure."
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual redundant systems",
+        "description": "Number of backup components for critical pressure control functions."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "packages": [
+        {
+          "id": "pkg-pressurization",
+          "type": "Package",
+          "name": "PressurizationSubsystemPkg",
+          "elementImports": [
+            "block-control-unit"
+          ],
+          "packageImports": [
+            "pkg-ecs"
+          ]
+        }
+      ],
+      "blocks": [
+        {
+          "id": "block-pressurization-system",
+          "type": "Block",
+          "name": "PressurizationSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-pressure-range",
+            "attr-response-time",
+            "attr-valve-flow-rate",
+            "attr-sensor-accuracy",
+            "attr-redundancy-level"
+          ],
+          "operationIds": [],
+          "constraintIds": [
+            "constraint-pressure-regulation"
+          ],
+          "partIds": [
+            "part-outflow-valve",
+            "part-pressure-control",
+            "part-pressure-sensors",
+            "part-display-unit",
+            "part-relief-valves"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-outflow-valve-assembly",
+          "type": "Block",
+          "name": "OutflowValveAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-valve-position"
+          ],
+          "operationIds": [
+            "op-adjust-valve"
+          ],
+          "constraintIds": [],
+          "partIds": [
+            "part-primary-valve",
+            "part-actuator",
+            "part-position-sensor"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-pressure-control-unit",
+          "type": "Block",
+          "name": "PressureControlUnit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-control-algorithm"
+          ],
+          "operationIds": [
+            "op-calculate-setpoint"
+          ],
+          "constraintIds": [],
+          "partIds": [
+            "part-pid-controller"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-pressure-sensor-array",
+          "type": "Block",
+          "name": "PressureSensorArray",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-sensor-calibration"
+          ],
+          "operationIds": [
+            "op-measure-pressure"
+          ],
+          "constraintIds": [],
+          "partIds": [
+            "part-differential-sensor",
+            "part-altitude-sensor"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-cabin-display-unit",
+          "type": "Block",
+          "name": "CabinPressureDisplayUnit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-display-resolution"
+          ],
+          "operationIds": [
+            "op-update-display"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "block-relief-valve-system",
+          "type": "Block",
+          "name": "ReliefValveSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-valve-thresholds"
+          ],
+          "operationIds": [
+            "op-activate-safety"
+          ],
+          "constraintIds": [],
+          "partIds": [
+            "part-overpressure-valve",
+            "part-underpressure-valve"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb-pressure-control",
+          "type": "InterfaceBlock",
+          "name": "PressureControlInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "op-send-command"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-pressure-data",
+          "type": "FlowSpecification",
+          "name": "PressureDataFlow",
+          "flowType": "InformationFlow",
+          "dataType": "PressureMeasurement",
+          "unit": "atm"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-pressure-regulation",
+          "type": "ConstraintBlock",
+          "name": "PressureRegulationConstraint",
+          "parameterIds": [
+            "param-cabin-pressure"
+          ],
+          "expression": "if (cabinPressure < 0.8 || cabinPressure > 1.2) then triggerEmergencyProtocol()",
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-ctrl-sensor",
+          "type": "Port",
+          "name": "SensorInputPort",
+          "blockId": "block-pressurization-system",
+          "flowSpecificationId": "flow-spec-pressure-data",
+          "portType": "flow",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "ifb-pressure-control"
+          ],
+          "requiredInterfaceIds": []
+        },
+        {
+          "id": "port-ctrl-actuator",
+          "type": "Port",
+          "name": "ActuatorOutputPort",
+          "blockId": "block-pressurization-system",
+          "flowSpecificationId": "flow-spec-command",
+          "portType": "flow",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "ifb-pressure-control"
+          ],
+          "requiredInterfaceIds": []
+        }
+      ],
+      "associations": [
+        {
+          "id": "agg-ctrlunit-valve",
+          "type": "Aggregation",
+          "name": "ControlUnitAggregatesValve",
+          "sourceId": "block-pressurization-system",
+          "targetId": "block-outflow-valve-assembly",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "assoc-sensor-control",
+          "type": "Association",
+          "name": "SensorToControlUnit",
+          "sourceId": "block-pressure-sensor-array",
+          "targetId": "block-pressure-control-unit",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-pressure-range",
+          "type": "Property",
+          "name": "pressureRange",
+          "propertyType": "String",
+          "value": "0.8 atm - 1.2 atm",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "0.8 atm - 1.2 atm",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-response-time",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "String",
+          "value": "Under 5 seconds",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "Under 5 seconds",
+          "isReadOnly": true,
+          "isStatic": true,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-pressurization",
+          "type": "Comment",
+          "body": "Regulates cabin pressure between 0.8-1.2 atm via outflow valves and sensors. Implements dual redundancy and emergency protocols.",
+          "annotatedElementId": "block-pressurization-system"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "environmental_control_system",
+  "timestamp": "20250325_142708",
+  "provider": "qwen"
+}

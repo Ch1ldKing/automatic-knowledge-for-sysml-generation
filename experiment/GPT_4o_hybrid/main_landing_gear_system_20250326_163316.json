@@ -1,0 +1,323 @@
+{
+  "system_id": "main_landing_gear_system",
+  "system_name": "Main Landing Gear System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum load capacity supported by the landing gear system.",
+        "name": "loadCapacity",
+        "type": "string",
+        "value": "Up to 180,000 lbs"
+      },
+      {
+        "description": "Time required for full deployment or retraction of the landing gear system.",
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "2.5 seconds on average"
+      },
+      {
+        "description": "Energy absorption efficiency during landing impact transitions.",
+        "name": "shockAbsorption",
+        "type": "string",
+        "value": "High damping coefficient ensuring minimum stress transfer to the aircraft structure."
+      },
+      {
+        "description": "Operational hydraulic pressure facilitating gear actuation and braking functionalities.",
+        "name": "hydraulicPressure",
+        "type": "string",
+        "value": "Approx. 3500 PSI"
+      },
+      {
+        "description": "Acoustic and vibrational disturbance metrics measured during operation for compliance with comfort standards.",
+        "name": "noiseVibration",
+        "type": "string",
+        "value": "Low, designed to reduce cockpit and passenger discomfort"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear System is engineered to meet rigorous safety, performance, and durability standards for commercial airplanes, ensuring seamless takeoff, landing, and taxiing operations.",
+      "name": "Landing Gear System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Automated extension/retraction triggering synchronized with flight commands."
+            },
+            {
+              "description": "Optimized shock absorption mechanism for safe operation in adverse conditions."
+            }
+          ],
+          "title": "Operational Efficiency and Automation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Hydraulic actuators equipped for swift responses to command inputs."
+            }
+          ],
+          "title": "Performance Measures",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Emergency manual release provisions for landing gear actuation in case of system failure."
+            },
+            {
+              "description": "Load-distribution system to ensure even strain across multiple components."
+            }
+          ],
+          "title": "Fail-Safe Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Simplified inspection access and minimized turnaround times for maintenance."
+            }
+          ],
+          "title": "Serviceability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Sensor Array communicates gear position status to the Processing Unit.",
+        "relationshipType": "association",
+        "source": "Sensor Array",
+        "target": "Processing Unit"
+      },
+      {
+        "description": "The Actuation System uses power from the Hydraulic Assembly to operate load mechanisms.",
+        "relationshipType": "dependency",
+        "source": "Actuation System",
+        "target": "Hydraulic Assembly"
+      },
+      {
+        "description": "Brake Assembly components are integral to the structural operation of wheel components.",
+        "relationshipType": "composition",
+        "source": "Brake Assembly",
+        "target": "Wheel Framework"
+      },
+      {
+        "description": "Directional actuator units are incorporated into steering system's nose gear operations for ground control.",
+        "relationshipType": "aggregation",
+        "source": "Directional Actuator",
+        "target": "Nose Gear Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Main processing unit managing all commands and responses of the landing gear system.",
+        "name": "Processing Unit",
+        "subComponents": [
+          {
+            "description": "Logical module for evaluating input signal instructions.",
+            "name": "Command Logic",
+            "type": "Processor"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Central hydraulic unit providing necessary force for mechanical operations.",
+        "name": "Hydraulic Assembly",
+        "subComponents": [
+          {
+            "description": "Heavy-capacity pressure corner generation unit.",
+            "name": "Hydraulic Motor",
+            "type": "Mechanical Unit"
+          },
+          {
+            "description": "Pressure regulation flows circuits configuration.",
+            "name": "Pressure Control Module",
+            "type": "Mechanical Controller"
+          }
+        ],
+        "type": "Electro-mechanical Subsystem"
+      },
+      {
+        "description": "Structural frame and actuation integration enabling mechanical landing and shock features.",
+        "name": "Landing Modules",
+        "subComponents": [
+          {
+            "description": "Energy handling absorbers mounted on load extremity.",
+            "name": "Impact Dampers",
+            "type": "Absorbers"
+          }
+        ],
+        "type": "Mechanical Modules"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-nose-gear-actuator",
+          "memberEndIds": null,
+          "name": "Nose Gear Aggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-nose-gear-assembly",
+          "sourceMultiplicity": null,
+          "targetId": "block-actuators",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "association-brake-actuator",
+          "memberEndIds": null,
+          "name": "Brake Actuator Association",
+          "ownedEndIds": null,
+          "sourceId": "block-brake-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-actuation-system",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "Up to 180,000 lbs",
+          "id": "attr-load-capacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "loadCapacity",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Up to 180,000 lbs",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-load-capacity"
+          ],
+          "constraintIds": null,
+          "id": "block-landing-gear-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "LandingGearSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-hydraulic-assembly",
+            "part-electronic-control-unit",
+            "part-actuation-system"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-landing-gear-system",
+          "body": "The Landing Gear System integrates multiple subsystems to ensure safe transitions during aircraft landing and taxiing.",
+          "id": "comment-landing-gear",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-landing-hydraulic",
+          "memberEndIds": null,
+          "name": "Hydraulic Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-hydraulic-assembly",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "deploymentTime < 3s",
+          "id": "constraint-deployment-time",
+          "name": "Deployment Time Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-hydraulic-assembly",
+          "name": "HydraulicAssembly",
+          "of": "block-hydraulic-assembly",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-safe-deployment",
+          "name": "Safe Deployment",
+          "reqId": null,
+          "text": "The system must securely deploy and sustain load conditions.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": []
+    }
+  },
+  "reference_system": "landing_gear_system",
+  "parent_system": null,
+  "timestamp": "20250326_163316",
+  "provider": "gpt"
+}

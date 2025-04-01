@@ -1,0 +1,79 @@
+{
+  "results": {
+    "Structural Element Definition": {
+      "TP": 127,
+      "TN": 34,
+      "FP": 120,
+      "FN": 244
+    },
+    "Relationship Modeling": {
+      "TP": 22,
+      "TN": 143,
+      "FP": 115,
+      "FN": 130
+    },
+    "Attributes and Constraints": {
+      "TP": 129,
+      "TN": 252,
+      "FP": 242,
+      "FN": 174
+    },
+    "Interface and Connectivity Modeling": {
+      "TP": 90,
+      "TN": 7,
+      "FP": 29,
+      "FN": 170
+    },
+    "Requirements and Verification Modeling": {
+      "TP": 32,
+      "TN": 1,
+      "FP": 51,
+      "FN": 170
+    }
+  },
+  "metrics": {
+    "Structural Element Definition": {
+      "Precision": 0.5141700404858299,
+      "Recall": 0.3423180592991914,
+      "Accuracy": 0.30666666666666664,
+      "False_alarm": 0.7792207792207793,
+      "F1": 0.4110032362459547
+    },
+    "Relationship Modeling": {
+      "Precision": 0.16058394160583941,
+      "Recall": 0.14473684210526316,
+      "Accuracy": 0.4024390243902439,
+      "False_alarm": 0.44573643410852715,
+      "F1": 0.1522491349480969
+    },
+    "Attributes and Constraints": {
+      "Precision": 0.3477088948787062,
+      "Recall": 0.42574257425742573,
+      "Accuracy": 0.4780426599749059,
+      "False_alarm": 0.4898785425101215,
+      "F1": 0.3827893175074184
+    },
+    "Interface and Connectivity Modeling": {
+      "Precision": 0.7563025210084033,
+      "Recall": 0.34615384615384615,
+      "Accuracy": 0.3277027027027027,
+      "False_alarm": 0.8055555555555556,
+      "F1": 0.47493403693931385
+    },
+    "Requirements and Verification Modeling": {
+      "Precision": 0.3855421686746988,
+      "Recall": 0.15841584158415842,
+      "Accuracy": 0.12992125984251968,
+      "False_alarm": 0.9807692307692307,
+      "F1": 0.2245614035087719
+    },
+    "Overall": {
+      "Precision": 0.4179728317659352,
+      "Recall": 0.3105590062111801,
+      "Accuracy": 0.366783523225241,
+      "False_alarm": 0.5603621730382293,
+      "F1": 0.3563474387527839
+    }
+  },
+  "timestamp": "2025-03-26 02:12:05"
+}

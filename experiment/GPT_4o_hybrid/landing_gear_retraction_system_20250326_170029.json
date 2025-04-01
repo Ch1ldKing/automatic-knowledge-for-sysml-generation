@@ -1,0 +1,512 @@
+{
+  "system_id": "landing_gear_retraction_system",
+  "system_name": "Landing Gear Retraction System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Duration required to fully retract or deploy the landing gear under standard conditions.",
+        "name": "retractionDeploymentTime",
+        "type": "string",
+        "value": "5 seconds"
+      },
+      {
+        "description": "Maximum operating pressure within the hydraulic system for the retraction mechanism.",
+        "name": "hydraulicOperatingPressure",
+        "type": "string",
+        "value": "3000 psi"
+      },
+      {
+        "description": "Structural load capacity of the system during operation.",
+        "name": "structureLoadCapacity",
+        "type": "string",
+        "value": "50 tons"
+      },
+      {
+        "description": "Power supply specification for system operation.",
+        "name": "powerSpecifications",
+        "type": "string",
+        "value": "28V DC electrical system"
+      },
+      {
+        "description": "Safety compliance level for operation under extreme conditions.",
+        "name": "safetyCompliance",
+        "type": "string",
+        "value": "FAA Regulations Compliant"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear Retraction System is engineered for seamless operation under high-load and safety-critical conditions, handling the extension and retraction of the landing gear for large commercial aircraft.",
+      "name": "Landing Gear Retraction System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable smooth deployment and retraction of landing gear for takeoff and landing procedures."
+            }
+          ],
+          "title": "Operational Capability",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Withstand extreme temperatures and maintain insulation at altitudes exceeding 30,000 feet."
+            }
+          ],
+          "title": "Environmental Resistance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate emergency release mechanisms assuring gear deployment under system failure."
+            }
+          ],
+          "title": "Emergency Mechanisms",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Facilitate routine maintenance procedures for hydraulic and mechanical components."
+            }
+          ],
+          "title": "Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The control unit sends commands to the hydraulic system for managing gear operation.",
+        "relationshipType": "dependency",
+        "source": "Control Unit",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "The hydraulic actuator is mechanically connected to the landing gear structure.",
+        "relationshipType": "composition",
+        "source": "Hydraulic Actuator",
+        "target": "Structural Assembly"
+      },
+      {
+        "description": "The sensor module provides real-time feedback on system performance to the monitoring system.",
+        "relationshipType": "association",
+        "source": "Sensor Module",
+        "target": "Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Unit that houses the actuation mechanism for driving gear motion.",
+        "name": "Hydraulic System",
+        "subComponents": [
+          {
+            "description": "Unit responsible for pressurizing the hydraulic fluid.",
+            "name": "Hydraulic Pump",
+            "type": "Mechanical"
+          },
+          {
+            "description": "Device controlling hydraulic flow paths.",
+            "name": "Control Valve",
+            "type": "Mechanical"
+          }
+        ],
+        "type": "SubSystem"
+      },
+      {
+        "description": "Electronic device handling command processing and operational feedback.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Processor coordinating data management.",
+            "name": "Central Processor",
+            "type": "Electronic"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Assembly of the moving structure of the system, including support arms.",
+        "name": "Structural Assembly",
+        "subComponents": [
+          {
+            "description": "Main strut providing load support.",
+            "name": "Main Support Strut",
+            "type": "Mechanical"
+          },
+          {
+            "description": "Component accommodating load during impact.",
+            "name": "Shock Absorption Unit",
+            "type": "Mechanical"
+          }
+        ],
+        "type": "SubSystem"
+      },
+      {
+        "description": "System monitoring hydraulic levels and operational statuses.",
+        "name": "Sensor Module",
+        "subComponents": [
+          {
+            "description": "Sensor for evaluating fluid pressure.",
+            "name": "Pressure Sensor",
+            "type": "Electronic"
+          },
+          {
+            "description": "Sensor indicating gear position.",
+            "name": "Position Sensor",
+            "type": "Electronic"
+          }
+        ],
+        "type": "Electronic Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "sensor_module_association",
+          "memberEndIds": [
+            "sensor_module_to_control_unit"
+          ],
+          "name": "Sensor Module Association",
+          "ownedEndIds": [],
+          "sourceId": "sensor_module",
+          "sourceMultiplicity": "1",
+          "targetId": "control_unit",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "5 seconds",
+          "id": "retractionDeploymentTime",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "retractionDeploymentTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "5 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "3000 psi",
+          "id": "hydraulicOperatingPressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "hydraulicOperatingPressure",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3000 psi",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "FAA Regulations Compliant",
+          "id": "safetyCompliance",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "safetyCompliance",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "FAA Regulations Compliant",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "retractionDeploymentTime",
+            "hydraulicOperatingPressure",
+            "safetyCompliance"
+          ],
+          "constraintIds": [],
+          "id": "landing_gear_retraction_system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Landing Gear Retraction System",
+          "operationIds": [],
+          "partIds": [
+            "hydraulic_system",
+            "control_unit",
+            "structural_assembly",
+            "sensor_module"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "hydraulic_system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Hydraulic System",
+          "operationIds": [],
+          "partIds": [
+            "hydraulic_pump",
+            "control_valve"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "control_unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Control Unit",
+          "operationIds": [],
+          "partIds": [
+            "central_processor"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "structural_assembly",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Structural Assembly",
+          "operationIds": [],
+          "partIds": [
+            "main_support_strut",
+            "shock_absorption_unit"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "sensor_module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Sensor Module",
+          "operationIds": [],
+          "partIds": [
+            "pressure_sensor",
+            "position_sensor"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "hydraulic_pump",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Hydraulic Pump",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "control_valve",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Control Valve",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "central_processor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Central Processor",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "main_support_strut",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Main Support Strut",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "shock_absorption_unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Shock Absorption Unit",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "pressure_sensor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Pressure Sensor",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": [],
+          "id": "position_sensor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Position Sensor",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "control_unit_to_hydraulic_system",
+          "name": "Control Unit Dependency",
+          "sourceId": "control_unit",
+          "sourceMultiplicity": "1",
+          "targetId": "hydraulic_system",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [],
+          "id": "functional_requirement",
+          "name": "Operational Capability",
+          "reqId": "FR01",
+          "text": "Enable smooth deployment and retraction of landing gear for takeoff and landing procedures.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": [],
+          "id": "safety_requirement",
+          "name": "Emergency Mechanism",
+          "reqId": "SR01",
+          "text": "Incorporate emergency release mechanisms assuring gear deployment under system failure.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": null,
+  "parent_system": "landing_gear_system",
+  "timestamp": "20250326_170029",
+  "provider": "gpt"
+}

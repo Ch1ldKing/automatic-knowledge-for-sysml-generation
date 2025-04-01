@@ -1,0 +1,502 @@
+{
+  "system_id": "intercom_system",
+  "system_name": "Intercom System",
+  "specification": {
+    "designScenario": {
+      "name": "Cabin Communication System",
+      "description": "The Cabin Communication System is a critical subsystem enabling seamless, secure, and reliable voice and data communication across the aircraft cabin. It integrates with the Avionics Network and Cabin Control Unit to provide real-time intercom, public address announcements, emergency alerts, and passenger communication interfaces. The system ensures redundancy, low-latency response, and compliance with aviation safety standards (FAA, EASA) while maintaining cybersecurity through encrypted protocols.",
+      "requirements": [
+        {
+          "title": "Communication Functionality",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Enable bidirectional intercom communication between cabin crew members via handheld devices and fixed stations."
+            },
+            {
+              "description": "Support public address announcements to all cabin zones with adjustable volume and priority levels."
+            },
+            {
+              "description": "Activate emergency alerts with audible alarms, visual indicators, and pre-recorded evacuation instructions during critical events."
+            },
+            {
+              "description": "Facilitate passenger-to-crew communication via touchscreen panels and overhead service units."
+            }
+          ]
+        },
+        {
+          "title": "Performance Efficiency",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve latency below 1 second for emergency alert delivery and intercom response times."
+            },
+            {
+              "description": "Maintain audio clarity with signal-to-noise ratio (SNR) of at least 60 dB across all communication channels."
+            },
+            {
+              "description": "Support simultaneous operation of multiple communication streams without degradation in quality."
+            }
+          ]
+        },
+        {
+          "title": "Safety and Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant communication paths to ensure uninterrupted service during single-point failures."
+            },
+            {
+              "description": "Automatically prioritize emergency alerts over routine communications during critical situations."
+            },
+            {
+              "description": "Integrate with cabin safety systems to trigger coordinated responses (e.g., oxygen mask deployment alerts)."
+            }
+          ]
+        },
+        {
+          "title": "Security and Compliance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Employ AES-256 encryption for all transmitted data to prevent eavesdropping or tampering."
+            },
+            {
+              "description": "Adhere to DO-178C and DO-254 avionics software/hardware certification standards."
+            },
+            {
+              "description": "Provide a user-friendly touchscreen interface for crew operations with minimal training requirements."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Cabin Communication System",
+        "type": "Subsystem",
+        "description": "Centralized subsystem managing all cabin audio and data communication functions, interfacing with avionics and safety systems.",
+        "subComponents": [
+          {
+            "name": "Intercom Module",
+            "type": "Communication Module",
+            "description": "Enables crew-to-crew intercom via dedicated channels with noise cancellation and priority override features."
+          },
+          {
+            "name": "Public Address Subsystem",
+            "type": "Audio Distribution Unit",
+            "description": "Handles zone-specific announcements with dynamic volume control and priority management."
+          },
+          {
+            "name": "Emergency Alert Module",
+            "type": "Safety Subsystem",
+            "description": "Triggers standardized emergency protocols including alarms, pre-recorded messages, and interface with cabin safety systems."
+          },
+          {
+            "name": "Passenger Communication Interface",
+            "type": "User Interface Module",
+            "description": "Provides touch-based communication channels for passengers to request assistance or access information."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Cabin Communication System",
+        "target": "Intercom Module",
+        "relationshipType": "composition",
+        "description": "The Cabin Communication System includes the Intercom Module as a core functional component."
+      },
+      {
+        "source": "Cabin Communication System",
+        "target": "Public Address Subsystem",
+        "relationshipType": "composition",
+        "description": "The Cabin Communication System incorporates the Public Address Subsystem for announcement distribution."
+      },
+      {
+        "source": "Cabin Communication System",
+        "target": "Emergency Alert Module",
+        "relationshipType": "composition",
+        "description": "The Emergency Alert Module is a critical subcomponent of the Cabin Communication System for crisis management."
+      },
+      {
+        "source": "Cabin Communication System",
+        "target": "Passenger Communication Interface",
+        "relationshipType": "composition",
+        "description": "The Passenger Communication Interface is integrated into the Cabin Communication System for passenger interaction."
+      },
+      {
+        "source": "Cabin Communication System",
+        "target": "Cabin Control Unit",
+        "relationshipType": "association",
+        "description": "The Cabin Communication System exchanges operational status and commands with the Cabin Control Unit."
+      },
+      {
+        "source": "Emergency Alert Module",
+        "target": "Cabin Safety Systems",
+        "relationshipType": "dependency",
+        "description": "The Emergency Alert Module depends on cabin safety systems to trigger emergency protocols."
+      },
+      {
+        "source": "Cabin Communication System",
+        "target": "Avionics Network",
+        "relationshipType": "aggregation",
+        "description": "The Cabin Communication System aggregates data from the Avionics Network for system-wide status monitoring."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "operatingTemperature",
+        "type": "string",
+        "description": "Specifies the operational temperature range for all communication hardware components.",
+        "value": "-55°C to +90°C"
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "description": "Maximum allowable delay for critical emergency alerts and intercom responses.",
+        "value": "< 1 second"
+      },
+      {
+        "name": "bandwidth",
+        "type": "string",
+        "description": "Total data throughput capacity for simultaneous communication streams.",
+        "value": "150 Mbps"
+      },
+      {
+        "name": "encryptionProtocol",
+        "type": "string",
+        "description": "Cybersecurity standard applied to all data transmissions.",
+        "value": "AES-256 encryption"
+      },
+      {
+        "name": "audioClarity",
+        "type": "string",
+        "description": "Signal-to-Noise Ratio (SNR) requirement for audio channels.",
+        "value": "≥60 dB"
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "description": "Redundancy configuration for critical communication pathways.",
+        "value": "Dual redundant channels"
+      },
+      {
+        "name": "certificationStandards",
+        "type": "string",
+        "description": "Aviation certification standards met by the system.",
+        "value": "DO-178C, DO-254, FAA Part 25"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-cabin-communication-system",
+          "type": "Block",
+          "name": "Cabin Communication System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-operating-temp",
+            "attr-response-time",
+            "attr-snr",
+            "attr-encryption",
+            "attr-redundancy",
+            "attr-cert-standards"
+          ],
+          "operationIds": [
+            "op-initiate-emergency",
+            "op-handle-intercom",
+            "op-broadcast-pa"
+          ],
+          "constraintIds": [
+            "constraint-latency",
+            "constraint-snr",
+            "constraint-redundancy"
+          ],
+          "partIds": [
+            "part-intercom",
+            "part-pa",
+            "part-emergency",
+            "part-passenger"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-intercom-module",
+          "type": "Block",
+          "name": "Intercom Module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-noise-cancel"
+          ],
+          "operationIds": [
+            "op-establish-intercom"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-pa-subsystem",
+          "type": "Block",
+          "name": "Public Address Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-volume-control"
+          ],
+          "operationIds": [
+            "op-broadcast"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-emergency-module",
+          "type": "Block",
+          "name": "Emergency Alert Module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-alert-priority"
+          ],
+          "operationIds": [
+            "op-trigger-alerts"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-passenger-interface",
+          "type": "Block",
+          "name": "Passenger Communication Interface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-touchscreen-ui"
+          ],
+          "operationIds": [
+            "op-handle-passenger-requests"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "if-block-communication",
+          "type": "InterfaceBlock",
+          "name": "CommunicationInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "op-send-encrypted-data",
+            "op-receive-commands"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-encrypted",
+          "type": "FlowSpecification",
+          "name": "EncryptedDataFlow",
+          "flowType": "InformationFlow",
+          "dataType": "SecureDataPacket",
+          "unit": null,
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-latency",
+          "type": "ConstraintBlock",
+          "name": "LatencyConstraint",
+          "expression": "responseTime < 1 sec",
+          "parameterIds": [],
+          "attributeIds": []
+        },
+        {
+          "id": "constraint-snr",
+          "type": "ConstraintBlock",
+          "name": "SNRConstraint",
+          "expression": "audioClarity >= 60 dB",
+          "parameterIds": [],
+          "attributeIds": []
+        },
+        {
+          "id": "constraint-redundancy",
+          "type": "ConstraintBlock",
+          "name": "RedundancyConstraint",
+          "expression": "redundancyLevel == 'dual'",
+          "parameterIds": [],
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-cabin-mode",
+          "type": "Enumeration",
+          "name": "CabinMode",
+          "literals": [
+            {
+              "id": "literal-normal",
+              "name": "Normal"
+            },
+            {
+              "id": "literal-emergency",
+              "name": "Emergency"
+            },
+            {
+              "id": "literal-maintenance",
+              "name": "Maintenance"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-comm-control",
+          "type": "ProxyPort",
+          "name": "CommunicationControlPort",
+          "blockId": "block-cabin-communication-system",
+          "providedInterfaceIds": [
+            "if-block-communication"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "port-encrypted-flow",
+          "type": "FlowPort",
+          "name": "EncryptedDataFlowPort",
+          "blockId": "block-cabin-communication-system",
+          "flowSpecificationId": "flow-spec-encrypted",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-cabin-intercom",
+          "type": "Composition",
+          "sourceId": "block-cabin-communication-system",
+          "targetId": "block-intercom-module",
+          "name": "IntercomComposition"
+        },
+        {
+          "id": "comp-cabin-pa",
+          "type": "Composition",
+          "sourceId": "block-cabin-communication-system",
+          "targetId": "block-pa-subsystem",
+          "name": "PAComposition"
+        },
+        {
+          "id": "comp-cabin-emergency",
+          "type": "Composition",
+          "sourceId": "block-cabin-communication-system",
+          "targetId": "block-emergency-module",
+          "name": "EmergencyComposition"
+        },
+        {
+          "id": "comp-cabin-passenger",
+          "type": "Composition",
+          "sourceId": "block-cabin-communication-system",
+          "targetId": "block-passenger-interface",
+          "name": "PassengerComposition"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-avionics",
+          "type": "Aggregation",
+          "sourceId": "block-cabin-communication-system",
+          "targetId": "block-avionics-network",
+          "name": "AvionicsAggregation"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-safety",
+          "type": "Dependency",
+          "sourceId": "block-emergency-module",
+          "targetId": "block-cabin-safety",
+          "name": "SafetyDependency"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-operating-temp",
+          "type": "Property",
+          "name": "operatingTemperature",
+          "propertyType": "String",
+          "value": "-55°C to +90°C",
+          "visibility": "public",
+          "aggregation": "none"
+        },
+        {
+          "id": "attr-response-time",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "String",
+          "value": "< 1 second",
+          "visibility": "public",
+          "aggregation": "none"
+        },
+        {
+          "id": "attr-snr",
+          "type": "Property",
+          "name": "audioClarity",
+          "propertyType": "String",
+          "value": "≥60 dB",
+          "visibility": "public",
+          "aggregation": "none"
+        },
+        {
+          "id": "attr-encryption",
+          "type": "Property",
+          "name": "encryptionProtocol",
+          "propertyType": "String",
+          "value": "AES-256",
+          "visibility": "public",
+          "aggregation": "none"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comm-main-block",
+          "type": "Comment",
+          "body": "Centralized system managing cabin communications with redundancy and encryption. Integrates with Avionics Network and Cabin Safety Systems.",
+          "annotatedElementId": "block-cabin-communication-system"
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "value-type-temperature",
+          "type": "ValueType",
+          "name": "TemperatureRange",
+          "quantityKindId": "quantity-temperature",
+          "unitId": "unit-celsius"
+        }
+      ]
+    }
+  },
+  "reference_system": "cabin_communication_system",
+  "parent_system": null,
+  "timestamp": "20250325_153136",
+  "provider": "qwen"
+}

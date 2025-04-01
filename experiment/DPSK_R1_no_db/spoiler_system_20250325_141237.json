@@ -1,0 +1,365 @@
+{
+  "system_id": "spoiler_system",
+  "system_name": "Spoiler System",
+  "specification": {
+    "designScenario": {
+      "name": "Spoiler System",
+      "description": "The Spoiler System is a critical flight control subsystem responsible for modulating aerodynamic lift and drag during flight. It consists of deployable surfaces on the wings that disrupt airflow to reduce lift, enhance roll control, and assist in ground deceleration. The system operates in coordination with ailerons for roll augmentation, acts as speed brakes in-flight, and deploys fully as ground spoilers post-landing. Design priorities include rapid deployment, precise angular control, structural resilience under high aerodynamic loads, and seamless integration with flight control computers. The system incorporates redundancy, fault detection, and environmental hardening to ensure reliability across all flight phases.",
+      "requirements": [
+        {
+          "title": "Aerodynamic Lift/Drag Modulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Deploy spoiler panels asymmetrically to disrupt wing lift for roll control augmentation alongside ailerons."
+            },
+            {
+              "description": "Activate symmetrically as speed brakes to increase drag and reduce airspeed during flight."
+            },
+            {
+              "description": "Fully deploy ground spoilers upon landing to maximize wheel braking efficiency by eliminating residual lift."
+            }
+          ]
+        },
+        {
+          "title": "High-Load Actuation Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full spoiler deployment (0° to 60° deflection) within 100 milliseconds under maximum aerodynamic load."
+            },
+            {
+              "description": "Maintain angular synchronization within ±0.5° between left/right spoiler pairs during asymmetric operation."
+            },
+            {
+              "description": "Sustain operation under shear stresses up to 1200 kPa during high-speed deployments."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Load Paths",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual hydraulic actuators per spoiler panel with mechanical locking in stowed position upon hydraulic failure."
+            },
+            {
+              "description": "Integrate strain gauge arrays to detect jamming or over-torque conditions, triggering automatic retraction sequences."
+            }
+          ]
+        },
+        {
+          "title": "Fatigue Resistance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Construct spoiler panels from carbon-fiber reinforced polymer (CFRP) with titanium leading edges to withstand >100,000 deployment cycles."
+            },
+            {
+              "description": "Apply erosion-resistant coatings to hinge mechanisms for operation in particulate-heavy environments."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Spoiler Assembly",
+        "description": "Primary aerodynamic surfaces mounted on wing upper surfaces, mechanically linked to actuation systems.",
+        "type": "Control Surface Assembly",
+        "subComponents": [
+          {
+            "name": "Spoiler Panel",
+            "description": "Aerodynamically profiled CFRP panel with integrated hinge points and load transfer fittings.",
+            "type": "Composite Control Surface"
+          },
+          {
+            "name": "Hinge Mechanism",
+            "description": "Low-friction rotary hinge with integrated position sensors and lubrication ports.",
+            "type": "Mechanical Joint"
+          }
+        ]
+      },
+      {
+        "name": "Dual Hydraulic Actuator",
+        "description": "Redundant linear actuators converting hydraulic pressure into spoiler deflection torque.",
+        "type": "Power Transmission",
+        "subComponents": [
+          {
+            "name": "Piston Assembly",
+            "description": "Hardened steel piston with dual sealing rings and pressure-balanced design.",
+            "type": "Hydraulic Component"
+          },
+          {
+            "name": "Torque Tube",
+            "description": "Spline-coupled shaft transmitting actuator force to spoiler hinge points.",
+            "type": "Load-Bearing Structure"
+          }
+        ]
+      },
+      {
+        "name": "Spoiler Control Module (SCM)",
+        "description": "Dual-channel computer processing flight control commands into actuator displacement signals.",
+        "type": "Avionics Subsystem",
+        "subComponents": [
+          {
+            "name": "Command Interface",
+            "description": "ARINC 429/629 databus interface for receiving deployment demands from flight control computers.",
+            "type": "Communication Module"
+          },
+          {
+            "name": "Actuator Drive Circuit",
+            "description": "Electro-hydraulic servo valves controlling hydraulic flow to actuators.",
+            "type": "Power Electronics"
+          }
+        ]
+      },
+      {
+        "name": "Load Monitoring Package",
+        "description": "Distributed sensor suite measuring real-time aerodynamic forces on spoiler surfaces.",
+        "type": "Structural Health Monitoring",
+        "subComponents": [
+          {
+            "name": "Strain Gauge Array",
+            "description": "Rosette-pattern gauges detecting panel bending moments and shear forces.",
+            "type": "Sensing Element"
+          },
+          {
+            "name": "Accelerometer",
+            "description": "MEMS-based vibration sensor monitoring flutter tendencies during deployment.",
+            "type": "Inertial Sensor"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Actuator Control Module",
+        "target": "Spoiler System",
+        "relationshipType": "dependency",
+        "description": "The Spoiler Control Module (SCM) receives real-time deployment commands from the central Actuator Control Module via avionics databus protocols."
+      },
+      {
+        "source": "Spoiler System",
+        "target": "Flight Surfaces",
+        "relationshipType": "aggregation",
+        "description": "Spoiler assemblies are integrated into the wing structure as subordinate components of the broader Flight Surfaces system."
+      },
+      {
+        "source": "Dual Hydraulic Actuator",
+        "target": "Spoiler Assembly",
+        "relationshipType": "composition",
+        "description": "Each spoiler panel contains two permanently mounted hydraulic actuators that cannot function independently of the spoiler assembly."
+      },
+      {
+        "source": "Load Monitoring Package",
+        "target": "Spoiler Assembly",
+        "relationshipType": "association",
+        "description": "Strain gauges and accelerometers are physically mounted on spoiler panels but operate as a logically separate monitoring system."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "maxDeflectionAngle",
+        "type": "angularRange",
+        "value": "0° to +60°",
+        "description": "Total angular travel range from fully stowed to maximum deployed position."
+      },
+      {
+        "name": "asymmetricSyncTolerance",
+        "type": "angularDeviation",
+        "value": "±0.5°",
+        "description": "Maximum permitted angular difference between left/right spoiler pairs during roll control operations."
+      },
+      {
+        "name": "deploymentForce",
+        "type": "hydraulicPressure",
+        "value": "3000 psi",
+        "description": "Operating hydraulic pressure required to overcome aerodynamic loads at maximum airspeed."
+      },
+      {
+        "name": "harmonicVibrationResistance",
+        "type": "frequencyRange",
+        "value": "5-200 Hz",
+        "description": "Vibration spectrum withstood without resonant structural failure during deployment."
+      },
+      {
+        "name": "temperatureOperatingRange",
+        "type": "thermalTolerance",
+        "value": "-55°C to +125°C",
+        "description": "Ambient temperature limits for reliable mechanical operation, accounting for aerodynamic heating."
+      }
+    ]
+  },
+  "model": {
+      "diagramType": "BDD",
+      "elements": {
+        "blocks": [
+          {
+            "id": "SS_001",
+            "type": "Block",
+            "name": "SpoilerSystem",
+            "isAbstract": false,
+            "isActive": true,
+            "isEncapsulated": true,
+            "attributeIds": [
+              "SS_ATTR_01",
+              "SS_ATTR_02"
+            ],
+            "operationIds": [
+              "SS_OP_01"
+            ],
+            "constraintIds": [
+              "SS_CONST_01"
+            ],
+            "partIds": [
+              "CU_001",
+              "AA_001",
+              "PS_001"
+            ],
+            "referenceIds": [],
+            "valueIds": []
+          },
+          {
+            "id": "CU_001",
+            "type": "Block",
+            "name": "ControlUnit",
+            "isAbstract": false,
+            "isActive": true,
+            "attributeIds": [
+              "CU_ATTR_01"
+            ],
+            "operationIds": [
+              "CU_OP_01"
+            ],
+            "constraintIds": [
+              "CU_CONST_01"
+            ],
+            "partIds": [],
+            "referenceIds": []
+          },
+          {
+            "id": "AA_001",
+            "type": "Block",
+            "name": "ActuationAssembly",
+            "isAbstract": false,
+            "isActive": true,
+            "attributeIds": [
+              "AA_ATTR_01"
+            ],
+            "operationIds": [
+              "AA_OP_01"
+            ],
+            "constraintIds": [
+              "AA_CONST_01"
+            ],
+            "partIds": [
+              "HA_001",
+              "PS_002"
+            ],
+            "referenceIds": []
+          }
+        ],
+        "interfaceBlocks": [
+          {
+            "id": "IB_FCC",
+            "type": "InterfaceBlock",
+            "name": "FCC_Interface",
+            "attributeIds": [
+              "IB_ATTR_01"
+            ],
+            "operationIds": [
+              "IB_OP_01"
+            ],
+            "signalIds": [],
+            "constraintIds": []
+          }
+        ],
+        "flowSpecifications": [
+          {
+            "id": "FS_CTRL",
+            "type": "FlowSpecification",
+            "name": "ControlSignal",
+            "flowType": "Information",
+            "dataType": "ControlCommand",
+            "unit": "None",
+            "attributeIds": []
+          }
+        ],
+        "constraintBlocks": [
+          {
+            "id": "CB_DEPLOY",
+            "type": "ConstraintBlock",
+            "name": "DeploymentTimeConstraint",
+            "parameterIds": [
+              "CB_PARAM_01"
+            ],
+            "expression": "deploymentTime <= 2.0",
+            "attributeIds": []
+          }
+        ],
+        "valueTypes": [
+          {
+            "id": "VT_DEG",
+            "type": "ValueType",
+            "name": "Degrees",
+            "quantityKindId": "ANGLE",
+            "unitId": "DEG",
+            "attributeIds": []
+          }
+        ],
+        "enumerations": [
+          {
+            "id": "ENUM_CTRL",
+            "type": "Enumeration",
+            "name": "ControlModes",
+            "literals": [
+              {
+                "id": "LIT_01",
+                "name": "MANUAL"
+              },
+              {
+                "id": "LIT_02",
+                "name": "AUTO"
+              }
+            ],
+            "attributeIds": []
+          }
+        ],
+        "ports": [
+          {
+            "id": "P_CTRL",
+            "type": "ProxyPort",
+            "name": "ControlInterface",
+            "blockId": "SS_001",
+            "isConjugated": false,
+            "providedInterfaceIds": [
+              "IB_FCC"
+            ],
+            "requiredInterfaceIds": [],
+            "attributeIds": []
+          }
+        ],
+        "generalizations": [
+          {
+            "id": "GEN_01",
+            "type": "Generalization",
+            "name": "CtrlUnitSpecialization",
+            "sourceId": "CU_001",
+            "targetId": "SS_001",
+            "isSubstitutable": true
+          }
+        ],
+        "comments": [
+          {
+            "id": "CMT_01",
+            "type": "Comment",
+            "body": "Primary control interface for flight control computer integration",
+            "annotatedElementId": "P_CTRL"
+          }
+            ]
+      }
+  },
+  "timestamp": "20250325_141237",
+  "provider": "dpsk"
+}

@@ -1,0 +1,378 @@
+{
+  "system_id": "landing_gear_steering_system",
+  "system_name": "Landing Gear Steering System",
+  "specification": {
+    "designScenario": {
+      "name": "Landing Gear Steering System",
+      "description": "Design a high-precision, fail-safe steering system for aircraft landing gear control during taxi, takeoff, and landing. The system must integrate seamlessly with the aircraft’s avionics and mechanical infrastructure, providing accurate directional control and rapid response under normal and emergency conditions.",
+      "requirements": [
+        {
+          "title": "Precise Directional Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The steering system must provide precise and responsive directional control for landing gear movement during ground operations to ensure safe and efficient taxiing."
+            }
+          ]
+        },
+        {
+          "title": "Rapid Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Steering actuation must occur within less than 1 second from command initiation, ensuring immediate system reaction to pilot inputs and dynamic adjustments during taxi."
+            }
+          ]
+        },
+        {
+          "title": "Safety Redundancy and Fail-Safe",
+          "type": "safety",
+          "details": [
+            {
+              "description": "The system should incorporate redundant sensing and fail-safe mechanisms to detect and address anomalies, ensuring uninterrupted safe operation in emergency conditions."
+            }
+          ]
+        },
+        {
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "The design must facilitate straightforward diagnostics, regular maintenance, and comply with stringent aviation standards for durability and environmental performance."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Steering System Controller",
+        "type": "Electronic Module",
+        "description": "Electronic module responsible for processing pilot inputs and sensor data to generate control signals for the steering mechanism of the landing gear.",
+        "subComponents": null
+      },
+      {
+        "name": "Steering Actuator",
+        "type": "Actuator",
+        "description": "Actuator responsible for converting electronic signals into mechanical movement for landing gear directional adjustments.",
+        "subComponents": null
+      },
+      {
+        "name": "Steering Position Sensor",
+        "type": "Sensor",
+        "description": "Sensor that monitors the actual steering angle and position of the landing gear, providing essential feedback for control loop adjustments.",
+        "subComponents": null
+      },
+      {
+        "name": "Electronic Control Interface",
+        "type": "Interface Module",
+        "description": "Interface module that bridges communication between the Steering System Controller and the aircraft's avionics network.",
+        "subComponents": null
+      },
+      {
+        "name": "Power Supply Module",
+        "type": "Electrical Module",
+        "description": "Electrical module providing a stable and efficient power supply to all steering system components to ensure reliable operation.",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Landing Gear Steering System",
+        "target": "Nose Gear Assembly",
+        "relationshipType": "aggregation",
+        "description": "The Steering System is aggregated with the Nose Gear Assembly to facilitate controlled directional movement of the aircraft during ground operations."
+      },
+      {
+        "source": "Steering System Controller",
+        "target": "Steering Actuator",
+        "relationshipType": "association",
+        "description": "The Steering System Controller sends control signals to the Steering Actuator to produce precise mechanical movement."
+      },
+      {
+        "source": "Steering System Controller",
+        "target": "Steering Position Sensor",
+        "relationshipType": "dependency",
+        "description": "The Steering System Controller relies on real-time feedback from the Steering Position Sensor to maintain accurate steering angles."
+      },
+      {
+        "source": "Steering System Controller",
+        "target": "Electronic Control Interface",
+        "relationshipType": "composition",
+        "description": "The Electronic Control Interface is an integral part of the Steering System Controller, facilitating communication with the aircraft avionics."
+      },
+      {
+        "source": "Steering System Controller",
+        "target": "Power Supply Module",
+        "relationshipType": "dependency",
+        "description": "The Steering System Controller depends on a stable power supply from the Power Supply Module to function reliably."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "steeringAngleRange",
+        "type": "string",
+        "value": "±30°",
+        "description": "The maximum rotational range for the landing gear steering system to allow precise directional changes during taxi operations."
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "< 1 second",
+        "description": "The time required from receiving a steering command to mechanical actuation, ensuring rapid response during ground maneuvers."
+      },
+      {
+        "name": "powerConsumption",
+        "type": "string",
+        "value": "< 5 kW",
+        "description": "The electrical power required to operate the steering actuator and associated electronics, optimized for energy efficiency."
+      },
+      {
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "-40°C to +60°C",
+        "description": "The operational temperature range ensuring reliable performance under extreme environmental conditions."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "LandingGearSteeringSystem",
+          "type": "Block",
+          "name": "LandingGearSteeringSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "maxRotationAngle",
+            "responseTime",
+            "powerConsumption",
+            "operationalTempRange"
+          ],
+          "operationIds": [
+            "steerNoseGear",
+            "monitorPosition"
+          ],
+          "constraintIds": [
+            "maxRotationConstraint",
+            "responseTimeConstraint"
+          ],
+          "partIds": [
+            "SteeringActuator",
+            "SteeringPositionSensor"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SteeringActuator",
+          "type": "Block",
+          "name": "SteeringActuator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "currentAngle",
+            "actuatorPower"
+          ],
+          "operationIds": [
+            "moveToAngle",
+            "reportStatus"
+          ],
+          "constraintIds": [
+            "actuatorPowerConstraint"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "SteeringPositionSensor",
+          "type": "Block",
+          "name": "SteeringPositionSensor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "sensorReading",
+            "sensorStatus"
+          ],
+          "operationIds": [
+            "readPosition",
+            "checkStatus"
+          ],
+          "constraintIds": [
+            "sensorAccuracyConstraint"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "CmdPort",
+          "type": "FullPort",
+          "name": "CmdPort",
+          "blockId": "LandingGearSteeringSystem",
+          "providedInterfaceIds": [
+            "CommandInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null
+        },
+        {
+          "id": "SensorPort",
+          "type": "FullPort",
+          "name": "SensorPort",
+          "blockId": "LandingGearSteeringSystem",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "SensorDataInterface"
+          ],
+          "flowSpecificationId": null
+        },
+        {
+          "id": "ActuatorCmdPort",
+          "type": "ProxyPort",
+          "name": "ActuatorCmdPort",
+          "blockId": "SteeringActuator",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "CommandInterface"
+          ],
+          "flowSpecificationId": null
+        },
+        {
+          "id": "SensorDataPort",
+          "type": "ProxyPort",
+          "name": "SensorDataPort",
+          "blockId": "SteeringPositionSensor",
+          "providedInterfaceIds": [
+            "SensorDataInterface"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "CommandInterface",
+          "type": "Interface",
+          "name": "CommandInterface",
+          "operationIds": [
+            "steerCommand"
+          ],
+          "signalIds": [],
+          "attributeIds": []
+        },
+        {
+          "id": "SensorDataInterface",
+          "type": "Interface",
+          "name": "SensorDataInterface",
+          "operationIds": [
+            "getPosition"
+          ],
+          "signalIds": [],
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "maxRotationConstraint",
+          "type": "ConstraintBlock",
+          "name": "MaxRotationConstraint",
+          "expression": "currentAngle <= maxRotationAngle",
+          "parameterIds": [
+            "maxRotationAngle",
+            "currentAngle"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "responseTimeConstraint",
+          "type": "ConstraintBlock",
+          "name": "ResponseTimeConstraint",
+          "expression": "responseTime <= 0.5",
+          "parameterIds": [
+            "responseTime"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "AngleValueType",
+          "type": "ValueType",
+          "name": "AngleValueType",
+          "quantityKindId": "Angle",
+          "unitId": "Degree",
+          "attributeIds": []
+        },
+        {
+          "id": "TimeValueType",
+          "type": "ValueType",
+          "name": "TimeValueType",
+          "quantityKindId": "Time",
+          "unitId": "Second",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "SensorStatusEnum",
+          "type": "Enumeration",
+          "name": "SensorStatusEnum",
+          "literals": [
+            {
+              "id": "Operational",
+              "name": "Operational"
+            },
+            {
+              "id": "Faulty",
+              "name": "Faulty"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "LandingGearComposition",
+          "type": "Composition",
+          "name": "LandingGearComposition",
+          "sourceId": "LandingGearSteeringSystem",
+          "targetId": "SteeringActuator",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "SensorComposition",
+          "type": "Composition",
+          "name": "SensorComposition",
+          "sourceId": "LandingGearSteeringSystem",
+          "targetId": "SteeringPositionSensor",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment1",
+          "type": "Comment",
+          "body": "SteeringActuator is responsible for physically moving the nose gear",
+          "annotatedElementId": "SteeringActuator"
+        }
+      ],
+      "interfaceBlocks": [],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Landing Gear Steering System includes components such as the Steering Actuator for moving the nose gear, the Steering Position Sensor to monitor steering angle, and the Steering System itself which is essential for directional control during ground operations. The system's specifications detail the maximum rotational range for the nose gear steering system, the response time from receiving a steering command to mechanical actuation, the power consumption required for operation, and the operational temperature range ensuring reliable performance under extreme environmental conditions.",
+  "timestamp": "20250326_015113",
+  "provider": "qwen"
+}

@@ -1,0 +1,436 @@
+{
+  "system_id": "air_supply_system",
+  "system_name": "Air Supply System",
+  "specification": {
+    "designScenario": {
+      "name": "Air Supply System",
+      "description": "The Air Supply System (ASS) is a critical subsystem of the Environmental Control System (ECS) responsible for sourcing, conditioning, and distributing breathable air to the aircraft cabin. It integrates bleed air extraction from engines/APU, filtration, temperature preconditioning, and pressure regulation to ensure a continuous supply of air meeting aviation safety standards. The system maintains cabin pressurization, oxygen levels, and air circulation while coordinating with fire suppression and emergency oxygen systems.",
+      "requirements": [
+        {
+          "title": "Airflow Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall regulate airflow between 800-2500 CFM based on cabin occupancy and flight phase using variable-frequency fan drives."
+            }
+          ]
+        },
+        {
+          "title": "Cabin Pressurization",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Maintain cabin pressure altitude below 8,000 ft (0.75-1.1 atm) during all flight phases using outflow valve control."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Air Sources",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Provide dual redundant air sources (engine bleed/APU/electric compressor) with automatic failover within 3 seconds of pressure loss."
+            }
+          ]
+        },
+        {
+          "title": "Particulate Filtration",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Remove 99.97% of airborne particulates ≥0.3 microns using HEPA filters with differential pressure monitoring."
+            }
+          ]
+        },
+        {
+          "title": "Emergency Pressurization",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Maintain cabin pressure during rapid decompression events with <15 second recovery to safe levels (≤15,000 ft equivalent)."
+            }
+          ]
+        },
+        {
+          "title": "Crew Interface",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Provide touchscreen controls with synoptic displays showing airflow rates, filter status, and pressure differentials."
+            }
+          ]
+        },
+        {
+          "title": "Line Replaceable Units",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Design all components as LRUs (Line Replaceable Units) with <30 minute MTTR (Mean Time To Repair)."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Air Supply Management Unit",
+        "description": "Central controller managing air source selection, flow distribution, and interface with ECS",
+        "type": "Control Module",
+        "subComponents": [
+          {
+            "name": "Bleed Air Controller",
+            "description": "Regulates engine/APU bleed air extraction pressures",
+            "type": "Electronic Control Unit"
+          },
+          {
+            "name": "Flow Distribution Module",
+            "description": "Directs air to cabin zones via electrically actuated valves",
+            "type": "Pneumatic Actuator"
+          }
+        ]
+      },
+      {
+        "name": "Bleed Air System",
+        "description": "High-pressure air extraction and preconditioning system",
+        "type": "Pneumatic Subsystem",
+        "subComponents": [
+          {
+            "name": "Bleed Air Valve",
+            "description": "Modulating valve controlling bleed air extraction rate",
+            "type": "Pneumatic Valve"
+          },
+          {
+            "name": "Pre-Cooler",
+            "description": "Air-to-air heat exchanger reducing bleed air temperature",
+            "type": "Heat Exchanger"
+          },
+          {
+            "name": "Pressure Regulator",
+            "description": "Reduces bleed air pressure to cabin service levels",
+            "type": "Regulator"
+          }
+        ]
+      },
+      {
+        "name": "Cabin Air Distribution Network",
+        "description": "Ducting and nozzles for optimized air distribution",
+        "type": "Pneumatic Subsystem",
+        "subComponents": [
+          {
+            "name": "Primary Distribution Ducts",
+            "description": "Aluminum alloy ducts with acoustic lining",
+            "type": "Conduit"
+          },
+          {
+            "name": "Gasper Outlets",
+            "description": "Adjustable personal ventilation nozzles",
+            "type": "Flow Regulator"
+          }
+        ]
+      },
+      {
+        "name": "Air Filtration Unit",
+        "description": "Particulate and gaseous contaminant removal system",
+        "type": "Filter Subsystem",
+        "subComponents": [
+          {
+            "name": "HEPA Filter Bank",
+            "description": "High-efficiency particulate air filters",
+            "type": "Filter"
+          },
+          {
+            "name": "Charcoal Filter",
+            "description": "Adsorbs odors and organic vapors",
+            "type": "Chemical Filter"
+          }
+        ]
+      },
+      {
+        "name": "Pressure Regulation System",
+        "description": "Active cabin pressure control subsystem",
+        "type": "Pneumatic Subsystem",
+        "subComponents": [
+          {
+            "name": "Outflow Valve",
+            "description": "Electro-pneumatic valve controlling cabin exhaust",
+            "type": "Actuated Valve"
+          },
+          {
+            "name": "Pressure Sensors",
+            "description": "Redundant absolute pressure transducers",
+            "type": "Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Redundant Air Supply Unit",
+        "description": "Emergency air compression and delivery system",
+        "type": "Backup System",
+        "subComponents": [
+          {
+            "name": "Electric Compressor",
+            "description": "300V DC motor-driven centrifugal compressor",
+            "type": "Actuator"
+          },
+          {
+            "name": "Isolation Valves",
+            "description": "Prevent reverse flow during emergency operation",
+            "type": "Solenoid Valve"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Air Supply Management Unit",
+        "target": "Bleed Air System",
+        "relationshipType": "aggregation",
+        "description": "The management unit aggregates and controls bleed air system components"
+      },
+      {
+        "source": "Bleed Air System",
+        "target": "Engine Bleed Ports",
+        "relationshipType": "dependency",
+        "description": "Depends on engine compressor bleed ports for air source"
+      },
+      {
+        "source": "Pressure Regulation System",
+        "target": "Air Supply Management Unit",
+        "relationshipType": "association",
+        "description": "Exchanges pressure data and valve position feedback"
+      },
+      {
+        "source": "Cabin Air Distribution Network",
+        "target": "Distribution Ducts",
+        "relationshipType": "composition",
+        "description": "Network is physically composed of primary distribution ducts"
+      },
+      {
+        "source": "Redundant Air Supply Unit",
+        "target": "Air Supply Management Unit",
+        "relationshipType": "aggregation",
+        "description": "Managed as part of the overall air supply control strategy"
+      },
+      {
+        "source": "Air Filtration Unit",
+        "target": "Cabin Air Distribution Network",
+        "relationshipType": "association",
+        "description": "Supplies filtered air to the distribution network"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "airflowCapacity",
+        "type": "string",
+        "value": "800-2500 CFM",
+        "description": "Adjustable airflow rate based on cabin occupancy and flight phase"
+      },
+      {
+        "name": "pressureRange",
+        "type": "string",
+        "value": "0.75-1.1 atm",
+        "description": "Operational cabin pressure range from sea level to 8,000 ft equivalent"
+      },
+      {
+        "name": "filtrationEfficiency",
+        "type": "string",
+        "value": "99.97% @ 0.3μm",
+        "description": "HEPA filtration performance for particulate removal"
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual redundant",
+        "description": "Fail-operational architecture for critical air supply components"
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "<3 sec",
+        "description": "Maximum allowable delay for redundancy activation"
+      },
+      {
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "15°C-30°C",
+        "description": "Conditioned air temperature range post-mixing"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "B1",
+          "type": "Block",
+          "name": "AirSupplySystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "A1",
+            "A2",
+            "A3"
+          ],
+          "operationIds": [
+            "O1",
+            "O2"
+          ],
+          "constraintIds": [
+            "C1",
+            "C2"
+          ],
+          "partIds": [
+            "P1",
+            "P2",
+            "P3",
+            "P4"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "B2",
+          "type": "Block",
+          "name": "EngineBleedAirSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "A4",
+            "A5"
+          ],
+          "operationIds": [
+            "O3"
+          ],
+          "constraintIds": [
+            "C3"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB1",
+          "type": "InterfaceBlock",
+          "name": "ECSSystemInterface",
+          "attributeIds": [
+            "A6"
+          ],
+          "operationIds": [
+            "O4"
+          ],
+          "signalIds": [
+            "S1"
+          ],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS1",
+          "type": "FlowSpecification",
+          "name": "CompressedAirFlow",
+          "flowType": "Material",
+          "dataType": "AirMassFlow",
+          "unit": "kg/s",
+          "attributeIds": [
+            "A7"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "C1",
+          "type": "ConstraintBlock",
+          "name": "CabinPressureConstraint",
+          "parameterIds": [
+            "PR1"
+          ],
+          "expression": "cabinPressure >= 10.9 psi && cabinPressure <= 11.9 psi",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT1",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "QK1",
+          "unitId": "U1",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "E1",
+          "type": "Enumeration",
+          "name": "ValveState",
+          "literals": [
+            {
+              "id": "L1",
+              "name": "OPEN"
+            },
+            {
+              "id": "L2",
+              "name": "CLOSED"
+            },
+            {
+              "id": "L3",
+              "name": "FAULT"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "FP1",
+          "type": "FlowPort",
+          "name": "airOutput",
+          "isConjugated": false,
+          "blockId": "B2",
+          "flowSpecificationId": "FS1",
+          "attributeIds": []
+        }
+      ],
+      "proxyPorts": [
+        {
+          "id": "PP1",
+          "type": "ProxyPort",
+          "name": "ctrlInterface",
+          "isConjugated": true,
+          "blockId": "B2",
+          "providedInterfaceIds": [
+            "IB1"
+          ],
+          "requiredInterfaceIds": [],
+          "attributeIds": []
+        }
+      ],
+      "generalizations": [
+        {
+          "id": "G1",
+          "type": "Generalization",
+          "name": "AirSystemGeneralization",
+          "sourceId": "B2",
+          "targetId": "B1",
+          "isSubstitutable": true
+        }
+      ],
+      "comments": [
+        {
+          "id": "CM1",
+          "type": "Comment",
+          "body": "Maintains cabin pressure between 10.9-11.9 PSI during all flight phases",
+          "annotatedElementId": "C1"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_144629",
+  "provider": "dpsk"
+}

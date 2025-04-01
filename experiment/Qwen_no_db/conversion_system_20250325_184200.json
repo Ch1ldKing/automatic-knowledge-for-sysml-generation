@@ -1,0 +1,473 @@
+{
+  "system_id": "conversion_system",
+  "system_name": "Conversion System",
+  "specification": {
+    "designScenario": {
+      "name": "Advanced AC-DC Power Converter for Next-Gen Aircraft",
+      "description": "This high-performance AC-DC Converter is designed for integration into modern aircraft to supply stable DC power to critical systems under extreme operational conditions. It employs advanced semiconductor technologies for high efficiency and compact design, ensuring compatibility with variable-frequency AC inputs and supporting electric propulsion systems. The converter includes redundant pathways, real-time monitoring, and robust safety features to meet aviation safety standards while minimizing weight and thermal load.",
+      "requirements": [
+        {
+          "title": "AC to DC Conversion with Frequency Adaptability",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Convert variable-frequency AC input (400-800Hz) from the aircraft power grid to a regulated DC output of 28V."
+            },
+            {
+              "description": "Support hot-swappable modules to enable in-flight maintenance without system downtime."
+            }
+          ]
+        },
+        {
+          "title": "High Efficiency and Power Density",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve a minimum power conversion efficiency of 97% to reduce energy waste and thermal load."
+            },
+            {
+              "description": "Maintain transient response time of <1ms under sudden load changes during flight maneuvers."
+            }
+          ]
+        },
+        {
+          "title": "Enhanced Safety and Fault Tolerance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement over-temperature shutdown, arc fault detection, and 2000V isolation between AC and DC sides."
+            },
+            {
+              "description": "Ensure fail-operational redundancy for critical outputs using dual power paths."
+            }
+          ]
+        },
+        {
+          "title": "Modularity and Compliance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Adopt a modular design with standardized interfaces for easy replacement and upgrades."
+            },
+            {
+              "description": "Comply with electromagnetic compatibility (EMC) standards to prevent interference with avionics systems."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Input Conditioning Unit",
+        "type": "Power Conditioning",
+        "description": "Stabilizes incoming AC voltage and frequency while filtering electromagnetic interference.",
+        "subComponents": [
+          {
+            "name": "Voltage Regulator",
+            "type": "Transformer",
+            "description": "Regulates input voltage fluctuations to maintain steady AC levels for conversion."
+          },
+          {
+            "name": "Frequency Converter",
+            "type": "Electronic Filter",
+            "description": "Handles variable input frequencies (400-800Hz) to ensure compatibility with aircraft power systems."
+          },
+          {
+            "name": "EMC Filter",
+            "type": "Passive Filter",
+            "description": "Suppresses electromagnetic noise to meet aviation EMC standards."
+          }
+        ]
+      },
+      {
+        "name": "AC-DC Conversion Section",
+        "type": "Power Converter",
+        "description": "Core module utilizing advanced semiconductors to convert AC to regulated DC with minimal losses.",
+        "subComponents": [
+          {
+            "name": "Rectifier",
+            "type": "Diode Bridge",
+            "description": "Converts AC input into unregulated DC with minimal voltage drop."
+          },
+          {
+            "name": "Power Factor Correction (PFC)",
+            "type": "Active Filter",
+            "description": "Improves power factor to unity for efficient grid interaction."
+          },
+          {
+            "name": "DC-DC Converter",
+            "type": "Switch-Mode Converter",
+            "description": "Regulates the DC output to a stable 28V under varying loads."
+          }
+        ]
+      },
+      {
+        "name": "Cooling System",
+        "type": "Thermal Management",
+        "description": "Maintains optimal operating temperatures through liquid cooling and active thermal control.",
+        "subComponents": [
+          {
+            "name": "Liquid Cooling Loop",
+            "type": "Heat Exchanger",
+            "description": "Distributes coolant to dissipate heat from high-power components."
+          },
+          {
+            "name": "Thermoelectric Cooler",
+            "type": "Active Cooler",
+            "description": "Provides precise temperature regulation for sensitive electronics."
+          }
+        ]
+      },
+      {
+        "name": "Monitoring and Control Unit",
+        "type": "Control System",
+        "description": "Monitors real-time parameters and controls converter operation for safety and performance.",
+        "subComponents": [
+          {
+            "name": "Sensor Array",
+            "type": "Sensor Network",
+            "description": "Measures voltage, current, temperature, and fault conditions."
+          },
+          {
+            "name": "Control Logic Processor",
+            "type": "Microcontroller",
+            "description": "Executes control algorithms to optimize efficiency and fault response."
+          },
+          {
+            "name": "CAN Bus Interface",
+            "type": "Communication Module",
+            "description": "Enables bidirectional communication with aircraft health monitoring systems."
+          }
+        ]
+      },
+      {
+        "name": "Safety and Protection Unit",
+        "type": "Protection System",
+        "description": "Safeguards against electrical faults and ensures fail-safe operation.",
+        "subComponents": [
+          {
+            "name": "Overcurrent Protector",
+            "type": "Circuit Breaker",
+            "description": "Interrupts power flow during excessive current draw."
+          },
+          {
+            "name": "Overvoltage Clamp",
+            "type": "Transient Voltage Suppressor",
+            "description": "Limits voltage spikes to protect downstream circuits."
+          },
+          {
+            "name": "Isolation Monitor",
+            "type": "Insulation Tester",
+            "description": "Continuously verifies galvanic isolation between AC and DC sides."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Input Conditioning Unit",
+        "target": "AC-DC Conversion Section",
+        "relationshipType": "dependency",
+        "description": "The Input Conditioning Unit provides stabilized AC input for conversion."
+      },
+      {
+        "source": "AC-DC Conversion Section",
+        "target": "Cooling System",
+        "relationshipType": "dependency",
+        "description": "The AC-DC Conversion Section relies on the Cooling System to manage thermal load."
+      },
+      {
+        "source": "Monitoring and Control Unit",
+        "target": "AC-DC Conversion Section",
+        "relationshipType": "aggregation",
+        "description": "The Monitoring Unit aggregates real-time data from the AC-DC Conversion Section for diagnostics."
+      },
+      {
+        "source": "Safety and Protection Unit",
+        "target": "AC-DC Conversion Section",
+        "relationshipType": "association",
+        "description": "The Safety Unit monitors and enforces protective measures for the AC-DC Conversion Section."
+      },
+      {
+        "source": "Input Conditioning Unit",
+        "target": "EMC Filter",
+        "relationshipType": "composition",
+        "description": "The EMC Filter is a subcomponent of the Input Conditioning Unit."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "inputVoltage",
+        "type": "string",
+        "value": "AC 115V/400Hz",
+        "description": "Nominal input voltage and frequency compatible with aircraft power grids."
+      },
+      {
+        "name": "outputVoltage",
+        "type": "string",
+        "value": "DC 28V",
+        "description": "Regulated DC output voltage for avionics and flight control systems."
+      },
+      {
+        "name": "powerEfficiency",
+        "type": "string",
+        "value": "97%",
+        "description": "Efficiency rating minimizing energy losses during high-power conversion."
+      },
+      {
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "-55°C to +125°C",
+        "description": "Operating temperature range for extreme environmental conditions."
+      },
+      {
+        "name": "compliance",
+        "type": "string",
+        "value": "MIL-STD-704F, RTCA DO-160G",
+        "description": "Compliance with military and civilian aviation standards for safety and performance."
+      },
+      {
+        "name": "powerRating",
+        "type": "string",
+        "value": "20kW",
+        "description": "Maximum continuous power output capacity."
+      },
+      {
+        "name": "weight",
+        "type": "string",
+        "value": "5 kg",
+        "description": "Compact lightweight design for aircraft integration."
+      }
+    ]
+  },
+  "model": {
+    "name": "SysML_Block_Definition_Diagram",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "diagramType": {
+          "type": "string",
+          "const": "BDD",
+          "description": "SysML 图的类型，固定为 BDD (块定义图)"
+        },
+        "elements": {
+          "type": "object",
+          "properties": {
+            "blocks": [
+              {
+                "id": "BSYS_ConversionSystem",
+                "type": "Block",
+                "name": "ConversionSystem",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "P_CtrlMode",
+                  "P_HydraulicPressure"
+                ],
+                "operationIds": [
+                  "O_InitiateConversion",
+                  "O_CancelConversion"
+                ],
+                "constraintIds": [
+                  "CB_ConversionTimeConstraint"
+                ],
+                "partIds": [
+                  "B_CTRLSubsystem",
+                  "B_MECHSubsystem",
+                  "B_ELECSubsystem"
+                ],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "B_CTRLSubsystem",
+                "type": "Block",
+                "name": "ControlSubsystem",
+                "isAbstract": false,
+                "isActive": true,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "P_CommandStatus",
+                  "P_SafetyOverride"
+                ],
+                "operationIds": [
+                  "O_ProcessInputs",
+                  "O_GenerateCommands"
+                ],
+                "constraintIds": [
+                  "CB_CommandLatencyConstraint"
+                ],
+                "partIds": [
+                  "B_CtrlUnit",
+                  "B_SensorArray"
+                ],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "B_MECHSubsystem",
+                "type": "Block",
+                "name": "MechanicalSubsystem",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "P_PositionFeedback",
+                  "P_MechanicalLoad"
+                ],
+                "operationIds": [
+                  "O_ActuateFuselage",
+                  "O_LockStructure"
+                ],
+                "constraintIds": [
+                  "CB_MechanicalStressConstraint"
+                ],
+                "partIds": [
+                  "B_HydraulicActuator",
+                  "B_LockMechanism"
+                ],
+                "referenceIds": [],
+                "valueIds": []
+              },
+              {
+                "id": "B_ELECSubsystem",
+                "type": "Block",
+                "name": "ElectricalSubsystem",
+                "isAbstract": false,
+                "isActive": false,
+                "isEncapsulated": true,
+                "attributeIds": [
+                  "P_PowerSupplyStatus",
+                  "P_EmergencyPower"
+                ],
+                "operationIds": [
+                  "O_PowerDistribution",
+                  "O_MonitorVoltage"
+                ],
+                "constraintIds": [
+                  "CB_PowerVoltageConstraint"
+                ],
+                "partIds": [
+                  "B_PowerDistributionUnit",
+                  "B_BatteryBank"
+                ],
+                "referenceIds": [],
+                "valueIds": []
+              }
+            ],
+            "interfaceBlocks": [
+              {
+                "id": "IB_ControlInterface",
+                "type": "InterfaceBlock",
+                "name": "ControlInterface",
+                "attributeIds": [
+                  "P_CommandType"
+                ],
+                "operationIds": [
+                  "O_ExecuteCommand"
+                ],
+                "signalIds": [
+                  "S_ConversionComplete"
+                ],
+                "constraintIds": []
+              }
+            ],
+            "ports": [
+              {
+                "id": "P_CTRL_CommandIn",
+                "type": "ProxyPort",
+                "name": "CommandInputPort",
+                "blockId": "BSYS_ConversionSystem",
+                "providedInterfaceIds": [
+                  "IB_ControlInterface"
+                ],
+                "requiredInterfaceIds": [],
+                "flowSpecificationId": null,
+                "isConjugated": false,
+                "attributeIds": []
+              },
+              {
+                "id": "P_MECH_PositionFeedback",
+                "type": "FlowPort",
+                "name": "PositionFeedbackPort",
+                "blockId": "B_MECHSubsystem",
+                "flowSpecificationId": "FS_PositionData",
+                "isConjugated": false,
+                "attributeIds": []
+              }
+            ],
+            "flowSpecifications": [
+              {
+                "id": "FS_PositionData",
+                "type": "FlowSpecification",
+                "name": "PositionDataFlow",
+                "flowType": "data",
+                "dataType": "PositionCoordinates",
+                "unit": "mm",
+                "attributeIds": []
+              }
+            ],
+            "constraintBlocks": [
+              {
+                "id": "CB_ConversionTimeConstraint",
+                "type": "ConstraintBlock",
+                "name": "ConversionTimeConstraint",
+                "expression": "maxConversionTime <= 120",
+                "parameterIds": [
+                  "P_CtrlMode"
+                ],
+                "attributeIds": []
+              }
+            ],
+            "enumerations": [
+              {
+                "id": "ENUM_ConversionState",
+                "type": "Enumeration",
+                "name": "ConversionState",
+                "literals": [
+                  {
+                    "id": "L_Standby",
+                    "name": "Standby"
+                  },
+                  {
+                    "id": "L_InProgress",
+                    "name": "InProgress"
+                  },
+                  {
+                    "id": "L_Complete",
+                    "name": "Complete"
+                  }
+                ],
+                "attributeIds": []
+              }
+            ],
+            "attributes": [
+              {
+                "id": "P_CtrlMode",
+                "type": "Property",
+                "name": "ControlMode",
+                "propertyType": "ENUM_ConversionState",
+                "value": "Standby",
+                "visibility": "public",
+                "aggregation": "none",
+                "lowerValue": "1",
+                "upperValue": "1",
+                "defaultValue": "Standby",
+                "isReadOnly": false,
+                "isStatic": false,
+                "isDerived": false,
+                "isDerivedUnion": false,
+                "isOrdered": false,
+                "isUnique": true,
+                "isID": false
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "timestamp": "20250325_184200",
+  "provider": "qwen"
+}

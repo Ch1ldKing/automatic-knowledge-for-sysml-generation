@@ -1,0 +1,292 @@
+{
+  "system_id": "emergency_oxygen_system",
+  "system_name": "Emergency Oxygen System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Time limit to deploy oxygen masks upon cabin depressurization.",
+        "name": "activationTime",
+        "type": "string",
+        "value": "3 seconds"
+      },
+      {
+        "description": "Maximum storage duration for oxygen canisters.",
+        "name": "storageLifetime",
+        "type": "string",
+        "value": "10 years"
+      },
+      {
+        "description": "The range of cabin pressures in which the system can operate effectively.",
+        "name": "operationalPressureRange",
+        "type": "string",
+        "value": "50kPa to 110kPa"
+      },
+      {
+        "description": "Number of redundant oxygen generation units.",
+        "name": "redundancyLevel",
+        "type": "integer",
+        "value": "3"
+      },
+      {
+        "description": "Energy backup capability for uninterrupted operation when main power source fails.",
+        "name": "powerBackup",
+        "type": "string",
+        "value": "Battery Backup Module"
+      }
+    ],
+    "designScenario": {
+      "description": "This design scenario for the Emergency Oxygen System outlines its role in providing breathable air to passengers and crew during a cabin depressurization event. Designed with robust fail-safe and real-time activation mechanisms, it integrates various components to manage oxygen storage, delivery, and monitoring, ensuring safety under emergency conditions.",
+      "name": "Emergency Oxygen System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Promptly deploy oxygen masks to all passengers and crew when triggered by cabin pressure thresholds."
+            }
+          ],
+          "title": "Automatic Oxygen Dispersion",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide a continuous oxygen supply for a minimum of 15 minutes under full capacity."
+            },
+            {
+              "description": "Initiate within 3 seconds of activation signal."
+            }
+          ],
+          "title": "Performance Standards",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure no single point of failure compromises the system’s functionality."
+            },
+            {
+              "description": "Use non-combustible materials for oxygen storage and transfer."
+            }
+          ],
+          "title": "Safety Considerations",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Allow for routine maintenance accessibility and diagnostics without disrupting airplane operations."
+            },
+            {
+              "description": "Contain self-diagnostic routines ensuring availability within set response times."
+            }
+          ],
+          "title": "Maintainability and Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Unit oversees the activation of Distribution Modules based on inputs from Pressure Sensors.",
+        "relationshipType": "association",
+        "source": "Central Control Unit",
+        "target": "Oxygen Distribution Module"
+      },
+      {
+        "description": "The Oxygen Cylinder Module feeds oxygen to the Distribution Module during operations.",
+        "relationshipType": "dependency",
+        "source": "Oxygen Cylinder Module",
+        "target": "Oxygen Distribution Module"
+      },
+      {
+        "description": "Redundant Pressure Sensors aggregate input data to the Control Unit for enhanced decision-making.",
+        "relationshipType": "aggregation",
+        "source": "Central Control Unit",
+        "target": "Pressure Sensor"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Monitors cabin pressure and activates the oxygen system at critical thresholds.",
+        "name": "Pressure Sensor",
+        "subComponents": [
+          {
+            "description": "Detects changes in atmospheric pressure.",
+            "name": "Sensor Element",
+            "type": "Detection Module"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Controls oxygen release and mask deployment based on sensor feedback.",
+        "name": "Central Control Unit",
+        "subComponents": [
+          {
+            "description": "Processes Algorithm for critical oxygen release timing.",
+            "name": "Timing Processor",
+            "type": "Logic Module"
+          }
+        ],
+        "type": "Control Module"
+      },
+      {
+        "description": "Stores medical-grade oxygen under high pressure for emergencies.",
+        "name": "Oxygen Cylinder Module",
+        "subComponents": [
+          {
+            "description": "Contains compressed oxygen.",
+            "name": "Cylinder",
+            "type": "Storage Unit"
+          }
+        ],
+        "type": "Storage Module"
+      },
+      {
+        "description": "Distributes oxygen to masks through valves.",
+        "name": "Oxygen Distribution Module",
+        "subComponents": [
+          {
+            "description": "Controls oxygen flow to individual masks.",
+            "name": "Distribution Valve",
+            "type": "Fluidic Module"
+          }
+        ],
+        "type": "Distribution Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "Aggregation_EmergencyOxygenSystem_MainReservoir",
+          "memberEndIds": [
+            "EmergencyOxygenSystem_to_MainReservoir",
+            "MainReservoir_to_EmergencyOxygenSystem"
+          ],
+          "name": "Composition_EOS_to_MainReservoir",
+          "ownedEndIds": null,
+          "sourceId": "Block_EmergencyOxygenSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "Block_MainReservoir",
+          "targetMultiplicity": "1..*",
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "Property_Capacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "capacity",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "Property_Capacity"
+          ],
+          "constraintIds": null,
+          "id": "Block_MainReservoir",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Main Reservoir",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "Block_EmergencyOxygenSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Emergency Oxygen System",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "ValueType_OxygenFlowRate",
+          "name": "OxygenFlowRate",
+          "quantityKindId": "QuantityKind_FlowRate",
+          "type": "ValueType",
+          "unitId": "Unit_LitersPerSecond"
+        }
+      ]
+    }
+  },
+  "rag_context": "The Emergency Oxygen System information and specifications are not provided in the given context.",
+  "timestamp": "20250326_174436",
+  "provider": "gpt"
+}

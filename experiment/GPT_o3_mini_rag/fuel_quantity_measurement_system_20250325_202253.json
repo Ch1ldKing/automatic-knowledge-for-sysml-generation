@@ -1,0 +1,521 @@
+{
+  "system_id": "fuel_quantity_measurement_system",
+  "system_name": "Fuel Quantity Measurement System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The measurement accuracy of the fuel quantity sensors, indicating the precision level of fuel level detection.",
+        "name": "measurementAccuracy",
+        "type": "string",
+        "value": "±0.5%"
+      },
+      {
+        "description": "The interval at which the fuel quantity measurement system updates its readings to ensure near real-time monitoring.",
+        "name": "updateInterval",
+        "type": "string",
+        "value": "500 ms"
+      },
+      {
+        "description": "Operating temperature range to ensure reliable sensor performance under various atmospheric conditions.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-40°C to +85°C"
+      },
+      {
+        "description": "The recommended calibration interval to maintain sensor accuracy over extended flight hours.",
+        "name": "sensorCalibrationInterval",
+        "type": "string",
+        "value": "100 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fuel Quantity Measurement System is a critical avionics subsystem designed to accurately measure and monitor the fuel levels within an aircraft. It integrates a network of sensor arrays, data acquisition modules, signal processing units, and diagnostic interfaces to deliver reliable fuel quantity data under varying flight conditions. The system supports real-time measurements, redundant sensing, continuous self-diagnosis, and seamless integration with cockpit displays, ensuring both operational safety and maintenance efficiency.",
+      "name": "Fuel Quantity Measurement System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Collect and process data from multiple fuel tanks via sensor arrays to compute the accurate fuel level in real-time."
+            },
+            {
+              "description": "Integrate redundant sensor inputs to ensure reliable fuel quantity reporting under all flight conditions."
+            }
+          ],
+          "title": "Real-Time Fuel Level Sensing",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain a measurement accuracy within ±0.5% across the entire operating range."
+            },
+            {
+              "description": "Ensure the data update interval does not exceed 500 ms to support timely decision-making by pilots."
+            }
+          ],
+          "title": "High Precision Measurement",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Deploy dual or multiple sensor arrays to provide redundancy, ensuring continuous operation even in the case of individual sensor failures."
+            },
+            {
+              "description": "Incorporate fault detection mechanisms that automatically notify the crew and trigger backup sensor activation."
+            }
+          ],
+          "title": "Redundant Sensor Architecture",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design the system with ease of maintenance in mind, allowing for quick calibration and diagnostic self-tests."
+            },
+            {
+              "description": "Provide a user-friendly maintenance interface for flight crews and technicians to monitor system health and perform routine calibrations."
+            }
+          ],
+          "title": "Maintainability and Calibration",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Data Acquisition Module is composed of the Fuel Sensor Array which gathers raw fuel quantity data from multiple fuel tanks.",
+        "relationshipType": "composition",
+        "source": "Data Acquisition Module",
+        "target": "Fuel Sensor Array"
+      },
+      {
+        "description": "The Signal Processing Unit depends on the Data Acquisition Module to receive digitized sensor data for further analysis.",
+        "relationshipType": "dependency",
+        "source": "Signal Processing Unit",
+        "target": "Data Acquisition Module"
+      },
+      {
+        "description": "The Diagnostic and Calibration Module is associated with both the Fuel Sensor Array and the Signal Processing Unit to facilitate system health checks and calibration procedures.",
+        "relationshipType": "association",
+        "source": "Diagnostic and Calibration Module",
+        "target": "Fuel Sensor Array"
+      },
+      {
+        "description": "The Diagnostic and Calibration Module is associated with the Signal Processing Unit to continuously monitor and optimize measurement processes.",
+        "relationshipType": "association",
+        "source": "Diagnostic and Calibration Module",
+        "target": "Signal Processing Unit"
+      },
+      {
+        "description": "The Cockpit Display Integration module receives processed fuel quantity data from the Signal Processing Unit, ensuring timely information is available to the flight crew.",
+        "relationshipType": "dependency",
+        "source": "Cockpit Display Integration",
+        "target": "Signal Processing Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A network of sensors measuring fuel levels from various tanks, providing raw analog signals that represent fuel quantity.",
+        "name": "Fuel Sensor Array",
+        "subComponents": [
+          {
+            "description": "Primary fuel sensor responsible for high-accuracy measurements under nominal conditions.",
+            "name": "Primary Fuel Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Backup fuel sensor that provides redundancy in the event of primary sensor failure.",
+            "name": "Backup Fuel Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Reserve fuel sensor monitoring auxiliary tanks to support overall fuel management.",
+            "name": "Reserve Fuel Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Array"
+      },
+      {
+        "description": "Module responsible for acquiring analog signals from the sensor array and converting them into digital data for further processing.",
+        "name": "Data Acquisition Module",
+        "subComponents": null,
+        "type": "Acquisition Unit"
+      },
+      {
+        "description": "Unit that processes digitized sensor signals using advanced algorithms to compute the precise fuel quantity.",
+        "name": "Signal Processing Unit",
+        "subComponents": null,
+        "type": "Processing Unit"
+      },
+      {
+        "description": "Module that conducts continuous self-diagnostics and calibration, ensuring system reliability and accuracy over time.",
+        "name": "Diagnostic and Calibration Module",
+        "subComponents": [
+          {
+            "description": "Subsystem responsible for routine self-testing and health monitoring of the fuel measurement components.",
+            "name": "Self-Test Subsystem",
+            "type": "Diagnostic"
+          },
+          {
+            "description": "Subsystem dedicated to calibrating sensor outputs and adjusting measurement parameters as required.",
+            "name": "Calibration Subsystem",
+            "type": "Calibration"
+          }
+        ],
+        "type": "Maintenance Module"
+      },
+      {
+        "description": "Interface module that presents the processed fuel quantity data to the cockpit displays for pilot monitoring.",
+        "name": "Cockpit Display Integration",
+        "subComponents": null,
+        "type": "Display Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": null,
+          "id": "A_MeasureFuel",
+          "name": "Measure Fuel Quantity",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "±1%",
+          "id": "A_FQMS_Accuracy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Measurement Accuracy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "±1%",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10Hz",
+          "id": "A_FQMS_SamplingRate",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Sampling Rate",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "10Hz",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-40°C to +85°C",
+          "id": "A_FQMS_TempRange",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Operating Temperature Range",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-40°C to +85°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "CAN Bus / ARINC 429",
+          "id": "A_FQMS_Comms",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Data Transmission Protocol",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "CAN Bus / ARINC 429",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Fully Integrated",
+          "id": "A_FQMS_Integration",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Integration Level",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Fully Integrated",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "A_FQMS_Accuracy",
+            "A_FQMS_SamplingRate",
+            "A_FQMS_TempRange",
+            "A_FQMS_Comms",
+            "A_FQMS_Integration"
+          ],
+          "constraintIds": null,
+          "id": "B_FQMS",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Fuel Quantity Measurement System",
+          "operationIds": null,
+          "partIds": [
+            "P_FuelSensor",
+            "P_DataProcessor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_FuelSensor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Fuel Sensor Unit",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_DataProcessor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Data Processing Unit",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "B_FQMS"
+          ],
+          "id": "C_FQMS_Accuracy",
+          "name": "Accuracy Constraint",
+          "specification": "Measurement accuracy must be within ±1%",
+          "type": "Constraint"
+        },
+        {
+          "constrainedElementIds": [
+            "B_FQMS"
+          ],
+          "id": "C_FQMS_Sampling",
+          "name": "Sampling Rate Constraint",
+          "specification": "Sampling rate must be 10Hz",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "S_Idle",
+          "name": "Idle",
+          "represents": null,
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "P_FuelSensor",
+          "name": "Fuel Sensor",
+          "of": "B_FuelSensor",
+          "type": "Part"
+        },
+        {
+          "id": "P_DataProcessor",
+          "name": "Data Processor",
+          "of": "B_DataProcessor",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B_FuelSensor",
+          "flowSpecificationId": null,
+          "id": "P_SensorOutput_Port",
+          "isConjugated": false,
+          "name": "Sensor Output Port",
+          "portType": "full",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B_DataProcessor",
+          "flowSpecificationId": null,
+          "id": "P_Comm_Port",
+          "isConjugated": false,
+          "name": "Communication Port",
+          "portType": "full",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "R_FQMS_Accuracy",
+          "name": "FQMS Accuracy Requirement",
+          "reqId": "REQ-001",
+          "text": "The fuel quantity measurement system shall have an accuracy of ±1%.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "R_FQMS_Sampling",
+          "name": "FQMS Sampling Rate Requirement",
+          "reqId": "REQ-002",
+          "text": "The system shall sample fuel data at a rate of 10Hz.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "R_FQMS_Temp",
+          "name": "FQMS Temperature Requirement",
+          "reqId": "REQ-003",
+          "text": "Operating temperature range must be between -40°C and +85°C.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "R_FQMS_Comms",
+          "name": "FQMS Communication Requirement",
+          "reqId": "REQ-004",
+          "text": "The system shall use CAN Bus / ARINC 429 for data transmission.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": null,
+          "id": "S_Idle",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "S_Measuring",
+          "name": "Measuring",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": "Activate sensor sampling",
+          "guard": null,
+          "id": "T_StartMeasurement",
+          "name": "Start Measurement",
+          "sourceId": "S_Idle",
+          "targetId": "S_Measuring",
+          "trigger": "Begin Measurement",
+          "type": "Transition"
+        },
+        {
+          "effect": "Deactivate sensor sampling",
+          "guard": null,
+          "id": "T_StopMeasurement",
+          "name": "Stop Measurement",
+          "sourceId": "S_Measuring",
+          "targetId": "S_Idle",
+          "trigger": "Stop Command",
+          "type": "Transition"
+        }
+      ],
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Fuel Quantity Measurement System is a dedicated subsystem within the aircraft's fuel management system. It includes attributes such as measurement accuracy of ±1%, sampling rate of 10 Hz, operating temperature range of -40°C to +85°C, data transmission protocol using CAN Bus / ARINC 429, and integration level as Fully Integrated.",
+  "timestamp": "20250325_202253",
+  "provider": "gpt"
+}

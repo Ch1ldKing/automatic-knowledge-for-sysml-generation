@@ -1,0 +1,330 @@
+{
+  "system_id": "filter_system",
+  "system_name": "Filter System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Ensures the filter captures at least 99.97% of airborne particulate matter of 0.3 microns or larger, thereby guaranteeing high cabin air quality.",
+        "name": "filtrationEfficiency",
+        "type": "string",
+        "value": "99.97%"
+      },
+      {
+        "description": "Specifies the acceptable pressure drop across the filter medium to maintain optimal airflow while ensuring effective filtration performance under flight conditions.",
+        "name": "pressureDrop",
+        "type": "string",
+        "value": "0.3 - 0.5 inH2O"
+      },
+      {
+        "description": "Operating temperature range to ensure stable and consistent filter performance during various flight conditions.",
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "10°C - 40°C"
+      },
+      {
+        "description": "Recommended service interval before scheduled maintenance or filter replacement to uphold system reliability.",
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "Every 500 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Filter System is a critical subsystem in passenger airplanes designed to maintain superior cabin air quality through a multi-stage filtration process. It integrates a central Filter Module that combines pre-filtration, HEPA filtration for microscopic particulate removal, and active carbon filtering to adsorb odors and gaseous contaminants. Engineered under stringent aerospace standards, the system ensures minimal pressure drop and operational integrity within the designated temperature range, while supporting rapid modular maintenance procedures.",
+      "name": "Filter System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The Filter System shall capture at least 99.97% of airborne particulates of 0.3 microns or larger to ensure exceptional cabin air quality."
+            }
+          ],
+          "title": "Filtration Efficiency",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must sustain a pressure drop between 0.3 and 0.5 inH2O across the filtering medium to guarantee sufficient airflow without sacrificing filtration performance."
+            }
+          ],
+          "title": "Pressure Drop Optimization",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Redundant sensing and alarm mechanisms shall be integrated to detect any clogging or degradation in the filtering media, ensuring continuous safety for flight crew and passengers."
+            }
+          ],
+          "title": "Aerospace Safety",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must support modular replacement of filter subcomponents, facilitating streamlined maintenance procedures and reducing aircraft turnaround time."
+            }
+          ],
+          "title": "Modularity and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Filter Module is composed of multiple subcomponents to achieve a multi-stage filtration process.",
+        "relationshipType": "composition",
+        "source": "Filter Module",
+        "target": "Pre-Filter"
+      },
+      {
+        "description": "The Filter Module includes a HEPA Filter element responsible for high-efficiency removal of microscopic particulates.",
+        "relationshipType": "composition",
+        "source": "Filter Module",
+        "target": "HEPA Filter"
+      },
+      {
+        "description": "The Filter Module integrates an Active Carbon Filter to adsorb odors and gaseous contaminants, enhancing cabin air quality.",
+        "relationshipType": "composition",
+        "source": "Filter Module",
+        "target": "Active Carbon Filter"
+      },
+      {
+        "description": "The Filter Module is structurally supported by the Filter Housing, ensuring protection against external environmental factors.",
+        "relationshipType": "composition",
+        "source": "Filter Module",
+        "target": "Filter Housing"
+      },
+      {
+        "description": "The Filter Module depends on the conditioned airflow provided by the upstream Air Handling Unit to function efficiently.",
+        "relationshipType": "dependency",
+        "source": "Filter Module",
+        "target": "Air Handling Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The main Filter Module integrates multi-stage filtration elements essential for delivering contaminant-free air, employing robust mechanical support and meeting aerospace quality standards.",
+        "name": "Filter Module",
+        "subComponents": [
+          {
+            "description": "Pre-filtration unit designed to capture larger particulates and debris, extending the lifespan of downstream filters.",
+            "name": "Pre-Filter",
+            "type": "Filter Element"
+          },
+          {
+            "description": "High-efficiency HEPA filter element that removes microscopic particulate contaminants, ensuring superior air purity.",
+            "name": "HEPA Filter",
+            "type": "Filter Element"
+          },
+          {
+            "description": "Active Carbon Filter stage designed to adsorb odors and gaseous pollutants, thereby enhancing the overall quality of cabin air.",
+            "name": "Active Carbon Filter",
+            "type": "Filter Element"
+          },
+          {
+            "description": "Robust housing that provides necessary structural integrity and shields sensitive filtration elements from environmental stresses.",
+            "name": "Filter Housing",
+            "type": "Structural"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Air Handling Unit that supplies conditioned airflow to the Filter System, ensuring optimal performance of the filtration process.",
+        "name": "Air Handling Unit",
+        "subComponents": null,
+        "type": "Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_pumpEfficiency",
+            "attr_filteringRate"
+          ],
+          "constraintIds": [
+            "con_bypassSafety"
+          ],
+          "id": "block_FilterSystem",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": true,
+          "name": "FilterSystem",
+          "operationIds": [
+            "op_startOperation",
+            "op_stopOperation"
+          ],
+          "partIds": [
+            "part_pump",
+            "part_filterElement",
+            "part_bypassValve"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "val_maxFlowRate"
+          ]
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block_Pump",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": true,
+          "name": "Pump",
+          "operationIds": [
+            "op_start",
+            "op_stop"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "val_powerRequirement"
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block_FilterSystem",
+          "body": "The Filter System is responsible for ensuring clean fluids within the aircraft systems.",
+          "id": "comment_filterSystem",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "filterElement.diameter > 0",
+          "id": "conFilterDiameter",
+          "name": "FilterDiameterConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "block_FilterSystem",
+            "block_FilterElement"
+          ],
+          "id": "con_bypassSafety",
+          "name": "BypassSafetyConstraint",
+          "specification": "Bypass valve should not open unless the pressure exceeds safety threshold.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum_PumpType",
+          "literals": [
+            {
+              "id": "literal_gear",
+              "name": "GearDriven"
+            },
+            {
+              "id": "literal_hydro",
+              "name": "Hydraulic"
+            },
+            {
+              "id": "literal_electric",
+              "name": "Electric"
+            }
+          ],
+          "name": "PumpType",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block_FilterSystem",
+          "flowSpecificationId": "fs_FluidFlow",
+          "id": "fp_inlet",
+          "isConjugated": false,
+          "name": "InletPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "FluidData",
+          "flowType": "input",
+          "id": "fs_FluidFlow",
+          "name": "FluidFlowSpecification",
+          "type": "FlowSpecification",
+          "unit": "liter/min"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part_pump",
+          "name": "pump",
+          "of": "block_Pump",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "valider",
+          "name": "Volume",
+          "quantityKindId": "volumeQK",
+          "type": "ValueType",
+          "unitId": "liters"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250326_181242",
+  "provider": "gpt"
+}

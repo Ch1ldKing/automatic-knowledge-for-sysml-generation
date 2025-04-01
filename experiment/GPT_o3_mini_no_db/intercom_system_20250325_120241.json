@@ -1,0 +1,596 @@
+{
+  "system_id": "intercom_system",
+  "system_name": "Intercom System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the extended operational temperature range ensuring reliable performance in high altitude and extreme weather conditions.",
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "-50°C to +90°C"
+      },
+      {
+        "description": "Specifies the required maximum response time for emergency communications ensuring prompt message delivery.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 1.5 seconds"
+      },
+      {
+        "description": "Indicates engineered power efficiency with optimized power consumption and dynamic load management for prolonged operation.",
+        "name": "powerEfficiency",
+        "type": "string",
+        "value": "Optimized with dynamic load management"
+      },
+      {
+        "description": "Establishes robust and high security communication protocols using advanced encryption standards for secure cabin data transmission.",
+        "name": "communicationProtocol",
+        "type": "string",
+        "value": "AES-256 encrypted channels"
+      },
+      {
+        "description": "Specifies the level of redundancy incorporated into the system design to ensure uninterrupted operation during component failures.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual redundant modules with automatic failover"
+      }
+    ],
+    "designScenario": {
+      "description": "The Advanced Cabin Communication System (ACCS) is tailored for modern passenger airplanes, delivering a multifaceted communication solution that integrates intercom, public address, and emergency alert functionalities. Engineered for high reliability and rapid response, the system seamlessly collaborates with cabin control units and other avionics subsystems. ACCS leverages cutting-edge digital signal processing and redundant architectures to provide secure, high-fidelity audio communications and robust fail-safe operations. Its design is influenced by strict aviation safety standards and operational performance criteria, ensuring effective communication during both routine operations and emergencies.",
+      "name": "Advanced Cabin Communication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must support clear two-way intercom communication between cabin crew and personnel."
+            },
+            {
+              "description": "Enable public address functionality to broadcast cabin announcements effectively."
+            },
+            {
+              "description": "Provide an integrated emergency alert mode capable of overriding all other communications in critical situations."
+            }
+          ],
+          "title": "Communication Functionality",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Process and deliver communications in less than 1.5 seconds to ensure immediate response in emergencies."
+            },
+            {
+              "description": "Maintain real-time audio processing with minimal latency across all transmission and reception modules."
+            }
+          ],
+          "title": "Performance Reliability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate dual redundant communication pathways to sustain operations under component failure conditions."
+            },
+            {
+              "description": "Integrate emergency override mechanisms that automatically engage during fault detection."
+            }
+          ],
+          "title": "Safety Compliance",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Employ advanced encryption standards for secure data transmission and safeguard against cyber threats."
+            },
+            {
+              "description": "Design a user-friendly interface requiring minimal training for cabin crew while ensuring robust maintenance procedures."
+            }
+          ],
+          "title": "Non-Functional Quality",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Advanced Cabin Communication System is composed of specialized modules including the intercom, public address, and emergency alert components.",
+        "relationshipType": "composition",
+        "source": "Advanced Cabin Communication System",
+        "target": "Intercom Module"
+      },
+      {
+        "description": "The Advanced Cabin Communication System is composed of specialized modules including the intercom, public address, and emergency alert components.",
+        "relationshipType": "composition",
+        "source": "Advanced Cabin Communication System",
+        "target": "Public Address Subsystem"
+      },
+      {
+        "description": "The Advanced Cabin Communication System is composed of specialized modules including the intercom, public address, and emergency alert components.",
+        "relationshipType": "composition",
+        "source": "Advanced Cabin Communication System",
+        "target": "Emergency Alert Module"
+      },
+      {
+        "description": "The Advanced Cabin Communication System maintains an association with the Cabin Control Unit to exchange operational commands and status updates for synchronized cabin management.",
+        "relationshipType": "association",
+        "source": "Advanced Cabin Communication System",
+        "target": "Cabin Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The central communication hub that manages and orchestrates all audio and alert signals within the cabin, ensuring high fidelity and robust signal processing.",
+        "name": "Advanced Cabin Communication System",
+        "subComponents": [
+          {
+            "description": "Handles crew-to-crew communication with advanced noise cancellation and clear voice signal processing.",
+            "name": "Intercom Module",
+            "type": "Communication Module"
+          },
+          {
+            "description": "Facilitates clear and comprehensive public address announcements across the entire cabin with high quality sound output.",
+            "name": "Public Address Subsystem",
+            "type": "Audio Device"
+          },
+          {
+            "description": "Activates and manages emergency alerts with high priority, ensuring immediate broadcast in critical situations.",
+            "name": "Emergency Alert Module",
+            "type": "Alert System"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Interfacing component that communicates with the central Cabin Control Unit, handling command and control signals for integrated cabin management.",
+        "name": "Control Interface Module",
+        "subComponents": null,
+        "type": "Interface Device"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "15.0",
+          "id": "A1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "SystemWeight",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "100",
+          "value": "15.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "48.0",
+          "id": "A2",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "SystemPower",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "100",
+          "value": "48.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "5",
+          "id": "A3",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "VolumeControl",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "10",
+          "value": "5",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "false",
+          "id": "A4",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "MuteStatus",
+          "propertyType": "Boolean",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "false",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "35.0",
+          "id": "A5",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "SignalNoiseRatio",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "100",
+          "value": "35.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "95.0",
+          "id": "A6",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "BatteryHealth",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "100",
+          "value": "95.0",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10.0",
+          "id": "A7",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "TouchScreenSensitivity",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "20",
+          "value": "10.0",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "A1",
+            "A2"
+          ],
+          "constraintIds": [],
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "IntercomSystem",
+          "operationIds": [
+            "O1"
+          ],
+          "partIds": [
+            "B2",
+            "B3",
+            "B4",
+            "B5"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A3",
+            "A4"
+          ],
+          "constraintIds": [],
+          "id": "B2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "AudioControlUnit",
+          "operationIds": [
+            "O2"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A5"
+          ],
+          "constraintIds": [],
+          "id": "B3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "SignalProcessingUnit",
+          "operationIds": [
+            "O3"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A6"
+          ],
+          "constraintIds": [],
+          "id": "B4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "PowerSupplyModule",
+          "operationIds": [
+            "O4"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [
+            "A7"
+          ],
+          "constraintIds": [],
+          "id": "B5",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "UserInterfaceModule",
+          "operationIds": [
+            "O5"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B1",
+          "body": "Intercom System integrates communication, control and audio processing functionalities for in-flight passenger and crew interactions. Designed per aerospace standards and compliance requirements.",
+          "id": "C1",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B2",
+          "body": "Audio Control Unit handles volume, mute, and channel selection algorithms.",
+          "id": "C2",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B3",
+          "body": "Signal Processing Unit filters and amplifies audio signals ensuring clarity and low noise.",
+          "id": "C3",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B4",
+          "body": "Power Supply Module provides regulated power and battery monitoring for the intercom.",
+          "id": "C4",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B5",
+          "body": "User Interface Module provides control inputs via touch screen and physical buttons.",
+          "id": "C5",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "Con1",
+          "kind": "delegation",
+          "name": "AudioSignalDelegation",
+          "source": "P1",
+          "target": "P2",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "latency < 100ms",
+          "id": "CB1",
+          "name": "LatencyConstraint",
+          "parameterIds": [
+            "P_latency"
+          ],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "E1",
+          "literals": [
+            {
+              "id": "L1",
+              "name": "High"
+            },
+            {
+              "id": "L2",
+              "name": "Medium"
+            },
+            {
+              "id": "L3",
+              "name": "Low"
+            }
+          ],
+          "name": "AudioQuality",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "AudioSignal",
+          "flowType": "synchronous",
+          "id": "FS1",
+          "name": "AudioFlowSpecification",
+          "type": "FlowSpecification",
+          "unit": "V"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": [],
+          "id": "I1",
+          "name": "AudioInterface",
+          "operationIds": [
+            "O_audioProcess"
+          ],
+          "signalIds": [],
+          "type": "Interface"
+        },
+        {
+          "attributeIds": [],
+          "id": "I2",
+          "name": "ControlInterface",
+          "operationIds": [
+            "O_adjustVolume",
+            "O_toggleMute"
+          ],
+          "signalIds": [],
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "100",
+          "id": "P_latency",
+          "name": "MaxAllowedLatency",
+          "parameterType": "Double",
+          "type": "Parameter"
+        }
+      ],
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": "FS1",
+          "id": "P1",
+          "isConjugated": false,
+          "name": "AudioInputPort",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "I1"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": "FS1",
+          "id": "P2",
+          "isConjugated": false,
+          "name": "AudioOutputPort",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "I1"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "P3",
+          "isConjugated": false,
+          "name": "ControlPort",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "I2"
+          ],
+          "requiredInterfaceIds": [
+            "I2"
+          ],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "timestamp": "20250325_120241"
+}

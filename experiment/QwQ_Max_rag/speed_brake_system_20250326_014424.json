@@ -1,0 +1,425 @@
+{
+  "system_id": "speed_brake_system",
+  "system_name": "Speed Brake System",
+  "specification": {
+    "designScenario": {
+      "name": "Speed Brake System",
+      "description": "The Speed Brake System is designed to provide controlled drag enhancement for deceleration, altitude control, and load alleviation during flight phases such as descent, landing, and heavy turbulence. The system deploys aerodynamic spoilers or speed brakes to modulate airflow separation, generating additional drag while maintaining aircraft stability. It interfaces with flight control systems to ensure synchronized operation with other control surfaces, emphasizing rapid deployment/retraction, structural integrity under high aerodynamic loads, and fail-safe operation. The design prioritizes precise actuation, environmental resilience, and compatibility with aircraft weight and balance requirements.",
+      "requirements": [
+        {
+          "title": "Drag Force Generation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Deploy speed brakes to generate specified drag coefficients in response to pilot input or automated flight control commands."
+            },
+            {
+              "description": "Synchronize brake deployment with wing flaps and ailerons to prevent adverse yaw or lift imbalance."
+            }
+          ]
+        },
+        {
+          "title": "Rapid Deployment and Retraction",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deployment/retraction of speed brakes within <200ms under nominal conditions."
+            },
+            {
+              "description": "Maintain actuation speed across a range of hydraulic pressures (2000–3500 psi)."
+            }
+          ]
+        },
+        {
+          "title": "Fail-Safe Operation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement hydraulic pressure redundancy to prevent unintended deployment during system faults."
+            },
+            {
+              "description": "Automatically retract speed brakes if flight control input is lost or exceeds safe deflection limits."
+            }
+          ]
+        },
+        {
+          "title": "Environmental and Structural Durability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Withstand repeated deployment cycles (≥10,000 cycles) without structural fatigue or actuator wear."
+            },
+            {
+              "description": "Operate reliably in temperatures from -54°C to +90°C and at altitudes up to 45,000 ft."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Speed Brake Assembly",
+        "type": "Aerodynamic Control Mechanism",
+        "description": "Primary component responsible for aerodynamic drag modulation throughSpoiler panels or speed brakes mounted on the wing or fuselage.",
+        "subComponents": [
+          {
+            "name": "Speed Brake Actuators",
+            "type": "Hydraulic Actuator",
+            "description": "Linear actuators driven by hydraulic pressure to position speed brake panels."
+          },
+          {
+            "name": "Control Valves",
+            "type": "Hydraulic Valve",
+            "description": "Regulate hydraulic fluid flow to actuators based on flight control signals."
+          },
+          {
+            "name": "Brake Surfaces",
+            "type": "Aerodynamic Surface",
+            "description": "Deployable panels fabricated from composite materials to create controlled airflow disruption."
+          },
+          {
+            "name": "Position Sensors",
+            "type": "Linear Displacement Sensor",
+            "description": "Monitor real-time deflection of speed brake panels to confirm actuation accuracy."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Speed Brake Assembly",
+        "target": "Speed Brake Actuators",
+        "relationshipType": "aggregation",
+        "description": "The Speed Brake Assembly aggregates actuators to physically move the brake surfaces."
+      },
+      {
+        "source": "Speed Brake Assembly",
+        "target": "Control Valves",
+        "relationshipType": "dependency",
+        "description": "Control Valves modulate hydraulic pressure to the actuators, dictating deployment speed and force."
+      },
+      {
+        "source": "Speed Brake Assembly",
+        "target": "Brake Surfaces",
+        "relationshipType": "composition",
+        "description": "Brake Surfaces are integral components of the Speed Brake Assembly, directly affecting drag output."
+      },
+      {
+        "source": "Speed Brake Assembly",
+        "target": "Position Sensors",
+        "relationshipType": "dependency",
+        "description": "Position Sensors provide feedback to the flight control system to validate brake surface position."
+      },
+      {
+        "source": "Speed Brake System",
+        "target": "Flight Control System",
+        "relationshipType": "dependency",
+        "description": "The Flight Control System issues deployment/retraction commands to the Speed Brake Assembly."
+      },
+      {
+        "source": "Speed Brake System",
+        "target": "Hydraulic Power System",
+        "relationshipType": "dependency",
+        "description": "The Hydraulic Power System supplies the required pressure to operate actuators and valves."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "deploymentSpeed",
+        "type": "string",
+        "value": "<200ms",
+        "description": "Maximum time to achieve full speed brake deployment from command initiation."
+      },
+      {
+        "name": "deflectionAccuracy",
+        "type": "string",
+        "value": "±1.5°",
+        "description": "Precision tolerance for speed brake surface positioning under steady-state conditions."
+      },
+      {
+        "name": "materialStrength",
+        "type": "string",
+        "value": "Carbon-fiber reinforced polymer with >1200 MPa tensile strength",
+        "description": "Composite material specifications ensuring structural integrity during high G-load maneuvers."
+      },
+      {
+        "name": "environmentResistance",
+        "type": "string",
+        "value": "-54°C to +90°C; UV-resistant coatings",
+        "description": "Operational temperature range and environmental resistance to icing, moisture, and UV exposure."
+      },
+      {
+        "name": "actuationForce",
+        "type": "string",
+        "value": "5000–8000 N",
+        "description": "Hydraulic force range required to deploy/retract speed brake panels against aerodynamic loads."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "Block_SBS",
+          "type": "Block",
+          "name": "Speed Brake System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "Attr_BrakeEngagementTime",
+            "Attr_TemperatureThreshold"
+          ],
+          "operationIds": [
+            "Op_EngageBrakes",
+            "Op_MonitorTemperature"
+          ],
+          "constraintIds": [
+            "Constraint_0_5sEngagement",
+            "Constraint_MaxTemperature"
+          ],
+          "partIds": [
+            "Block_BrakeCaliper",
+            "Block_BrakeDisc"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Block_BrakeCaliper",
+          "type": "Block",
+          "name": "Brake Caliper",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_ActuatorForce"
+          ],
+          "operationIds": [
+            "Op_ApplyFriction"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Block_BrakeDisc",
+          "type": "Block",
+          "name": "Brake Disc",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "Attr_FrictionCoefficient"
+          ],
+          "operationIds": [
+            "Op_GenerateHeat"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "Interface_BrakeControl",
+          "type": "InterfaceBlock",
+          "name": "BrakeControlInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "Op_RequestEngage",
+            "Op_ReleaseBrake"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "Interface_BrakeStatus",
+          "type": "InterfaceBlock",
+          "name": "BrakeStatusInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "Op_GetEngagementStatus",
+            "Op_GetTemperature"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "Port_BrakeControl",
+          "type": "FullPort",
+          "name": "BrakeControlPort",
+          "blockId": "Block_SBS",
+          "providedInterfaceIds": [
+            "Interface_BrakeControl"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "isConjugated": false
+        },
+        {
+          "id": "Port_BrakeStatus",
+          "type": "ProxyPort",
+          "name": "BrakeStatusPort",
+          "blockId": "Block_SBS",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "Interface_BrakeStatus"
+          ],
+          "flowSpecificationId": null,
+          "isConjugated": false
+        },
+        {
+          "id": "Port_CaliperActuation",
+          "type": "FullPort",
+          "name": "BrakeActuationPort",
+          "blockId": "Block_BrakeCaliper",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "Interface_BrakeControl"
+          ],
+          "flowSpecificationId": null,
+          "isConjugated": true
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "Constraint_0_5sEngagement",
+          "type": "ConstraintBlock",
+          "name": "MaxEngagementTimeConstraint",
+          "expression": "BrakeEngagementTime <= 0.5",
+          "parameterIds": [
+            "Attr_BrakeEngagementTime"
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "Constraint_MaxTemperature",
+          "type": "ConstraintBlock",
+          "name": "MaxTemperatureConstraint",
+          "expression": "TemperatureThreshold < 600",
+          "parameterIds": [
+            "Attr_TemperatureThreshold"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "Enum_BrakeStatus",
+          "type": "Enumeration",
+          "name": "BrakeStatusEnum",
+          "literals": [
+            {
+              "id": "Lit_Engaged",
+              "name": "Engaged"
+            },
+            {
+              "id": "Lit_Disengaged",
+              "name": "Disengaged"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "ValueType_Temperature",
+          "type": "ValueType",
+          "name": "TemperatureValue",
+          "quantityKindId": "Temperature",
+          "unitId": "Celsius",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "Comp_SBS_to_Caliper",
+          "type": "Composition",
+          "name": "ContainsBrakeCaliper",
+          "sourceId": "Block_SBS",
+          "targetId": "Block_BrakeCaliper",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "Comp_SBS_to_Disc",
+          "type": "Composition",
+          "name": "ContainsBrakeDisc",
+          "sourceId": "Block_SBS",
+          "targetId": "Block_BrakeDisc",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "Comment_05s",
+          "type": "Comment",
+          "body": "Must achieve full engagement within 0.5 seconds per FAA emergency deceleration standards",
+          "annotatedElementId": "Constraint_0_5sEngagement"
+        },
+        {
+          "id": "Comment_Thermal",
+          "type": "Comment",
+          "body": "Heat dissipation design maintains operational performance during repeated landing cycles",
+          "annotatedElementId": "Block_BrakeDisc"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "Attr_BrakeEngagementTime",
+          "type": "Property",
+          "name": "BrakeEngagementTime",
+          "propertyType": "Double",
+          "value": "0.5",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "Attr_TemperatureThreshold",
+          "type": "Property",
+          "name": "TemperatureThreshold",
+          "propertyType": "ValueType_Temperature",
+          "value": "590",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Speed Brake System is a critical safety and performance component within the aircraft's landing gear. It is engineered to provide reliable and rapid deceleration upon touchdown while ensuring optimal heat dissipation and fail-safe performance under both normal and emergency conditions. The system must achieve full brake engagement within 0.5 seconds to ensure rapid response during emergencies and ensure efficient heat dissipation to sustain braking performance during repeated operations. The design integrates state-of-the-art braking actuators with high-friction components that deliver controlled stopping power, meeting rigorous aviation safety standards. The Speed Brake System is composed of Brake Calipers and Brake Discs, which together deliver the required friction and actuation for braking.",
+  "timestamp": "20250326_014424",
+  "provider": "qwen"
+}

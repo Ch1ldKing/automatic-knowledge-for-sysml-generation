@@ -1,0 +1,425 @@
+{
+  "system_id": "leading_edge_device_system",
+  "system_name": "Leading Edge Device System",
+  "specification": {
+    "designScenario": {
+      "name": "Leading Edge Device System",
+      "description": "The Leading Edge Device System (LEDS) manages the deployment and retraction of leading-edge aerodynamic surfaces (e.g., slats, Krueger flaps) to optimize wing camber and lift during takeoff, landing, and high-angle-of-attack maneuvers. It ensures synchronized actuation, load distribution, and fail-safe operation under extreme aerodynamic forces. The system integrates with flight control computers and hydraulic/pneumatic actuators to dynamically adjust leading-edge geometry, enhancing stall resistance and maneuverability while maintaining structural integrity.",
+      "requirements": [
+        {
+          "title": "Dynamic Surface Deployment",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Deploy/retract slats and Krueger flaps in response to flight phase (takeoff, cruise, landing) via commanded positions from the Flight Control System."
+            },
+            {
+              "description": "Maintain symmetrical deflection across wings to prevent asymmetric lift-induced roll/yaw instability."
+            }
+          ]
+        },
+        {
+          "title": "Actuation Timing and Precision",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full deployment/retraction within 3 seconds of command initiation at maximum aerodynamic load."
+            },
+            {
+              "description": "Maintain positional accuracy of ±0.2° during continuous adjustments."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy and Failure Mitigation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual hydraulic actuators with mechanical backups to prevent jamming or over-travel."
+            },
+            {
+              "description": "Auto-retract to neutral position upon loss of hydraulic pressure or sensor fault detection."
+            }
+          ]
+        },
+        {
+          "title": "Operational Longevity",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Design for ≥50,000 actuation cycles without degradation in positional accuracy or response time."
+            },
+            {
+              "description": "Use self-lubricating bearings and erosion-resistant coatings to minimize maintenance intervals."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Slats Assembly",
+        "description": "Primary aerodynamic surfaces mounted on the wing leading edge, extending forward to increase wing area and camber for high-lift configurations.",
+        "type": "Mechanical Assembly",
+        "subComponents": [
+          {
+            "name": "Fixed Slat Segment",
+            "description": "Rigid slat section providing continuous lift augmentation when deployed.",
+            "type": "Control Surface"
+          },
+          {
+            "name": "Deployable Slat Track",
+            "description": "Guided rail system enabling slat extension/retraction with minimal friction.",
+            "type": "Actuation Interface"
+          }
+        ]
+      },
+      {
+        "name": "Actuation Mechanism",
+        "description": "Hydraulic/pneumatic system converting control signals into linear/rotational motion for slat deployment.",
+        "type": "Actuation Subsystem",
+        "subComponents": [
+          {
+            "name": "Primary Hydraulic Actuator",
+            "description": "High-pressure piston-driven actuator for primary slat movement.",
+            "type": "Hydraulic Component"
+          },
+          {
+            "name": "Backup Ball Screw Actuator",
+            "description": "Electro-mechanical backup actuator engaged during hydraulic system failure.",
+            "type": "Mechanical Component"
+          }
+        ]
+      },
+      {
+        "name": "Control Module",
+        "description": "Embedded controller processing flight control commands and monitoring slat position feedback.",
+        "type": "Avionics Subsystem",
+        "subComponents": [
+          {
+            "name": "Slat Control Computer (SCC)",
+            "description": "Dual-channel computer validating commands against aircraft airspeed and attitude data.",
+            "type": "Processing Unit"
+          },
+          {
+            "name": "CAN Bus Interface",
+            "description": "Communication interface for integration with Flight Control System networks.",
+            "type": "Data Link"
+          }
+        ]
+      },
+      {
+        "name": "Position Sensors",
+        "description": "Redundant sensors providing real-time slat deflection angle and actuator force measurements.",
+        "type": "Sensing Subsystem",
+        "subComponents": [
+          {
+            "name": "Linear Variable Differential Transformer (LVDT)",
+            "description": "Primary sensor measuring slat track displacement with 0.1mm resolution.",
+            "type": "Position Sensor"
+          },
+          {
+            "name": "Strain Gauge Array",
+            "description": "Monitors structural loads on slat tracks to prevent overstress conditions.",
+            "type": "Load Sensor"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Surfaces",
+        "target": "Leading Edge Device System",
+        "relationshipType": "aggregation",
+        "description": "The Flight Surfaces system aggregates the Leading Edge Device System as a specialized subsystem for leading-edge aerodynamic control."
+      },
+      {
+        "source": "Leading Edge Device System",
+        "target": "Actuator Control Module",
+        "relationshipType": "dependency",
+        "description": "LEDS depends on hydraulic pressure and electrical signals from the Actuator Control Module to drive slat actuators."
+      },
+      {
+        "source": "Leading Edge Device System",
+        "target": "Slats Assembly",
+        "relationshipType": "composition",
+        "description": "LEDS exclusively owns and manages the Slats Assembly's operational lifecycle."
+      },
+      {
+        "source": "Control Module",
+        "target": "Position Sensors",
+        "relationshipType": "association",
+        "description": "The Control Module uses continuous feedback from Position Sensors to implement closed-loop slat positioning."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<100ms per 10° deflection",
+        "description": "Maximum allowable latency between control signal reception and initiation of slat movement."
+      },
+      {
+        "name": "deploymentAccuracy",
+        "type": "string",
+        "value": "±0.2°",
+        "description": "Tolerable angular deviation from commanded slat position during steady-state operation."
+      },
+      {
+        "name": "loadCapacity",
+        "type": "string",
+        "value": "Withstand 2500 MPa dynamic pressure at full extension",
+        "description": "Structural load-bearing capacity of deployed slats under maximum airspeed."
+      },
+      {
+        "name": "temperatureRange",
+        "type": "string",
+        "value": "-40°C to +85°C operational; -55°C to +125°C survival",
+        "description": "Operating and storage temperature limits for slat actuators and sensors."
+      },
+      {
+        "name": "cycleLife",
+        "type": "string",
+        "value": "≥50,000 deployment cycles",
+        "description": "Minimum guaranteed actuation cycles before component replacement."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-leds",
+          "type": "Block",
+          "name": "LeadingEdgeDeviceSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-actuationSpeed",
+            "attr-deploymentAccuracy",
+            "attr-loadCapacity",
+            "attr-temperatureRange",
+            "attr-cycleLife"
+          ],
+          "operationIds": null,
+          "constraintIds": [
+            "constraint-deployment-timing",
+            "constraint-position-accuracy"
+          ],
+          "partIds": [
+            "block-slats-assembly",
+            "block-actuation-mechanism",
+            "block-control-module",
+            "block-position-sensors"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-slats-assembly",
+          "type": "Block",
+          "name": "SlatsAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr-slats-material"
+          ],
+          "partIds": [
+            "part-fixed-slat",
+            "part-deployable-track"
+          ],
+          "referenceIds": null
+        },
+        {
+          "id": "block-actuation-mechanism",
+          "type": "Block",
+          "name": "ActuationMechanism",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "partIds": [
+            "part-hydraulic-actuator",
+            "part-ball-screw-actuator"
+          ]
+        },
+        {
+          "id": "block-control-module",
+          "type": "Block",
+          "name": "ControlModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "partIds": [
+            "part-scc",
+            "part-can-bus"
+          ]
+        },
+        {
+          "id": "block-position-sensors",
+          "type": "Block",
+          "name": "PositionSensors",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "partIds": [
+            "part-lvdt",
+            "part-strain-gauge"
+          ]
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb-leds-interface",
+          "type": "InterfaceBlock",
+          "name": "LEDSInterface",
+          "signalIds": [
+            "signal-deployment-cmd",
+            "signal-sensor-feedback"
+          ]
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-hydraulic",
+          "type": "FlowSpecification",
+          "name": "HydraulicFlowSpec",
+          "flowType": "MaterialFlow",
+          "dataType": "HydraulicPressure",
+          "unit": "MPa"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-deployment-timing",
+          "type": "ConstraintBlock",
+          "name": "DeploymentTimingConstraint",
+          "expression": "deploymentTime <= 3 sec",
+          "parameterIds": [
+            "param-deployment-time"
+          ]
+        },
+        {
+          "id": "constraint-position-accuracy",
+          "type": "ConstraintBlock",
+          "name": "PositionAccuracyConstraint",
+          "expression": "positionError <= 0.2°",
+          "parameterIds": [
+            "param-position-error"
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "value-type-degrees",
+          "type": "ValueType",
+          "name": "AngularPosition",
+          "quantityKindId": "quantity-angle",
+          "unitId": "unit-degrees",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-deployment-status",
+          "type": "Enumeration",
+          "name": "DeploymentStatus",
+          "literals": [
+            {
+              "id": "literal-nominal",
+              "name": "Nominal"
+            },
+            {
+              "id": "literal-overload",
+              "name": "Overload"
+            },
+            {
+              "id": "literal-failure",
+              "name": "Failure"
+            }
+          ]
+        }
+      ],
+      "proxyPorts": [
+        {
+          "id": "proxyport-leds-cmd",
+          "type": "ProxyPort",
+          "name": "CommandInterface",
+          "blockId": "block-leds",
+          "providedInterfaceIds": [
+            "ifb-leds-interface"
+          ]
+        }
+      ],
+      "flowPorts": [
+        {
+          "id": "flowport-hydraulic-in",
+          "type": "FlowPort",
+          "name": "HydraulicInlet",
+          "blockId": "block-actuation-mechanism",
+          "flowSpecificationId": "flow-spec-hydraulic"
+        }
+      ],
+      "aggregations": [
+        {
+          "id": "agg-flight-surfaces-leds",
+          "type": "Aggregation",
+          "name": "AggregatesLEDS",
+          "sourceId": "block-flight-surfaces-new",
+          "targetId": "block-leds",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-leds-slats",
+          "type": "Composition",
+          "name": "ComposesSlats",
+          "sourceId": "block-leds",
+          "targetId": "block-slats-assembly",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-leds-actuator",
+          "type": "Dependency",
+          "name": "HydraulicDependency",
+          "sourceId": "block-leds",
+          "targetId": "block-actuator-control-module"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-actuationSpeed",
+          "type": "Property",
+          "name": "actuationSpeed",
+          "propertyType": "String",
+          "value": "<100ms per 10° deflection"
+        },
+        {
+          "id": "attr-deploymentAccuracy",
+          "type": "Property",
+          "name": "deploymentAccuracy",
+          "propertyType": "String",
+          "value": "±0.2°"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-leds-design",
+          "type": "Comment",
+          "body": "Ensures symmetrical slat deployment with dual redundant actuators. Implements load monitoring through strain gauge arrays and LVDT position feedback. Complies with DO-254/DO-178C standards for safety-critical systems.",
+          "annotatedElementId": "block-leds"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250325_041612"
+}

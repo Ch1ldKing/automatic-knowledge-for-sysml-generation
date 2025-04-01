@@ -1,0 +1,403 @@
+{
+  "system_id": "horizontal_stabilizer_system",
+  "system_name": "Horizontal Stabilizer System",
+  "specification": {
+    "designScenario": {
+      "name": "Horizontal Stabilizer System",
+      "description": "The Horizontal Stabilizer System is designed to maintain pitch stability and control the aircraft's longitudinal axis during flight. It provides precise pitch control through elevator deflection and trim adjustments, ensuring stability under varying flight conditions, load distributions, and external disturbances. The system integrates structural integrity, aerodynamic efficiency, and redundant actuation mechanisms to ensure safe operation across the aircraft's flight envelope.",
+      "requirements": [
+        {
+          "title": "Pitch Stability Control",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Maintain aircraft pitch equilibrium by adjusting elevator deflection in response to flight control inputs and aerodynamic forces."
+            },
+            {
+              "description": "Enable automatic trim adjustments to reduce pilot workload during steady-state flight conditions."
+            }
+          ]
+        },
+        {
+          "title": "Rapid Deflection Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve elevator deflection within 100 milliseconds of receiving actuation commands from the flight control system."
+            },
+            {
+              "description": "Ensure smooth and continuous deflection adjustments during dynamic maneuvers."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Actuation and Failure Mitigation",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant actuators with independent power sources to prevent single-point failures."
+            },
+            {
+              "description": "Trigger automatic pitch trim override and alert systems in case of actuator or sensor malfunction."
+            }
+          ]
+        },
+        {
+          "title": "Structural and Environmental Robustness",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Withstand aerodynamic loads up to 3.5g positive and -1.5g negative load factors during extreme maneuvers."
+            },
+            {
+              "description": "Resist environmental degradation via corrosion-resistant coatings and composite materials rated for -55°C to +90°C operational range."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Horizontal Stabilizer Assembly",
+        "type": "Structural Assembly",
+        "description": "The primary structural component integrating the stabilizer structure, elevators, and actuation systems to control pitch.",
+        "subComponents": [
+          {
+            "name": "Stabilizer Structure",
+            "type": "Aerodynamic Structure",
+            "description": "The fixed airfoil section providing longitudinal stability and mounting base for movable elevator surfaces."
+          },
+          {
+            "name": "Elevator Control Surfaces",
+            "type": "Control Surface",
+            "description": "Movable surfaces attached to the stabilizer structure, deflecting upward or downward to adjust aircraft pitch."
+          },
+          {
+            "name": "Trim Tab",
+            "type": "Trimming Mechanism",
+            "description": "Small adjustable surface on the elevator to fine-tune pitch trim and reduce pilot control forces."
+          },
+          {
+            "name": "Actuator System",
+            "type": "Mechanical Actuator",
+            "description": "Hydraulic/pneumatic/electric actuators providing the force to deflect elevator surfaces and trim tabs."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Horizontal Stabilizer Assembly",
+        "target": "Stabilizer Structure",
+        "relationshipType": "aggregation",
+        "description": "The Horizontal Stabilizer Assembly aggregates the Stabilizer Structure as its fixed structural base."
+      },
+      {
+        "source": "Horizontal Stabilizer Assembly",
+        "target": "Elevator Control Surfaces",
+        "relationshipType": "aggregation",
+        "description": "The Horizontal Stabilizer Assembly integrates the Elevator Control Surfaces for pitch control functionality."
+      },
+      {
+        "source": "Elevator Control Surfaces",
+        "target": "Trim Tab",
+        "relationshipType": "composition",
+        "description": "The Elevator Control Surfaces compositionally include the Trim Tab for trim adjustments."
+      },
+      {
+        "source": "Actuator System",
+        "target": "Flight Control Computer",
+        "relationshipType": "dependency",
+        "description": "The Actuator System depends on the Flight Control Computer for real-time actuation commands and trim adjustments."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<100ms",
+        "description": "Maximum time required for elevator deflection from command initiation to full movement."
+      },
+      {
+        "name": "deflectionAccuracy",
+        "type": "string",
+        "value": "±0.5°",
+        "description": "Precision of elevator angular displacement relative to commanded positions."
+      },
+      {
+        "name": "materialStrength",
+        "type": "string",
+        "value": "High-modulus carbon fiber composites with 1800 MPa tensile strength",
+        "description": "Structural material specification for aerodynamic load resistance and weight optimization."
+      },
+      {
+        "name": "environmentResistance",
+        "type": "string",
+        "value": "-55°C to +90°C; epoxy-based corrosion protection",
+        "description": "Operating temperature range and protective coatings against icing and saltwater exposure."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-horizontal-stabilizer",
+          "type": "Block",
+          "name": "HorizontalStabilizerSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-actuationSpeed",
+            "attr-deflectionAccuracy",
+            "attr-materialStrength",
+            "attr-environmentResistance"
+          ],
+          "operationIds": null,
+          "constraintIds": [
+            "constraint-actuation-speed"
+          ],
+          "partIds": [
+            "block-hs-assembly",
+            "block-actuator-control-module",
+            "block-stabilizer-structure",
+            "block-elevator-control",
+            "block-trim-tab"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-hs-assembly",
+          "type": "Block",
+          "name": "HorizontalStabilizerAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": [
+            "block-stabilizer-structure",
+            "block-elevator-control",
+            "block-trim-tab",
+            "block-actuator-system"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-stabilizer-structure",
+          "type": "Block",
+          "name": "StabilizerStructure",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-elevator-control",
+          "type": "Block",
+          "name": "ElevatorControlSurfaces",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": [
+            "block-trim-tab"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-trim-tab",
+          "type": "Block",
+          "name": "TrimTab",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-actuator-system",
+          "type": "Block",
+          "name": "ActuatorSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [],
+          "operationIds": null,
+          "constraintIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "valueIds": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-hs-actuation-in",
+          "type": "FlowPort",
+          "name": "ActuationCommandInPort",
+          "blockId": "block-horizontal-stabilizer",
+          "isConjugated": false,
+          "flowSpecificationId": "flow-spec-actuation-command-fs",
+          "attributeIds": []
+        },
+        {
+          "id": "port-hs-sensor-out",
+          "type": "ProxyPort",
+          "name": "SensorFeedbackOutPort",
+          "blockId": "block-horizontal-stabilizer",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "ifb-hs-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "attributeIds": []
+        }
+      ],
+      "aggregations": [
+        {
+          "id": "agg-hs-assembly",
+          "type": "Aggregation",
+          "name": "ComposesStabilizerStructure",
+          "sourceId": "block-hs-assembly",
+          "targetId": "block-stabilizer-structure",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "agg-hs-elevator",
+          "type": "Aggregation",
+          "name": "ComposesElevatorControl",
+          "sourceId": "block-hs-assembly",
+          "targetId": "block-elevator-control",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "agg-elevator-trim",
+          "type": "Composition",
+          "name": "ContainsTrimTab",
+          "sourceId": "block-elevator-control",
+          "targetId": "block-trim-tab",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "constraint-actuation-speed",
+          "type": "ConstraintBlock",
+          "name": "ActuationSpeedConstraint",
+          "expression": "actuationSpeed < 100ms",
+          "parameterIds": [],
+          "attributeIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-actuationSpeed",
+          "type": "Property",
+          "name": "actuationSpeed",
+          "propertyType": "String",
+          "value": "<100ms",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "<100ms",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-deflectionAccuracy",
+          "type": "Property",
+          "name": "deflectionAccuracy",
+          "propertyType": "String",
+          "value": "±0.5°",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "±0.5°",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-materialStrength",
+          "type": "Property",
+          "name": "materialStrength",
+          "propertyType": "String",
+          "value": "High-modulus carbon fiber composites with 1800 MPa tensile strength",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "High-modulus carbon fiber composites...",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr-environmentResistance",
+          "type": "Property",
+          "name": "environmentResistance",
+          "propertyType": "String",
+          "value": "-55°C to +90°C; epoxy-based corrosion protection",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "-55°C to +90°C...",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-hs-design",
+          "type": "Comment",
+          "body": "Maintains pitch stability via elevator deflection and trim adjustments. Implements dual redundant actuators with fail-safe mechanisms. Complies with ±3.5g load factors and -55°C to +90°C operational envelope.",
+          "annotatedElementId": "block-horizontal-stabilizer"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250325_114906"
+}

@@ -1,0 +1,584 @@
+{
+  "system_id": "main_landing_gear_system",
+  "system_name": "Main Landing Gear System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum supported load for the landing gear to ensure safe landings under extreme operational conditions.",
+        "name": "maxLoadCapacity",
+        "type": "string",
+        "value": "160,000 lbs"
+      },
+      {
+        "description": "Time taken from gear extension command to full deployment under nominal conditions.",
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "2.5 seconds"
+      },
+      {
+        "description": "Coefficient representing the system's ability to absorb shock and damp landing impacts.",
+        "name": "shockAbsorptionCoefficient",
+        "type": "string",
+        "value": "Advanced damping with 0.85 efficiency"
+      },
+      {
+        "description": "Operating hydraulic pressure required to effectively drive all actuation and braking mechanisms.",
+        "name": "hydraulicOperatingPressure",
+        "type": "string",
+        "value": "3200 PSI"
+      },
+      {
+        "description": "Noise and vibration levels during gear operation to comply with aviation and passenger comfort standards.",
+        "name": "noiseVibrationIndex",
+        "type": "string",
+        "value": "Minimal, within certification limits"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear System is engineered to provide reliable, rapid, and safe deployment and retraction of the aircraft's landing gear. This system integrates advanced hydraulic actuation, precision gear deployment, robust shock absorption, efficient braking, and real-time sensor monitoring. It is optimized for high-load scenarios, emergency fail-safe operations, and routine maintenance, ensuring seamless performance during taxi, takeoff, landing, and ground maneuvers.",
+      "name": "Landing Gear System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The gear must deploy and retract reliably on command for both normal operations and emergency scenarios."
+            },
+            {
+              "description": "Integration of shock absorption elements is mandatory for mitigating high impact forces during landing."
+            }
+          ],
+          "title": "Gear Deployment and Impact Mitigation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Deployment and retraction operations must be completed in less than 2.5 seconds under standard conditions."
+            },
+            {
+              "description": "Hydraulic actuators must operate within the specified time even in sub-optimal environmental conditions."
+            }
+          ],
+          "title": "Operation Timing Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Redundant actuation paths must be implemented to ensure gear extension in the event of primary system failure."
+            },
+            {
+              "description": "Fail-safe locking mechanisms should secure the gear in an extended state when anomalies are detected."
+            }
+          ],
+          "title": "Safety Redundancy and Fail-Safe Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must allow for simplified inspection and rapid replacement of faulty components to minimize downtime."
+            },
+            {
+              "description": "All components should adhere to or exceed current aviation environmental and durability guidelines."
+            }
+          ],
+          "title": "Maintainability and Regulatory Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Avionics Control Module receives data from the Sensor Suite and sends commands to the Gear Actuation Mechanism.",
+        "relationshipType": "association",
+        "source": "Avionics Control Module",
+        "target": "Sensor Suite"
+      },
+      {
+        "description": "The Gear Actuation Mechanism is dependent on the Hydraulic System to function, ensuring timely deployment of the landing gear.",
+        "relationshipType": "dependency",
+        "source": "Gear Actuation Mechanism",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "The Brake Assembly is composed as an integral part of the overall Wheel Assembly to provide synchronized deceleration during landing.",
+        "relationshipType": "composition",
+        "source": "Brake Assembly",
+        "target": "Wheel Assembly"
+      },
+      {
+        "description": "The Steering Ensemble is aggregated with the nose wheel segment of the Wheel Assembly for accurate ground directional control.",
+        "relationshipType": "aggregation",
+        "source": "Steering Ensemble",
+        "target": "Wheel Assembly"
+      },
+      {
+        "description": "Redundant Safety Sensor System is aggregated with the Avionics Control Module to monitor critical parameters and initiate fail-safe actions.",
+        "relationshipType": "aggregation",
+        "source": "Redundant Safety Sensor System",
+        "target": "Avionics Control Module"
+      },
+      {
+        "description": "The Structural Casting Assembly works in dependency with the Gear Actuation Mechanism to ensure load distribution during operation.",
+        "relationshipType": "dependency",
+        "source": "Structural Casting Assembly",
+        "target": "Gear Actuation Mechanism"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central processing unit responsible for command, control, and monitoring of the landing gear operations.",
+        "name": "Avionics Control Module",
+        "subComponents": null,
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Hydraulic system that drives the actuation of the landing gear, ensuring rapid and precise movements.",
+        "name": "Hydraulic System",
+        "subComponents": [
+          {
+            "description": "High-performance hydraulic pump generating consistent pressure required for gear actuation.",
+            "name": "Hydraulic Pump",
+            "type": "Actuator"
+          },
+          {
+            "description": "Reservoir for hydraulic fluid along with its management and cooling unit to maintain system efficiency.",
+            "name": "Hydraulic Reservoir",
+            "type": "Storage Unit"
+          },
+          {
+            "description": "Advanced hydraulic valves to control fluid dynamics across the system with precision.",
+            "name": "Hydraulic Control Valves",
+            "type": "Control Device"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Mechanical actuation module that physically extends or retracts the landing gear based on control commands.",
+        "name": "Gear Actuation Mechanism",
+        "subComponents": [
+          {
+            "description": "Precision linear actuators designed for rapid and accurate gear movements.",
+            "name": "Linear Actuators",
+            "type": "Actuator"
+          },
+          {
+            "description": "Position sensors embedded within the mechanism to confirm gear status during operation.",
+            "name": "Actuator Position Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Structural assembly including load-bearing struts and integrated impact dampers to distribute landing forces.",
+        "name": "Structural Casting Assembly",
+        "subComponents": [
+          {
+            "description": "Primary load-bearing struts engineered for optimal stress distribution.",
+            "name": "Primary Struts",
+            "type": "Structural Component"
+          },
+          {
+            "description": "Damping units designed to absorb and dissipate impact energy during touchdown.",
+            "name": "Impact Dampers",
+            "type": "Damping Device"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      },
+      {
+        "description": "Braking module integrated within the wheel assembly to decelerate the aircraft upon landing.",
+        "name": "Brake Assembly",
+        "subComponents": [
+          {
+            "description": "High friction brake calipers that apply force on the brake discs.",
+            "name": "Brake Calipers",
+            "type": "Actuator"
+          },
+          {
+            "description": "Durable brake discs attached to the wheels to provide efficient braking action.",
+            "name": "Brake Discs",
+            "type": "Friction Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Steering module that enables directional changes during taxiing and ground maneuvering.",
+        "name": "Steering Ensemble",
+        "subComponents": [
+          {
+            "description": "Steering actuator for dynamic control of the nose gear’s orientation.",
+            "name": "Steering Actuator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Position sensor to track the steering angle and ensure responsiveness.",
+            "name": "Steering Position Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Wheel assembly composed of main landing and nose gear wheels, engineered for high-load performance and durability.",
+        "name": "Wheel Assembly",
+        "subComponents": [
+          {
+            "description": "Main landing wheels designed to sustain heavy loads with minimal wear.",
+            "name": "Main Landing Wheels",
+            "type": "Mechanical Component"
+          },
+          {
+            "description": "Nose gear wheels integrated with steering capabilities for precise ground control.",
+            "name": "Nose Gear Wheels",
+            "type": "Mechanical Component"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      },
+      {
+        "description": "Sensor suite that collects real-time data on hydraulic pressure, gear position, and load distribution.",
+        "name": "Sensor Suite",
+        "subComponents": [
+          {
+            "description": "High-sensitivity pressure sensor monitoring hydraulic fluid dynamics.",
+            "name": "Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Gear position sensor for confirming the status of gear extension or retraction.",
+            "name": "Gear Position Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Load sensor that gauges the stress on structural components during operation.",
+            "name": "Load Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      },
+      {
+        "description": "A redundant safety sensor system dedicated to emergency monitoring of critical landing gear parameters.",
+        "name": "Redundant Safety Sensor System",
+        "subComponents": [
+          {
+            "description": "Backup hydraulic pressure sensor for continuous monitoring in case of primary sensor failure.",
+            "name": "Backup Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Emergency gear status sensor ensuring secure locking of the gear during faults.",
+            "name": "Emergency Gear Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": null,
+          "id": "A1",
+          "name": "Deployment Sequence",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Main Landing Gear System",
+          "operationIds": null,
+          "partIds": [
+            "B1P1",
+            "B1P2",
+            "B1P3",
+            "B1P4"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B1P1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Hydraulic System",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B1P2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Shock Absorber",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B1P3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Landing Wheel",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B1P4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Deployment Mechanism",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "CNL1",
+          "kind": "delegation",
+          "name": "Control Signal Connector",
+          "source": "P1",
+          "target": "A1",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "deploymentTime < 3 seconds",
+          "id": "CB1",
+          "name": "Deployment Time Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "hydraulicPressure ≈ 3000 PSI",
+          "id": "CB2",
+          "name": "Hydraulic Pressure Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "noiseLevel and vibrationLevel comply with aviation standards",
+          "id": "CB3",
+          "name": "Noise and Vibration Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "LS1",
+          "name": "Deployed State",
+          "represents": "S1",
+          "type": "Lifeline"
+        },
+        {
+          "id": "LS2",
+          "name": "Retracted State",
+          "represents": "S2",
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "P1",
+          "name": "Control Port",
+          "of": "B1",
+          "type": "Part"
+        },
+        {
+          "id": "P2",
+          "name": "Hydraulic Port",
+          "of": "B1P1",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "PT1",
+          "isConjugated": false,
+          "name": "Control Interface Port",
+          "portType": "full",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B1P1",
+          "flowSpecificationId": null,
+          "id": "PT2",
+          "isConjugated": false,
+          "name": "Hydraulic Interface Port",
+          "portType": "full",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "R1",
+          "name": "Deployment Time Requirement",
+          "reqId": "REQ-MLG-DEPLOY-001",
+          "text": "The landing gear deployment and retraction must be completed in under 3 seconds under normal conditions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "R2",
+          "name": "Shock Absorption Requirement",
+          "reqId": "REQ-MLG-SHOCK-002",
+          "text": "The shock absorption system must reduce impact loads during landing with high energy absorption and advanced damping.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "R3",
+          "name": "Hydraulic Pressure Requirement",
+          "reqId": "REQ-MLG-HYDRAULIC-003",
+          "text": "The hydraulic system must operate at approximately 3000 PSI for efficient operation.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "R4",
+          "name": "Noise and Vibration Requirement",
+          "reqId": "REQ-MLG-NOISE-004",
+          "text": "The system must comply with low to moderate noise and vibration levels as per aviation standards.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": null,
+          "id": "S1",
+          "name": "Deployed",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "S2",
+          "name": "Retracted",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": "Trigger hydraulic actuation and deployment sequence",
+          "guard": "System in ready state and proper hydraulic pressure",
+          "id": "T1",
+          "name": "Transition to Deployed",
+          "sourceId": "S2",
+          "targetId": "S1",
+          "trigger": "Deploy Command",
+          "type": "Transition"
+        },
+        {
+          "effect": "Initiate retraction sequence",
+          "guard": "Deployment complete and no ground contact",
+          "id": "T2",
+          "name": "Transition to Retracted",
+          "sourceId": "S1",
+          "targetId": "S2",
+          "trigger": "Retract Command",
+          "type": "Transition"
+        }
+      ],
+      "usages": null,
+      "useCases": [
+        {
+          "attributeIds": null,
+          "id": "UC1",
+          "name": "Landing Gear Deployment Use Case",
+          "type": "UseCase"
+        }
+      ],
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Main Landing Gear System is designed for high load capacity and durability. It includes main landing wheels that can support the full weight of the aircraft during landing. The deployment and retraction time for the landing gear system is under 3 seconds under normal conditions. The shock absorption characteristics of the system are designed to reduce impact loads during landing with high energy absorption and advanced damping. The hydraulic system pressure required for efficient operation is approximately 3000 PSI. The system is engineered to comply with low to moderate noise and vibration levels in accordance with aviation standards.",
+  "timestamp": "20250325_202339",
+  "provider": "gpt"
+}

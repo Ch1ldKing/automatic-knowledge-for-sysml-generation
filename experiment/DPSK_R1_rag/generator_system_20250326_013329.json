@@ -1,0 +1,705 @@
+{
+  "system_id": "generator_system",
+  "system_name": "Generator System",
+  "specification": {
+    "designScenario": {
+      "name": "Generator System",
+      "description": "Design a high-reliability Generator System to produce and condition electrical power for aircraft subsystems, ensuring seamless integration with the Electrical Power System. The system must maintain stable power generation under variable engine speeds, extreme altitudes, and transient loads while adhering to aviation safety standards.",
+      "requirements": [
+        {
+          "title": "Power Generation & Conditioning",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Generate 3-phase AC power from engine-driven generators or auxiliary power units (APUs)."
+            },
+            {
+              "description": "Provide automatic voltage regulation (AVR) to maintain output within ±1% of nominal voltage."
+            }
+          ]
+        },
+        {
+          "title": "Operational Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Deliver 90 kVA continuous power output per generator channel at 115V AC, 400 Hz."
+            },
+            {
+              "description": "Maintain <3% total harmonic distortion (THD) under full load conditions."
+            }
+          ]
+        },
+        {
+          "title": "Fault Tolerance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement differential current protection to detect and isolate ground faults."
+            },
+            {
+              "description": "Include overfrequency/underfrequency protection to prevent generator overspeed damage."
+            }
+          ]
+        },
+        {
+          "title": "Environmental Compliance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Operate reliably in altitudes up to 50,000 ft with -55°C to +70°C ambient temperature."
+            },
+            {
+              "description": "Meet 2000-hour mean time between failures (MTBF) for critical subassemblies."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Main Generator Unit",
+        "description": "Engine-driven permanent magnet generator producing primary aircraft power, comparable to integrated drive generators (IDGs) in modern turbofans.",
+        "type": "Power Generation Module",
+        "subComponents": [
+          {
+            "name": "Rotor Assembly",
+            "description": "High-speed rotating component with rare-earth magnets for electromagnetic induction.",
+            "type": "Electromechanical Assembly"
+          },
+          {
+            "name": "Stator Windings",
+            "description": "Stationary copper coil assembly generating 3-phase AC output.",
+            "type": "Electrical Component"
+          }
+        ]
+      },
+      {
+        "name": "APU Generator",
+        "description": "Auxiliary power unit generator providing ground/emergency power, analogous to aircraft APU bleed-air systems.",
+        "type": "Backup Power Module",
+        "subComponents": [
+          {
+            "name": "Starter-Generator",
+            "description": "Dual-function unit enabling APU start-up and power generation modes.",
+            "type": "Hybrid Component"
+          },
+          {
+            "name": "Fuel Control Unit",
+            "description": "Hydro-mechanical regulator maintaining APU RPM within operational limits.",
+            "type": "Control Subsystem"
+          }
+        ]
+      },
+      {
+        "name": "Voltage Regulation Unit",
+        "description": "Solid-state automatic voltage regulator maintaining output stability despite engine speed variations.",
+        "type": "Conditioning Module",
+        "subComponents": [
+          {
+            "name": "Excitation Controller",
+            "description": "Adjusts field current to maintain constant generator output voltage.",
+            "type": "Feedback Controller"
+          },
+          {
+            "name": "Harmonic Filter",
+            "description": "Passive LC filter network reducing waveform distortion.",
+            "type": "Electrical Filter"
+          }
+        ]
+      },
+      {
+        "name": "Generator Control Unit (GCU)",
+        "description": "Digital control module monitoring generator health and implementing protective functions.",
+        "type": "Monitoring Module",
+        "subComponents": [
+          {
+            "name": "Fault Detection Processor",
+            "description": "Dual-channel FPGA analyzing current/voltage signatures for anomaly detection.",
+            "type": "Digital Controller"
+          },
+          {
+            "name": "Load Shedding Circuit",
+            "description": "Prioritizes power distribution during under-voltage conditions.",
+            "type": "Protection Subsystem"
+          }
+        ]
+      },
+      {
+        "name": "Cooling System",
+        "description": "Air-oil heat exchanger maintaining generator temperatures within limits, similar to aircraft bleed air cooling architectures.",
+        "type": "Thermal Management Module",
+        "subComponents": [
+          {
+            "name": "Oil Circulation Pump",
+            "description": "Positive displacement pump providing forced lubrication/cooling.",
+            "type": "Mechanical Subsystem"
+          },
+          {
+            "name": "Heat Exchanger Core",
+            "description": "Aluminum finned-tube radiator dissipating generator heat.",
+            "type": "Thermal Component"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Main Generator Unit",
+        "target": "Engine Drive Shaft",
+        "relationshipType": "dependency",
+        "description": "Mechanically coupled to the aircraft engine via constant speed drive (CSD) for torque conversion."
+      },
+      {
+        "source": "APU Generator",
+        "target": "Main Generator Unit",
+        "relationshipType": "association",
+        "description": "Synchronizes with primary generators during cross-bus power transfers."
+      },
+      {
+        "source": "Generator Control Unit (GCU)",
+        "target": "Voltage Regulation Unit",
+        "relationshipType": "aggregation",
+        "description": "Collects real-time voltage/current data from AVR sensors for closed-loop control."
+      },
+      {
+        "source": "Cooling System",
+        "target": "Main Generator Unit",
+        "relationshipType": "composition",
+        "description": "Integrated cooling jacket forms structural part of generator housing."
+      },
+      {
+        "source": "Generator System",
+        "target": "Electrical Power System",
+        "relationshipType": "dependency",
+        "description": "Feeds conditioned AC power to the central electrical bus for distribution."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "outputVoltage",
+        "type": "string",
+        "value": "AC 115V ±1%",
+        "description": "Regulated 3-phase output voltage compliant with MIL-STD-704F."
+      },
+      {
+        "name": "frequencyStability",
+        "type": "string",
+        "value": "400 Hz ±5 Hz",
+        "description": "Maintained output frequency critical for avionics timing systems."
+      },
+      {
+        "name": "powerDensity",
+        "type": "string",
+        "value": "0.5 kW/kg",
+        "description": "Power-to-weight ratio optimized for aerospace applications."
+      },
+      {
+        "name": "vibrationTolerance",
+        "type": "string",
+        "value": "15g RMS",
+        "description": "Withstands engine-induced vibrations per DO-160 Section 8."
+      },
+      {
+        "name": "insulationClass",
+        "type": "string",
+        "value": "Class H",
+        "description": "180°C-rated insulation materials for high-temperature operation."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "GeneratorSystem",
+          "type": "Block",
+          "name": "Generator System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr1",
+            "attr2"
+          ],
+          "operationIds": [
+            "op1"
+          ],
+          "constraintIds": [
+            "constraint1"
+          ],
+          "partIds": [
+            "Generator",
+            "BatterySystem"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Generator",
+          "type": "Block",
+          "name": "Generator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr3"
+          ],
+          "operationIds": [
+            "op2"
+          ],
+          "constraintIds": [
+            "constraint2"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "BatterySystem",
+          "type": "Block",
+          "name": "Battery System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr4"
+          ],
+          "operationIds": [
+            "op3"
+          ],
+          "constraintIds": [
+            "constraint3"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IElectricalPower",
+          "type": "InterfaceBlock",
+          "name": "IElectricalPower",
+          "attributeIds": [
+            "attr5"
+          ],
+          "operationIds": [
+            "op4"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "PowerFlow",
+          "type": "FlowSpecification",
+          "name": "PowerFlow",
+          "flowType": "energy",
+          "dataType": "Real",
+          "unit": "Volt",
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint1",
+          "type": "ConstraintBlock",
+          "name": "VoltageConstraint",
+          "parameterIds": [
+            "param1"
+          ],
+          "expression": "outputVoltage == 28",
+          "attributeIds": []
+        },
+        {
+          "id": "constraint2",
+          "type": "ConstraintBlock",
+          "name": "InputVoltageConstraint",
+          "parameterIds": [
+            "param2"
+          ],
+          "expression": "inputVoltage == 230",
+          "attributeIds": []
+        },
+        {
+          "id": "constraint3",
+          "type": "ConstraintBlock",
+          "name": "BatteryCapacityConstraint",
+          "parameterIds": [
+            "param3"
+          ],
+          "expression": "capacity > 0",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "Voltage",
+          "type": "ValueType",
+          "name": "Voltage",
+          "quantityKindId": "ElectricalPotential",
+          "unitId": "Volt",
+          "attributeIds": []
+        },
+        {
+          "id": "Power",
+          "type": "ValueType",
+          "name": "Power",
+          "quantityKindId": "Power",
+          "unitId": "Watt",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "PowerState",
+          "type": "Enumeration",
+          "name": "PowerState",
+          "literals": [
+            {
+              "id": "lit1",
+              "name": "ON"
+            },
+            {
+              "id": "lit2",
+              "name": "OFF"
+            },
+            {
+              "id": "lit3",
+              "name": "STANDBY"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port1",
+          "type": "Port",
+          "name": "powerIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "Generator",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "PowerFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "port2",
+          "type": "Port",
+          "name": "powerOut",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "Generator",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "PowerFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "port3",
+          "type": "Port",
+          "name": "backupPower",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "BatterySystem",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "PowerFlow",
+          "attributeIds": []
+        }
+      ],
+      "proxyPorts": [],
+      "fullPorts": [],
+      "flowPorts": [
+        {
+          "id": "flowPort1",
+          "type": "FlowPort",
+          "name": "enginePowerIn",
+          "isConjugated": false,
+          "blockId": "GeneratorSystem",
+          "flowSpecificationId": "PowerFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "flowPort2",
+          "type": "FlowPort",
+          "name": "electricalPowerOut",
+          "isConjugated": false,
+          "blockId": "GeneratorSystem",
+          "flowSpecificationId": "PowerFlow",
+          "attributeIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "realization1",
+          "type": "InterfaceRealization",
+          "name": "IElectricalPowerRealization",
+          "sourceId": "GeneratorSystem",
+          "targetId": "IElectricalPower"
+        }
+      ],
+      "links": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "directedAssociations": [],
+      "aggregations": [],
+      "directedAggregations": [],
+      "compositions": [
+        {
+          "id": "comp1",
+          "type": "Composition",
+          "name": "GeneratorComposition",
+          "sourceId": "GeneratorSystem",
+          "targetId": "Generator",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp2",
+          "type": "Composition",
+          "name": "BatterySystemComposition",
+          "sourceId": "GeneratorSystem",
+          "targetId": "BatterySystem",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "directedCompositions": [],
+      "generalizations": [],
+      "usages": [],
+      "itemFlows": [
+        {
+          "id": "itemFlow1",
+          "type": "ItemFlow",
+          "name": "PowerFlow",
+          "sourceId": "Generator",
+          "targetId": "GeneratorSystem",
+          "flowSpecificationId": "PowerFlow",
+          "itemPropertyIds": []
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment1",
+          "type": "Comment",
+          "body": "The Generator System converts engine power to electrical power and provides backup power via batteries.",
+          "annotatedElementId": "GeneratorSystem"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr1",
+          "type": "Property",
+          "name": "nominalInputVoltage",
+          "propertyType": "Real",
+          "value": "230",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "230",
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr2",
+          "type": "Property",
+          "name": "regulatedOutputVoltage",
+          "propertyType": "Real",
+          "value": "28",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "28",
+          "isReadOnly": true,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr3",
+          "type": "Property",
+          "name": "efficiency",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr4",
+          "type": "Property",
+          "name": "capacity",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "attr5",
+          "type": "Property",
+          "name": "current",
+          "propertyType": "Real",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "op1",
+          "type": "Operation",
+          "name": "regulateVoltage",
+          "parameterIds": [
+            "param4"
+          ],
+          "returnType": "void",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        },
+        {
+          "id": "op2",
+          "type": "Operation",
+          "name": "generatePower",
+          "parameterIds": [
+            "param5"
+          ],
+          "returnType": "Real",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        },
+        {
+          "id": "op3",
+          "type": "Operation",
+          "name": "provideBackup",
+          "parameterIds": [
+            "param6"
+          ],
+          "returnType": "void",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        },
+        {
+          "id": "op4",
+          "type": "Operation",
+          "name": "transmitPower",
+          "parameterIds": [
+            "param7"
+          ],
+          "returnType": "void",
+          "visibility": "public",
+          "isStatic": false,
+          "isAbstract": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "param1",
+          "type": "Parameter",
+          "name": "outputVoltage",
+          "parameterType": "Real",
+          "defaultValue": "28"
+        },
+        {
+          "id": "param2",
+          "type": "Parameter",
+          "name": "inputVoltage",
+          "parameterType": "Real",
+          "defaultValue": "230"
+        },
+        {
+          "id": "param3",
+          "type": "Parameter",
+          "name": "capacity",
+          "parameterType": "Real",
+          "defaultValue": null
+        },
+        {
+          "id": "param4",
+          "type": "Parameter",
+          "name": "voltage",
+          "parameterType": "Real",
+          "defaultValue": null
+        },
+        {
+          "id": "param5",
+          "type": "Parameter",
+          "name": "inputPower",
+          "parameterType": "Real",
+          "defaultValue": null
+        },
+        {
+          "id": "param6",
+          "type": "Parameter",
+          "name": "requiredPower",
+          "parameterType": "Real",
+          "defaultValue": null
+        },
+        {
+          "id": "param7",
+          "type": "Parameter",
+          "name": "power",
+          "parameterType": "Real",
+          "defaultValue": null
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "The Generator System consists of generators that convert engine power to electrical power and battery systems for backup and emergency power supply. The system's attributes include the nominal input voltage level for the Electrical Power System, which is typically AC 230V, and the regulated DC output voltage provided to sensitive flight control systems, which is DC 28V. The system is designed to ensure efficient storage, management, and delivery of fuel to the engines for optimal aircraft operation.",
+  "timestamp": "20250326_013329",
+  "provider": "dpsk"
+}

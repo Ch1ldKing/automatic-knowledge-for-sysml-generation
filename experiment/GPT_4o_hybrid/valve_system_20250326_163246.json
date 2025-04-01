@@ -1,0 +1,411 @@
+{
+  "system_id": "valve_system",
+  "system_name": "Valve System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Material composition for reliability",
+        "name": "material",
+        "type": "string",
+        "value": "titanium alloy"
+      },
+      {
+        "description": "Maximum allowable pressure",
+        "name": "max_pressure",
+        "type": "float",
+        "value": "350 psi"
+      },
+      {
+        "description": "Rated operational temperature",
+        "name": "temperature_rating",
+        "type": "float",
+        "value": "-60 to 70 C"
+      }
+    ],
+    "designScenario": {
+      "description": "Designing an air valve to regulate pneumatic pressure in aircraft systems.",
+      "name": "Aircraft Pneumatic Air Valve",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The valve should adjust openings to regulate air pressure based on feedback."
+            }
+          ],
+          "title": "Pressure Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The valve should maintain functionality under engine-related pressure loads."
+            }
+          ],
+          "title": "Structure Resilience",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Designed to default to a safety release state in power failures."
+            }
+          ],
+          "title": "Failure Safety Mechanism",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Allow for regular maintenance access."
+            }
+          ],
+          "title": "Modular Design",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The actuator modulates the valve operation.",
+        "relationshipType": "association",
+        "source": "actuator_module",
+        "target": "main_valve"
+      },
+      {
+        "description": "Sensor provides feedback to the actuator.",
+        "relationshipType": "association",
+        "source": "pressure_sensor",
+        "target": "actuator_module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary valve that modulates air flow.",
+        "name": "main_valve",
+        "subComponents": [
+          {
+            "description": "Movable part regulating air opening.",
+            "name": "valve_disc",
+            "type": "movable_part"
+          }
+        ],
+        "type": "flow_control"
+      },
+      {
+        "description": "Analyzes pressure and provides errors.",
+        "name": "pressure_sensor",
+        "subComponents": [
+          {
+            "description": "Electrical component that measures air pressure.",
+            "name": "sensor_element",
+            "type": "sensor"
+          }
+        ],
+        "type": "sensor"
+      },
+      {
+        "description": "Actuates the main valve based on sensor data.",
+        "name": "actuator_module",
+        "subComponents": [
+          {
+            "description": "Motorized part driving valve actions.",
+            "name": "servo_motor",
+            "type": "mechanical"
+          }
+        ],
+        "type": "mechanism"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc1",
+          "memberEndIds": null,
+          "name": "Sensor to Actuator Feedback",
+          "ownedEndIds": null,
+          "sourceId": "pressure_sensor",
+          "sourceMultiplicity": null,
+          "targetId": "actuator_module",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "assoc2",
+          "memberEndIds": null,
+          "name": "Actuator to Valve Interaction",
+          "ownedEndIds": null,
+          "sourceId": "actuator_module",
+          "sourceMultiplicity": null,
+          "targetId": "air_valve",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "titanium alloy",
+          "id": "attr_material",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": null,
+          "name": "material",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "350 psi",
+          "id": "attr_maxPressure",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": null,
+          "name": "max_pressure",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-60 to 70 C",
+          "id": "attr_tempRating",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": null,
+          "name": "temperature_rating",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_material",
+            "attr_maxPressure",
+            "attr_tempRating"
+          ],
+          "constraintIds": null,
+          "id": "air_valve",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": true,
+          "name": "Air Valve System",
+          "operationIds": null,
+          "partIds": [
+            "part_mainValve",
+            "part_actuatorModule",
+            "part_pressureSensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "main_valve",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": true,
+          "name": "Main Valve",
+          "operationIds": null,
+          "partIds": [
+            "part_valveDisc"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "actuator_module",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": true,
+          "name": "Actuator Module",
+          "operationIds": null,
+          "partIds": [
+            "part_servoMotor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "pressure_sensor",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": true,
+          "name": "Pressure Sensor",
+          "operationIds": null,
+          "partIds": [
+            "part_sensorElement"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": [
+        {
+          "id": "comp_airValve_mainValve",
+          "memberEndIds": null,
+          "name": "Air Valve to Main Valve",
+          "ownedEndIds": null,
+          "sourceId": "air_valve",
+          "sourceMultiplicity": null,
+          "targetId": "main_valve",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp_airValve_actuatorModule",
+          "memberEndIds": null,
+          "name": "Air Valve to Actuator Module",
+          "ownedEndIds": null,
+          "sourceId": "air_valve",
+          "sourceMultiplicity": null,
+          "targetId": "actuator_module",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp_airValve_pressureSensor",
+          "memberEndIds": null,
+          "name": "Air Valve to Pressure Sensor",
+          "ownedEndIds": null,
+          "sourceId": "air_valve",
+          "sourceMultiplicity": null,
+          "targetId": "pressure_sensor",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "Default safety state for power failure",
+          "id": "cb_safetyMechanism",
+          "name": "Safety Mechanism Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part_mainValve",
+          "name": "main_valve",
+          "of": "air_valve",
+          "type": "Part"
+        },
+        {
+          "id": "part_actuatorModule",
+          "name": "actuator_module",
+          "of": "air_valve",
+          "type": "Part"
+        },
+        {
+          "id": "part_pressureSensor",
+          "name": "pressure_sensor",
+          "of": "air_valve",
+          "type": "Part"
+        },
+        {
+          "id": "part_valveDisc",
+          "name": "valve_disc",
+          "of": "main_valve",
+          "type": "Part"
+        },
+        {
+          "id": "part_servoMotor",
+          "name": "servo_motor",
+          "of": "actuator_module",
+          "type": "Part"
+        },
+        {
+          "id": "part_sensorElement",
+          "name": "sensor_element",
+          "of": "pressure_sensor",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": "air_valve",
+  "parent_system": null,
+  "timestamp": "20250326_163246",
+  "provider": "gpt"
+}

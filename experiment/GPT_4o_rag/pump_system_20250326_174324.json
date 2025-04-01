@@ -1,0 +1,286 @@
+{
+  "system_id": "pump_system",
+  "system_name": "Pump System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specify the range within which the pump maintains optimal performance.",
+        "name": "Operating Pressure Range",
+        "type": "string",
+        "value": "2000-4500 psi"
+      },
+      {
+        "description": "Detail the hydraulic oil required for operation.",
+        "name": "Hydraulic Fluid Type",
+        "type": "string",
+        "value": "Synthetic aviation-grade oil"
+      },
+      {
+        "description": "Define the expected service interval based on operational hours.",
+        "name": "Maintenance Interval",
+        "type": "string",
+        "value": "500 operational hours"
+      },
+      {
+        "description": "Specify the operating temperature withstand capability.",
+        "name": "Temperature Tolerance",
+        "type": "string",
+        "value": "-50°C to 120°C"
+      },
+      {
+        "description": "Identify the pump control integration features.",
+        "name": "Integration Capability",
+        "type": "string",
+        "value": "Advanced fly-by-wire systems"
+      }
+    ],
+    "designScenario": {
+      "description": "The Hydraulic Pump is designed to serve as a crucial component in aviation hydraulic systems by converting mechanical power into regulated hydraulic energy efficiently, remaining durable under extreme conditions, and featuring advanced safety mechanisms for operational reliability.",
+      "name": "Aviation-Grade Hydraulic Pump",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Enable efficient energy conversion from mechanical to hydraulic forms minimizing losses."
+            }
+          ],
+          "title": "Energy Conversion Efficiency",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Operate under a defined pressure range while maintaining stability under varying demands."
+            }
+          ],
+          "title": "Pressure Stability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Employ built-in diagnostics to preemptively indicate maintenance requirements or failures."
+            }
+          ],
+          "title": "Self-Diagnostic and Alert Systems",
+          "type": "nonFunctional"
+        },
+        {
+          "details": [
+            {
+              "description": "Include redundant fail-safe operations to ensure pressure stability under failure."
+            }
+          ],
+          "title": "Safety Fail-Safes",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide sustained operations even under extreme temperature variances."
+            }
+          ],
+          "title": "Environmental Adaptability",
+          "type": "performance"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The pump relies on an external mechanical driver.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Pump",
+        "target": "Driver Mechanism"
+      },
+      {
+        "description": "The pump incorporates an integral filter to maintain fluid cleanliness.",
+        "relationshipType": "composition",
+        "source": "Hydraulic Pump",
+        "target": "Internal Filter Unit"
+      },
+      {
+        "description": "The secondary pump manages overflow or backup pressure regulation.",
+        "relationshipType": "association",
+        "source": "Hydraulic Pump",
+        "target": "Auxiliary Pump"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Main unit responsible for hydraulic pressure generation from a mechanical input.",
+        "name": "Hydraulic Pump",
+        "subComponents": [
+          {
+            "description": "Provides rotational or reciprocating action for pump operation.",
+            "name": "Driver Mechanism",
+            "type": "Mechanical Input"
+          },
+          {
+            "description": "Maintains and regulates hydraulic fluid used by the system.",
+            "name": "Internal Fluid Regulator",
+            "type": "Subsystem"
+          }
+        ],
+        "type": "Primary Unit"
+      },
+      {
+        "description": "Secondary unit utilized for backup operations during main pump downtime.",
+        "name": "Auxiliary Pump",
+        "subComponents": [
+          {
+            "description": "Ensures primary functionalities are supplemented under varying demands.",
+            "name": "Auxiliary Drive Linkage",
+            "type": "Mechanical Coupling"
+          }
+        ],
+        "type": "Backup Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc1",
+          "memberEndIds": [
+            "pumpSystem-engine-port",
+            "engine-pumpSystem-port"
+          ],
+          "name": "Engine Interface",
+          "ownedEndIds": [
+            "assocEnd1",
+            "assocEnd2"
+          ],
+          "sourceId": "pumpSystem",
+          "sourceMultiplicity": "1",
+          "targetId": "engine",
+          "targetMultiplicity": "1",
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": null,
+          "id": "attr1",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": null,
+          "name": "HydraulicOilType",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Aerospace-grade hydraulic oil",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr1",
+            "compEff"
+          ],
+          "constraintIds": null,
+          "id": "pumpSystem",
+          "isAbstract": false,
+          "isActive": null,
+          "isEncapsulated": true,
+          "name": "Pump System",
+          "operationIds": [
+            "op1"
+          ],
+          "partIds": [
+            "part1",
+            "part2"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "val1"
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "pumpSystemValue",
+          "body": "This valueType represents the hydraulic capacity.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "Maintenance cycle should not exceed 600 flight hours",
+          "id": "constraint1",
+          "name": "MaintenanceConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "pumpSystemValue",
+          "name": "HydraulicCapacity",
+          "quantityKindId": "hydraulic_cap_id",
+          "type": "ValueType",
+          "unitId": "liters_unit_id"
+        }
+      ]
+    }
+  },
+  "rag_context": "The Pump System is designed to efficiently convert mechanical energy into high-pressure hydraulic fluid, ensuring rapid response for critical flight maneuvers. It features aerospace-grade hydraulic oil for optimal performance, high integration with aircraft control systems, and a maintenance cycle of 600 flight hours. The system emphasizes energy conversion efficiency, rapid pressure generation, fail-safe operation, and durability with self-diagnostic capabilities.",
+  "timestamp": "20250326_174324",
+  "provider": "gpt"
+}

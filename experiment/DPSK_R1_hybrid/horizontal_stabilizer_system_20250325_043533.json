@@ -1,0 +1,421 @@
+{
+  "system_id": "horizontal_stabilizer_system",
+  "system_name": "Horizontal Stabilizer System",
+  "specification": {
+    "designScenario": {
+      "name": "Horizontal Stabilizer System",
+      "description": "The Horizontal Stabilizer System is a critical flight control surface responsible for maintaining longitudinal stability and controlling pitch during flight. It comprises a fixed horizontal stabilizer and movable elevator surfaces, which adjust the aircraft's angle of attack and balance aerodynamic forces. The system ensures stable flight by counteracting moments from the main wings and reacting to pilot/autopilot inputs. It is designed to withstand high bending and torsional loads while maintaining precise deflection control across all flight phases, including takeoff, turbulence, and landing.",
+      "requirements": [
+        {
+          "title": "Pitch Control and Stability",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Provide adjustable pitch control authority through coordinated movement of elevators and trim tabs."
+            },
+            {
+              "description": "Maintain longitudinal stability during varying flight conditions through aerodynamic load distribution."
+            }
+          ]
+        },
+        {
+          "title": "Dynamic Load Response",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve full elevator deflection range (±30°) within 60ms of control input."
+            },
+            {
+              "description": "Maintain surface position accuracy of ±0.15° under maximum aerodynamic loads."
+            }
+          ]
+        },
+        {
+          "title": "Structural Fail-Safes",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement triple-redundant hydraulic actuators with mechanical backup linkages."
+            },
+            {
+              "description": "Include load-limiting mechanisms to prevent overstress during extreme maneuvers."
+            }
+          ]
+        },
+        {
+          "title": "Operational Longevity",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Design for 50,000 flight-hour service life with corrosion-resistant aluminum-lithium alloys."
+            },
+            {
+              "description": "Enable in-situ actuator replacement without structural disassembly."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Horizontal Stabilizer Structure",
+        "description": "Primary load-bearing assembly forming the fixed airfoil section of the tailplane",
+        "type": "Aerostructure",
+        "subComponents": [
+          {
+            "name": "Front Spar",
+            "description": "Main load-carrying member transferring bending moments to fuselage",
+            "type": "Structural Beam"
+          },
+          {
+            "name": "Ribs",
+            "description": "Aerodynamic profile maintainers with lightning protection bonding",
+            "type": "Structural Framework"
+          },
+          {
+            "name": "Skin Panels",
+            "description": "Contoured composite surfaces with ice protection heating elements",
+            "type": "Aerodynamic Surface"
+          }
+        ]
+      },
+      {
+        "name": "Elevator Assembly",
+        "description": "Movable trailing edge surfaces for pitch control",
+        "type": "Control Surface",
+        "subComponents": [
+          {
+            "name": "Elevator Torque Tube",
+            "description": "Central rotating shaft distributing actuator forces across span",
+            "type": "Mechanical Linkage"
+          },
+          {
+            "name": "Hinge Mechanisms",
+            "description": "Low-friction bearings enabling ±30° deflection range",
+            "type": "Rotational Joint"
+          }
+        ]
+      },
+      {
+        "name": "Hydraulic Actuation System",
+        "description": "Triple-redundant power control units converting electrical signals to mechanical motion",
+        "type": "Actuation Subsystem",
+        "subComponents": [
+          {
+            "name": "Primary Actuator",
+            "description": "Dual-chamber hydraulic cylinder with LVDT position feedback",
+            "type": "Linear Actuator"
+          },
+          {
+            "name": "Backup Manual Drive",
+            "description": "Mechanical override system for hydraulic failure scenarios",
+            "type": "Manual Control"
+          }
+        ]
+      },
+      {
+        "name": "Trim Tab System",
+        "description": "Secondary adjustable surfaces for fine pitch adjustments",
+        "type": "Control Surface",
+        "subComponents": [
+          {
+            "name": "Tab Actuator",
+            "description": "Electromechanical screwjack for incremental position changes",
+            "type": "Rotary Actuator"
+          },
+          {
+            "name": "Load Relief Mechanism",
+            "description": "Shear pin assembly to prevent overload transmission",
+            "type": "Safety Device"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Surfaces",
+        "target": "Horizontal Stabilizer System",
+        "relationshipType": "aggregation",
+        "description": "The Horizontal Stabilizer System operates as an integrated subsystem within the broader Flight Surfaces architecture, sharing control logic and power systems"
+      },
+      {
+        "source": "Horizontal Stabilizer Structure",
+        "target": "Elevator Assembly",
+        "relationshipType": "composition",
+        "description": "The fixed stabilizer structure provides mounting points and load paths for the movable elevator components"
+      },
+      {
+        "source": "Hydraulic Actuation System",
+        "target": "Actuator Control Module",
+        "relationshipType": "dependency",
+        "description": "Receives digital control signals from the central actuator control module for precise position control"
+      },
+      {
+        "source": "Trim Tab System",
+        "target": "Elevator Assembly",
+        "relationshipType": "association",
+        "description": "Trim tabs modify the neutral position of elevators to reduce control forces during steady flight"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "actuationSpeed",
+        "type": "string",
+        "value": "<60ms",
+        "description": "Maximum allowable latency between control input and surface movement initiation"
+      },
+      {
+        "name": "deflectionAccuracy",
+        "type": "string",
+        "value": "±0.15°",
+        "description": "Angular positioning tolerance under maximum aerodynamic loads"
+      },
+      {
+        "name": "materialStrength",
+        "type": "string",
+        "value": "Aluminum-Lithium AA2099-T83",
+        "description": "Primary structural alloy with 490 MPa yield strength and 2.7g/cm³ density"
+      },
+      {
+        "name": "environmentResistance",
+        "type": "string",
+        "value": "-55°C to +125°C operational range",
+        "description": "Certified performance envelope including anti-icing capabilities"
+      },
+      {
+        "name": "structuralLoadCapacity",
+        "type": "string",
+        "value": "200 kN/m²",
+        "description": "Maximum design limit load for bending moments during 2.5g maneuvers"
+      },
+      {
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple hydraulic + mechanical backup",
+        "description": "Failure tolerance architecture per FAA 25.671 regulations"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-horizontal-stabilizer-system",
+          "type": "Block",
+          "name": "HorizontalStabilizerSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-actuationSpeed-hss",
+            "attr-deflectionAccuracy-hss",
+            "attr-materialStrength-hss",
+            "attr-environmentResistance-hss",
+            "attr-structuralLoadCapacity",
+            "attr-redundancyLevel"
+          ],
+          "partIds": [
+            "block-hstab-structure",
+            "block-elevator-assembly",
+            "block-hydraulic-actuation",
+            "block-trim-tab"
+          ],
+          "operationIds": null,
+          "constraintIds": [
+            "constraint-actuation-speed-hss",
+            "constraint-deflection-accuracy"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-hstab-structure",
+          "type": "Block",
+          "name": "HorizontalStabilizerStructure",
+          "partIds": [
+            "block-front-spar",
+            "block-ribs",
+            "block-skin-panels"
+          ],
+          "attributeIds": [
+            "attr-material-composite",
+            "attr-ice-protection-rating"
+          ]
+        },
+        {
+          "id": "block-elevator-assembly",
+          "type": "Block",
+          "name": "ElevatorAssembly",
+          "partIds": [
+            "block-torque-tube",
+            "block-hinge-mechanisms"
+          ],
+          "attributeIds": [
+            "attr-deflection-range",
+            "attr-bearing-friction"
+          ]
+        },
+        {
+          "id": "block-hydraulic-actuation",
+          "type": "Block",
+          "name": "HydraulicActuationSystem",
+          "partIds": [
+            "block-primary-actuator",
+            "block-backup-drive"
+          ],
+          "attributeIds": [
+            "attr-actuator-stroke",
+            "attr-feedback-accuracy"
+          ]
+        },
+        {
+          "id": "block-trim-tab",
+          "type": "Block",
+          "name": "TrimTabSystem",
+          "partIds": [
+            "block-tab-actuator",
+            "block-load-relief"
+          ],
+          "attributeIds": [
+            "attr-tab-travel",
+            "attr-shear-force"
+          ]
+        }
+      ],
+      "aggregations": [
+        {
+          "id": "agg-flight-surfaces-hss",
+          "type": "Aggregation",
+          "name": "AggregatesHSS",
+          "sourceId": "block-flight-surfaces-new",
+          "targetId": "block-horizontal-stabilizer-system",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-hss-structure",
+          "type": "Composition",
+          "name": "ComposesStructure",
+          "sourceId": "block-horizontal-stabilizer-system",
+          "targetId": "block-hstab-structure",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "comp-hss-elevator",
+          "type": "Composition",
+          "name": "ComposesElevator",
+          "sourceId": "block-horizontal-stabilizer-system",
+          "targetId": "block-elevator-assembly",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-trim-elevator",
+          "type": "Association",
+          "name": "TrimmingAssociation",
+          "sourceId": "block-trim-tab",
+          "targetId": "block-elevator-assembly",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-actuator-control",
+          "type": "Dependency",
+          "name": "ActuatorControlDependency",
+          "sourceId": "block-hydraulic-actuation",
+          "targetId": "block-actuator-control-module",
+          "sourceMultiplicity": "3",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-hss-control",
+          "type": "FlowPort",
+          "name": "FlightControlInterface",
+          "blockId": "block-horizontal-stabilizer-system",
+          "flowSpecificationId": "flow-spec-actuation-command-fs",
+          "isConjugated": false
+        }
+      ],
+      "proxyPorts": [
+        {
+          "id": "proxyport-hss-feedback",
+          "type": "ProxyPort",
+          "name": "SurfaceFeedback",
+          "blockId": "block-horizontal-stabilizer-system",
+          "providedInterfaceIds": [
+            "ifb-flight-surfaces-interface"
+          ],
+          "isConjugated": true
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constraint-actuation-speed-hss",
+          "type": "ConstraintBlock",
+          "name": "ActuationResponseTime",
+          "expression": "actuationSpeed <= 60ms",
+          "parameterIds": [
+            "param-response-time"
+          ]
+        },
+        {
+          "id": "constraint-deflection-accuracy",
+          "type": "ConstraintBlock",
+          "name": "AngularPrecision",
+          "expression": "positionError <= 0.15°",
+          "parameterIds": [
+            "param-angular-tolerance"
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "value-type-surface-angle",
+          "type": "ValueType",
+          "name": "SurfaceDeflectionAngle",
+          "quantityKindId": "quantity-angle",
+          "unitId": "unit-degrees"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-actuationSpeed-hss",
+          "type": "Property",
+          "name": "actuationSpeed",
+          "propertyType": "String",
+          "value": "<60ms",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-deflectionAccuracy-hss",
+          "type": "Property",
+          "name": "deflectionAccuracy",
+          "propertyType": "String",
+          "value": "±0.15°",
+          "visibility": "public"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-hss-design",
+          "type": "Comment",
+          "body": "Horizontal Stabilizer System provides longitudinal stability through aerodynamic load distribution across aluminum-lithium alloy structure. Features triple-redundant hydraulic actuation with mechanical backup, ±30° elevator authority, and integrated anti-icing systems.",
+          "annotatedElementId": "block-horizontal-stabilizer-system"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "flight_surfaces",
+  "timestamp": "20250325_043533"
+}

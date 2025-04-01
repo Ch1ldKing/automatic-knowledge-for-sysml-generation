@@ -1,0 +1,368 @@
+{
+  "system_id": "landing_gear_steering_system",
+  "system_name": "Landing Gear Steering System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Range of wheel steering angle enabling maneuvering.",
+        "name": "Wheel Steering Angle Range",
+        "type": "string",
+        "value": "±60°"
+      },
+      {
+        "description": "Time taken from control input to mechanical actuation.",
+        "name": "Response Time",
+        "type": "string",
+        "value": "< 0.5 seconds"
+      },
+      {
+        "description": "Electric power required by the steering system.",
+        "name": "Power Requirement",
+        "type": "string",
+        "value": "4 kW"
+      },
+      {
+        "description": "Temperature range for reliable operation.",
+        "name": "Operating Temperature Range",
+        "type": "string",
+        "value": "-50°C to +70°C"
+      }
+    ],
+    "designScenario": {
+      "description": "A system designed to provide precise and reliable steering control for aircraft landing gear to ensure safety and efficiency during ground operations.",
+      "name": "Landing Gear Steering System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system ensures accurate steering of nose landing gear for effective taxiing control."
+            }
+          ],
+          "title": "Accurate Ground Steering",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve actuation response time below 0.5 seconds for immediate directional adjustments."
+            }
+          ],
+          "title": "Rapid Response Capability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Equip redundancy and fault-tolerance mechanisms for safe operation during fault conditions."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Facilitate simplified maintenance procedures and ensure compliance with aviation safety standards."
+            }
+          ],
+          "title": "Maintainability and Standards Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The controller processes input and communicates with the actuator.",
+        "relationshipType": "association",
+        "source": "Control Module",
+        "target": "Steering Actuator"
+      },
+      {
+        "description": "Sensors provide real-time positional feedback information.",
+        "relationshipType": "dependency",
+        "source": "Control Module",
+        "target": "Position Sensor"
+      },
+      {
+        "description": "The control computes and interfaces through the communication module.",
+        "relationshipType": "composition",
+        "source": "Control Module",
+        "target": "Communication Module"
+      },
+      {
+        "description": "The power unit supplies energy to all active components.",
+        "relationshipType": "dependency",
+        "source": "Power Unit",
+        "target": "Control Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central processing unit managing steering operations.",
+        "name": "Control Module",
+        "subComponents": [],
+        "type": "Processor Unit"
+      },
+      {
+        "description": "Converts commands into mechanical movement for the landing gear.",
+        "name": "Steering Actuator",
+        "subComponents": [],
+        "type": "Actuator Component"
+      },
+      {
+        "description": "Real-time feedback sensor monitoring wheel position.",
+        "name": "Position Sensor",
+        "subComponents": [],
+        "type": "Sensor"
+      },
+      {
+        "description": "Handles data exchange between avionics and steering system.",
+        "name": "Communication Module",
+        "subComponents": [],
+        "type": "Interface Module"
+      },
+      {
+        "description": "Supplies necessary electrical energy for operation.",
+        "name": "Power Unit",
+        "subComponents": [],
+        "type": "Power Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-1",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "lgss-1",
+          "sourceMultiplicity": null,
+          "targetId": "sta-1",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-2",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "lgss-1",
+          "sourceMultiplicity": null,
+          "targetId": "ps-1",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-3",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "lgss-1",
+          "sourceMultiplicity": null,
+          "targetId": "wa-1",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "shared",
+          "defaultValue": "±30",
+          "id": "attr-1",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": "0",
+          "name": "MaximumRotationalRange",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "shared",
+          "defaultValue": "Less than 1 second",
+          "id": "attr-2",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": "0",
+          "name": "ResponseTime",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "shared",
+          "defaultValue": "Less than 5",
+          "id": "attr-3",
+          "isDerived": null,
+          "isDerivedUnion": null,
+          "isID": null,
+          "isOrdered": null,
+          "isReadOnly": null,
+          "isStatic": null,
+          "isUnique": null,
+          "lowerValue": "0",
+          "name": "PowerConsumption",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": null,
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-1",
+            "attr-2",
+            "attr-3"
+          ],
+          "constraintIds": null,
+          "id": "lgss-1",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": null,
+          "name": "LandingGearSteeringSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "sta-1",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": null,
+          "name": "SteeringActuator",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ps-1",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": null,
+          "name": "PositionSensor",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "wa-1",
+          "isAbstract": null,
+          "isActive": null,
+          "isEncapsulated": null,
+          "name": "WheelAssembly",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "lgss-1",
+          "body": "The root block representing the Landing Gear Steering System.",
+          "id": "cmt-1",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "sta-1",
+          "body": "Represents the system's Steering Actuator.",
+          "id": "cmt-2",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "ps-1",
+          "body": "Monitors the position of the steering elements.",
+          "id": "cmt-3",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "wa-1",
+          "body": "Wheel Assembly handling rotation, braking, and absorption.",
+          "id": "cmt-4",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Landing Gear Steering System includes components such as the steering actuator for moving the nose gear, the position sensor to monitor steering angle, and the wheel assemblies paired with braking and shock absorption components. The steering system ensures precise directional changes during taxi operations with a maximum rotational range of ±30° and a rapid response time of less than 1 second from receiving a steering command to mechanical actuation. Additionally, the system is optimized for energy efficiency with a power consumption of less than 5 kW and operates reliably within an extreme temperature range of -40°C to +60°C.",
+  "timestamp": "20250326_174657",
+  "provider": "gpt"
+}

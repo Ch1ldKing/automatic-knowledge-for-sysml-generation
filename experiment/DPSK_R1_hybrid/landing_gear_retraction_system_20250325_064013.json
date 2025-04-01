@@ -1,0 +1,415 @@
+{
+  "system_id": "landing_gear_retraction_system",
+  "system_name": "Landing Gear Retraction System",
+  "specification": {
+    "designScenario": {
+      "name": "Landing Gear Retraction System",
+      "description": "Design a fail-safe retraction mechanism integrated with the aircraft's Landing Gear System, ensuring rapid and reliable gear stowage post-takeoff. The system must synchronize hydraulic actuation, mechanical locking, and sensor feedback while maintaining aerodynamic efficiency, structural integrity, and redundancy under varying operational conditions.",
+      "requirements": [
+        {
+          "title": "Retraction Sequencing",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must retract all landing gear assemblies simultaneously with precise synchronization to prevent asymmetric aerodynamic loads."
+            },
+            {
+              "description": "Mechanical locks must engage automatically upon full retraction to secure gear in the stowed position."
+            }
+          ]
+        },
+        {
+          "title": "Retraction Speed and Power",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Full retraction cycle must complete within 3 seconds at -40°C to +60°C operational temperature range."
+            },
+            {
+              "description": "Hydraulic actuators must generate ≥15,000 lbf linear force to overcome aerodynamic resistance during retraction."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Retraction Paths",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Backup mechanical release mechanism must deploy if primary hydraulic retraction fails."
+            },
+            {
+              "description": "Dual-channel position sensors must cross-validate gear stowage status before cockpit indication."
+            }
+          ]
+        },
+        {
+          "title": "Maintenance Accessibility",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Retraction actuators must allow seal replacement without full system depressurization."
+            },
+            {
+              "description": "All components must meet DO-160G standards for environmental resistance."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Retraction Actuator Assembly",
+        "description": "Hydraulic linear actuators providing force to stow landing gear into wheel wells, including position feedback mechanisms.",
+        "type": "Electro-Hydraulic Subsystem",
+        "subComponents": [
+          {
+            "name": "Primary Linear Actuator",
+            "description": "Dual-piston hydraulic cylinder generating retraction force",
+            "type": "Force Generator"
+          },
+          {
+            "name": "Actuator Position Transducer",
+            "description": "LVDT sensor providing real-time actuator extension percentage",
+            "type": "Position Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Gear Door Mechanism",
+        "description": "Aerodynamic fairing system with sequenced opening/closing linked to gear movement",
+        "type": "Mechanical Assembly",
+        "subComponents": [
+          {
+            "name": "Door Actuator",
+            "description": "Rotary hydraulic actuator controlling door kinematics",
+            "type": "Motion Controller"
+          },
+          {
+            "name": "Door Seal",
+            "description": "Pressure-resistant seal maintaining cabin integrity when doors closed",
+            "type": "Environmental Barrier"
+          }
+        ]
+      },
+      {
+        "name": "Up-Lock Assembly",
+        "description": "Positive mechanical locking system to secure retracted gear",
+        "type": "Safety Mechanism",
+        "subComponents": [
+          {
+            "name": "Hook Latch",
+            "description": "Titanium forged hook engaging with gear strut lugs",
+            "type": "Load-Bearing Component"
+          },
+          {
+            "name": "Lock Sensor",
+            "description": "Microswitch confirming positive lock engagement",
+            "type": "Binary Sensor"
+          }
+        ]
+      },
+      {
+        "name": "Retraction Control Module",
+        "description": "Dual-redundant electronic controller managing retraction sequencing",
+        "type": "Avionics Unit",
+        "subComponents": [
+          {
+            "name": "Sequence Processor",
+            "description": "FPGA-based timing controller for door/gear synchronization",
+            "type": "Digital Controller"
+          },
+          {
+            "name": "Power Relay Panel",
+            "description": "High-current relays distributing power to hydraulic valves",
+            "type": "Electrical Distribution"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Retraction Actuator Assembly",
+        "target": "Hydraulic System",
+        "relationshipType": "dependency",
+        "description": "Requires continuous hydraulic pressure supply from main aircraft hydraulic system during retraction cycle"
+      },
+      {
+        "source": "Up-Lock Assembly",
+        "target": "Structural Strut Assembly",
+        "relationshipType": "composition",
+        "description": "Mechanically integrated with main gear strut for positive latching"
+      },
+      {
+        "source": "Retraction Control Module",
+        "target": "Sensor Module",
+        "relationshipType": "association",
+        "description": "Receives real-time position data from gear proximity sensors for closed-loop control"
+      },
+      {
+        "source": "Gear Door Mechanism",
+        "target": "Retraction Actuator Assembly",
+        "relationshipType": "aggregation",
+        "description": "Door actuation sequence is time-synchronized with gear retraction movement"
+      },
+      {
+        "source": "Up-Lock Assembly",
+        "target": "Safety Sensor Array",
+        "relationshipType": "association",
+        "description": "Lock engagement status monitored by redundant safety sensors"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "retractionForce",
+        "type": "Hydraulic Force",
+        "value": "15,000 ± 500 lbf",
+        "description": "Minimum linear force required to overcome aerodynamic and mechanical resistance during retraction"
+      },
+      {
+        "name": "stowageClearance",
+        "type": "Dimensional",
+        "value": "≥2.5\" margin",
+        "description": "Minimum clearance between retracted gear and wheel well structure when locked"
+      },
+      {
+        "name": "sequenceTolerance",
+        "type": "Timing",
+        "value": "±0.15s sync",
+        "description": "Maximum allowable timing deviation between nose/main gear retraction sequences"
+      },
+      {
+        "name": "emergencyReleasePressure",
+        "type": "Hydraulic",
+        "value": "500-800 PSI",
+        "description": "Backup pneumatic system pressure for emergency gear extension"
+      },
+      {
+        "name": "lockEngagementForce",
+        "type": "Mechanical",
+        "value": "2,200 lb-f",
+        "description": "Minimum force required for positive up-lock mechanism engagement"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-lg-retraction-system",
+          "type": "Block",
+          "name": "LandingGearRetractionSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-retraction-force",
+            "attr-stowage-clearance",
+            "attr-sequence-tolerance",
+            "attr-emergency-release-pressure"
+          ],
+          "partIds": [
+            "part-retraction-actuator",
+            "part-gear-door-mech",
+            "part-up-lock",
+            "part-retraction-control",
+            "part-backup-release"
+          ]
+        },
+        {
+          "id": "block-retraction-actuator",
+          "type": "Block",
+          "name": "RetractionActuatorAssembly",
+          "attributeIds": [
+            "attr-actuator-force",
+            "attr-stroke-length",
+            "attr-do160g-compliance"
+          ]
+        },
+        {
+          "id": "block-gear-door-mech",
+          "type": "Block",
+          "name": "GearDoorMechanism",
+          "attributeIds": [
+            "attr-door-actuation-torque",
+            "attr-do160g-compliance"
+          ]
+        },
+        {
+          "id": "block-up-lock",
+          "type": "Block",
+          "name": "UpLockAssembly",
+          "attributeIds": [
+            "attr-lock-engagement-force"
+          ],
+          "partIds": [
+            "part-primary-sensor",
+            "part-secondary-sensor"
+          ]
+        },
+        {
+          "id": "block-retraction-control",
+          "type": "Block",
+          "name": "RetractionControlModule",
+          "attributeIds": [
+            "attr-processing-latency"
+          ]
+        },
+        {
+          "id": "block-backup-release",
+          "type": "Block",
+          "name": "BackupReleaseMechanism"
+        },
+        {
+          "id": "block-structural-strut",
+          "type": "Block",
+          "name": "StructuralStrutAssembly"
+        },
+        {
+          "id": "block-hydraulic-system",
+          "type": "Block",
+          "name": "HydraulicSystem",
+          "attributeIds": [
+            "attr-emergency-release-pressure"
+          ]
+        },
+        {
+          "id": "block-sensor-module",
+          "type": "Block",
+          "name": "SensorModule"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-lgrs-actuator",
+          "type": "Composition",
+          "sourceId": "block-lg-retraction-system",
+          "targetId": "block-retraction-actuator"
+        },
+        {
+          "id": "comp-lgrs-door",
+          "type": "Composition",
+          "sourceId": "block-lg-retraction-system",
+          "targetId": "block-gear-door-mech"
+        },
+        {
+          "id": "comp-up-lock-strut",
+          "type": "Composition",
+          "sourceId": "block-up-lock",
+          "targetId": "block-structural-strut"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-control-sensors",
+          "type": "Association",
+          "sourceId": "block-retraction-control",
+          "targetId": "block-sensor-module",
+          "name": "SensorDataLink"
+        },
+        {
+          "id": "assoc-actuator-hydraulic",
+          "type": "Association",
+          "sourceId": "block-retraction-actuator",
+          "targetId": "block-hydraulic-system",
+          "name": "HydraulicSupply"
+        },
+        {
+          "id": "assoc-backup-actuator",
+          "type": "Association",
+          "sourceId": "block-backup-release",
+          "targetId": "block-retraction-actuator",
+          "name": "EmergencyOverride"
+        },
+        {
+          "id": "assoc-up-lock-sensors",
+          "type": "Association",
+          "sourceId": "block-up-lock",
+          "targetId": "block-sensor-module",
+          "name": "RedundantSensing",
+          "sourceMultiplicity": "2"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-retraction-force",
+          "type": "Property",
+          "name": "retractionForce",
+          "propertyType": "HydraulicForce",
+          "value": "15,000 ± 500 lbf"
+        },
+        {
+          "id": "attr-stowage-clearance",
+          "type": "Property",
+          "name": "stowageClearance",
+          "propertyType": "Dimensional",
+          "value": "≥2.5\" margin"
+        },
+        {
+          "id": "attr-sequence-tolerance",
+          "type": "Property",
+          "name": "sequenceTolerance",
+          "propertyType": "Timing",
+          "value": "±0.15s sync"
+        },
+        {
+          "id": "attr-emergency-release-pressure",
+          "type": "Property",
+          "name": "emergencyReleasePressure",
+          "propertyType": "Hydraulic",
+          "value": "500-800 PSI"
+        },
+        {
+          "id": "attr-do160g-compliance",
+          "type": "Property",
+          "name": "environmentalStandard",
+          "propertyType": "String",
+          "value": "DO-160G"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "const-retraction-time",
+          "type": "ConstraintBlock",
+          "name": "RetractionTimingConstraint",
+          "expression": "retractionTime ≤ 3s @ [-40°C, +60°C]"
+        },
+        {
+          "id": "const-sequence-tolerance",
+          "type": "ConstraintBlock",
+          "name": "DoorSyncConstraint",
+          "expression": "doorActuationDelay ≤ sequenceTolerance",
+          "parameterIds": [
+            "attr-sequence-tolerance"
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-hydraulic-flow",
+          "type": "FlowPort",
+          "name": "HydraulicInlet",
+          "blockId": "block-retraction-actuator",
+          "flowSpecificationId": "flow-spec-hydraulic-fluid"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-sync-mechanism",
+          "type": "Comment",
+          "body": "Synchronization tolerance maintained through FPGA-controlled hydraulic sequencing",
+          "annotatedElementId": "block-retraction-control"
+        },
+        {
+          "id": "comment-redundancy",
+          "type": "Comment",
+          "body": "Dual sensor channels require independent power supplies and signal paths",
+          "annotatedElementId": "block-up-lock"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "landing_gear_system",
+  "timestamp": "20250325_064013"
+}

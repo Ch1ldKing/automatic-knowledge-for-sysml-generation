@@ -1,0 +1,679 @@
+{
+  "system_id": "landing_gear_braking_system",
+  "system_name": "Landing Gear Braking System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum deceleration force achievable by the Brake System under emergency conditions.",
+        "name": "maxDeceleration",
+        "type": "string",
+        "value": "4.5g"
+      },
+      {
+        "description": "The brake system's ability to rapidly dissipate heat during prolonged or repeated use.",
+        "name": "heatDissipation",
+        "type": "string",
+        "value": "High capacity with advanced cooling design"
+      },
+      {
+        "description": "Response time from activation command to full brake engagement.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Within 0.5 seconds"
+      },
+      {
+        "description": "Redundant hydraulic circuit design ensuring fail-safe operation in case of circuit failure.",
+        "name": "redundancy",
+        "type": "string",
+        "value": "Dual circuit design"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear Braking System is a vital component in the aircraft's landing gear that ensures rapid and effective deceleration upon touchdown. It integrates high-performance friction components, rapid response actuation systems, and redundant hydraulic circuits to provide safe, reliable performance in both normal and emergency conditions. The system is designed to meet rigorous aviation safety standards and is optimized for maintenance and compliance with aerospace regulations.",
+      "name": "Landing Gear Braking System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must deliver consistent braking force across varying aircraft loads and runway conditions."
+            },
+            {
+              "description": "It must interface accurately with the Wheel Assembly to manage deceleration forces throughout the landing gear."
+            }
+          ],
+          "title": "Functional Braking Performance",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The complete engagement of braking systems must occur within 0.5 seconds to ensure rapid deceleration during emergency landings."
+            },
+            {
+              "description": "Advanced heat dissipation mechanisms should maintain braking performance during continuous or repeated operations."
+            }
+          ],
+          "title": "Performance Efficiency",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate dual hydraulic circuit redundancy to ensure the brake system remains fully operational in the event of a circuit failure."
+            },
+            {
+              "description": "Integrate system monitoring that alerts the flight crew to any abnormal condition in the braking operation."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design should support easy inspection, maintenance, and replacement procedures according to aviation maintenance protocols."
+            },
+            {
+              "description": "Materials and construction techniques must comply with environmental, endurance, and durability standards set for aerospace applications."
+            }
+          ],
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Brake System comprises Brake Calipers which actuate to apply pressure for friction generation.",
+        "relationshipType": "composition",
+        "source": "Brake System",
+        "target": "Brake Calipers"
+      },
+      {
+        "description": "Brake System comprises Brake Discs that provide the friction surfaces required for deceleration.",
+        "relationshipType": "composition",
+        "source": "Brake System",
+        "target": "Brake Discs"
+      },
+      {
+        "description": "Brake System is dependent on the Hydraulic System for hydraulic pressure to facilitate brake actuation.",
+        "relationshipType": "dependency",
+        "source": "Brake System",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "Brake System associates with the Wheel Assembly to transfer braking forces effectively to the landing gear.",
+        "relationshipType": "association",
+        "source": "Brake System",
+        "target": "Wheel Assembly"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Subsystem dedicated to providing deceleration through friction braking, integrated within the aircraft's landing gear architecture.",
+        "name": "Brake System",
+        "subComponents": [
+          {
+            "description": "Brake Calipers that actuate to apply hydraulic pressure, converting kinetic energy into frictional heat.",
+            "name": "Brake Calipers",
+            "type": "Actuator"
+          },
+          {
+            "description": "Brake Discs fashioned from high-friction materials to generate the necessary deceleration force.",
+            "name": "Brake Discs",
+            "type": "Friction Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Hydraulic system supplying controlled fluid pressure essential for the rapid actuation of the brake system.",
+        "name": "Hydraulic System",
+        "subComponents": null,
+        "type": "Subsystem"
+      },
+      {
+        "description": "Mechanical assembly that integrates the landing gear wheels with the braking system, ensuring effective force transmission during deceleration.",
+        "name": "Wheel Assembly",
+        "subComponents": null,
+        "type": "Mechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": [],
+          "id": "Act_applyBrakes",
+          "name": "Apply Brakes",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": [],
+          "id": "Act_releaseBrakes",
+          "name": "Release Brakes",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": [],
+          "id": "Act_activateActuator",
+          "name": "Activate Brake Actuator",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": [],
+          "id": "Act_regulateHydraulics",
+          "name": "Regulate Hydraulic Pressure",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": [],
+          "id": "Act_processControlSignal",
+          "name": "Process Control Signal",
+          "type": "Activity"
+        },
+        {
+          "attributeIds": [],
+          "id": "Act_readSensorData",
+          "name": "Read Sensor Data",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "100000",
+          "id": "Attr_maxBrakeForce",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "Maximum Brake Force",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "120000",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.5",
+          "id": "Attr_responseTime",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "Brake Response Time",
+          "propertyType": "Real",
+          "type": "Property",
+          "upperValue": "2.0",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "50000",
+          "id": "Attr_ActuatorForce",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0",
+          "name": "Actuator Force",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "80000",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "3000",
+          "id": "Attr_HydraulicPressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1000",
+          "name": "Hydraulic Pressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "5000",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "28",
+          "id": "Attr_operationalVoltage",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "24",
+          "name": "Operational Voltage",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "32",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.35",
+          "id": "Attr_padFrictionCoefficient",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0.2",
+          "name": "Pad Friction Coefficient",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "0.5",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.98",
+          "id": "Attr_sensorAccuracy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": true,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0.95",
+          "name": "Sensor Accuracy",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1.00",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "Attr_maxBrakeForce",
+            "Attr_responseTime"
+          ],
+          "constraintIds": null,
+          "id": "B_LGBS",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Landing Gear Braking System",
+          "operationIds": [
+            "Act_applyBrakes",
+            "Act_releaseBrakes"
+          ],
+          "partIds": [
+            "B_BrakeActuator",
+            "B_HydraulicControl",
+            "B_ECU",
+            "B_BrakePad",
+            "B_SensorModule"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_ActuatorForce"
+          ],
+          "constraintIds": null,
+          "id": "B_BrakeActuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Brake Actuator",
+          "operationIds": [
+            "Act_activateActuator"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_HydraulicPressure"
+          ],
+          "constraintIds": null,
+          "id": "B_HydraulicControl",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Hydraulic Control Module",
+          "operationIds": [
+            "Act_regulateHydraulics"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_operationalVoltage"
+          ],
+          "constraintIds": null,
+          "id": "B_ECU",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Electronic Control Unit",
+          "operationIds": [
+            "Act_processControlSignal"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_padFrictionCoefficient"
+          ],
+          "constraintIds": null,
+          "id": "B_BrakePad",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Brake Pad",
+          "operationIds": [],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "Attr_sensorAccuracy"
+          ],
+          "constraintIds": null,
+          "id": "B_SensorModule",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Sensor Module",
+          "operationIds": [
+            "Act_readSensorData"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B_LGBS",
+          "body": "The Landing Gear Braking System integrates multiple subsystems including mechanical actuators, hydraulic controls, and electronic signals to ensure rapid and reliable brake application during landing.",
+          "id": "Comment_1",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "IB_Hydraulic",
+          "body": "Hydraulic and electrical interfaces are standardized to aerospace norms ensuring compatibility and safety.",
+          "id": "Comment_2",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "Con_HydraulicConnector",
+          "kind": "assembly",
+          "name": "Hydraulic Connector",
+          "source": "P_HydraulicFull",
+          "target": "B_HydraulicControl",
+          "type": "Connector"
+        },
+        {
+          "id": "Con_ElectricalConnector",
+          "kind": "assembly",
+          "name": "Electrical Connector",
+          "source": "P_ElectricalFull",
+          "target": "B_ECU",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": [
+            "Attr_maxBrakeForce"
+          ],
+          "expression": "Attr_maxBrakeForce <= 120000",
+          "id": "CB_BrakeConstraint",
+          "name": "Brake System Constraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "Enum_BrakeState",
+          "literals": [
+            {
+              "id": "Lit_Engaged",
+              "name": "ENGAGED"
+            },
+            {
+              "id": "Lit_Released",
+              "name": "RELEASED"
+            },
+            {
+              "id": "Lit_Transition",
+              "name": "TRANSITION"
+            }
+          ],
+          "name": "Brake State",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "Double",
+          "flowType": "physical",
+          "id": "FS_BrakePressure",
+          "name": "Brake Pressure Flow Specification",
+          "type": "FlowSpecification",
+          "unit": "Pascal"
+        },
+        {
+          "attributeIds": [],
+          "dataType": "Boolean",
+          "flowType": "signal",
+          "id": "FS_BrakeCommand",
+          "name": "Brake Command Flow Specification",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "IB_Hydraulic",
+          "name": "Hydraulic Interface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "IB_Electrical",
+          "name": "Electrical Interface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "IB_Sensor",
+          "name": "Sensor Interface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": [],
+          "id": "IF_Hydraulic",
+          "name": "Hydraulic Interface Specification",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "Interface"
+        },
+        {
+          "attributeIds": [],
+          "id": "IF_Electrical",
+          "name": "Electrical Interface Specification",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "Interface"
+        },
+        {
+          "attributeIds": [],
+          "id": "IF_Sensor",
+          "name": "Sensor Interface Specification",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": [],
+          "blockId": "B_HydraulicControl",
+          "flowSpecificationId": "FS_BrakePressure",
+          "id": "P_HydraulicFull",
+          "isConjugated": false,
+          "name": "Hydraulic Port",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "IB_Hydraulic"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_ECU",
+          "flowSpecificationId": "FS_BrakeCommand",
+          "id": "P_ElectricalFull",
+          "isConjugated": false,
+          "name": "Electrical Port",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "IB_Electrical"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": [],
+          "blockId": "B_SensorModule",
+          "flowSpecificationId": null,
+          "id": "P_SensorProxy",
+          "isConjugated": false,
+          "name": "Sensor Proxy Port",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "IB_Sensor"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "VT_ForceType",
+          "name": "Force Type",
+          "quantityKindId": "Quantity_Newton",
+          "type": "ValueType",
+          "unitId": "Unit_Newton"
+        },
+        {
+          "attributeIds": [],
+          "id": "VT_TimeType",
+          "name": "Time Type",
+          "quantityKindId": "Quantity_Seconds",
+          "type": "ValueType",
+          "unitId": "Unit_Seconds"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_115220"
+}

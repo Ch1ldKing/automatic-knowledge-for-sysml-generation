@@ -1,0 +1,319 @@
+{
+  "system_id": "nose_landing_gear_system",
+  "system_name": "Nose Landing Gear System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum load capacity during impact absorbance by the Nose Landing Gear System.",
+        "name": "loadCapacity",
+        "type": "string",
+        "value": "Up to 60,000 lbs"
+      },
+      {
+        "description": "Time to fully deploy or retract the nose landing gear.",
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "< 4 seconds"
+      },
+      {
+        "description": "Durability of the nose wheel structure.",
+        "name": "durability",
+        "type": "string",
+        "value": "Certified for 30,000 landings"
+      }
+    ],
+    "designScenario": {
+      "description": "The Nose Landing Gear System ensures safe operation during landing and taxiing, includes shock absorption, steering, retraction, and deployment mechanisms.",
+      "name": "Nose Landing Gear System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Extend and lock the nose landing gear during landing and taxiing phases under all operational conditions."
+            }
+          ],
+          "title": "Deployment and Retraction",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Steering of nose landing gear must allow precise control within taxiways during ground operations."
+            }
+          ],
+          "title": "Steering Functions",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Shock absorber must dissipate kinetic energy effectively under various payload conditions."
+            }
+          ],
+          "title": "Impact Absorption",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Fail-safe measures must allow for mechanical deployment in case of hydraulic failures."
+            }
+          ],
+          "title": "Emergency Mechanisms",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "System must accommodate maintenance accessibility and monitoring to reduce turn-around time."
+            }
+          ],
+          "title": "Maintenance and Inspection",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Actuation System controls the deployment and retraction of the Nose Landing Gear.",
+        "relationshipType": "association",
+        "source": "Actuation System",
+        "target": "Control Unit"
+      },
+      {
+        "description": "The Hydraulic System powers the Actuation System for physical operations.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic System",
+        "target": "Actuation System"
+      },
+      {
+        "description": "The Sensor Module provides real-time status to the Control Unit.",
+        "relationshipType": "aggregation",
+        "source": "Sensor Module",
+        "target": "Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Hydraulic mechanism enabling the extension of the nose landing gear.",
+        "name": "Hydraulic System",
+        "subComponents": [
+          {
+            "description": "Structure that handles fluid regulation and pressure control.",
+            "name": "Hydraulic Reservoir",
+            "type": "Component"
+          },
+          {
+            "description": "Pump that generates hydraulic pressure.",
+            "name": "Hydraulic Pump",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Device managing the sequencing and operation procedures.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Computational core processing operational feedback.",
+            "name": "Processor Module",
+            "type": "Component"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Sensor systems for monitoring and operational diagnostics.",
+        "name": "Sensor Module",
+        "subComponents": [
+          {
+            "description": "Detects and confirms the position of gear systems.",
+            "name": "Position Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring System"
+      },
+      {
+        "description": "Mechanical assembly providing structural integrity, including the suspensions.",
+        "name": "Landing Strut Assembly",
+        "subComponents": [
+          {
+            "description": "Primary load-handling structure.",
+            "name": "Main Strut",
+            "type": "Structural Component"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "composite",
+          "defaultValue": null,
+          "id": "attr01",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "maxLoadCapacity",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "composite",
+          "defaultValue": null,
+          "id": "attr02",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "tireDiameter",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "composite",
+          "defaultValue": null,
+          "id": "attr03",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "materialType",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        },
+        {
+          "aggregation": "composite",
+          "defaultValue": null,
+          "id": "attr04",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": true,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "realTimeMonitoring",
+          "propertyType": "Boolean",
+          "type": "Property",
+          "upperValue": "1",
+          "value": null,
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr01",
+            "attr02",
+            "attr03",
+            "attr04"
+          ],
+          "constraintIds": [],
+          "id": "block01",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Nose Landing Gear System",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": null,
+      "compositions": [
+        {
+          "id": "comp01",
+          "memberEndIds": null,
+          "name": "Nose Landing Gear System -to- Nose Wheel",
+          "ownedEndIds": null,
+          "sourceId": "block01",
+          "sourceMultiplicity": "1",
+          "targetId": "block02",
+          "targetMultiplicity": "2",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "Nose Landing Gear System包括Nose Wheel，它具有以下规格说明：最大承载能力为25,000磅，轮胎直径为24英寸，材料类型为高耐久性复合合金和先进橡胶复合轮胎，与液压转向执行器系统完全集成，通过专用减震支柱和集成减震器优化减震支持，集成专用前轮胎压力和载荷传感器进行实时监测。 Nose Wheel是飞机起落架的专用组件，旨在提供精确的转向控制、最佳的载荷分布和减震功能，以确保在滑行、起飞和着陆过程中的性能。",
+  "timestamp": "20250326_174400",
+  "provider": "gpt"
+}

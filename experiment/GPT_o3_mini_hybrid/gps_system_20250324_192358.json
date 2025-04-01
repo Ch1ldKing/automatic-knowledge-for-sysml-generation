@@ -1,0 +1,893 @@
+{
+  "system_id": "gps_system",
+  "system_name": "GPS System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Specifies the overall positional accuracy achieved by integrating multi-sensor data, ensuring precise flight navigation.",
+        "name": "positionalAccuracy",
+        "type": "string",
+        "value": "±2 meters"
+      },
+      {
+        "description": "Data update frequency ensuring real-time sensor fusion and control responsiveness during flight operations.",
+        "name": "dataUpdateRate",
+        "type": "string",
+        "value": "20 Hz"
+      },
+      {
+        "description": "Level of redundancy provided through dual-system backup and failover mechanisms to ensure system reliability.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual Redundancy"
+      },
+      {
+        "description": "Communication frequency bands used for GNSS signals and external data links, guaranteeing robust data reception.",
+        "name": "communicationFrequencies",
+        "type": "string",
+        "value": "L1 C/A, L2C for GNSS; VHF Data Link for telemetry"
+      },
+      {
+        "description": "Maximum system latency measured from sensor input to command output to ensure timely navigational decisions.",
+        "name": "systemLatency",
+        "type": "string",
+        "value": "≤50 ms"
+      }
+    ],
+    "designScenario": {
+      "description": "Develop an advanced Navigation System that leverages state-of-the-art multi-sensor fusion technology, incorporating Global Navigation Satellite System (GNSS), Inertial Navigation System (INS), and Real-Time Kinematic (RTK) corrections. The system is designed for modern aircraft, emphasizing high accuracy, rapid data processing, and robust fail-safe mechanisms to meet both operational and safety standards. This design facilitates precise route calculation, dynamic trajectory adjustments, and seamless communication with external data sources.",
+      "name": "Navigation System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must integrate data from GNSS, INS, and RTK modules to achieve continuous, real-time aircraft positioning."
+            },
+            {
+              "description": "Enable dynamic route recalculations using live meteorological and aeronautical data."
+            }
+          ],
+          "title": "Multi-Sensor Data Fusion",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve a data processing update rate of 20 Hz with a system latency not exceeding 50 milliseconds."
+            },
+            {
+              "description": "Ensure accurate position tracking with a maximum error margin of ±2 meters."
+            }
+          ],
+          "title": "High Performance and Responsiveness",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement dual redundant systems with automatic failover to safeguard against sensor or module failures."
+            },
+            {
+              "description": "Provide self-check routines and emergency alert features in case of data discrepancies."
+            }
+          ],
+          "title": "Robust Safety and Fail-Safe Operations",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design an intuitive pilot interface with synthetic vision and touch controls, ensuring minimal distraction and ease of operation."
+            },
+            {
+              "description": "Streamline maintenance procedures with embedded diagnostics and remote troubleshooting capabilities."
+            }
+          ],
+          "title": "Enhanced Usability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Flight Navigation Computer aggregates sensor data from both the GNSS Receiver Unit and the Inertial Navigation Unit for comprehensive data fusion.",
+        "relationshipType": "aggregation",
+        "source": "Flight Navigation Computer",
+        "target": "GNSS Receiver Unit"
+      },
+      {
+        "description": "The Flight Navigation Computer aggregates inertial data from the Inertial Navigation Unit to support dead reckoning and supplementary positioning.",
+        "relationshipType": "aggregation",
+        "source": "Flight Navigation Computer",
+        "target": "Inertial Navigation Unit"
+      },
+      {
+        "description": "The Flight Navigation Computer integrates correction data from the RTK Correction Module to refine positioning accuracy.",
+        "relationshipType": "aggregation",
+        "source": "Flight Navigation Computer",
+        "target": "RTK Correction Module"
+      },
+      {
+        "description": "The Flight Navigation Computer depends on the Digital Map and Terrain Database for updated aeronautical and geographic data required for route planning.",
+        "relationshipType": "dependency",
+        "source": "Flight Navigation Computer",
+        "target": "Digital Map and Terrain Database"
+      },
+      {
+        "description": "The External Communications Interface is composed within the Flight Navigation Computer, facilitating external data exchange and software updates.",
+        "relationshipType": "composition",
+        "source": "Flight Navigation Computer",
+        "target": "External Communications Interface"
+      },
+      {
+        "description": "The Pilot Display Interface is associated with the Flight Navigation Computer to visualize navigation data and alerts for the flight crew.",
+        "relationshipType": "association",
+        "source": "Flight Navigation Computer",
+        "target": "Pilot Display Interface"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central processing unit that fuses multi-sensor data, computes flight paths, and controls navigation outputs.",
+        "name": "Flight Navigation Computer",
+        "subComponents": [
+          {
+            "description": "Dedicated data fusion engine responsible for real-time integration of sensor inputs.",
+            "name": "Data Fusion Engine",
+            "type": "Processing Module"
+          },
+          {
+            "description": "High-performance computation unit executing complex navigational algorithms.",
+            "name": "Computation Unit",
+            "type": "Processing Module"
+          }
+        ],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Receives and processes satellite signals to provide primary positioning data.",
+        "name": "GNSS Receiver Unit",
+        "subComponents": [
+          {
+            "description": "Multi-band GNSS antenna designed for optimal signal acquisition.",
+            "name": "GNSS Antenna",
+            "type": "Antenna"
+          },
+          {
+            "description": "Signal demodulator converting raw satellite data into digital information.",
+            "name": "Signal Demodulator",
+            "type": "Processing Unit"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Captures inertial data through advanced MEMS sensors to supplement satellite navigation.",
+        "name": "Inertial Navigation Unit",
+        "subComponents": [
+          {
+            "description": "High-precision MEMS accelerometers measuring linear movements.",
+            "name": "MEMS Accelerometer",
+            "type": "Sensor"
+          },
+          {
+            "description": "MEMS gyroscopes capturing angular rotations to enhance inertial measurements.",
+            "name": "MEMS Gyroscope",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Processes correction signals received in real-time to enhance the accuracy of positional data.",
+        "name": "RTK Correction Module",
+        "subComponents": [
+          {
+            "description": "Data link transceiver that receives RTK correction streams from ground stations or satellites.",
+            "name": "Data Link Transceiver",
+            "type": "Communications Hardware"
+          }
+        ],
+        "type": "Correction Module"
+      },
+      {
+        "description": "Maintains a comprehensive digital database of aeronautical charts, terrain, and obstacles for navigation computations.",
+        "name": "Digital Map and Terrain Database",
+        "subComponents": null,
+        "type": "Data Module"
+      },
+      {
+        "description": "Facilitates external communications, receiving updates such as weather and air traffic advisories.",
+        "name": "External Communications Interface",
+        "subComponents": [
+          {
+            "description": "VHF Data Link module for real-time transmission of aeronautical messages.",
+            "name": "VHF Data Link",
+            "type": "Communications Hardware"
+          },
+          {
+            "description": "Satcom module providing satellite-based connectivity for remote updates.",
+            "name": "Satcom Module",
+            "type": "Communications Hardware"
+          }
+        ],
+        "type": "Communication Module"
+      },
+      {
+        "description": "Displays navigational data, synthetic vision, and system alerts in a pilot-friendly format for enhanced situational awareness.",
+        "name": "Pilot Display Interface",
+        "subComponents": [
+          {
+            "description": "Synthetic Vision Display offering a 3D representation of the terrain and flight path.",
+            "name": "Synthetic Vision Display",
+            "type": "Display"
+          },
+          {
+            "description": "Multi-function touch controller for interactive system management.",
+            "name": "Touch Controller",
+            "type": "Input Device"
+          }
+        ],
+        "type": "Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-FNC-GNSS",
+          "memberEndIds": [
+            "block-flight-navigation-computer",
+            "block-gnss-receiver-module"
+          ],
+          "name": "Aggregates GNSS Data",
+          "ownedEndIds": null,
+          "sourceId": "block-flight-navigation-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-gnss-receiver-module",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-FNC-INS",
+          "memberEndIds": [
+            "block-flight-navigation-computer",
+            "block-inertial-navigation-unit"
+          ],
+          "name": "Aggregates Inertial Data",
+          "ownedEndIds": null,
+          "sourceId": "block-flight-navigation-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-inertial-navigation-unit",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-FNC-RTK",
+          "memberEndIds": [
+            "block-flight-navigation-computer",
+            "block-rtk-correction-module"
+          ],
+          "name": "Integrates RTK Correction",
+          "ownedEndIds": null,
+          "sourceId": "block-flight-navigation-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-rtk-correction-module",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-FNC-PDI",
+          "memberEndIds": null,
+          "name": "Displays Navigation Data",
+          "ownedEndIds": null,
+          "sourceId": "block-flight-navigation-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-pilot-display-interface",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "±2 meters",
+          "id": "attr-positional-accuracy",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "positionalAccuracy",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "±2 meters",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "20 Hz",
+          "id": "attr-data-update-rate",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "dataUpdateRate",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "20 Hz",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual Redundancy",
+          "id": "attr-redundancy-level",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual Redundancy",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "L1 C/A, L2C for GNSS; VHF Data Link",
+          "id": "attr-communication-frequencies",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "communicationFrequencies",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "L1 C/A, L2C for GNSS; VHF Data Link",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "≤50 ms",
+          "id": "attr-system-latency",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "systemLatency",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "≤50 ms",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-positional-accuracy",
+            "attr-data-update-rate",
+            "attr-redundancy-level",
+            "attr-communication-frequencies",
+            "attr-system-latency"
+          ],
+          "constraintIds": null,
+          "id": "block-navigation-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "NavigationSystem",
+          "operationIds": [
+            "op-calcFlightPath",
+            "op-updatePosition"
+          ],
+          "partIds": [
+            "part-flight-navigation-computer",
+            "part-gnss-receiver-module",
+            "part-inertial-navigation-unit",
+            "part-rtk-correction-module",
+            "part-digital-map-database",
+            "part-external-comms-interface",
+            "part-pilot-display-interface"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-flight-navigation-computer",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "FlightNavigationComputer",
+          "operationIds": [
+            "op-computePosition",
+            "op-routeCalculation"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-gnss-receiver-module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "GNSSReceiverModule",
+          "operationIds": [
+            "op-receiveSignal"
+          ],
+          "partIds": [
+            "part-gnss-antenna",
+            "part-signal-demodulator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-inertial-navigation-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "InertialNavigationUnit",
+          "operationIds": [
+            "op-measureAcceleration",
+            "op-measureGyro"
+          ],
+          "partIds": [
+            "part-accelerometer",
+            "part-gyroscope"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-rtk-correction-module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "RTKCorrectionModule",
+          "operationIds": [
+            "op-processRTK"
+          ],
+          "partIds": [
+            "part-data-link-transceiver"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-digital-map-database",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "DigitalMapTerrainDatabase",
+          "operationIds": [
+            "op-fetchMapData"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-external-comms-interface",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ExternalCommsInterface",
+          "operationIds": [
+            "op-receiveUpdates",
+            "op-sendStatus"
+          ],
+          "partIds": [
+            "part-vhf-data-link",
+            "part-satcom-module"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-pilot-display-interface",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "PilotDisplayInterface",
+          "operationIds": [
+            "op-displayNavigationData",
+            "op-showAlerts"
+          ],
+          "partIds": [
+            "part-synthetic-vision-display",
+            "part-touch-controller"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-navigation-system",
+          "body": "Navigation System integrates multi-sensor fusion (GNSS, INS, RTK) with high-performance processing, redundant design, and robust external interfacing to support precise flight navigation.",
+          "id": "comment-navsystem",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-FNC-Comms",
+          "memberEndIds": [
+            "block-flight-navigation-computer",
+            "block-external-comms-interface"
+          ],
+          "name": "FNCComposesCommsInterface",
+          "ownedEndIds": null,
+          "sourceId": "block-flight-navigation-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-external-comms-interface",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": [
+        {
+          "id": "connector-FNC-PDI",
+          "kind": "delegation",
+          "name": "FNCtoPDIConnector",
+          "source": "port-FNC-controlOut",
+          "target": "port-PDI-navDisplay",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "systemLatency <= 50 ms",
+          "id": "constraint-system-latency",
+          "name": "SystemLatencyConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "block-flight-navigation-computer"
+          ],
+          "id": "constraint-ns-latency",
+          "name": "NavigationLatency",
+          "specification": "Navigation data must be processed within 50 ms to ensure timely flight decisions.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-FNC-MapDB",
+          "name": "DependsOnMapDatabase",
+          "sourceId": "block-flight-navigation-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-digital-map-database",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-nav-status",
+          "literals": [
+            {
+              "id": "literal-nav-operational",
+              "name": "Operational"
+            },
+            {
+              "id": "literal-nav-degraded",
+              "name": "Degraded"
+            },
+            {
+              "id": "literal-nav-failure",
+              "name": "Failure"
+            }
+          ],
+          "name": "NavigationStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-flight-navigation-computer",
+          "flowSpecificationId": "flow-spec-nav-data",
+          "id": "flowport-FNC-navOut",
+          "isConjugated": false,
+          "name": "NavDataOut",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "NavigationData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-nav-data",
+          "name": "NavigationDataFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-navigation-control",
+          "name": "NavigationControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-navigation-display",
+          "name": "NavigationDisplayInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-navigation-system",
+          "name": "NavigationSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-flight-navigation-computer",
+          "name": "FNC",
+          "of": "block-flight-navigation-computer",
+          "type": "Part"
+        },
+        {
+          "id": "part-gnss-receiver-module",
+          "name": "GNSSModule",
+          "of": "block-gnss-receiver-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-inertial-navigation-unit",
+          "name": "INSModule",
+          "of": "block-inertial-navigation-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-rtk-correction-module",
+          "name": "RTKModule",
+          "of": "block-rtk-correction-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-digital-map-database",
+          "name": "MapDatabase",
+          "of": "block-digital-map-database",
+          "type": "Part"
+        },
+        {
+          "id": "part-external-comms-interface",
+          "name": "CommsInterface",
+          "of": "block-external-comms-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-pilot-display-interface",
+          "name": "DisplayInterface",
+          "of": "block-pilot-display-interface",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-flight-navigation-computer",
+          "flowSpecificationId": "flow-spec-nav-data",
+          "id": "port-FNC-navDataOut",
+          "isConjugated": false,
+          "name": "NavigationDataOut",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-pilot-display-interface",
+          "flowSpecificationId": null,
+          "id": "port-PDI-navDisplay",
+          "isConjugated": false,
+          "name": "NavDisplayIn",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-navigation-display"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-flight-navigation-computer",
+          "flowSpecificationId": null,
+          "id": "port-FNC-controlOut",
+          "isConjugated": false,
+          "name": "ControlOut",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-navigation-control"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-external-comms-interface",
+          "flowSpecificationId": "flow-spec-nav-data",
+          "id": "port-Comms-dataIn",
+          "isConjugated": false,
+          "name": "ExternalDataIn",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-flight-navigation-computer",
+          "id": "proxyPort-FNC-control",
+          "isConjugated": false,
+          "name": "FNCControlPort",
+          "providedInterfaceIds": [
+            "ifb-navigation-control"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-multi-sensor-fusion",
+          "name": "MultiSensorDataFusion",
+          "reqId": null,
+          "text": "The system must integrate data from GNSS, INS, and RTK modules to provide continuous, real-time aircraft positioning.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-high-performance",
+          "name": "HighPerformanceResponsiveness",
+          "reqId": null,
+          "text": "Ensure a data update rate of 20 Hz with system latency not exceeding 50 ms for real-time navigation.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-safety-failover",
+          "name": "RobustSafetyAndFailover",
+          "reqId": null,
+          "text": "Implement dual redundant systems with automatic failover and self-check routines to maintain navigational integrity.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-usability",
+          "name": "EnhancedUsabilityMaintainability",
+          "reqId": null,
+          "text": "Provide an intuitive pilot interface with synthetic vision and touch controls, plus embedded diagnostics for maintenance.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-distance",
+          "name": "DistanceValue",
+          "quantityKindId": "kind-distance",
+          "type": "ValueType",
+          "unitId": "unit-meters"
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-frequency",
+          "name": "FrequencyValue",
+          "quantityKindId": "kind-frequency",
+          "type": "ValueType",
+          "unitId": "unit-hertz"
+        }
+      ]
+    }
+  },
+  "reference_system": "navigation_system",
+  "parent_system": null,
+  "timestamp": "20250324_192358"
+}

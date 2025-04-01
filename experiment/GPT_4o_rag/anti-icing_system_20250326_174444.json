@@ -1,0 +1,384 @@
+{
+  "system_id": "anti-icing_system",
+  "system_name": "Anti-Icing System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operational altitude range suitable for ice prevention and removal.",
+        "name": "operationalAltitudeRange",
+        "type": "string",
+        "value": "Ground level to 50,000 feet"
+      },
+      {
+        "description": "Power consumption required for anti-icing and de-icing operations in optimal conditions.",
+        "name": "powerConsumption",
+        "type": "string",
+        "value": "10-15 kW"
+      },
+      {
+        "description": "Compliance with regulatory and industry certification standards.",
+        "name": "certificationStandards",
+        "type": "string",
+        "value": "FAA/EASA CE-IV compliance"
+      },
+      {
+        "description": "Temperature range in which the system operates effectively.",
+        "name": "operationalTemperatureRange",
+        "type": "string",
+        "value": "-30°C to +30°C"
+      }
+    ],
+    "designScenario": {
+      "description": "The Anti-Ice and De-Ice System is engineered to ensure aircraft surfaces remain free from ice accumulation, thereby ensuring aerodynamics and safety during flight operations in climatically challenging conditions. Employing innovations in heat transfer and fluid distribution, the system delivers consistent performance while maintaining energy efficiency under diverse operational scenarios.",
+      "name": "Enhanced Anti-Ice and De-Ice System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Integrate sensors for ice detection that operate in real-time across critical surfaces."
+            },
+            {
+              "description": "Enable automatic system activation to prevent ice formation."
+            }
+          ],
+          "title": "Ice Detection and Prevention",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The reaction time for ice mitigation measures should be under 3 seconds."
+            },
+            {
+              "description": "Temperature of critical aircraft surfaces should remain above freezing point during operation."
+            }
+          ],
+          "title": "Performance Metrics",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate redundant circuitry to ensure operational integrity in the event of primary system failures."
+            },
+            {
+              "description": "Isolate and bypass malfunctioning components without disrupting overall system performance."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Components should be modular, allowing quick maintenance and replacement."
+            },
+            {
+              "description": "System interface should be user-friendly and comply with ergonomic standards."
+            }
+          ],
+          "title": "Operational Ergonomics and Maintenance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Operational data is relayed between the Control System and Monitoring Sensors.",
+        "relationshipType": "dependency",
+        "source": "Control System",
+        "target": "Monitoring Sensors"
+      },
+      {
+        "description": "The Power Core accommodates and facilitates all subsystems' energy requirements.",
+        "relationshipType": "aggregation",
+        "source": "Power Core",
+        "target": "Subsystems"
+      },
+      {
+        "description": "Embedded heating elements are connected and activated by the Control System during icing events.",
+        "relationshipType": "composition",
+        "source": "Embedded Heating",
+        "target": "Control System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Manages data from sensors, controls heating elements, and distributes power to subsystems.",
+        "name": "Control System",
+        "subComponents": [
+          {
+            "description": "Processes incoming data and determines operational commands.",
+            "name": "Processing Unit",
+            "type": "Processor"
+          }
+        ],
+        "type": "System Controller"
+      },
+      {
+        "description": "Detects environmental conditions conducive to ice formation.",
+        "name": "Monitoring Sensors",
+        "subComponents": [
+          {
+            "description": "Measures surface temperature and ambient humidity levels.",
+            "name": "Surface Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Suite"
+      },
+      {
+        "description": "Provides necessary thermal energy to defrost or prevent ice.",
+        "name": "Embedded Heating",
+        "subComponents": [
+          {
+            "description": "Heating elements for wings and engine nacelles.",
+            "name": "Wing and Engine Heaters",
+            "type": "Heater"
+          }
+        ],
+        "type": "Heating Subsystem"
+      },
+      {
+        "description": "Distributes de-icing fluid across critical zones.",
+        "name": "Fluid Distribution System",
+        "subComponents": [
+          {
+            "description": "Pump controlling fluid dynamics to specified locations.",
+            "name": "De-Ice Pump",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Fluid Mechanism"
+      },
+      {
+        "description": "Provides electrical power to all system components.",
+        "name": "Power Core",
+        "subComponents": [
+          {
+            "description": "Primary and backup power supply units.",
+            "name": "Energy Reserves",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Power Management"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr_temperatureRange",
+            "attr_responseTime",
+            "attr_energyType",
+            "attr_certificationStandards",
+            "attr_redundancyLevel"
+          ],
+          "constraintIds": [
+            "const_temperatureRange",
+            "const_responseTime"
+          ],
+          "id": "block_anti_icing_system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Anti_Icing_System",
+          "operationIds": [],
+          "partIds": [
+            "part_actuators",
+            "part_sensors",
+            "part_controller",
+            "part_real_time_monitoring"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block_anti_icing_system",
+          "body": "The Anti-Icing System prevents ice accumulation on critical aircraft surfaces using active heating, a controlled de-icing liquid system, and an advanced sensor network.",
+          "id": "comment_system_description",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp_actuators_to_system",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block_anti_icing_system",
+          "sourceMultiplicity": "1",
+          "targetId": "block_actuators",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        },
+        {
+          "id": "comp_sensors_to_system",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block_anti_icing_system",
+          "sourceMultiplicity": "1",
+          "targetId": "block_sensors",
+          "targetMultiplicity": "1..*",
+          "type": "Composition"
+        },
+        {
+          "id": "comp_controller_to_system",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block_anti_icing_system",
+          "sourceMultiplicity": "1",
+          "targetId": "block_controller",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        },
+        {
+          "id": "comp_monitoring_to_system",
+          "memberEndIds": null,
+          "name": null,
+          "ownedEndIds": null,
+          "sourceId": "block_anti_icing_system",
+          "sourceMultiplicity": "1",
+          "targetId": "block_real_time_monitoring",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "-20°C ≤ OperatingTemperature ≤ +20°C",
+          "id": "const_temperatureRange",
+          "name": "Temperature_Range_Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "ResponseTime < 5 seconds",
+          "id": "const_responseTime",
+          "name": "Response_Time_Constraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum_energy_type",
+          "literals": [
+            {
+              "id": "lit_bleed_air",
+              "name": "Bleed_Air"
+            },
+            {
+              "id": "lit_electric",
+              "name": "Electric"
+            }
+          ],
+          "name": "Energy_Type",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part_actuators",
+          "name": "Actuators",
+          "of": "block_anti_icing_system",
+          "type": "Part"
+        },
+        {
+          "id": "part_sensors",
+          "name": "Sensors",
+          "of": "block_anti_icing_system",
+          "type": "Part"
+        },
+        {
+          "id": "part_controller",
+          "name": "Controller",
+          "of": "block_anti_icing_system",
+          "type": "Part"
+        },
+        {
+          "id": "part_real_time_monitoring",
+          "name": "Real_Time_Monitoring",
+          "of": "block_anti_icing_system",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req_regulation_compliance",
+          "name": "Regulation_Compliance",
+          "reqId": "REQ-1",
+          "text": "System must comply with FAA and EASA regulations for anti-icing.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value_response_time",
+          "name": "Response_Time",
+          "quantityKindId": "time",
+          "type": "ValueType",
+          "unitId": "unit_seconds"
+        }
+      ]
+    }
+  },
+  "rag_context": "Anti-Ice and De-Ice System的规格说明包括操作温度范围为-20°C至+20°C，响应时间低于5秒，能源类型为Bleed Air / Electric，认证标准符合FAA和EASA对防冰系统的要求，冗余级别为双冗余控制路径。系统设计旨在防止飞机关键部位如机翼、进气口和控制面积冰，通过使用主动加热元件、受控除冰液系统和先进传感器网络，确保冰不会影响飞机的空气动力学和安全性。此外，系统提供实时监测，并利用温度和湿度数据的预测能力主动启动防冰措施。",
+  "timestamp": "20250326_174444",
+  "provider": "gpt"
+}

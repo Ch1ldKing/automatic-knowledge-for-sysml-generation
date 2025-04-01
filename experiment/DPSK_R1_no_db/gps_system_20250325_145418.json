@@ -1,0 +1,367 @@
+{
+  "system_id": "gps_system",
+  "system_name": "GPS System",
+  "specification": {
+    "designScenario": {
+      "name": "Advanced Integrated Navigation System (AINS)",
+      "description": "A next-generation navigation system combining multi-constellation GNSS, hybrid inertial navigation, and AI-driven predictive routing for optimal flight efficiency and safety. Incorporates real-time space weather monitoring, terrain awareness, and cyber-resilient architecture to address modern aviation challenges in congested airspace and evolving threat environments.",
+      "requirements": [
+        {
+          "title": "Multi-Source Navigation Fusion",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Integrate GPS (L1/L5), Galileo (E1/E5), and GLONASS (G1/G3) signals with inertial reference system and celestial navigation backup"
+            },
+            {
+              "description": "Implement sensor fusion algorithms combining ADS-B, DME, and VOR data for ground-based verification"
+            }
+          ]
+        },
+        {
+          "title": "High-Precision Navigation Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Maintain 3D position accuracy of ±2.5 meters (95% CEP) under ionospheric disturbance conditions"
+            },
+            {
+              "description": "Achieve 50 Hz update rate for attitude determination with <5ms latency from sensor input to output"
+            }
+          ]
+        },
+        {
+          "title": "Cybersecurity and Fault Tolerance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement quantum-resistant encryption for all GNSS signal processing chains"
+            },
+            {
+              "description": "Quadruple redundant navigation computers with dissimilar architecture (x86/ARM/RISC-V)"
+            }
+          ]
+        },
+        {
+          "title": "Operational Adaptability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Support in-flight reconfiguration for alternative navigation during GNSS denial scenarios"
+            },
+            {
+              "description": "Provide 3D weather radar integration with navigation path optimization"
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Multi-Constellation GNSS Receiver",
+        "type": "Sensor Array",
+        "description": "Software-defined radio supporting simultaneous reception of GPS, Galileo, GLONASS, and BeiDou signals with anti-spoofing capabilities",
+        "subComponents": [
+          {
+            "name": "Phased Array Antenna",
+            "type": "Antenna System",
+            "description": "Active electronically scanned array with beamforming and null-steering capabilities"
+          },
+          {
+            "name": "Cryptographic Signal Validator",
+            "type": "Security Module",
+            "description": "Hardware-based signal authentication using Galileo OSNMA and GPS Chimera protocols"
+          }
+        ]
+      },
+      {
+        "name": "Laser Inertial Reference System",
+        "type": "Navigation Sensor",
+        "description": "Ring laser gyroscope cluster with hemispherical resonator accelerometers and thermal stabilization",
+        "subComponents": [
+          {
+            "name": "RLG Triad",
+            "type": "Gyro Assembly",
+            "description": "Three orthogonal ring laser gyros with <0.001°/hr bias stability"
+          },
+          {
+            "name": "Vibration Compensation Unit",
+            "type": "Active Control System",
+            "description": "Adaptive filtering for mechanical vibration rejection up to 2kHz"
+          }
+        ]
+      },
+      {
+        "name": "AI Navigation Processor",
+        "type": "Computational Module",
+        "description": "Neuromorphic computing unit for predictive route optimization and anomaly detection",
+        "subComponents": [
+          {
+            "name": "Terrain Prediction Engine",
+            "type": "Software Module",
+            "description": "Machine learning model for 4D trajectory planning considering weather and traffic"
+          },
+          {
+            "name": "Quantum Navigation Simulator",
+            "type": "Backup System",
+            "description": "Particle filter-based dead reckoning module for GNSS-denied environments"
+          }
+        ]
+      },
+      {
+        "name": "Cyber-Physical Interface",
+        "type": "Security Gateway",
+        "description": "Hardened data diode system for navigation data distribution to other aircraft systems",
+        "subComponents": null
+      },
+      {
+        "name": "Emergency Navigation Suite",
+        "type": "Backup System",
+        "description": "Independent MEMS-based inertial system with celestial alignment capability",
+        "subComponents": [
+          {
+            "name": "Stellar Tracker",
+            "type": "Optical Sensor",
+            "description": "Short-wave infrared star tracker with 0.1 arcsecond resolution"
+          },
+          {
+            "name": "MEMS IMU Cluster",
+            "type": "Sensor Array",
+            "description": "Redundant micro-electromechanical sensors with atomic clock synchronization"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "AI Navigation Processor",
+        "target": "Multi-Constellation GNSS Receiver",
+        "relationshipType": "aggregation",
+        "description": "Fuses raw GNSS measurements with inertial data for tightly coupled navigation solution"
+      },
+      {
+        "source": "Cyber-Physical Interface",
+        "target": "AI Navigation Processor",
+        "relationshipType": "composition",
+        "description": "Embedded security co-processor validates all navigation outputs before system distribution"
+      },
+      {
+        "source": "Emergency Navigation Suite",
+        "target": "Laser Inertial Reference System",
+        "relationshipType": "dependency",
+        "description": "Receives periodic alignment updates from primary inertial system during normal operation"
+      },
+      {
+        "source": "AI Navigation Processor",
+        "target": "Emergency Navigation Suite",
+        "relationshipType": "association",
+        "description": "Provides cross-check validation of backup system integrity through dissimilar algorithms"
+      },
+      {
+        "source": "Multi-Constellation GNSS Receiver",
+        "target": "Cyber-Physical Interface",
+        "relationshipType": "aggregation",
+        "description": "Feeds authenticated GNSS data to aircraft systems through secure gateway"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "positionalIntegrity",
+        "type": "string",
+        "value": "HPL < 40m (Horizontal Protection Level)",
+        "description": "Assured position uncertainty bound for RNP 0.3 operations"
+      },
+      {
+        "name": "temporalResolution",
+        "type": "string",
+        "value": "20ms synchronization accuracy",
+        "description": "Precision timekeeping using integrated atomic clock and GNSS discipline"
+      },
+      {
+        "name": "spectrumResilience",
+        "type": "string",
+        "value": "L1/L5/E1/E5/G1/G3/B1/B3 frequency coverage",
+        "description": "Multi-band GNSS reception with interference mitigation across aviation bands"
+      },
+      {
+        "name": "faultContainment",
+        "type": "string",
+        "value": "ASIL D compliance",
+        "description": "Automotive Safety Integrity Level D certification for all safety-critical components"
+      },
+      {
+        "name": "thermalTolerance",
+        "type": "string",
+        "value": "-55°C to +85°C operational range",
+        "description": "MIL-STD-810H compliant environmental hardening for global deployment"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "GPS_System",
+          "type": "Block",
+          "name": "GPS System",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr_GPS_001",
+            "attr_GPS_002"
+          ],
+          "operationIds": [
+            "op_GPS_001"
+          ],
+          "constraintIds": [
+            "constraint_GPS_001"
+          ],
+          "partIds": [
+            "Antenna",
+            "ReceiverModule",
+            "SignalProcessor"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "Antenna",
+          "type": "Block",
+          "name": "GPS Antenna",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr_ANT_001"
+          ],
+          "operationIds": [
+            "op_ANT_001"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ReceiverModule",
+          "type": "Block",
+          "name": "Receiver Module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr_REC_001"
+          ],
+          "operationIds": [
+            "op_REC_001"
+          ],
+          "constraintIds": [
+            "constraint_REC_001"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IB_Power",
+          "type": "InterfaceBlock",
+          "name": "Power Interface",
+          "attributeIds": [
+            "attr_IBPWR_001"
+          ],
+          "operationIds": [],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FS_Data",
+          "type": "FlowSpecification",
+          "name": "NavigationDataFlow",
+          "flowType": "Information",
+          "dataType": "NavData",
+          "unit": "Hz",
+          "attributeIds": [
+            "attr_FSD_001"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CB_Power",
+          "type": "ConstraintBlock",
+          "name": "PowerConstraint",
+          "parameterIds": [
+            "param_CBPWR_001"
+          ],
+          "expression": "powerConsumption <= maxPower",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "VT_Voltage",
+          "type": "ValueType",
+          "name": "Voltage",
+          "quantityKindId": "QK_ElectricPotential",
+          "unitId": "U_Volt",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM_FixType",
+          "type": "Enumeration",
+          "name": "FixType",
+          "literals": [
+            {
+              "id": "LIT_1",
+              "name": "NO_FIX"
+            },
+            {
+              "id": "LIT_2",
+              "name": "2D_FIX"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "pAntennaIn",
+          "type": "FlowPort",
+          "name": "SatSignalIn",
+          "blockId": "Antenna",
+          "flowSpecificationId": "FS_Data",
+          "isConjugated": false,
+          "attributeIds": []
+        }
+      ],
+      "generalizations": [
+        {
+          "id": "gen1",
+          "type": "Generalization",
+          "name": "PowerGeneralization",
+          "sourceId": "ReceiverModule",
+          "targetId": "IB_Power",
+          "isSubstitutable": true
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment1",
+          "type": "Comment",
+          "body": "Complies with DO-178C Level B",
+          "annotatedElementId": "SignalProcessor"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_145418",
+  "provider": "dpsk"
+}

@@ -1,0 +1,677 @@
+{
+  "system_id": "hf_communication_system",
+  "system_name": "HF Communication System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Enables both digital and analog communication channels to support versatile HF data and voice transmission, similar to avionics digital links.",
+        "name": "communicationChannels",
+        "type": "string",
+        "value": "Digital, Analog"
+      },
+      {
+        "description": "Designed to operate within the HF spectrum ensuring adherence to aviation high frequency (3MHz - 30MHz) standards.",
+        "name": "frequencyRange",
+        "type": "string",
+        "value": "3MHz - 30MHz"
+      },
+      {
+        "description": "Incorporates robust encryption protocols to safeguard sensitive communications comparable to secure cockpit data links.",
+        "name": "encryptionProtocol",
+        "type": "string",
+        "value": "AES-256, RSA"
+      },
+      {
+        "description": "Provides latency and throughput metrics suitable for real-time avionics communication ensuring prompt and efficient data exchange.",
+        "name": "performanceMetrics",
+        "type": "string",
+        "value": "Latency < 50ms, Throughput > 100Mbps"
+      },
+      {
+        "description": "Integrates redundant power supplies and backup systems ensuring continuous operation even in adverse conditions akin to redundant systems found in aircraft.",
+        "name": "redundancy",
+        "type": "string",
+        "value": "Dual power supply with backup battery"
+      }
+    ],
+    "designScenario": {
+      "description": "The HF Communication System is engineered for long-range, high-frequency communication in a hazardous operational environment. Modeled after sophisticated avionics systems, it supports multi-modal data, voice, and telemetry exchange with secure transmission and advanced redundancy. The system ensures robust electromagnetic compatibility and interference rejection to meet rigorous aviation safety standards.",
+      "name": "HF Communication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall support multi-modal communication encompassing voice, data, and telemetry analogous to aircraft intercom and ACARS systems."
+            }
+          ],
+          "title": "Multi-Modal Communication",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Must maintain a real-time data exchange with latency below 50 milliseconds ensuring prompt communications during critical flight operations."
+            },
+            {
+              "description": "Requires high throughput capabilities exceeding 100 Mbps even under high electromagnetic interference conditions."
+            }
+          ],
+          "title": "Performance Metrics",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement advanced encryption and secure transmission protocols to prevent unauthorized access and data breaches, mirroring secured air-to-ground channels."
+            },
+            {
+              "description": "Include fail-safe mechanisms and redundant communication paths to guarantee operational safety during component failures."
+            }
+          ],
+          "title": "Safety and Security Requirements",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system’s user interface and management software shall be intuitive, enabling ground control and maintenance crews to perform diagnostics and upgrades seamlessly."
+            },
+            {
+              "description": "Software must support over-the-air updates and remote troubleshooting to ensure high maintainability in line with aviation regulatory requirements."
+            }
+          ],
+          "title": "Non Functional Requirements",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Transceiver Module communicates bi-directionally with the Antenna Array to transmit and receive HF signals, akin to cockpit-to-tower radio links.",
+        "relationshipType": "association",
+        "source": "Transceiver Module",
+        "target": "Antenna Array"
+      },
+      {
+        "description": "The Signal Processor aggregates RF inputs from the Transceiver Module and prepares data for secure encryption, reflecting the data conditioning process in avionics.",
+        "relationshipType": "aggregation",
+        "source": "Signal Processor",
+        "target": "Encryption Module"
+      },
+      {
+        "description": "The Encryption Module depends on processed raw data from the Signal Processor to perform encryption before transmission.",
+        "relationshipType": "dependency",
+        "source": "Encryption Module",
+        "target": "Signal Processor"
+      },
+      {
+        "description": "The Control Unit orchestrates the entire HF communication process by delegating tasks to subordinate modules such as the Transceiver Module, similar to an aircraft’s flight management system.",
+        "relationshipType": "composition",
+        "source": "Control Unit",
+        "target": "Transceiver Module"
+      },
+      {
+        "description": "All modules, including the Control Unit and submodules, depend on the Power Supply to receive stable and redundant electrical power similar to an aircraft's auxiliary power unit.",
+        "relationshipType": "dependency",
+        "source": "All Modules",
+        "target": "Power Supply"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The central processing unit managing communication protocols, signal routing, and system diagnostics, serving as the avionics central computer of the HF system.",
+        "name": "Control Unit",
+        "subComponents": null,
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Module responsible for converting digital signals into RF waves and vice versa, similar to transceivers used in aircraft communications.",
+        "name": "Transceiver Module",
+        "subComponents": [
+          {
+            "description": "Handles RF modulation and demodulation ensuring clear and precise communication.",
+            "name": "RF Modulator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Converts digital signals to analog and vice versa for seamless integration of diverse communication protocols.",
+            "name": "Digital Converter",
+            "type": "Processor"
+          }
+        ],
+        "type": "Communication Module"
+      },
+      {
+        "description": "The antenna array designed for robust HF signal transmission and reception across designated frequencies, analogous to antenna systems in aircraft.",
+        "name": "Antenna Array",
+        "subComponents": [
+          {
+            "description": "Main broadcasting antenna designed to optimize range and signal clarity.",
+            "name": "Main Antenna",
+            "type": "Antenna"
+          },
+          {
+            "description": "Diversity antenna elements to improve redundancy and multipath signal reception.",
+            "name": "Diversity Antenna",
+            "type": "Antenna"
+          }
+        ],
+        "type": "Hardware Module"
+      },
+      {
+        "description": "Processes incoming RF signals, filters noise, and prepares data for secure encryption, akin to a signal conditioning unit in aviation.",
+        "name": "Signal Processor",
+        "subComponents": [
+          {
+            "description": "Amplifies and filters incoming signals to ensure clarity and minimize noise interference.",
+            "name": "Signal Amplifier",
+            "type": "Amplifier"
+          },
+          {
+            "description": "Employs digital filtering algorithms to extract and refine useful data from raw RF inputs.",
+            "name": "Digital Filter",
+            "type": "Processor"
+          }
+        ],
+        "type": "Processing Module"
+      },
+      {
+        "description": "Secures the communication stream by encrypting outgoing signals and decrypting incoming data, mirroring secured avionics communication protocols.",
+        "name": "Encryption Module",
+        "subComponents": [
+          {
+            "description": "Implements AES-256 encryption for encoding communication securely.",
+            "name": "AES Encoder",
+            "type": "Encryption Unit"
+          },
+          {
+            "description": "Manages RSA key exchanges and encryption processes to ensure data integrity.",
+            "name": "RSA Key Manager",
+            "type": "Encryption Unit"
+          }
+        ],
+        "type": "Security Module"
+      },
+      {
+        "description": "Provides regulated and redundant power to all communication modules, analogous to an aircraft's auxiliary power provisioning system.",
+        "name": "Power Supply",
+        "subComponents": [
+          {
+            "description": "Primary DC converter ensuring regulated power supply under normal operations.",
+            "name": "DC Converter",
+            "type": "Power Unit"
+          },
+          {
+            "description": "Backup battery system that activates during primary power failure, ensuring continuous operation.",
+            "name": "Backup Battery",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "initialized",
+          "id": "A1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operationalStatus",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "initialized",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "2e6-30e6",
+          "id": "A2",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "frequencyRange",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "2e6-30e6",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.95",
+          "id": "A3",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "sensitivity",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "0.95",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "15",
+          "id": "A4",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "antennaGain",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "15",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "auto",
+          "id": "A5",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "systemMode",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "auto",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "A1"
+          ],
+          "constraintIds": null,
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HF Communication System",
+          "operationIds": [
+            "OP1"
+          ],
+          "partIds": [
+            "B2",
+            "B3",
+            "B4",
+            "B5"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "A2"
+          ],
+          "constraintIds": null,
+          "id": "B2",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "HF Transmitter",
+          "operationIds": [
+            "OP2"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "A3"
+          ],
+          "constraintIds": null,
+          "id": "B3",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "HF Receiver",
+          "operationIds": [
+            "OP3"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "A4"
+          ],
+          "constraintIds": null,
+          "id": "B4",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Antenna Subsystem",
+          "operationIds": [
+            "OP4"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "A5"
+          ],
+          "constraintIds": null,
+          "id": "B5",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Control Unit",
+          "operationIds": [
+            "OP5"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B1",
+          "body": "HF Communication System integrates transmission, reception, and antenna control for secure, long-range communication in aircraft.",
+          "id": "C1",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B2",
+          "body": "HF Transmitter modulates and transmits signals across the HF frequency range.",
+          "id": "C2",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B3",
+          "body": "HF Receiver demodulates and processes incoming signals to extract information.",
+          "id": "C3",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B4",
+          "body": "Antenna Subsystem manages the physical antenna including orientation and gain control.",
+          "id": "C4",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "B5",
+          "body": "Control Unit manages the overall HF Communication System, coordinating power, signal routing, and system diagnostics.",
+          "id": "C5",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "CONN1",
+          "kind": "assembly",
+          "name": "HF System Internal Connection",
+          "source": "P2",
+          "target": "P3",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "frequencyRange >= 2e6 and frequencyRange <= 30e6",
+          "id": "CB1",
+          "name": "HFSystemPerformanceConstraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "ENUM1",
+          "literals": [
+            {
+              "id": "L1",
+              "name": "AM"
+            },
+            {
+              "id": "L2",
+              "name": "FM"
+            },
+            {
+              "id": "L3",
+              "name": "SSB"
+            }
+          ],
+          "name": "ModulationTypeEnum",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "String",
+          "flowType": "information",
+          "id": "FS1",
+          "name": "HF Data Flow Specification",
+          "type": "FlowSpecification",
+          "unit": "bps"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": [],
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "IB1",
+          "name": "HF Communication Interface Block",
+          "operationIds": [
+            "OP6"
+          ],
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": [
+        {
+          "attributeIds": null,
+          "id": "I1",
+          "name": "HF Communication Interface",
+          "operationIds": [
+            "OP6"
+          ],
+          "signalIds": null,
+          "type": "Interface"
+        }
+      ],
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": [
+        {
+          "defaultValue": "",
+          "id": "OP1",
+          "name": "InitializeSystem",
+          "parameterType": "Operation",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "",
+          "id": "OP2",
+          "name": "TransmitSignal",
+          "parameterType": "Operation",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "",
+          "id": "OP3",
+          "name": "ReceiveSignal",
+          "parameterType": "Operation",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "",
+          "id": "OP4",
+          "name": "AdjustAntenna",
+          "parameterType": "Operation",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "",
+          "id": "OP5",
+          "name": "ManageSystem",
+          "parameterType": "Operation",
+          "type": "Parameter"
+        },
+        {
+          "defaultValue": "",
+          "id": "OP6",
+          "name": "ProcessCommunicationInterface",
+          "parameterType": "Operation",
+          "type": "Parameter"
+        }
+      ],
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": "FS1",
+          "id": "P1",
+          "isConjugated": false,
+          "name": "HF Data Flow Port",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "I1"
+          ],
+          "requiredInterfaceIds": [
+            "I1"
+          ],
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B2",
+          "flowSpecificationId": null,
+          "id": "P2",
+          "isConjugated": false,
+          "name": "Transmitter Output Port",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "I1"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B3",
+          "flowSpecificationId": null,
+          "id": "P3",
+          "isConjugated": false,
+          "name": "Receiver Input Port",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": [
+            "I1"
+          ],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "B2",
+          "id": "PP1",
+          "isConjugated": false,
+          "name": "Transmitter Proxy Port",
+          "providedInterfaceIds": [
+            "I1"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [
+            "A2"
+          ],
+          "id": "VT1",
+          "name": "FrequencyValue",
+          "quantityKindId": "QK1",
+          "type": "ValueType",
+          "unitId": "U1"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_120046"
+}

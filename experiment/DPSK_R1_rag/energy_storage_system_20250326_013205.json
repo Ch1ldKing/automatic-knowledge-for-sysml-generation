@@ -1,0 +1,534 @@
+{
+  "system_id": "energy_storage_system",
+  "system_name": "Energy Storage System",
+  "specification": {
+    "designScenario": {
+      "name": "Advanced Hydraulic Accumulator System",
+      "description": "A next-generation hydraulic accumulator designed to optimize energy storage, pressure regulation, and transient response in modern aircraft. It integrates adaptive pressure management, smart health monitoring, and lightweight composite materials to enhance reliability under variable flight conditions (e.g., high-altitude operations, extreme temperature cycles). The system supports fly-by-wire controls, thrust reversers, and emergency systems while meeting AS9100D aerospace quality standards.",
+      "requirements": [
+        {
+          "title": "Adaptive Pressure Regulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The accumulator shall dynamically adjust gas pre-charge pressure (±5% accuracy) based on real-time hydraulic load demands using integrated pressure sensors and control algorithms."
+            }
+          ]
+        },
+        {
+          "title": "High-Velocity Energy Release",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system shall discharge 95% of stored hydraulic energy within 0.25 seconds during emergency braking scenarios, as per EASA CS-25.1435 transient response mandates."
+            }
+          ]
+        },
+        {
+          "title": "Redundant Pressure Relief System",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Dual independent relief valves (mechanical + electronic) shall activate at 110% of maximum operating pressure (5500 psi) to prevent catastrophic failure during fluid thermal expansion events."
+            }
+          ]
+        },
+        {
+          "title": "Weight-Efficient Construction",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Accumulator assembly mass shall not exceed 8.5 kg while maintaining a 4:1 safety factor under maximum cyclic loading (MIL-STD-810H vibration profile)."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Composite Pressure Vessel",
+        "type": "Primary Energy Storage",
+        "description": "Carbon-fiber reinforced titanium liner structure rated for 6000 psi burst pressure with integrated strain gauges for structural health monitoring.",
+        "subComponents": [
+          {
+            "name": "Multi-Stage Separation Piston",
+            "description": "Dual-seal piston with PTFE coatings for minimal stiction, separating nitrogen charge from hydraulic fluid while accommodating thermal expansion",
+            "type": "Dynamic Interface Component"
+          },
+          {
+            "name": "Smart Charge Valve",
+            "description": "Electro-pneumatic valve maintaining gas pre-charge pressure through closed-loop control (0-5000 psi adjustable range)",
+            "type": "Pressure Management Unit"
+          }
+        ]
+      },
+      {
+        "name": "Health Monitoring Module",
+        "type": "Diagnostic Subsystem",
+        "description": "Embedded IoT-capable sensor suite monitoring accumulator integrity (vibration, temperature, pressure differential) with prognostic maintenance alerts",
+        "subComponents": [
+          {
+            "name": "MEMS Pressure Transducer Array",
+            "description": "Redundant micro-electromechanical sensors providing ±0.1% accuracy pressure measurements at 100Hz sampling rate",
+            "type": "Sensing Component"
+          },
+          {
+            "name": "Vibration Analysis Processor",
+            "description": "FPGA-based unit detecting abnormal harmonic patterns indicative of piston wear or gas leakage",
+            "type": "Diagnostic Component"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Flight Control Computer",
+        "target": "Health Monitoring Module",
+        "relationshipType": "dependency",
+        "description": "Accumulator health data is transmitted via ARINC 664 protocol to central maintenance systems for condition-based servicing"
+      },
+      {
+        "source": "Hydraulic Actuation System",
+        "target": "Composite Pressure Vessel",
+        "relationshipType": "composition",
+        "description": "The pressure vessel is an integral subassembly within the aircraft's primary hydraulic power distribution network"
+      },
+      {
+        "source": "Emergency Power Unit",
+        "target": "Smart Charge Valve",
+        "relationshipType": "association",
+        "description": "EPU provides backup power to maintain gas pre-charge during electrical system failures per FAA AC 25.1309-1A"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "operatingTempRange",
+        "type": "string",
+        "value": "-65°C to 150°C",
+        "description": "Full operational temperature envelope covering ground operations to supersonic flight conditions"
+      },
+      {
+        "name": "cycleLife",
+        "type": "string",
+        "value": "50,000 pressure cycles",
+        "description": "Minimum fatigue life under maximum pressure differential (5000 psi Δ) with 99.9% reliability"
+      },
+      {
+        "name": "fluidViscosityRange",
+        "type": "string",
+        "value": "10-500 cSt",
+        "description": "Compatibility with MIL-PRF-83282 and Skydrol LD-4 hydraulic fluids across operational temperatures"
+      },
+      {
+        "name": "gasPermeationRate",
+        "type": "string",
+        "value": "<0.05 cc/hr",
+        "description": "Maximum allowable nitrogen leakage through piston seals at 5000 psi operating pressure"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "ESS_Block",
+          "type": "Block",
+          "name": "EnergyStorageSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "ESS_attr1",
+            "ESS_attr2"
+          ],
+          "operationIds": [
+            "ESS_op1",
+            "ESS_op2"
+          ],
+          "constraintIds": [
+            "ESS_constraint1"
+          ],
+          "partIds": [
+            "BatteryModule",
+            "PowerManagement",
+            "ThermalManagement",
+            "MonitoringSystem"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "BatteryModule",
+          "type": "Block",
+          "name": "BatteryModule",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "BM_attr1",
+            "BM_attr2"
+          ],
+          "operationIds": [
+            "BM_op1"
+          ],
+          "constraintIds": [
+            "BM_constraint1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PowerManagement",
+          "type": "Block",
+          "name": "PowerManagement",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "PM_attr1"
+          ],
+          "operationIds": [
+            "PM_op1",
+            "PM_op2"
+          ],
+          "constraintIds": [
+            "PM_constraint1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "ThermalManagement",
+          "type": "Block",
+          "name": "ThermalManagement",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "TM_attr1"
+          ],
+          "operationIds": [
+            "TM_op1"
+          ],
+          "constraintIds": [
+            "TM_constraint1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "MonitoringSystem",
+          "type": "Block",
+          "name": "MonitoringSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "MS_attr1",
+            "MS_attr2"
+          ],
+          "operationIds": [
+            "MS_op1"
+          ],
+          "constraintIds": [
+            "MS_constraint1"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "PowerInterface",
+          "type": "InterfaceBlock",
+          "name": "PowerInterface",
+          "attributeIds": [
+            "PI_attr1"
+          ],
+          "operationIds": [
+            "PI_op1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        },
+        {
+          "id": "DataInterface",
+          "type": "InterfaceBlock",
+          "name": "DataInterface",
+          "attributeIds": [
+            "DI_attr1"
+          ],
+          "operationIds": [
+            "DI_op1"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "PowerFlow",
+          "type": "FlowSpecification",
+          "name": "PowerFlow",
+          "flowType": "energy",
+          "dataType": "Real",
+          "unit": "Watt",
+          "attributeIds": []
+        },
+        {
+          "id": "DataFlow",
+          "type": "FlowSpecification",
+          "name": "DataFlow",
+          "flowType": "information",
+          "dataType": "String",
+          "unit": null,
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "ESS_constraint1",
+          "type": "ConstraintBlock",
+          "name": "VoltageRegulation",
+          "parameterIds": [
+            "VR_param1"
+          ],
+          "expression": "voltage >= nominalVoltage * 0.98 AND voltage <= nominalVoltage * 1.02",
+          "attributeIds": []
+        },
+        {
+          "id": "BM_constraint1",
+          "type": "ConstraintBlock",
+          "name": "BatteryCapacity",
+          "parameterIds": [
+            "BC_param1"
+          ],
+          "expression": "capacity >= 30 * 60 * powerDraw",
+          "attributeIds": []
+        },
+        {
+          "id": "PM_constraint1",
+          "type": "ConstraintBlock",
+          "name": "SwitchTime",
+          "parameterIds": [
+            "ST_param1"
+          ],
+          "expression": "switchTime <= 0.05",
+          "attributeIds": []
+        },
+        {
+          "id": "TM_constraint1",
+          "type": "ConstraintBlock",
+          "name": "TemperatureRange",
+          "parameterIds": [
+            "TR_param1"
+          ],
+          "expression": "temperature >= -20 AND temperature <= 60",
+          "attributeIds": []
+        },
+        {
+          "id": "MS_constraint1",
+          "type": "ConstraintBlock",
+          "name": "FaultDetection",
+          "parameterIds": [
+            "FD_param1"
+          ],
+          "expression": "detectionTime <= 0.01",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "Voltage",
+          "type": "ValueType",
+          "name": "Voltage",
+          "quantityKindId": "ElectricalPotential",
+          "unitId": "Volt",
+          "attributeIds": []
+        },
+        {
+          "id": "Temperature",
+          "type": "ValueType",
+          "name": "Temperature",
+          "quantityKindId": "ThermodynamicTemperature",
+          "unitId": "Celsius",
+          "attributeIds": []
+        },
+        {
+          "id": "Time",
+          "type": "ValueType",
+          "name": "Time",
+          "quantityKindId": "Time",
+          "unitId": "Second",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "BatteryStatus",
+          "type": "Enumeration",
+          "name": "BatteryStatus",
+          "literals": [
+            {
+              "id": "BS_Charging",
+              "name": "Charging"
+            },
+            {
+              "id": "BS_Discharging",
+              "name": "Discharging"
+            },
+            {
+              "id": "BS_Idle",
+              "name": "Idle"
+            },
+            {
+              "id": "BS_Fault",
+              "name": "Fault"
+            }
+          ],
+          "attributeIds": []
+        },
+        {
+          "id": "PowerSource",
+          "type": "Enumeration",
+          "name": "PowerSource",
+          "literals": [
+            {
+              "id": "PS_Main",
+              "name": "Main"
+            },
+            {
+              "id": "PS_Backup",
+              "name": "Backup"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "ESS_powerIn",
+          "type": "FlowPort",
+          "name": "powerIn",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "ESS_Block",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "PowerFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "ESS_powerOut",
+          "type": "FlowPort",
+          "name": "powerOut",
+          "portType": "flow",
+          "isConjugated": true,
+          "blockId": "ESS_Block",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "PowerFlow",
+          "attributeIds": []
+        },
+        {
+          "id": "ESS_data",
+          "type": "FlowPort",
+          "name": "data",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "ESS_Block",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "DataFlow",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "ESS_comp1",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "ESS_Block",
+          "targetId": "BatteryModule",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "ESS_comp2",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "ESS_Block",
+          "targetId": "PowerManagement",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "ESS_comp3",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "ESS_Block",
+          "targetId": "ThermalManagement",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "ESS_comp4",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "ESS_Block",
+          "targetId": "MonitoringSystem",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "interfaceRealizations": [
+        {
+          "id": "ESS_if1",
+          "type": "InterfaceRealization",
+          "name": "PowerInterfaceRealization",
+          "sourceId": "ESS_Block",
+          "targetId": "PowerInterface"
+        },
+        {
+          "id": "ESS_if2",
+          "type": "InterfaceRealization",
+          "name": "DataInterfaceRealization",
+          "sourceId": "ESS_Block",
+          "targetId": "DataInterface"
+        }
+      ],
+      "comments": [
+        {
+          "id": "ESS_comment1",
+          "type": "Comment",
+          "body": "The Energy Storage System provides backup power within 50ms of main power failure",
+          "annotatedElementId": "ESS_Block"
+        },
+        {
+          "id": "ESS_comment2",
+          "type": "Comment",
+          "body": "Modular design allows for easy maintenance and upgrades",
+          "annotatedElementId": "ESS_Block"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "Energy Storage System的所有信息和规格说明包括：名称为Battery Backup System，设计方案要求包括紧急电源供应、持续性能、安全保护和非功能属性。其要求自动检测主电源故障并在50ms内切换到电池供电，提供至少30分钟的备用电源并保持电压调节在±2%的额定值内，具有过充、深放电和热管理保护，实现模块化设计以便快速维护、更换和系统升级，同时优化备用系统以满足飞机空间和重量约束。",
+  "timestamp": "20250326_013205",
+  "provider": "dpsk"
+}

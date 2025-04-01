@@ -1,0 +1,345 @@
+{
+  "system_id": "flight_management_system_(fms)_system",
+  "system_name": "Flight Management System (FMS) System",
+  "specification": {
+    "designScenario": {
+      "name": "Flight Management System (FMS) System",
+      "description": "Basic description of Flight Management System (FMS) System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "FMS-1",
+          "type": "Block",
+          "name": "Flight Management System",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-1",
+            "ATTR-2",
+            "ATTR-3"
+          ],
+          "operationIds": [
+            "OP-1",
+            "OP-2"
+          ],
+          "constraintIds": [
+            "CONST-1"
+          ],
+          "partIds": [
+            "FPLN-1",
+            "NAV-1",
+            "PERF-1",
+            "AP-1",
+            "COMM-1"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "FPLN-1",
+          "type": "Block",
+          "name": "Flight Plan Management Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-4",
+            "ATTR-5"
+          ],
+          "operationIds": [
+            "OP-3"
+          ],
+          "constraintIds": [
+            "CONST-2"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "NAV-1",
+          "type": "Block",
+          "name": "Navigation Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-6",
+            "ATTR-7"
+          ],
+          "operationIds": [
+            "OP-4"
+          ],
+          "constraintIds": [
+            "CONST-3"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "PERF-1",
+          "type": "Block",
+          "name": "Performance Management Subsystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-8",
+            "ATTR-9"
+          ],
+          "operationIds": [
+            "OP-5"
+          ],
+          "constraintIds": [
+            "CONST-4"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "AP-1",
+          "type": "Block",
+          "name": "Autopilot Interface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-10"
+          ],
+          "operationIds": [
+            "OP-6"
+          ],
+          "constraintIds": [
+            "CONST-5"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "COMM-1",
+          "type": "Block",
+          "name": "Communication Interface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "ATTR-11"
+          ],
+          "operationIds": [
+            "OP-7"
+          ],
+          "constraintIds": [
+            "CONST-6"
+          ],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "IF-1",
+          "type": "InterfaceBlock",
+          "name": "FlightPlanInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "OP-8"
+          ],
+          "signalIds": [
+            "SIG-1"
+          ],
+          "constraintIds": []
+        },
+        {
+          "id": "IF-2",
+          "type": "InterfaceBlock",
+          "name": "NavigationInterface",
+          "attributeIds": [],
+          "operationIds": [
+            "OP-9"
+          ],
+          "signalIds": [
+            "SIG-2"
+          ],
+          "constraintIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "PRT-1",
+          "type": "FullPort",
+          "name": "FlightPlanPort",
+          "blockId": "FMS-1",
+          "providedInterfaceIds": [
+            "IF-1"
+          ],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "PRT-2",
+          "type": "ProxyPort",
+          "name": "NavigationPort",
+          "blockId": "FMS-1",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [
+            "IF-2"
+          ],
+          "flowSpecificationId": null,
+          "attributeIds": []
+        },
+        {
+          "id": "PRT-3",
+          "type": "FlowPort",
+          "name": "NavigationDataFlow",
+          "blockId": "NAV-1",
+          "flowSpecificationId": "FSPEC-1",
+          "attributeIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "FSPEC-1",
+          "type": "FlowSpecification",
+          "name": "NavigationDataFlowSpec",
+          "flowType": "information",
+          "dataType": "NavigationData",
+          "unit": null,
+          "attributeIds": []
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "CONST-1",
+          "type": "ConstraintBlock",
+          "name": "FlightPathConstraint",
+          "expression": "altitude <= 45000ft AND speed <= 0.85M",
+          "parameterIds": [
+            "PARAM-1"
+          ],
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "ENUM-1",
+          "type": "Enumeration",
+          "name": "FlightPhase",
+          "literals": [
+            {
+              "id": "ENUM-1-A",
+              "name": "CLIMB"
+            },
+            {
+              "id": "ENUM-1-B",
+              "name": "CRUISE"
+            },
+            {
+              "id": "ENUM-1-C",
+              "name": "DESCENT"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "ATTR-1",
+          "name": "currentFlightPlan",
+          "propertyType": "String",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        },
+        {
+          "id": "ATTR-10",
+          "name": "autopilotEngaged",
+          "propertyType": "Boolean",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": "1",
+          "upperValue": "1",
+          "defaultValue": "false",
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": true,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "OP-1",
+          "name": "initializeFlightPlan",
+          "parameters": [
+            {
+              "id": "PARAM-2",
+              "name": "flightPlanFile",
+              "direction": "in",
+              "type": "String"
+            },
+            {
+              "id": "PARAM-3",
+              "name": "result",
+              "direction": "out",
+              "type": "Boolean"
+            }
+          ]
+        },
+        {
+          "id": "OP-5",
+          "name": "calculateFuelConsumption",
+          "parameters": [
+            {
+              "id": "PARAM-4",
+              "name": "currentWeight",
+              "direction": "in",
+              "type": "Double"
+            },
+            {
+              "id": "PARAM-5",
+              "name": "estimatedConsumption",
+              "direction": "out",
+              "type": "Double"
+            }
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "id": "CMNT-1",
+          "body": "Ensures flight plan adheres to airspace restrictions",
+          "annotatedElementId": "CONST-1"
+        }
+      ]
+    }
+  },
+  "timestamp": "20250325_190403",
+  "provider": "qwen"
+}

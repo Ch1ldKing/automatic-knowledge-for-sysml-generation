@@ -1,0 +1,619 @@
+{
+  "system_id": "deicing_system",
+  "system_name": "De-Icing System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Temperature range ensuring system effectiveness.",
+        "name": "operationalTemperatureRange",
+        "type": "string",
+        "value": "-30°C to +15°C"
+      },
+      {
+        "description": "Time required to detect and act against ice formation.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Within 3 seconds"
+      },
+      {
+        "description": "Compliance with international aviation icing safety standards.",
+        "name": "complianceStandards",
+        "type": "string",
+        "value": "ICAO Annex 8 / EASA-CS-23 Certified"
+      },
+      {
+        "description": "System capability to operate effectively under single subsystem failure.",
+        "name": "redundancyCapability",
+        "type": "string",
+        "value": "Full functional redundancy"
+      }
+    ],
+    "designScenario": {
+      "description": "The Anti-Ice and De-Ice System is designed to ensure the safety and aerodynamic efficiency of an aircraft by preventing or removing ice formation on critical components such as wings, engine intakes, and control surfaces. The system incorporates advanced sensing mechanisms to detect ice build-up, activates anti-icing measures proactively, and utilizes dual-mode functionality combining thermal heating and fluid application systems for de-icing.",
+      "name": "Anti-Ice and De-Ice System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must automatically detect ice formation using temperature, moisture, and visual sensors."
+            },
+            {
+              "description": "The system shall activate anti-icing mechanisms upon detection of conditions conducive to ice formation."
+            }
+          ],
+          "title": "Ice Detection Automation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall maintain surface conditions to prevent duty cycle increases beyond system tolerance during operation."
+            },
+            {
+              "description": "The de-icing mechanism shall remove accretions within a five-second window."
+            }
+          ],
+          "title": "Performance Optimization",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must include multiple fail-safe redundancies to ensure operational endurance despite subsystem dysfunction."
+            },
+            {
+              "description": "The system should possess in-built diagnostics to alert of potential performance degradation."
+            }
+          ],
+          "title": "Safety Assurances",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system interfaces must be user-friendly for maintenance operatives, with graphical and textual diagnostics provided."
+            },
+            {
+              "description": "Components should be modular and easily exchangeable to reduce operational downtime during replacements or upgrades."
+            }
+          ],
+          "title": "Operational Usability and Longevity",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "Data flows from sensors to the computing unit for analysis and decision-making.",
+        "relationshipType": "dependency",
+        "source": "Sensor Network",
+        "target": "Central Processing Unit"
+      },
+      {
+        "description": "Heating elements receive activation triggers from the control unit.",
+        "relationshipType": "association",
+        "source": "Central Processing Unit",
+        "target": "Heating Elements"
+      },
+      {
+        "description": "The fluid application submodules transfer de-icing solution to discharge outlets.",
+        "relationshipType": "composition",
+        "source": "Fluid Delivery Assembly",
+        "target": "Outlet Valves"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core unit processing inputs from sensors and directing actions.",
+        "name": "Central Processing Unit",
+        "subComponents": null,
+        "type": "Electrical Module"
+      },
+      {
+        "description": "Sensors distributed across protective surfaces monitoring freezing conditions.",
+        "name": "Sensor Network",
+        "subComponents": [
+          {
+            "description": "Devices for temperature measurement and evaluation.",
+            "name": "Temperature Sensors",
+            "type": "Sensor"
+          },
+          {
+            "description": "Devices detecting atmospheric moisture conducive to ice.",
+            "name": "Moisture Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Equipment"
+      },
+      {
+        "description": "Parts heating surface areas to counteract freezing.",
+        "name": "Heating Elements",
+        "subComponents": [
+          {
+            "description": "Electric filament heaters for wings.",
+            "name": "Wing Heating Units",
+            "type": "Actuator"
+          },
+          {
+            "description": "Heaters ensuring ice clearance on engine intakes.",
+            "name": "Engine Heating Units",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Active Surfaces"
+      },
+      {
+        "description": "Structurally conveyor system distributing de-icing fluid.",
+        "name": "Fluid Delivery Assembly",
+        "subComponents": [
+          {
+            "description": "Pump system for propelling de-icing fluid.",
+            "name": "Pumping System",
+            "type": "Actuator"
+          },
+          {
+            "description": "Regulated valves discharging fluid across surfaces.",
+            "name": "Outlet Valves",
+            "type": "Control Mechanism"
+          }
+        ],
+        "type": "Hydronics Infrastructure"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-sensornetwork-cpunit",
+          "memberEndIds": null,
+          "name": "AggregatesSensorToCpu",
+          "ownedEndIds": null,
+          "sourceId": "block-sensor-network",
+          "sourceMultiplicity": null,
+          "targetId": "block-central-processing-unit",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-fluiddelivery-outletvalve",
+          "memberEndIds": null,
+          "name": "AggregatesFluidToValve",
+          "ownedEndIds": null,
+          "sourceId": "block-fluid-delivery-assembly",
+          "sourceMultiplicity": null,
+          "targetId": "block-outlet-valve",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-cpunit-heatingelem",
+          "memberEndIds": null,
+          "name": "ControlsHeatingElement",
+          "ownedEndIds": null,
+          "sourceId": "block-central-processing-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-heating-element",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "-30°C to +15°C",
+          "id": "attr-oper-temp-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operationalTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-30°C to +15°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Within 3 seconds",
+          "id": "attr-response-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Within 3 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "ICAO Annex 8 / EASA-CS-23 Certified",
+          "id": "attr-compl-standards",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "complianceStandards",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "ICAO Annex 8 / EASA-CS-23 Certified",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Full functional redundancy",
+          "id": "attr-redundancy-capability",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyCapability",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Full functional redundancy",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-oper-temp-range",
+            "attr-response-time",
+            "attr-compl-standards",
+            "attr-redundancy-capability"
+          ],
+          "constraintIds": null,
+          "id": "block-anti-ice-deice-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AntiIceDeIceSystem",
+          "operationIds": [
+            "op-detectIce",
+            "op-heatArea",
+            "op-diagnoseIssue"
+          ],
+          "partIds": [
+            "part-central-processing-unit",
+            "part-sensor-network",
+            "part-heating-elements",
+            "part-fluid-delivery-assembly"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-central-processing-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CentralProcessingUnit",
+          "operationIds": [
+            "op-analyzeData",
+            "op-controlIcingActions"
+          ],
+          "partIds": [
+            "part-microcontroller"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-sensor-network",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "SensorNetwork",
+          "operationIds": [
+            "op-senseTemperature",
+            "op-senseMoisture"
+          ],
+          "partIds": [
+            "part-temp-sensor",
+            "part-moisture-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-heating-elements",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HeatingElements",
+          "operationIds": [
+            "op-activateHeaters"
+          ],
+          "partIds": [
+            "part-wing-heater",
+            "part-engine-heater"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-fluid-delivery-assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FluidDeliveryAssembly",
+          "operationIds": [
+            "op-pumpFluid",
+            "op-dispenseFluid"
+          ],
+          "partIds": [
+            "part-pumping-system",
+            "part-outlet-valve"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-anti-ice-deice-system",
+          "body": "This block defines the Anti-Ice and De-Ice System for preventing and removing ice on aircraft structures.",
+          "id": "comment-anti-ice",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-sensor-cpu",
+          "memberEndIds": null,
+          "name": "SensorsComposeCPU",
+          "ownedEndIds": null,
+          "sourceId": "block-sensor-network",
+          "sourceMultiplicity": null,
+          "targetId": "block-central-processing-unit",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "responseTime < 3 seconds for efficient ice removal",
+          "id": "cons-ice-removal-time",
+          "name": "ResponseTimeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "block-anti-ice-deice-system"
+          ],
+          "id": "cons-operational-range",
+          "name": "OperationalTemperatureRange",
+          "specification": "The system must operate within -30°C to +15°C.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-sensors-to-cpu",
+          "name": "SensorsProvideDataToCPU",
+          "sourceId": "block-sensor-network",
+          "sourceMultiplicity": null,
+          "targetId": "block-central-processing-unit",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-system-status",
+          "literals": [
+            {
+              "id": "enum-active",
+              "name": "Active"
+            },
+            {
+              "id": "enum-standby",
+              "name": "Standby"
+            },
+            {
+              "id": "enum-error",
+              "name": "Error"
+            }
+          ],
+          "name": "SystemStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "IceData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-ice-detection",
+          "name": "IceDetectionFlow",
+          "type": "FlowSpecification",
+          "unit": "RawData"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-central-processing-unit",
+          "name": "CentralProcessorInterface",
+          "operationIds": [
+            "op-processSensorData"
+          ],
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": [
+        {
+          "flowSpecificationId": "flow-spec-ice-detection",
+          "id": "flow-sensor-to-cpu",
+          "itemPropertyIds": null,
+          "name": "DataToProcessor",
+          "sourceId": "block-sensor-network",
+          "targetId": "block-central-processing-unit",
+          "type": "ItemFlow"
+        }
+      ],
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-anti-ice-deice",
+          "name": "AntiIceDeIceSystem",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-central-processing-unit",
+          "name": "CentralProcessingUnit",
+          "of": "block-central-processing-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-sensor-network",
+          "name": "SensorNetwork",
+          "of": "block-sensor-network",
+          "type": "Part"
+        },
+        {
+          "id": "part-heating-elements",
+          "name": "HeatingElements",
+          "of": "block-heating-elements",
+          "type": "Part"
+        },
+        {
+          "id": "part-fluid-delivery-assembly",
+          "name": "FluidDeliveryAssembly",
+          "of": "block-fluid-delivery-assembly",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-central-processing-unit",
+          "flowSpecificationId": "flow-spec-ice-detection",
+          "id": "port-cpu-sensors",
+          "isConjugated": false,
+          "name": "SensorDataIn",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-fluid-delivery-assembly",
+          "id": "proxyport-fluid-distribute",
+          "isConjugated": false,
+          "name": "FluidPort",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-ice-detection",
+          "name": "IceDetectionCapability",
+          "reqId": null,
+          "text": "System must detect ice automatically using temperature and moisture sensors.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-temp",
+          "name": "Temperature",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        }
+      ]
+    }
+  },
+  "reference_system": "anti_ice_system",
+  "parent_system": null,
+  "timestamp": "20250326_171148",
+  "provider": "gpt"
+}

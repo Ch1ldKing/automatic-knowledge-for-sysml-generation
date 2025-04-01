@@ -1,0 +1,508 @@
+{
+  "system_id": "air_supply_system",
+  "system_name": "Air Supply System",
+  "specification": {
+    "designScenario": {
+      "name": "Air Supply System",
+      "description": "The Air Supply System is designed to provide a continuous supply of pressurized, filtered, and conditioned air to the aircraft cabin. It integrates advanced airflow management, filtration, and distribution technologies to ensure passenger safety, comfort, and adherence to aviation standards. The system is engineered to handle variable flight conditions, including altitude changes, while maintaining air purity and circulation. It incorporates redundant components and real-time monitoring to ensure fault tolerance and rapid response to deviations.",
+      "requirements": [
+        {
+          "title": "Airflow Supply",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall deliver a minimum airflow of 5000 CFM to the cabin under nominal flight conditions to ensure adequate ventilation."
+            }
+          ]
+        },
+        {
+          "title": "Air Purity",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system must filter particulates, allergens, and contaminants using HEPA and activated carbon filters to meet FAA air quality standards."
+            }
+          ]
+        },
+        {
+          "title": "Pressure Maintenance",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Maintain cabin pressure within 0.8 atm to 1.2 atm during all flight phases using pressure regulators and bleed air systems."
+            }
+          ]
+        },
+        {
+          "title": "Response Time",
+          "type": "performance",
+          "details": [
+            {
+              "description": "The system must respond to pressure drops or airflow blockages within 2 seconds to prevent cabin depressurization."
+            }
+          ]
+        },
+        {
+          "title": "Redundancy",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement dual redundant compressors and filtration paths to ensure continuous air supply during single-component failure."
+            }
+          ]
+        },
+        {
+          "title": "Maintenance Accessibility",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "All components shall be modular and accessible via standardized access panels for rapid servicing during ground maintenance."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Air Compressor Module",
+        "description": "Core component responsible for pressurizing bleed air from the engines and distributing it to cabin systems.",
+        "type": "Mechanical Subsystem",
+        "subComponents": [
+          {
+            "name": "Compressor Motor",
+            "description": "Variable-speed motor driven by engine bleed air to regulate airflow pressure.",
+            "type": "Actuator"
+          },
+          {
+            "name": "Pressure Regulator",
+            "description": "Controls outlet pressure to maintain safe cabin pressure levels.",
+            "type": "Valve Assembly"
+          }
+        ]
+      },
+      {
+        "name": "Filter Bank Assembly",
+        "description": "Multi-stage filtration unit removing particulates, microbes, and gaseous contaminants from cabin air.",
+        "type": "Environmental Control Subsystem",
+        "subComponents": [
+          {
+            "name": "HEPA Filter",
+            "description": "High-efficiency particulate air filter capturing 99.97% of particles ≥0.3 µm.",
+            "type": "Filter"
+          },
+          {
+            "name": "Activated Carbon Filter",
+            "description": "Adsorbs volatile organic compounds and odors from cabin air.",
+            "type": "Filter"
+          }
+        ]
+      },
+      {
+        "name": "Distribution Network",
+        "description": "Network of ducts and valves directing conditioned air to cabin zones while maintaining pressure equilibrium.",
+        "type": "Aerospace Conduit System",
+        "subComponents": [
+          {
+            "name": "Main Duct Assembly",
+            "description": "Primary airflow pathway constructed from fire-resistant composite materials.",
+            "type": "Conduit"
+          },
+          {
+            "name": "Zone Control Valves",
+            "description": "Automated dampers regulating airflow distribution to passenger and crew compartments.",
+            "type": "Valve Assembly"
+          }
+        ]
+      },
+      {
+        "name": "Oxygen Supply Unit",
+        "description": "Emergency oxygen delivery system with independent supply for rapid deployment during cabin depressurization.",
+        "type": "Safety Subsystem",
+        "subComponents": [
+          {
+            "name": "Oxygen Canisters",
+            "description": "High-pressure oxygen storage cylinders meeting FAA capacity requirements.",
+            "type": "Storage Container"
+          },
+          {
+            "name": "Deployment Mechanism",
+            "description": "Pyrotechnic-actuated valve system releasing oxygen masks automatically.",
+            "type": "Safety Device"
+          }
+        ]
+      },
+      {
+        "name": "Air Quality Monitor",
+        "description": "Sensor array continuously measuring oxygen levels, CO2 concentration, and particulate counts.",
+        "type": "Monitoring Module",
+        "subComponents": [
+          {
+            "name": "Oxygen Sensor",
+            "description": "Electrochemical sensor ensuring cabin oxygen levels remain ≥19.5%.",
+            "type": "Sensor"
+          },
+          {
+            "name": "CO2 Analyzer",
+            "description": "Non-dispersive infrared sensor tracking CO2 concentrations below 1000 ppm.",
+            "type": "Sensor"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Air Compressor Module",
+        "target": "Distribution Network",
+        "relationshipType": "aggregation",
+        "description": "The compressor provides pressurized air to the distribution network's main duct assembly."
+      },
+      {
+        "source": "Filter Bank Assembly",
+        "target": "Distribution Network",
+        "relationshipType": "dependency",
+        "description": "Filtered air from the filter bank must be routed through the distribution network to reach cabin zones."
+      },
+      {
+        "source": "Oxygen Supply Unit",
+        "target": "Air Quality Monitor",
+        "relationshipType": "association",
+        "description": "The oxygen supply unit activates when the air quality monitor detects unsafe oxygen levels."
+      },
+      {
+        "source": "Air Compressor Module",
+        "target": "Pressure Regulator",
+        "relationshipType": "composition",
+        "description": "The pressure regulator is an integral component of the compressor module assembly."
+      },
+      {
+        "source": "Distribution Network",
+        "target": "Zone Control Valves",
+        "relationshipType": "aggregation",
+        "description": "The zone control valves are part of the distribution network's airflow regulation subsystem."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "airflowRate",
+        "type": "string",
+        "value": "5000 CFM",
+        "description": "Nominal airflow delivered to the cabin under standard flight conditions."
+      },
+      {
+        "name": "pressureRange",
+        "type": "string",
+        "value": "0.8 atm - 1.2 atm",
+        "description": "Operating pressure envelope maintained within the cabin."
+      },
+      {
+        "name": "filterEfficiency",
+        "type": "string",
+        "value": "99.97% @ 0.3 µm",
+        "description": "HEPA filter efficiency rating for particulate removal."
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "<2 seconds",
+        "description": "Maximum time to respond to pressure deviations or airflow blockages."
+      },
+      {
+        "name": "oxygenConcentration",
+        "type": "string",
+        "value": "20.9% ±0.5%",
+        "description": "Regulated oxygen level in cabin air."
+      },
+      {
+        "name": "oxygenCapacity",
+        "type": "string",
+        "value": "15 minutes per canister",
+        "description": "Emergency oxygen supply duration per storage canister."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-air-supply-system",
+          "type": "Block",
+          "name": "AirSupplySystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-airflow-rate",
+            "attr-pressure-range",
+            "attr-filter-efficiency",
+            "attr-response-time",
+            "attr-oxygen-concentration",
+            "attr-oxygen-capacity"
+          ],
+          "partIds": [
+            "part-air-compressor",
+            "part-filter-bank",
+            "part-distribution",
+            "part-oxygen-unit",
+            "part-air-monitor"
+          ]
+        },
+        {
+          "id": "block-air-compressor",
+          "type": "Block",
+          "name": "AirCompressorModule",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-compressor-speed"
+          ],
+          "partIds": [
+            "part-compressor-motor",
+            "part-pressure-regulator"
+          ]
+        },
+        {
+          "id": "block-filter-bank",
+          "type": "Block",
+          "name": "FilterBankAssembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-filter-type"
+          ],
+          "partIds": [
+            "part-hepa-filter",
+            "part-carbon-filter"
+          ]
+        },
+        {
+          "id": "block-distribution",
+          "type": "Block",
+          "name": "DistributionNetwork",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-duct-material"
+          ],
+          "partIds": [
+            "part-main-duct",
+            "part-zone-valves"
+          ]
+        },
+        {
+          "id": "block-oxygen-unit",
+          "type": "Block",
+          "name": "OxygenSupplyUnit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-oxygen-capacity"
+          ],
+          "partIds": [
+            "part-oxygen-canisters",
+            "part-deployment-mech"
+          ]
+        },
+        {
+          "id": "block-air-monitor",
+          "type": "Block",
+          "name": "AirQualityMonitor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-sensor-type"
+          ],
+          "partIds": [
+            "part-oxygen-sensor",
+            "part-co2-analyzer"
+          ]
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb-air-supply",
+          "type": "InterfaceBlock",
+          "name": "AirSupplyInterface",
+          "providedInterfaceIds": [
+            "flow-spec-air"
+          ]
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-air",
+          "type": "FlowSpecification",
+          "name": "AirFlow",
+          "flowType": "MaterialFlow",
+          "dataType": "Air",
+          "unit": "CFM"
+        },
+        {
+          "id": "flow-spec-control",
+          "type": "FlowSpecification",
+          "name": "ControlSignal",
+          "flowType": "InformationFlow",
+          "dataType": "Signal"
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-air-out",
+          "type": "FlowPort",
+          "name": "AirOutputPort",
+          "blockId": "block-air-supply-system",
+          "flowSpecificationId": "flow-spec-air",
+          "isConjugated": false
+        },
+        {
+          "id": "port-control-in",
+          "type": "FlowPort",
+          "name": "ControlInputPort",
+          "blockId": "block-air-supply-system",
+          "flowSpecificationId": "flow-spec-control",
+          "isConjugated": false
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "cb-pressure-maintenance",
+          "type": "ConstraintBlock",
+          "name": "PressureConstraint",
+          "expression": "cabinPressure BETWEEN 0.8 AND 1.2",
+          "parameterIds": []
+        },
+        {
+          "id": "cb-response-time",
+          "type": "ConstraintBlock",
+          "name": "ResponseTimeConstraint",
+          "expression": "responseTime < 2",
+          "parameterIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-filter-type",
+          "type": "Enumeration",
+          "name": "FilterType",
+          "literals": [
+            {
+              "id": "lit-hepa",
+              "name": "HEPA"
+            },
+            {
+              "id": "lit-carbon",
+              "name": "ActivatedCarbon"
+            }
+          ]
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt-pressure",
+          "type": "ValueType",
+          "name": "PressureValueType",
+          "quantityKindId": "pressure",
+          "unitId": "unit-atm"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-airflow-rate",
+          "type": "Property",
+          "name": "airflowRate",
+          "propertyType": "String",
+          "value": "5000 CFM",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-pressure-range",
+          "type": "Property",
+          "name": "pressureRange",
+          "propertyType": "String",
+          "value": "0.8 atm - 1.2 atm",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-filter-efficiency",
+          "type": "Property",
+          "name": "filterEfficiency",
+          "propertyType": "String",
+          "value": "99.97% @0.3μm",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-response-time",
+          "type": "Property",
+          "name": "responseTime",
+          "propertyType": "String",
+          "value": "<2 seconds",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-oxygen-concentration",
+          "type": "Property",
+          "name": "oxygenConcentration",
+          "propertyType": "String",
+          "value": "20.9±0.5%",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-oxygen-capacity",
+          "type": "Property",
+          "name": "oxygenCapacity",
+          "propertyType": "String",
+          "value": "15 minutes/canister",
+          "visibility": "public"
+        }
+      ],
+      "associations": [
+        {
+          "id": "agg-compressor-to-distribution",
+          "type": "Aggregation",
+          "name": "CompressorToDistribution",
+          "sourceId": "block-air-compressor",
+          "targetId": "block-distribution",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        },
+        {
+          "id": "agg-filter-to-distribution",
+          "type": "Association",
+          "name": "FilterToDistribution",
+          "sourceId": "block-filter-bank",
+          "targetId": "block-distribution",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-air-supply",
+          "type": "Composition",
+          "name": "AirSupplyComposition",
+          "sourceId": "block-air-supply-system",
+          "targetId": "block-air-monitor",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-oxygen-safety",
+          "type": "Comment",
+          "body": "OxygenSupplyUnit provides redundant emergency supply with pyrotechnic deployment mechanism",
+          "annotatedElementId": "block-oxygen-unit"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "environmental_control_system",
+  "timestamp": "20250325_141656",
+  "provider": "qwen"
+}

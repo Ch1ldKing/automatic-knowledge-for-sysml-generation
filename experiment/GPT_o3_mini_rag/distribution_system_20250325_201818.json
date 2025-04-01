@@ -1,0 +1,438 @@
+{
+  "system_id": "distribution_system",
+  "system_name": "Distribution System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operational pressure range for optimal fluid distribution tailored to variable flight altitudes and temperatures.",
+        "name": "operationalPressure",
+        "type": "string",
+        "value": "3-6 bar"
+      },
+      {
+        "description": "Precision specification ensuring that fluid flow is maintained within ±5% accuracy to optimize de-icing and anti-icing measures.",
+        "name": "flowAccuracy",
+        "type": "string",
+        "value": "±5% accuracy"
+      },
+      {
+        "description": "High-strength and lightweight titanium alloy used to ensure long-term durability and corrosion resistance in harsh environments.",
+        "name": "materialSpecification",
+        "type": "string",
+        "value": "Titanium alloy"
+      },
+      {
+        "description": "Triple redundant circuits implemented to ensure uninterrupted fluid distribution even during partial system failures.",
+        "name": "redundantCircuits",
+        "type": "string",
+        "value": "Triple redundancy"
+      },
+      {
+        "description": "Compliance with FAA, EASA, and ICAO certification standards ensuring adherence to all international aviation safety protocols.",
+        "name": "certificationStandard",
+        "type": "string",
+        "value": "FAA/EASA/ICAO"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fluid Distribution System is designed to manage and regulate the delivery of critical fluids across aircraft surfaces for de-icing and anti-icing applications. This system leverages smart pump assemblies, electronically-controlled valve arrays, and a comprehensive sensor feedback network to ensure real-time monitoring and adjustments. Safety, redundancy, and maintenance efficiency are prioritized, allowing for reliable operation under diverse environmental conditions and operational scenarios.",
+      "name": "Fluid Distribution System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall dynamically modulate pump and valve operations based on real-time sensor input to maintain optimal fluid distribution during critical de-icing events."
+            }
+          ],
+          "title": "Advanced Fluid Control",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must maintain specified operational pressures between 3-6 bar and ensure flow accuracy within ±5% to meet rapid fluid deployment needs."
+            }
+          ],
+          "title": "Precision Fluid Dynamics",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Triple redundant circuits and fail-safe electronic controls must be implemented to guarantee system functionality even in the event of component failures."
+            }
+          ],
+          "title": "Triple Module Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must facilitate quick and safe maintenance procedures through the use of modular components and standardized connection interfaces."
+            }
+          ],
+          "title": "Ease of Maintenance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Fluid Distribution Unit includes the Smart Pump Assembly as a core component for managing variable fluid pressurization.",
+        "relationshipType": "composition",
+        "source": "Fluid Distribution Unit",
+        "target": "Smart Pump Assembly"
+      },
+      {
+        "description": "The Fluid Distribution Unit integrates the Electronic Valve Array to exert fine control over fluid delivery rates.",
+        "relationshipType": "composition",
+        "source": "Fluid Distribution Unit",
+        "target": "Electronic Valve Array"
+      },
+      {
+        "description": "The Control Interface Module aggregates sensor feedback and commands operations of both the pump and valve assemblies.",
+        "relationshipType": "aggregation",
+        "source": "Fluid Distribution Unit",
+        "target": "Control Interface Module"
+      },
+      {
+        "description": "The Sensor and Feedback Network comprises the Pressure Sensor Array, providing essential pressure data throughout the system.",
+        "relationshipType": "composition",
+        "source": "Sensor and Feedback Network",
+        "target": "Pressure Sensor Array"
+      },
+      {
+        "description": "The Sensor and Feedback Network comprises the Flow Meter, which measures real-time fluid flow rates.",
+        "relationshipType": "composition",
+        "source": "Sensor and Feedback Network",
+        "target": "Flow Meter"
+      },
+      {
+        "description": "The Control Interface Module depends on data from the Sensor and Feedback Network for real-time adjustments and safety overrides.",
+        "relationshipType": "dependency",
+        "source": "Control Interface Module",
+        "target": "Sensor and Feedback Network"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Core module that integrates all fluid control elements responsible for managing real-time distribution of fluids.",
+        "name": "Fluid Distribution Unit",
+        "subComponents": [
+          {
+            "description": "Pump unit designed for variable flow and pressure management with integrated smart sensors and control mechanisms.",
+            "name": "Smart Pump Assembly",
+            "type": "Actuator"
+          },
+          {
+            "description": "Array of electronically controlled valves that modulate fluid release in response to system commands.",
+            "name": "Electronic Valve Array",
+            "type": "Actuator"
+          },
+          {
+            "description": "Digital control unit that processes sensor inputs and orchestrates pump and valve actions for optimal fluid management.",
+            "name": "Control Interface Module",
+            "type": "Control Unit"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Monitoring subsystem that provides real-time data for fluid pressure, flow, and temperature to support system adjustments and safety protocols.",
+        "name": "Sensor and Feedback Network",
+        "subComponents": [
+          {
+            "description": "Sensors that accurately measure pressure variations to ensure operation within the designated 3-6 bar range.",
+            "name": "Pressure Sensor Array",
+            "type": "Sensor"
+          },
+          {
+            "description": "Instrumentation that quantifies the volumetric flow rate, ensuring adherence to performance parameters.",
+            "name": "Flow Meter",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": null,
+          "id": "A1",
+          "name": "ControlDistribution",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "Corrosion Resistant Alloy",
+          "id": "ATTR1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "Material",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Corrosion Resistant Alloy",
+          "visibility": "private"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "ATTR1"
+          ],
+          "constraintIds": null,
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "DistributionSystem",
+          "operationIds": null,
+          "partIds": [
+            "P1",
+            "P2"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR1"
+          ],
+          "constraintIds": null,
+          "id": "B2",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "PumpAssembly",
+          "operationIds": null,
+          "partIds": [
+            "P1"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "ATTR1"
+          ],
+          "constraintIds": null,
+          "id": "B3",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ValveAssembly",
+          "operationIds": null,
+          "partIds": [
+            "P2"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "AeroCertificationStandards",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": [
+        {
+          "constrainedElementIds": null,
+          "id": "C1",
+          "name": "PressureFlowConstraint",
+          "specification": "Pressure must be between 2 and 5 bar and Flow between 50 and 100 L/min",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "D1",
+          "name": "CertificationDependency",
+          "sourceId": "B1",
+          "sourceMultiplicity": null,
+          "targetId": "B4",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "S1",
+          "name": "Idle",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "S2",
+          "name": "Active",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "S3",
+          "name": "Fault",
+          "represents": null,
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "P1",
+          "name": "Pump",
+          "of": "B2",
+          "type": "Part"
+        },
+        {
+          "id": "P2",
+          "name": "Valve",
+          "of": "B3",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "P3",
+          "isConjugated": false,
+          "name": "FluidInPort",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "P4",
+          "isConjugated": false,
+          "name": "FluidOutPort",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "R1",
+          "name": "Distribution System Requirements",
+          "reqId": "REQ-DIST-001",
+          "text": "The Fluid Distribution System must operate within a pressure range of 2-5 bar and deliver a standard flow of 50-100 L/min. Pump and valve components are to be constructed with corrosion resistant alloy and feature a dual pump loop redundancy to ensure continuous operation. The system shall comply with FAA and EASA certification standards.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": null,
+          "id": "S1",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "S2",
+          "name": "Active",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "S3",
+          "name": "Fault",
+          "type": "State"
+        }
+      ],
+      "transitions": [
+        {
+          "effect": "Initiate fluid distribution process",
+          "guard": "System ready",
+          "id": "T1",
+          "name": "StartDistribution",
+          "sourceId": "S1",
+          "targetId": "S2",
+          "trigger": "Start Command",
+          "type": "Transition"
+        },
+        {
+          "effect": "Trigger safety protocols",
+          "guard": "Anomaly detected",
+          "id": "T2",
+          "name": "FaultDetected",
+          "sourceId": "S2",
+          "targetId": "S3",
+          "trigger": "Error Sensor",
+          "type": "Transition"
+        }
+      ],
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "Fluid Distribution System是一个工程系统，用于精确调节和分配除冰液到关键的空气动力学表面。系统具有以下规格说明：操作压力范围为2-5 bar，标准工作条件下的流量为50-100 L/min，泵和阀组件采用耐腐蚀合金设计以提高耐腐蚀性能，具有双泵回路的冗余级别以确保连续运行，符合FAA和EASA的认证标准。",
+  "timestamp": "20250325_201818",
+  "provider": "gpt"
+}

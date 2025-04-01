@@ -1,0 +1,396 @@
+{
+  "system_id": "distribution_system",
+  "system_name": "Distribution System",
+  "specification": {
+    "designScenario": {
+      "name": "Fluid Distribution System",
+      "description": "The Fluid Distribution System (FDS) is a mission-critical subsystem responsible for adaptive thermal management and precision delivery of de-icing/anti-icing fluids across all protected surfaces. It integrates smart flow modulation, real-time viscosity compensation, and predictive ice detection algorithms to optimize fluid usage. The system features a triple-redundant architecture with self-diagnostic capabilities, ensuring compliance with EASA CS-25 and FAA AC 20-73C standards while maintaining compatibility with next-generation sustainable aviation fluids.",
+      "requirements": [
+        {
+          "title": "Adaptive Flow Modulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall autonomously adjust flow characteristics based on real-time sensor inputs including airspeed, outside air temperature, and ice detection radar signals using PID-controlled proportional valves."
+            }
+          ]
+        },
+        {
+          "title": "Thermal Performance Specifications",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Must maintain fluid viscosity between 15-300 cP across operational temperatures (-40°C to +70°C) while sustaining flow rates of 75-150 L/min at 1.5-6 bar dynamic pressure."
+            }
+          ]
+        },
+        {
+          "title": "Fault-Tolerant Architecture",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement triple modular redundancy (TMR) in pump control circuits with cross-channel monitoring and automatic isolation of degraded channels per DO-254 Level A requirements."
+            }
+          ]
+        },
+        {
+          "title": "Lifecycle Maintainability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Field-replaceable units (FRUs) shall be swappable within 15 minutes MTTR using standard line maintenance tools, with health monitoring via ARINC 664 interfaces."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Smart Distribution Hub",
+        "type": "Control Unit",
+        "description": "Central processing unit with dual FPGAs for real-time fluid dynamics modeling and decision-making, incorporating MEMS-based pressure/temperature sensor fusion",
+        "subComponents": [
+          {
+            "name": "Fluid Dynamics Processor",
+            "description": "Dual-channel computing module executing computational fluid dynamics (CFD) algorithms for flow optimization",
+            "type": "Avionics Module"
+          },
+          {
+            "name": "Health Monitoring Unit",
+            "description": "Continuous condition-based monitoring subsystem with prognostic capabilities for pump wear prediction",
+            "type": "Diagnostic Module"
+          }
+        ]
+      },
+      {
+        "name": "High-Efficiency Pump Assembly",
+        "type": "Actuation System",
+        "description": "Triple-redundant positive displacement pumps with titanium alloy internals rated for 20,000 PSI cyclic operation",
+        "subComponents": [
+          {
+            "name": "Main Drive Pump",
+            "description": "Primary flow generator with variable frequency drive (VFD) motor for precision RPM control",
+            "type": "Rotodynamic Pump"
+          },
+          {
+            "name": "Backup Cartridge Pump",
+            "description": "Sealed standby unit with pyro-activated quick-connect for emergency deployment",
+            "type": "Positive Displacement Pump"
+          }
+        ]
+      },
+      {
+        "name": "Thermal Regulation Unit",
+        "type": "Conditioning System",
+        "description": "Active temperature management subsystem maintaining fluid viscosity through Peltier-effect heating/cooling plates",
+        "subComponents": [
+          {
+            "name": "Viscosity Compensator",
+            "description": "Multi-zone heat exchanger with graphene-enhanced thermal transfer surfaces",
+            "type": "Thermal Module"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Smart Distribution Hub",
+        "target": "High-Efficiency Pump Assembly",
+        "relationshipType": "composition",
+        "description": "The hub directly controls and monitors all pump assembly operations through MIL-STD-1553B data buses"
+      },
+      {
+        "source": "Thermal Regulation Unit",
+        "target": "High-Efficiency Pump Assembly",
+        "relationshipType": "aggregation",
+        "description": "Thermal management system shares physical interfaces with pump housing but operates as independent subsystem"
+      },
+      {
+        "source": "Fluid Distribution System",
+        "target": "Aircraft Central Computer",
+        "relationshipType": "dependency",
+        "description": "Receives flight phase data and environmental parameters via AFDX network for system mode selection"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "dynamicPressureRange",
+        "type": "string",
+        "value": "1.5-6 bar",
+        "description": "Automatically adjusted operating pressure range compensating for varying flight conditions"
+      },
+      {
+        "name": "fluidTemperatureTolerance",
+        "type": "string",
+        "value": "-40°C to +70°C",
+        "description": "Guaranteed fluid thermal performance envelope including phase change protection"
+      },
+      {
+        "name": "redundancyArchitecture",
+        "type": "string",
+        "value": "Triple Modular Redundancy (TMR)",
+        "description": "Fault-tolerant design meeting DAL A requirements for catastrophic failure prevention"
+      },
+      {
+        "name": "materialSpecification",
+        "type": "string",
+        "value": "Ti-6Al-4V ELI w/DLC coating",
+        "description": "Titanium alloy components with diamond-like carbon coating for wear/corrosion resistance"
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "<2s activation delay",
+        "description": "Maximum allowed latency from ice detection signal to full system readiness"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-fluid-distribution-system",
+          "type": "Block",
+          "name": "FluidDistributionSystem",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-dynamic-pressure",
+            "attr-viscosity-range",
+            "attr-redundancy-level",
+            "attr-response-time",
+            "attr-material-spec"
+          ],
+          "operationIds": [
+            "op-adaptive-flow",
+            "op-viscosity-compensation",
+            "op-system-diagnostics"
+          ],
+          "constraintIds": [
+            "cons-thermal-performance"
+          ],
+          "partIds": [
+            "part-distribution-hub",
+            "part-pump-assembly",
+            "part-thermal-regulator"
+          ],
+          "referenceIds": null,
+          "valueIds": null
+        },
+        {
+          "id": "block-distribution-hub",
+          "type": "Block",
+          "name": "SmartDistributionHub",
+          "isAbstract": false,
+          "isActive": true,
+          "attributeIds": [
+            "attr-processing-speed",
+            "attr-sensor-fusion-rate"
+          ],
+          "operationIds": [
+            "op-cfd-optimization",
+            "op-failure-prediction"
+          ]
+        },
+        {
+          "id": "block-pump-assembly",
+          "type": "Block",
+          "name": "HighEfficiencyPumpAssembly",
+          "isAbstract": false,
+          "attributeIds": [
+            "attr-pump-pressure",
+            "attr-cycle-rating"
+          ],
+          "operationIds": [
+            "op-activate-backup"
+          ]
+        },
+        {
+          "id": "block-thermal-regulator",
+          "type": "Block",
+          "name": "ThermalRegulationUnit",
+          "isAbstract": false,
+          "attributeIds": [
+            "attr-thermal-efficiency"
+          ]
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "if-block-thermal-mgmt",
+          "type": "InterfaceBlock",
+          "name": "ThermalManagementInterface",
+          "operationIds": [
+            "op-temp-regulation"
+          ],
+          "signalIds": [
+            "sig-overheat-warning"
+          ]
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-deice-fluid",
+          "type": "FlowSpecification",
+          "name": "DeIceFluidFlow",
+          "flowType": "MassFlow",
+          "dataType": "SAEFluid",
+          "unit": "L/min"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "cons-thermal-performance",
+          "type": "ConstraintBlock",
+          "name": "ThermalPerformanceConstraint",
+          "expression": "fluidTemperature must maintain -40°C to +70°C with viscosity 15-300 cP while sustaining 75-150 L/min flow at 1.5-6 bar",
+          "parameterIds": null
+        },
+        {
+          "id": "cons-fault-tolerance",
+          "type": "ConstraintBlock",
+          "name": "FaultToleranceConstraint",
+          "expression": "System shall maintain >99.9% availability through TMR architecture with <100ms failover",
+          "parameterIds": null
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "value-type-flowrate",
+          "type": "ValueType",
+          "name": "FlowRateValue",
+          "unitId": "L/min",
+          "quantityKindId": "VolumetricFlow"
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-redundancy-mode",
+          "type": "Enumeration",
+          "name": "RedundancyMode",
+          "literals": [
+            {
+              "id": "mode-primary",
+              "name": "Primary"
+            },
+            {
+              "id": "mode-backup1",
+              "name": "Backup1"
+            },
+            {
+              "id": "mode-backup2",
+              "name": "Backup2"
+            }
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-fluid-inlet",
+          "type": "FlowPort",
+          "name": "MainFluidInlet",
+          "blockId": "block-fluid-distribution-system",
+          "flowSpecificationId": "flow-spec-deice-fluid",
+          "isConjugated": false
+        },
+        {
+          "id": "port-avionics-data",
+          "type": "ProxyPort",
+          "name": "AvionicsDataInterface",
+          "blockId": "block-fluid-distribution-system",
+          "providedInterfaceIds": [
+            "if-block-thermal-mgmt"
+          ]
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-system-hub",
+          "type": "Composition",
+          "sourceId": "block-fluid-distribution-system",
+          "targetId": "block-distribution-hub"
+        },
+        {
+          "id": "comp-system-pump",
+          "type": "Composition",
+          "sourceId": "block-fluid-distribution-system",
+          "targetId": "block-pump-assembly"
+        }
+      ],
+      "directedAggregations": [
+        {
+          "id": "agg-thermal-pump",
+          "type": "DirectedAggregation",
+          "sourceId": "block-thermal-regulator",
+          "targetId": "block-pump-assembly"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-central-computer",
+          "type": "Dependency",
+          "sourceId": "block-fluid-distribution-system",
+          "targetId": "ext-aircraft-computer"
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-dynamic-pressure",
+          "type": "Property",
+          "name": "dynamicPressureRange",
+          "propertyType": "String",
+          "value": "1.5-6 bar",
+          "isReadOnly": true
+        },
+        {
+          "id": "attr-viscosity-range",
+          "type": "Property",
+          "name": "operationalViscosity",
+          "propertyType": "String",
+          "value": "15-300 cP"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-main-system",
+          "type": "Comment",
+          "body": "Triple-redundant architecture with MEMS sensor fusion and CFD-optimized flow paths. Complies with EASA CS-25/FAA AC 20-73C for aviation fluid systems.",
+          "annotatedElementId": "block-fluid-distribution-system"
+        }
+      ],
+      "parts": [
+        {
+          "id": "part-distribution-hub",
+          "type": "Part",
+          "name": "ControlHub",
+          "of": "block-distribution-hub"
+        },
+        {
+          "id": "part-pump-assembly",
+          "type": "Part",
+          "name": "MainPumpStack",
+          "of": "block-pump-assembly"
+        }
+      ],
+      "requirements": [
+        {
+          "id": "req-adaptive-flow",
+          "type": "Requirement",
+          "name": "AdaptiveFlowModulation",
+          "text": "Shall implement PID-controlled valves with <100ms response to ice detection inputs"
+        },
+        {
+          "id": "req-fault-tolerance",
+          "type": "Requirement",
+          "name": "TripleRedundancy",
+          "text": "TMR architecture with cross-channel monitoring per DO-254 Level A"
+        }
+      ]
+    }
+  },
+  "reference_system": "fluid_distribution_system",
+  "parent_system": null,
+  "timestamp": "20250325_053918"
+}

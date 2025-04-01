@@ -1,0 +1,423 @@
+{
+  "system_id": "landing_gear_steering_system",
+  "system_name": "Landing Gear Steering System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The maximum rotational range for the nose gear steering system to allow precise directional changes during taxi operations.",
+        "name": "steeringAngleRange",
+        "type": "string",
+        "value": "±30°"
+      },
+      {
+        "description": "The time required from receiving a steering command to mechanical actuation, ensuring rapid response during ground maneuvers.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "< 1 second"
+      },
+      {
+        "description": "The electrical power required to operate the steering actuator and associated electronics, optimized for energy efficiency.",
+        "name": "powerConsumption",
+        "type": "string",
+        "value": "< 5 kW"
+      },
+      {
+        "description": "The operational temperature range ensuring reliable performance under extreme environmental conditions.",
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "-40°C to +60°C"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear Steering System is designed to deliver high precision and fail-safe operation for aircraft nose gear control during taxi, takeoff, and landing. Integrating advanced electronics, rapid-response actuators, and robust sensor networks, the system ensures accurate directional control while interfacing seamlessly with the aircraft’s avionics and mechanical infrastructure. The design emphasizes reliability, performance, and safety under both normal and adverse conditions.",
+      "name": "Landing Gear Steering System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall provide precise and responsive directional control of the nose gear during ground operations to maintain safe taxiing and maneuvering."
+            }
+          ],
+          "title": "Precise Directional Control",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Steering actuation must occur in less than one second from command initiation to ensure dynamic and immediate response during taxi operations."
+            }
+          ],
+          "title": "Rapid Response",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporation of redundant sensing and fail-safe mechanisms to detect anomalies, ensuring continuous safe operation under emergency conditions."
+            }
+          ],
+          "title": "Safety Redundancy and Fail-Safe",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system design must allow easy diagnostics, regular maintenance and adhere to stringent aviation standards for durability and environmental resilience."
+            }
+          ],
+          "title": "Maintainability and Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Landing Gear Steering System aggregates with the Nose Gear Assembly to enable controlled directional movement during ground operations.",
+        "relationshipType": "aggregation",
+        "source": "Landing Gear Steering System",
+        "target": "Nose Gear Assembly"
+      },
+      {
+        "description": "The Steering System Controller sends control signals to the Steering Actuator to produce precise mechanical movement for nose gear adjustments.",
+        "relationshipType": "association",
+        "source": "Steering System Controller",
+        "target": "Steering Actuator"
+      },
+      {
+        "description": "The Steering System Controller relies on real-time feedback from the Steering Position Sensor to maintain accurate steering angles.",
+        "relationshipType": "dependency",
+        "source": "Steering System Controller",
+        "target": "Steering Position Sensor"
+      },
+      {
+        "description": "The Electronic Control Interface is an integral part of the Steering System Controller, facilitating communication with the aircraft avionics.",
+        "relationshipType": "composition",
+        "source": "Steering System Controller",
+        "target": "Electronic Control Interface"
+      },
+      {
+        "description": "The Steering System Controller depends on a stable power supply from the Power Supply Module to function reliably.",
+        "relationshipType": "dependency",
+        "source": "Steering System Controller",
+        "target": "Power Supply Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Electronic module responsible for processing pilot inputs and sensor data to generate control signals for the steering mechanism.",
+        "name": "Steering System Controller",
+        "subComponents": [],
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Actuator responsible for converting electronic signals into mechanical movement, enabling precise adjustments of the nose gear.",
+        "name": "Steering Actuator",
+        "subComponents": [],
+        "type": "Actuator"
+      },
+      {
+        "description": "Sensor that monitors the actual steering angle and position of the nose gear, providing critical feedback to the control loop.",
+        "name": "Steering Position Sensor",
+        "subComponents": [],
+        "type": "Sensor"
+      },
+      {
+        "description": "Interface module that bridges communication between the Steering System Controller and the aircraft's avionics network.",
+        "name": "Electronic Control Interface",
+        "subComponents": [],
+        "type": "Interface Module"
+      },
+      {
+        "description": "Electrical module providing a stable and efficient power supply to all steering system components to ensure reliable operation during dynamic maneuvers.",
+        "name": "Power Supply Module",
+        "subComponents": [],
+        "type": "Electrical Module"
+      },
+      {
+        "description": "Mechanical assembly of the aircraft’s nose gear that interfaces with the steering system to achieve directional control during taxi, takeoff, and landing operations.",
+        "name": "Nose Gear Assembly",
+        "subComponents": [],
+        "type": "Mechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [
+        {
+          "attributeIds": null,
+          "id": "A_PSC",
+          "name": "ProcessSteeringCommand",
+          "type": "Activity"
+        }
+      ],
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_LGSS",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Landing Gear Steering System",
+          "operationIds": null,
+          "partIds": [
+            "B_SA",
+            "B_PS",
+            "B_WA"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_SA",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Steering Actuator",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_PS",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Position Sensor",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_WA",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Wheel Assembly",
+          "operationIds": null,
+          "partIds": [
+            "B_BP",
+            "B_SHOCK"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_BP",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Brake",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "B_SHOCK",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "Shock Absorber",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": null,
+      "compositions": null,
+      "connectors": [
+        {
+          "id": "CONN_CMD",
+          "kind": "delegation",
+          "name": "Command Delegation",
+          "source": "P_CMD",
+          "target": "B_LGSS",
+          "type": "Connector"
+        },
+        {
+          "id": "CONN_FB",
+          "kind": "delegation",
+          "name": "Feedback Delegation",
+          "source": "B_LGSS",
+          "target": "P_FB",
+          "type": "Connector"
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "abs(steering_angle) <= 30 and response_time < 1",
+          "id": "CB_SP",
+          "name": "Steering Performance Constraints",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": [
+        {
+          "id": "LT_Idle",
+          "name": "Idle",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "LT_Active",
+          "name": "Active",
+          "represents": null,
+          "type": "Lifeline"
+        },
+        {
+          "id": "LT_Fault",
+          "name": "Fault",
+          "represents": null,
+          "type": "Lifeline"
+        }
+      ],
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B_LGSS",
+          "flowSpecificationId": null,
+          "id": "P_CMD",
+          "isConjugated": false,
+          "name": "Steering Command Port",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B_LGSS",
+          "flowSpecificationId": null,
+          "id": "P_FB",
+          "isConjugated": false,
+          "name": "Steering Feedback Port",
+          "portType": "proxy",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "R_ANGLE",
+          "name": "Steering Angle Range Requirement",
+          "reqId": "REQ-001",
+          "text": "The nose gear steering system must achieve a rotational range of ±30°.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "R_RT",
+          "name": "Response Time Requirement",
+          "reqId": "REQ-002",
+          "text": "The system must respond to a steering command in less than 1 second.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "R_TEMP",
+          "name": "Operating Temperature Requirement",
+          "reqId": "REQ-003",
+          "text": "The system must operate reliably within an ambient temperature range of -40°C to +60°C.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "R_PWR",
+          "name": "Power Consumption Requirement",
+          "reqId": "REQ-004",
+          "text": "The system must optimize power consumption to ensure energy efficiency.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": [
+        {
+          "attributeIds": null,
+          "id": "ST_Idle",
+          "name": "Idle",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "ST_Active",
+          "name": "Active",
+          "type": "State"
+        },
+        {
+          "attributeIds": null,
+          "id": "ST_Fault",
+          "name": "Fault",
+          "type": "State"
+        }
+      ],
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "rag_context": "The Landing Gear Steering System includes components such as the steering actuator for moving the nose gear, the position sensor to monitor steering angle, and the wheel assemblies paired with braking and shock absorption components. The system is designed to provide precise directional control during ground operations, with a maximum rotational range for the nose gear steering system of ±30° and a rapid response time of less than 1 second from receiving a steering command to mechanical actuation. Additionally, the system's power consumption is optimized for energy efficiency, and it operates reliably within an extreme temperature range of -40°C to +60°C.",
+  "timestamp": "20250325_202558",
+  "provider": "gpt"
+}

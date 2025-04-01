@@ -1,0 +1,406 @@
+{
+  "system_id": "intercom_system",
+  "system_name": "Intercom System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the extended operational temperature range ensuring reliable performance in high altitude and extreme weather conditions.",
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "-50°C to +90°C"
+      },
+      {
+        "description": "Specifies the required maximum response time for emergency communications ensuring prompt message delivery.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 1.5 seconds"
+      },
+      {
+        "description": "Indicates engineered power efficiency with optimized power consumption and dynamic load management for prolonged operation.",
+        "name": "powerEfficiency",
+        "type": "string",
+        "value": "Optimized with dynamic load management"
+      },
+      {
+        "description": "Establishes robust and high security communication protocols using advanced encryption standards for secure cabin data transmission.",
+        "name": "communicationProtocol",
+        "type": "string",
+        "value": "AES-256 encrypted channels"
+      },
+      {
+        "description": "Specifies the level of redundancy incorporated into the system design to ensure uninterrupted operation during component failures.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual redundant modules with automatic failover"
+      }
+    ],
+    "designScenario": {
+      "description": "The Advanced Cabin Communication System (ACCS) is tailored for modern passenger airplanes, delivering a multifaceted communication solution that integrates intercom, public address, and emergency alert functionalities. Engineered for high reliability and rapid response, the system seamlessly collaborates with cabin control units and other avionics subsystems. ACCS leverages cutting-edge digital signal processing and redundant architectures to provide secure, high-fidelity audio communications and robust fail-safe operations. Its design is influenced by strict aviation safety standards and operational performance criteria, ensuring effective communication during both routine operations and emergencies.",
+      "name": "Advanced Cabin Communication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must support clear two-way intercom communication between cabin crew and personnel."
+            },
+            {
+              "description": "Enable public address functionality to broadcast cabin announcements effectively."
+            },
+            {
+              "description": "Provide an integrated emergency alert mode capable of overriding all other communications in critical situations."
+            }
+          ],
+          "title": "Communication Functionality",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Process and deliver communications in less than 1.5 seconds to ensure immediate response in emergencies."
+            },
+            {
+              "description": "Maintain real-time audio processing with minimal latency across all transmission and reception modules."
+            }
+          ],
+          "title": "Performance Reliability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate dual redundant communication pathways to sustain operations under component failure conditions."
+            },
+            {
+              "description": "Integrate emergency override mechanisms that automatically engage during fault detection."
+            }
+          ],
+          "title": "Safety Compliance",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Employ advanced encryption standards for secure data transmission and safeguard against cyber threats."
+            },
+            {
+              "description": "Design a user-friendly interface requiring minimal training for cabin crew while ensuring robust maintenance procedures."
+            }
+          ],
+          "title": "Non-Functional Quality",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Advanced Cabin Communication System is composed of specialized modules including the intercom, public address, and emergency alert components.",
+        "relationshipType": "composition",
+        "source": "Advanced Cabin Communication System",
+        "target": "Intercom Module"
+      },
+      {
+        "description": "The Advanced Cabin Communication System is composed of specialized modules including the intercom, public address, and emergency alert components.",
+        "relationshipType": "composition",
+        "source": "Advanced Cabin Communication System",
+        "target": "Public Address Subsystem"
+      },
+      {
+        "description": "The Advanced Cabin Communication System is composed of specialized modules including the intercom, public address, and emergency alert components.",
+        "relationshipType": "composition",
+        "source": "Advanced Cabin Communication System",
+        "target": "Emergency Alert Module"
+      },
+      {
+        "description": "The Advanced Cabin Communication System maintains an association with the Cabin Control Unit to exchange operational commands and status updates for synchronized cabin management.",
+        "relationshipType": "association",
+        "source": "Advanced Cabin Communication System",
+        "target": "Cabin Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The central communication hub that manages and orchestrates all audio and alert signals within the cabin, ensuring high fidelity and robust signal processing.",
+        "name": "Advanced Cabin Communication System",
+        "subComponents": [
+          {
+            "description": "Handles crew-to-crew communication with advanced noise cancellation and clear voice signal processing.",
+            "name": "Intercom Module",
+            "type": "Communication Module"
+          },
+          {
+            "description": "Facilitates clear and comprehensive public address announcements across the entire cabin with high quality sound output.",
+            "name": "Public Address Subsystem",
+            "type": "Audio Device"
+          },
+          {
+            "description": "Activates and manages emergency alerts with high priority, ensuring immediate broadcast in critical situations.",
+            "name": "Emergency Alert Module",
+            "type": "Alert System"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Interfacing component that communicates with the central Cabin Control Unit, handling command and control signals for integrated cabin management.",
+        "name": "Control Interface Module",
+        "subComponents": null,
+        "type": "Interface Device"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "a1",
+            "a2"
+          ],
+          "constraintIds": null,
+          "id": "b1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "IntercomSystem",
+          "operationIds": [
+            "o1"
+          ],
+          "partIds": [
+            "p1",
+            "p2",
+            "p3"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "a3"
+          ],
+          "constraintIds": null,
+          "id": "b2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Microphone",
+          "operationIds": [
+            "o2"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "a4"
+          ],
+          "constraintIds": null,
+          "id": "b3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "Speaker",
+          "operationIds": [
+            "o3"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "a5",
+            "a6",
+            "a7"
+          ],
+          "constraintIds": null,
+          "id": "b4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "ControlPanel",
+          "operationIds": [
+            "o4"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "b1",
+          "body": "The main block representing the intercom system including microphone(s), speaker(s), and a control panel.",
+          "id": "c1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "c2",
+          "memberEndIds": [
+            "p1",
+            "a3"
+          ],
+          "name": "MicrophoneComposition",
+          "ownedEndIds": [
+            "a3"
+          ],
+          "sourceId": "b1",
+          "sourceMultiplicity": "1",
+          "targetId": "b2",
+          "targetMultiplicity": "0..*",
+          "type": "Composition"
+        },
+        {
+          "id": "c3",
+          "memberEndIds": [
+            "p2",
+            "a4"
+          ],
+          "name": "SpeakerComposition",
+          "ownedEndIds": [
+            "a4"
+          ],
+          "sourceId": "b1",
+          "sourceMultiplicity": "1",
+          "targetId": "b3",
+          "targetMultiplicity": "0..*",
+          "type": "Composition"
+        },
+        {
+          "id": "c4",
+          "memberEndIds": [
+            "p3",
+            "a5"
+          ],
+          "name": "ControlPanelComposition",
+          "ownedEndIds": [
+            "a5"
+          ],
+          "sourceId": "b1",
+          "sourceMultiplicity": "1",
+          "targetId": "b4",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": [
+            "a11"
+          ],
+          "expression": "Signal strength connectivity >= 90% for 99.5% flight duration.",
+          "id": "cb1",
+          "name": "ConnectivityConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "a11"
+          ],
+          "id": "cs1",
+          "name": "SignalStrengthConstraint",
+          "specification": "Signal strength should not drop below 90% for more than 2 minutes.",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "b1",
+          "flowSpecificationId": "",
+          "id": "fp1",
+          "isConjugated": false,
+          "name": "AudioSignalPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": null,
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "b1",
+          "id": "fp2",
+          "isConjugated": false,
+          "name": "ControlInterfacePort",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": [
+            "ra1"
+          ],
+          "id": "rq1",
+          "name": "HighReliability",
+          "reqId": "REQ-001",
+          "text": "The intercom system must operate reliably throughout the entire duration of the flight.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "id1",
+          "name": "Voltage",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        }
+      ]
+    }
+  },
+  "timestamp": "20250326_181639",
+  "provider": "gpt"
+}

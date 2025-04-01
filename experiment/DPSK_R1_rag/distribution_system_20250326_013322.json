@@ -1,0 +1,593 @@
+{
+  "system_id": "distribution_system",
+  "system_name": "Distribution System",
+  "specification": {
+    "designScenario": {
+      "name": "Fluid Distribution System",
+      "description": "The Fluid Distribution System (FDS) is a mission-critical subsystem responsible for adaptive thermal management and precision delivery of de-icing/anti-icing fluids across all protected surfaces. It integrates smart flow modulation, real-time viscosity compensation, and predictive ice detection algorithms to optimize fluid usage. The system features a triple-redundant architecture with self-diagnostic capabilities, ensuring compliance with EASA CS-25 and FAA AC 20-73C standards while maintaining compatibility with next-generation sustainable aviation fluids.",
+      "requirements": [
+        {
+          "title": "Adaptive Flow Modulation",
+          "type": "functional",
+          "details": [
+            {
+              "description": "The system shall autonomously adjust flow characteristics based on real-time sensor inputs including airspeed, outside air temperature, and ice detection radar signals using PID-controlled proportional valves."
+            }
+          ]
+        },
+        {
+          "title": "Thermal Performance Specifications",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Must maintain fluid viscosity between 15-300 cP across operational temperatures (-40°C to +70°C) while sustaining flow rates of 75-150 L/min at 1.5-6 bar dynamic pressure."
+            }
+          ]
+        },
+        {
+          "title": "Fault-Tolerant Architecture",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement triple modular redundancy (TMR) in pump control circuits with cross-channel monitoring and automatic isolation of degraded channels per DO-254 Level A requirements."
+            }
+          ]
+        },
+        {
+          "title": "Lifecycle Maintainability",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Field-replaceable units (FRUs) shall be swappable within 15 minutes MTTR using standard line maintenance tools, with health monitoring via ARINC 664 interfaces."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "Smart Distribution Hub",
+        "type": "Control Unit",
+        "description": "Central processing unit with dual FPGAs for real-time fluid dynamics modeling and decision-making, incorporating MEMS-based pressure/temperature sensor fusion",
+        "subComponents": [
+          {
+            "name": "Fluid Dynamics Processor",
+            "description": "Dual-channel computing module executing computational fluid dynamics (CFD) algorithms for flow optimization",
+            "type": "Avionics Module"
+          },
+          {
+            "name": "Health Monitoring Unit",
+            "description": "Continuous condition-based monitoring subsystem with prognostic capabilities for pump wear prediction",
+            "type": "Diagnostic Module"
+          }
+        ]
+      },
+      {
+        "name": "High-Efficiency Pump Assembly",
+        "type": "Actuation System",
+        "description": "Triple-redundant positive displacement pumps with titanium alloy internals rated for 20,000 PSI cyclic operation",
+        "subComponents": [
+          {
+            "name": "Main Drive Pump",
+            "description": "Primary flow generator with variable frequency drive (VFD) motor for precision RPM control",
+            "type": "Rotodynamic Pump"
+          },
+          {
+            "name": "Backup Cartridge Pump",
+            "description": "Sealed standby unit with pyro-activated quick-connect for emergency deployment",
+            "type": "Positive Displacement Pump"
+          }
+        ]
+      },
+      {
+        "name": "Thermal Regulation Unit",
+        "type": "Conditioning System",
+        "description": "Active temperature management subsystem maintaining fluid viscosity through Peltier-effect heating/cooling plates",
+        "subComponents": [
+          {
+            "name": "Viscosity Compensator",
+            "description": "Multi-zone heat exchanger with graphene-enhanced thermal transfer surfaces",
+            "type": "Thermal Module"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Smart Distribution Hub",
+        "target": "High-Efficiency Pump Assembly",
+        "relationshipType": "composition",
+        "description": "The hub directly controls and monitors all pump assembly operations through MIL-STD-1553B data buses"
+      },
+      {
+        "source": "Thermal Regulation Unit",
+        "target": "High-Efficiency Pump Assembly",
+        "relationshipType": "aggregation",
+        "description": "Thermal management system shares physical interfaces with pump housing but operates as independent subsystem"
+      },
+      {
+        "source": "Fluid Distribution System",
+        "target": "Aircraft Central Computer",
+        "relationshipType": "dependency",
+        "description": "Receives flight phase data and environmental parameters via AFDX network for system mode selection"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "dynamicPressureRange",
+        "type": "string",
+        "value": "1.5-6 bar",
+        "description": "Automatically adjusted operating pressure range compensating for varying flight conditions"
+      },
+      {
+        "name": "fluidTemperatureTolerance",
+        "type": "string",
+        "value": "-40°C to +70°C",
+        "description": "Guaranteed fluid thermal performance envelope including phase change protection"
+      },
+      {
+        "name": "redundancyArchitecture",
+        "type": "string",
+        "value": "Triple Modular Redundancy (TMR)",
+        "description": "Fault-tolerant design meeting DAL A requirements for catastrophic failure prevention"
+      },
+      {
+        "name": "materialSpecification",
+        "type": "string",
+        "value": "Ti-6Al-4V ELI w/DLC coating",
+        "description": "Titanium alloy components with diamond-like carbon coating for wear/corrosion resistance"
+      },
+      {
+        "name": "responseTime",
+        "type": "string",
+        "value": "<2s activation delay",
+        "description": "Maximum allowed latency from ice detection signal to full system readiness"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "blk001",
+          "type": "Block",
+          "name": "DistributionSystem",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr001",
+            "attr002"
+          ],
+          "operationIds": [
+            "op001"
+          ],
+          "constraintIds": [
+            "constr001"
+          ],
+          "partIds": [
+            "part001",
+            "part002"
+          ],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "blk002",
+          "type": "Block",
+          "name": "PumpAssembly",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr003"
+          ],
+          "operationIds": [
+            "op002"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        },
+        {
+          "id": "blk003",
+          "type": "Block",
+          "name": "ValveAssembly",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "attributeIds": [
+            "attr004"
+          ],
+          "operationIds": [
+            "op003"
+          ],
+          "constraintIds": [],
+          "partIds": [],
+          "referenceIds": [],
+          "valueIds": []
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "ifb001",
+          "type": "InterfaceBlock",
+          "name": "IFluidFlow",
+          "attributeIds": [
+            "attr005"
+          ],
+          "operationIds": [
+            "op004"
+          ],
+          "signalIds": [],
+          "constraintIds": []
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flsp001",
+          "type": "FlowSpecification",
+          "name": "FluidFlowSpec",
+          "flowType": "material",
+          "dataType": "Fluid",
+          "unit": "L/min",
+          "attributeIds": [
+            "attr006"
+          ]
+        }
+      ],
+      "constraintBlocks": [
+        {
+          "id": "constr001",
+          "type": "ConstraintBlock",
+          "name": "PressureFlowConstraint",
+          "parameterIds": [
+            "param001",
+            "param002"
+          ],
+          "expression": "pressure >= 2 and pressure <= 5 and flowRate >= 50 and flowRate <= 100",
+          "attributeIds": []
+        }
+      ],
+      "valueTypes": [
+        {
+          "id": "vt001",
+          "type": "ValueType",
+          "name": "Pressure",
+          "quantityKindId": "qk001",
+          "unitId": "unit001",
+          "attributeIds": []
+        },
+        {
+          "id": "vt002",
+          "type": "ValueType",
+          "name": "FlowRate",
+          "quantityKindId": "qk002",
+          "unitId": "unit002",
+          "attributeIds": []
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum001",
+          "type": "Enumeration",
+          "name": "MaterialType",
+          "literals": [
+            {
+              "id": "lit001",
+              "name": "CorrosionResistantAlloy"
+            },
+            {
+              "id": "lit002",
+              "name": "StainlessSteel"
+            }
+          ],
+          "attributeIds": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "port001",
+          "type": "Port",
+          "name": "fluidInlet",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "blk001",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "flsp001",
+          "attributeIds": []
+        },
+        {
+          "id": "port002",
+          "type": "Port",
+          "name": "fluidOutlet",
+          "portType": "flow",
+          "isConjugated": false,
+          "blockId": "blk001",
+          "providedInterfaceIds": [],
+          "requiredInterfaceIds": [],
+          "flowSpecificationId": "flsp001",
+          "attributeIds": []
+        }
+      ],
+      "proxyPorts": [],
+      "fullPorts": [],
+      "flowPorts": [
+        {
+          "id": "flp001",
+          "type": "FlowPort",
+          "name": "pumpInlet",
+          "isConjugated": false,
+          "blockId": "blk002",
+          "flowSpecificationId": "flsp001",
+          "attributeIds": []
+        },
+        {
+          "id": "flp002",
+          "type": "FlowPort",
+          "name": "pumpOutlet",
+          "isConjugated": false,
+          "blockId": "blk002",
+          "flowSpecificationId": "flsp001",
+          "attributeIds": []
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp001",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "blk001",
+          "targetId": "blk002",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "2",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        },
+        {
+          "id": "comp002",
+          "type": "Composition",
+          "name": null,
+          "sourceId": "blk001",
+          "targetId": "blk003",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1..*",
+          "memberEndIds": [],
+          "ownedEndIds": []
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr001",
+          "type": "Property",
+          "name": "operatingPressure",
+          "propertyType": "Real",
+          "value": "2..5 bar",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "attr002",
+          "type": "Property",
+          "name": "flowRate",
+          "propertyType": "Real",
+          "value": "50..100 L/min",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "attr003",
+          "type": "Property",
+          "name": "pumpMaterial",
+          "propertyType": "String",
+          "value": "CorrosionResistantAlloy",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "attr004",
+          "type": "Property",
+          "name": "valveMaterial",
+          "propertyType": "String",
+          "value": "CorrosionResistantAlloy",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "attr005",
+          "type": "Property",
+          "name": "fluidType",
+          "propertyType": "String",
+          "value": "DeicingFluid",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "attr006",
+          "type": "Property",
+          "name": "maxFlowRate",
+          "propertyType": "Real",
+          "value": "100",
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "operations": [
+        {
+          "id": "op001",
+          "type": "Operation",
+          "name": "regulateFlow",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "op002",
+          "type": "Operation",
+          "name": "pumpFluid",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "op003",
+          "type": "Operation",
+          "name": "controlValve",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        },
+        {
+          "id": "op004",
+          "type": "Operation",
+          "name": "monitorFlow",
+          "propertyType": "Operation",
+          "value": null,
+          "visibility": "public",
+          "aggregation": "none",
+          "lowerValue": null,
+          "upperValue": null,
+          "defaultValue": null,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isOrdered": false,
+          "isUnique": false,
+          "isID": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "param001",
+          "type": "Parameter",
+          "name": "pressure",
+          "parameterType": "Real",
+          "defaultValue": null
+        },
+        {
+          "id": "param002",
+          "type": "Parameter",
+          "name": "flowRate",
+          "parameterType": "Real",
+          "defaultValue": null
+        }
+      ],
+      "comments": [
+        {
+          "id": "cmt001",
+          "type": "Comment",
+          "body": "Redundant dual-pump design for continuous operation",
+          "annotatedElementId": "blk001"
+        },
+        {
+          "id": "cmt002",
+          "type": "Comment",
+          "body": "Compliant with FAA and EASA certification standards",
+          "annotatedElementId": "blk001"
+        }
+      ],
+      "packages": []
+    },
+    "relationships": []
+  },
+  "rag_context": "Fluid Distribution System是一个工程系统，用于精确调节和分配除冰液到关键的空气动力学表面。它具有操作压力范围为2-5 bar，流量为50-100 L/min的规格。系统采用耐腐蚀合金材料设计泵和阀组件，实现高耐腐蚀性能。另外，系统通过双泵回路实施冗余级别，以确保连续运行。此外，系统符合FAA和EASA的认证标准，确保除冰安全。",
+  "timestamp": "20250326_013322",
+  "provider": "dpsk"
+}

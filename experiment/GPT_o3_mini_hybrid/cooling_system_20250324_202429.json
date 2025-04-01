@@ -1,0 +1,718 @@
+{
+  "system_id": "cooling_system",
+  "system_name": "Cooling System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the type of refrigerant used in the cooling system for optimal heat exchange.",
+        "name": "coolantType",
+        "type": "string",
+        "value": "R-134a"
+      },
+      {
+        "description": "Maximum cooling capacity delivered by the cooling system to maintain cabin comfort.",
+        "name": "coolingCapacity",
+        "type": "string",
+        "value": "5 kW"
+      },
+      {
+        "description": "Operational temperature threshold required for initiating cooling processes.",
+        "name": "operationalTemperature",
+        "type": "string",
+        "value": "Below 22°C"
+      },
+      {
+        "description": "Response time from sensor detection to actuation of cooling processes.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 4 seconds"
+      },
+      {
+        "description": "Expected ambient pressure range within which the cooling system operates reliably.",
+        "name": "operationalPressure",
+        "type": "string",
+        "value": "0.8 atm - 1.2 atm"
+      }
+    ],
+    "designScenario": {
+      "description": "The Cooling System is a specialized subsystem within the Environmental Control architecture of passenger airplanes. It is engineered to provide rapid and efficient regulation of cabin temperature by utilizing an advanced refrigeration cycle integrated with precise sensor feedback and automated control. This system employs state-of-the-art compressors, evaporator coils, and fan assemblies to achieve uniform cooling distribution, ensuring passenger comfort and safety even during extreme environmental conditions.",
+      "name": "Cooling System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall reduce and maintain cabin air temperature below 22°C using high-efficiency refrigeration cycles and coordinated air distribution."
+            }
+          ],
+          "title": "Effective Cooling Operation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall achieve a cooling response within 4 seconds from temperature deviation detection to actuator response."
+            }
+          ],
+          "title": "Rapid Cooling Response",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "In the event of component malfunction such as compressor failure, the system shall engage redundant measures and alert the control unit, ensuring safety protocols are activated."
+            }
+          ],
+          "title": "Safety and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The Cooling System shall be modular, allowing for hot-swappable components and simplified maintenance procedures, with an interface designed for ease-of-use by flight crew."
+            }
+          ],
+          "title": "Modularity and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Cooling Control Module aggregates sensor data and regulates the operation of the refrigeration compressor.",
+        "relationshipType": "aggregation",
+        "source": "Cooling Control Module",
+        "target": "Refrigeration Compressor"
+      },
+      {
+        "description": "The Refrigeration Compressor is dependent on control signals issued by the Cooling Control Module to initiate the cooling cycle.",
+        "relationshipType": "dependency",
+        "source": "Refrigeration Compressor",
+        "target": "Cooling Control Module"
+      },
+      {
+        "description": "The Evaporator Coil Unit works in association with the Air Distribution Fan to ensure uniformly cooled air is circulated throughout the cabin.",
+        "relationshipType": "association",
+        "source": "Evaporator Coil Unit",
+        "target": "Air Distribution Fan"
+      },
+      {
+        "description": "The Cooling Control Module is composed of integrated subcomponents that include the Temperature Sensor and Communication Module for real-time monitoring.",
+        "relationshipType": "composition",
+        "source": "Cooling Control Module",
+        "target": "Temperature Sensor (Cooling)"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A high-efficiency refrigeration unit that compresses refrigerant to initiate the cooling cycle, crucial for the temperature regulation process.",
+        "name": "Refrigeration Compressor",
+        "subComponents": [
+          {
+            "description": "Electric motor and piston assembly that compresses the refrigerant gas.",
+            "name": "Compressor Motor",
+            "type": "Actuator"
+          },
+          {
+            "description": "Pressure regulator that modulates refrigerant pressure during the compression cycle.",
+            "name": "Pressure Regulator",
+            "type": "Control Device"
+          }
+        ],
+        "type": "Mechanical Unit"
+      },
+      {
+        "description": "An evaporator coil assembly that absorbs heat from the cabin air, facilitating the cooling process.",
+        "name": "Evaporator Coil Unit",
+        "subComponents": [
+          {
+            "description": "Coil structure through which refrigerant circulates to extract heat efficiently.",
+            "name": "Cooling Coil",
+            "type": "Heat Exchanger"
+          }
+        ],
+        "type": "Thermal Module"
+      },
+      {
+        "description": "Fan assembly designed to circulate cooled air throughout the aircraft cabin, ensuring uniform temperature distribution.",
+        "name": "Air Distribution Fan",
+        "subComponents": [
+          {
+            "description": "High-speed fan blades optimized for effective air movement.",
+            "name": "Primary Fan",
+            "type": "Actuator"
+          },
+          {
+            "description": "Secondary duct system to direct air flow to critical zones.",
+            "name": "Air Ducts",
+            "type": "Conduit"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      },
+      {
+        "description": "Electronic control module that manages the switching and modulation of cooling processes based on sensor inputs.",
+        "name": "Cooling Control Module",
+        "subComponents": [
+          {
+            "description": "Processor unit that interprets temperature sensor data and issues control commands.",
+            "name": "Control Processor",
+            "type": "Controller"
+          },
+          {
+            "description": "User interface display for pilots to monitor cooling system status.",
+            "name": "Display Interface",
+            "type": "Display Unit"
+          },
+          {
+            "description": "Communication interface that enables remote monitoring and inter-module coordination.",
+            "name": "Communication Module",
+            "type": "Network Interface"
+          },
+          {
+            "description": "Dedicated temperature sensor for monitoring the effectiveness of cooling within the subsystem.",
+            "name": "Temperature Sensor (Cooling)",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Electronic Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-evaporator-fan",
+          "memberEndIds": null,
+          "name": "EvaporatorCoilUnitWorksWithAirDistributionFan",
+          "ownedEndIds": null,
+          "sourceId": "block-evaporator-coil-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-air-distribution-fan",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "R-134a",
+          "id": "attr-coolant-type",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "coolantType",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "R-134a",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "5 kW",
+          "id": "attr-cooling-capacity",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "coolingCapacity",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "5 kW",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Below 22°C",
+          "id": "attr-operational-temperature",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "operationalTemperature",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Below 22°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Under 4 seconds",
+          "id": "attr-response-time-cooling",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Under 4 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.8 atm - 1.2 atm",
+          "id": "attr-operational-pressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": false,
+          "lowerValue": "1",
+          "name": "operationalPressure",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "0.8 atm - 1.2 atm",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-coolant-type",
+            "attr-cooling-capacity",
+            "attr-operational-temperature",
+            "attr-response-time-cooling",
+            "attr-operational-pressure"
+          ],
+          "constraintIds": null,
+          "id": "block-cooling-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CoolingSystem",
+          "operationIds": [],
+          "partIds": [
+            "part-refrigeration-compressor",
+            "part-evaporator-coil-unit",
+            "part-air-distribution-fan",
+            "part-cooling-control-module"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-refrigeration-compressor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "RefrigerationCompressor",
+          "operationIds": [],
+          "partIds": [
+            "part-compressor-motor",
+            "part-pressure-regulator"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-evaporator-coil-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "EvaporatorCoilUnit",
+          "operationIds": [],
+          "partIds": [
+            "part-cooling-coil"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-air-distribution-fan",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AirDistributionFan",
+          "operationIds": [],
+          "partIds": [
+            "part-primary-fan",
+            "part-air-ducts"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-cooling-control-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CoolingControlModule",
+          "operationIds": [],
+          "partIds": [
+            "part-control-processor",
+            "part-display-interface",
+            "part-communication-module",
+            "part-temperature-sensor-cooling"
+          ],
+          "referenceIds": [],
+          "type": "Block",
+          "valueIds": []
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-cooling-system",
+          "body": "Cooling System is a critical subsystem within the Environmental Control System of passenger aircraft, engineered for rapid, efficient, and redundant operation to maintain optimal cabin conditions.",
+          "id": "comment-cooling-system-overview",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block-cooling-control-module",
+          "body": "The Cooling Control Module integrates sensor data and control commands to modulate the operation of refrigeration compressors and fan assemblies using state-of-the-art processing and communication techniques.",
+          "id": "comment-cooling-control-module",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-cooling-system-composition",
+          "memberEndIds": null,
+          "name": "CoolingSystemComposition",
+          "ownedEndIds": [
+            "part-refrigeration-compressor",
+            "part-evaporator-coil-unit",
+            "part-air-distribution-fan",
+            "part-cooling-control-module"
+          ],
+          "sourceId": "block-cooling-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-refrigeration-compressor",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "if (operationalTemperature != 'Below 22°C') then triggerCooling()",
+          "id": "constraint-operational-temperature",
+          "name": "OperationalTemperatureConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "if (responseTime > 'Under 4 seconds') then alertDelayedResponse()",
+          "id": "constraint-response-time",
+          "name": "ResponseTimeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-compressor-control",
+          "name": "RefrigerationCompressorDependsOnCoolingControlModule",
+          "sourceId": "block-refrigeration-compressor",
+          "sourceMultiplicity": null,
+          "targetId": "block-cooling-control-module",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-coolant-types",
+          "literals": [
+            {
+              "id": "literal-R134a",
+              "name": "R-134a"
+            },
+            {
+              "id": "literal-R22",
+              "name": "R-22"
+            }
+          ],
+          "name": "CoolantTypes",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-cooling-control-module",
+          "flowSpecificationId": "flow-spec-control-signal",
+          "id": "fp-control-signal",
+          "isConjugated": false,
+          "name": "ControlSignalPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "RefrigerantFlow",
+          "flowType": "MaterialFlow",
+          "id": "flow-spec-refrigerant",
+          "name": "RefrigerantFlowSpec",
+          "type": "FlowSpecification",
+          "unit": "kg/s"
+        },
+        {
+          "attributeIds": null,
+          "dataType": "ControlSignal",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-control-signal",
+          "name": "ControlSignalFlowSpec",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-cooling-system",
+          "name": "CoolingSystemInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-refrigeration-compressor",
+          "name": "RefrigerationCompressor",
+          "of": "block-refrigeration-compressor",
+          "type": "Part"
+        },
+        {
+          "id": "part-evaporator-coil-unit",
+          "name": "EvaporatorCoilUnit",
+          "of": "block-evaporator-coil-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-air-distribution-fan",
+          "name": "AirDistributionFan",
+          "of": "block-air-distribution-fan",
+          "type": "Part"
+        },
+        {
+          "id": "part-cooling-control-module",
+          "name": "CoolingControlModule",
+          "of": "block-cooling-control-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-compressor-motor",
+          "name": "CompressorMotor",
+          "of": "block-refrigeration-compressor",
+          "type": "Part"
+        },
+        {
+          "id": "part-pressure-regulator",
+          "name": "PressureRegulator",
+          "of": "block-refrigeration-compressor",
+          "type": "Part"
+        },
+        {
+          "id": "part-cooling-coil",
+          "name": "CoolingCoil",
+          "of": "block-evaporator-coil-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-primary-fan",
+          "name": "PrimaryFan",
+          "of": "block-air-distribution-fan",
+          "type": "Part"
+        },
+        {
+          "id": "part-air-ducts",
+          "name": "AirDucts",
+          "of": "block-air-distribution-fan",
+          "type": "Part"
+        },
+        {
+          "id": "part-control-processor",
+          "name": "ControlProcessor",
+          "of": "block-cooling-control-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-display-interface",
+          "name": "DisplayInterface",
+          "of": "block-cooling-control-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-communication-module",
+          "name": "CommunicationModule",
+          "of": "block-cooling-control-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-temperature-sensor-cooling",
+          "name": "TemperatureSensorCooling",
+          "of": "block-cooling-control-module",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-cooling-system",
+          "flowSpecificationId": "flow-spec-refrigerant",
+          "id": "port-refrigerant",
+          "isConjugated": false,
+          "name": "RefrigerantPort",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "ifb-cooling-system"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-cooling-control-module",
+          "flowSpecificationId": "flow-spec-control-signal",
+          "id": "port-control",
+          "isConjugated": false,
+          "name": "ControlPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-cooling-system"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-cooling-control-module",
+          "id": "proxy-port-remote-control",
+          "isConjugated": false,
+          "name": "RemoteControlPort",
+          "providedInterfaceIds": [
+            "ifb-cooling-system"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-effective-cooling-operation",
+          "name": "EffectiveCoolingOperation",
+          "reqId": null,
+          "text": "The system shall reduce and maintain cabin air temperature below 22°C using high-efficiency refrigeration cycles and coordinated air distribution.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-rapid-cooling-response",
+          "name": "RapidCoolingResponse",
+          "reqId": null,
+          "text": "The system shall achieve a cooling response within 4 seconds from temperature deviation detection to actuator response.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-safety-redundancy",
+          "name": "SafetyAndRedundancy",
+          "reqId": null,
+          "text": "In the event of component malfunction such as compressor failure, the system shall engage redundant measures and alert the control unit, ensuring safety protocols are activated.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-modularity-maintainability",
+          "name": "ModularityAndMaintainability",
+          "reqId": null,
+          "text": "The Cooling System shall be modular, allowing for hot-swappable components and simplified maintenance procedures, with an interface designed for ease-of-use by flight crew.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "vt-cooling-capacity",
+          "name": "CoolingCapacityValue",
+          "quantityKindId": "power",
+          "type": "ValueType",
+          "unitId": "unit-kW"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "environmental_control_system",
+  "timestamp": "20250324_202429"
+}

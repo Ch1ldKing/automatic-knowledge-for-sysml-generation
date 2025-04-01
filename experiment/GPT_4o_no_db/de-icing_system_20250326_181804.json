@@ -1,0 +1,230 @@
+{
+  "system_id": "de-icing_system",
+  "system_name": "De-Icing System",
+  "specification": {
+    "designScenario": {
+      "name": "De-Icing System",
+      "description": "Basic description of De-Icing System",
+      "requirements": []
+    },
+    "systemComponents": [],
+    "relationships": [],
+    "attributes": []
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": null,
+      "blocks": [
+        {
+          "attributeIds": [
+            "d_icing_system_attributes"
+          ],
+          "constraintIds": [
+            "uniform_deicing"
+          ],
+          "id": "deicing_system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "De-Icing System",
+          "operationIds": [
+            "start_deicing",
+            "stop_deicing"
+          ],
+          "partIds": [
+            "heating_elements",
+            "control_unit",
+            "energy_source"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "status"
+          ]
+        },
+        {
+          "attributeIds": [
+            "power_level"
+          ],
+          "constraintIds": null,
+          "id": "heating_elements",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Heating Elements",
+          "operationIds": [
+            "apply_heat"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "current_temperature"
+          ]
+        },
+        {
+          "attributeIds": [
+            "control_signal"
+          ],
+          "constraintIds": [
+            "valid_signal"
+          ],
+          "id": "control_unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Control Unit",
+          "operationIds": [
+            "send_signal"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "signal_received"
+          ]
+        },
+        {
+          "attributeIds": [
+            "energy_capacity"
+          ],
+          "constraintIds": [
+            "sufficient_energy"
+          ],
+          "id": "energy_source",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Energy Source",
+          "operationIds": [
+            "supply_energy"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": [
+            "current_energy_level"
+          ]
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "deicing_system",
+          "body": "Main system responsible for preventing ice formation on aircraft surfaces.",
+          "id": "comment1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": null,
+      "constraints": [
+        {
+          "constrainedElementIds": [
+            "heating_elements"
+          ],
+          "id": "valid_signal",
+          "name": "Valid Signal Constraint",
+          "specification": "signal between [0, 5] volts",
+          "type": "Constraint"
+        },
+        {
+          "constrainedElementIds": [
+            "heating_elements"
+          ],
+          "id": "uniform_deicing",
+          "name": "Uniform De-Icing Constraint",
+          "specification": "Temperature gradient coefficient maintained within tolerance during operation",
+          "type": "Constraint"
+        },
+        {
+          "constrainedElementIds": [
+            "energy_source"
+          ],
+          "id": "sufficient_energy",
+          "name": "Sufficient Energy Constraint",
+          "specification": "Minimum energy capacity suitable during operation",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "status_enum",
+          "literals": [
+            {
+              "id": "status_operational",
+              "name": "Operational"
+            },
+            {
+              "id": "status_sufficient",
+              "name": "Sufficient"
+            }
+          ],
+          "name": "Status Enumeration",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "control_unit",
+          "id": "signal_port",
+          "isConjugated": false,
+          "name": "Control Signal Out",
+          "providedInterfaceIds": [
+            "appropriate IF Id"
+          ],
+          "requiredInterfaceIds": [
+            "appropriate Input SIG Interface"
+          ],
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": null,
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": null,
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "timestamp": "20250326_181804",
+  "provider": "gpt"
+}

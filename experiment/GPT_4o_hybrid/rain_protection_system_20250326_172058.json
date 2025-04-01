@@ -1,0 +1,474 @@
+{
+  "system_id": "rain_protection_system",
+  "system_name": "Rain Protection System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Material used for rain-repellent coating.",
+        "name": "Coating Material",
+        "type": "string",
+        "value": "Hydrophobic Polymer"
+      },
+      {
+        "description": "Coverage area of the rain protection system in square meters.",
+        "name": "Coverage Area",
+        "type": "string",
+        "value": "35 Sq.m"
+      },
+      {
+        "description": "Operational temperature range for optimal performance.",
+        "name": "Operational Temperature Range",
+        "type": "string",
+        "value": "-55°C to +50°C"
+      },
+      {
+        "description": "Time taken to activate the repellent system.",
+        "name": "Activation Time",
+        "type": "string",
+        "value": "3 seconds"
+      },
+      {
+        "description": "Compliance with aviation safety and regulatory standards.",
+        "name": "Certification",
+        "type": "string",
+        "value": "FAA/EASA Certified"
+      }
+    ],
+    "designScenario": {
+      "description": "The Rain Protection System is engineered to prevent rainwater from obstructing the pilot's vision by employing advanced hydrophobic coatings and wiper systems on aircraft windshields. It integrates with the cockpit's control systems, enabling automatic and manual control modes. The system ensures visibility during adverse weather conditions, preserving safety and operational efficiency.",
+      "name": "Rain Protection System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system should repel water from the aircraft's windshield effectively during heavy rainfall."
+            },
+            {
+              "description": "It must ensure optically clear visibility within 3 seconds of activation."
+            }
+          ],
+          "title": "Functionality Requirements",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Operate under varying environmental temperatures and pressures experienced at flight altitudes."
+            },
+            {
+              "description": "Maintain full functionality in adverse weather conditions, including rain, fog, and turbulence."
+            }
+          ],
+          "title": "Performance Requirements",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Should not compromise the structural integrity of the aircraft windshield."
+            },
+            {
+              "description": "Maintain compliance with regulatory safety standards during any failure scenario."
+            }
+          ],
+          "title": "Safety Requirements",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The user interface for the rain control system should be user-friendly and intuitive."
+            },
+            {
+              "description": "Allow for efficient maintenance and easy component replacement or upgrades."
+            }
+          ],
+          "title": "Non-Functional Requirements",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Wiper Motor drives the Wiper Assembly for clearing rain.",
+        "relationshipType": "dependency",
+        "source": "Wiper Motor",
+        "target": "Wiper Assembly"
+      },
+      {
+        "description": "The Hydrophobic Coating is evenly applied onto the Windshield Surface.",
+        "relationshipType": "composition",
+        "source": "Windshield Surface",
+        "target": "Hydrophobic Coating"
+      },
+      {
+        "description": "The Control Unit monitors rainfall sensors to manage system activation.",
+        "relationshipType": "association",
+        "source": "Control Unit",
+        "target": "Rainfall Sensor"
+      },
+      {
+        "description": "The System Power Unit provides energy to the Wiper Motor and Control Unit.",
+        "relationshipType": "aggregation",
+        "source": "System Power Unit",
+        "target": "Wiper Motor"
+      },
+      {
+        "description": "The Cockpit Interface allows pilots to operate and monitor the system via controls and indicators.",
+        "relationshipType": "association",
+        "source": "Cockpit Interface",
+        "target": "Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The transparent component exposed to environmental conditions, treated with a rain-repellent coating.",
+        "name": "Windshield Surface",
+        "subComponents": [
+          {
+            "description": "A specialized coating that prevents water adhesion.",
+            "name": "Hydrophobic Coating",
+            "type": "Material"
+          }
+        ],
+        "type": "Surface Component"
+      },
+      {
+        "description": "Drives the mechanical assembly to clear water off the windshield.",
+        "name": "Wiper Motor",
+        "subComponents": [
+          {
+            "description": "The rotating mechanism that moves the wipers.",
+            "name": "Motor Drive Assembly",
+            "type": "Actuator"
+          }
+        ],
+        "type": "Actuator Component"
+      },
+      {
+        "description": "Cleans rainwater off the windshield surface.",
+        "name": "Wiper Assembly",
+        "subComponents": [
+          {
+            "description": "The blade in direct contact with the windshield.",
+            "name": "Wiper Blades",
+            "type": "Boundary Interaction Component"
+          }
+        ],
+        "type": "Mechanical Component"
+      },
+      {
+        "description": "Detects rainfall conditions to activate the system automatically.",
+        "name": "Rainfall Sensor",
+        "subComponents": [
+          {
+            "description": "Sensor elements measuring rain intensity.",
+            "name": "Rain Intensity Detector",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Component"
+      },
+      {
+        "description": "Manages the overall functionality and integration of the system.",
+        "name": "Control Unit",
+        "subComponents": [
+          {
+            "description": "Main processing unit for interpreting data and controlling actions.",
+            "name": "System Controller",
+            "type": "Processing Unit"
+          }
+        ],
+        "type": "Logic Module"
+      },
+      {
+        "description": "Supplies power to system components ensuring reliable operation.",
+        "name": "System Power Unit",
+        "subComponents": [
+          {
+            "description": "Battery backup for uninterrupted functionality.",
+            "name": "Backup Power Module",
+            "type": "Energy Provider"
+          }
+        ],
+        "type": "Power Provider"
+      },
+      {
+        "description": "Interface for the pilot to interact with the system.",
+        "name": "Cockpit Interface",
+        "subComponents": [
+          {
+            "description": "Control buttons and indicator lights for system operation.",
+            "name": "Control Panel",
+            "type": "User Interface"
+          }
+        ],
+        "type": "Interface Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-power-wiper-control",
+          "memberEndIds": null,
+          "name": "AggregatesPowerToWiperControl",
+          "ownedEndIds": null,
+          "sourceId": "block-power-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-control-unit",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-wiper-motor-assembly",
+          "memberEndIds": null,
+          "name": "MotorDrivesWiperAssembly",
+          "ownedEndIds": null,
+          "sourceId": "block-wiper-motor",
+          "sourceMultiplicity": null,
+          "targetId": "block-wiper-assembly",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "Hydrophobic Polymer",
+          "id": "attr-coating-material",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "coatingMaterial",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Hydrophobic Polymer",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "35 Sq.m",
+          "id": "attr-coverage-area",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "coverageArea",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "35 Sq.m",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-55°C to +50°C",
+          "id": "attr-operational-temp-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operationalTempRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-55°C to +50°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "FAA/EASA Certified",
+          "id": "attr-certification",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "certification",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "FAA/EASA Certified",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-coating-material",
+            "attr-operational-temp-range"
+          ],
+          "constraintIds": null,
+          "id": "block-rain-protection-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "RainProtectionSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-hydrophobic-coating",
+            "part-wiper-system",
+            "part-control-system",
+            "part-energy-supply",
+            "part-ui-panel"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-hydrophobic-coating",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HydrophobicCoating",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-wiper-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "WiperSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-rain-protection-system",
+          "body": "This block represents Rain Protection System aimed at ensuring pilot visibility during adverse weather conditions.",
+          "id": "comment-system-functionality",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-coating-windshield-surface",
+          "memberEndIds": null,
+          "name": "WindshieldHydrophobicComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-rain-protection-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-hydrophobic-coating",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "coatingMaterial must remain effective under operationalTempRange.",
+          "id": "cons-coating-temp",
+          "name": "CoatingTemperatureConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": null,
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": null,
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": null,
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-rain-protection",
+          "name": "RainProtectionPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-hydrophobic-coating",
+          "name": "HydrophobicCoating",
+          "of": "block-hydrophobic-coating",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-visibility-in-heavy-rain",
+          "name": "VisibilityInHeavyRain",
+          "reqId": "REQ001",
+          "text": "The system shall ensure visibility during adverse weather conditions such as heavy rain and turbulence.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": null
+    }
+  },
+  "reference_system": null,
+  "parent_system": "anti_ice_system",
+  "timestamp": "20250326_172058",
+  "provider": "gpt"
+}

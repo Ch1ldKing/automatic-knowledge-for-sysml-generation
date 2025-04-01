@@ -1,0 +1,404 @@
+{
+  "system_id": "vhf_communication_system",
+  "system_name": "VHF Communication System",
+  "specification": {
+    "designScenario": {
+      "name": "V H F Radio System",
+      "description": "The V H F Radio System is a critical avionics subsystem enabling short-range voice and data communication between aircraft and air traffic control (ATC). Designed for robust operation in electromagnetic environments, it supports digital voice transmission, automatic frequency tuning, and redundancy to ensure uninterrupted communication during flight. The system adheres to advanced aviation standards, integrates with cockpit digital systems, and incorporates environmental monitoring to maintain reliability under varying conditions.",
+      "requirements": [
+        {
+          "title": "Voice and Data Communication",
+          "type": "functional",
+          "details": [
+            {
+              "description": "Enable secure, bidirectional voice communication with ATC and adjacent aircraft via the 118-137 MHz band using AM modulation."
+            },
+            {
+              "description": "Support Controller-Pilot Data Link Communications (CPDLC) for text-based messaging over VHF Digital Link (VDL) Mode 2."
+            }
+          ]
+        },
+        {
+          "title": "Low-Latency Performance",
+          "type": "performance",
+          "details": [
+            {
+              "description": "Achieve end-to-end communication latency below 30ms for real-time voice and CPDLC message delivery."
+            },
+            {
+              "description": "Maintain bandwidth efficiency of 25 kHz per channel with adaptive frequency hopping to mitigate interference."
+            }
+          ]
+        },
+        {
+          "title": "Triple Redundancy and Fault Tolerance",
+          "type": "safety",
+          "details": [
+            {
+              "description": "Implement triple modular redundancy (TMR) across transceiver modules to ensure operation under single or dual component failures."
+            },
+            {
+              "description": "Automatically isolate faulty subcomponents and switch to redundant paths within 500ms of failure detection."
+            }
+          ]
+        },
+        {
+          "title": "Environmental and Regulatory Compliance",
+          "type": "nonFunctional",
+          "details": [
+            {
+              "description": "Meet RTCA/DO-178C (software) and DO-254 (hardware) certification standards for airborne systems."
+            },
+            {
+              "description": "Operate reliably within temperature ranges of -55°C to +70°C and withstand 14g peak acceleration."
+            }
+          ]
+        }
+      ]
+    },
+    "systemComponents": [
+      {
+        "name": "VHF Transceiver",
+        "type": "Multi-Channel Radio Transceiver",
+        "description": "Primary hardware module for transmitting and receiving voice/data signals. Integrates digital signal processing and adaptive filtering.",
+        "subComponents": [
+          {
+            "name": "RF Front End",
+            "description": "Handles signal amplification, filtering, and antenna interface with automatic gain control.",
+            "type": "Analog Signal Processor"
+          },
+          {
+            "name": "Digital Modem",
+            "description": "Performs AM modulation/demodulation and VDL Mode 2 data framing.",
+            "type": "Digital Signal Processor"
+          },
+          {
+            "name": "Frequency Synthesizer",
+            "description": "Generates precise VHF frequencies with ±0.005% accuracy for channel selection.",
+            "type": "Phase-Locked Loop (PLL) System"
+          }
+        ]
+      },
+      {
+        "name": "Control and Redundancy Manager",
+        "type": "Avionics Control Unit",
+        "description": "Manages transceiver operations, redundancy switching, and interfaces with aircraft systems.",
+        "subComponents": [
+          {
+            "name": "FPGA-Based Voting Logic",
+            "description": "Implements TMR consensus for critical subsystem outputs.",
+            "type": "Field-Programmable Gate Array (FPGA)"
+          },
+          {
+            "name": "Flight Management Interface",
+            "description": "Coordinates with the Flight Management System (FMS) for frequency tuning and priority messaging.",
+            "type": "ARINC 429/664 Interface"
+          }
+        ]
+      },
+      {
+        "name": "Power Distribution Unit",
+        "type": "Redundant Power Supply",
+        "description": "Provides isolated power rails with voltage regulation and fault isolation for critical components.",
+        "subComponents": null
+      },
+      {
+        "name": "Antenna Assembly",
+        "type": "Broadband VHF Antenna",
+        "description": "Optimized for omnidirectional coverage with built-in lightning protection and moisture sealing.",
+        "subComponents": null
+      },
+      {
+        "name": "Environmental Monitoring Module",
+        "type": "Sensor Interface Unit",
+        "description": "Monitors temperature, vibration, and humidity to trigger adaptive operational adjustments.",
+        "subComponents": null
+      }
+    ],
+    "relationships": [
+      {
+        "source": "VHF Transceiver",
+        "target": "Control and Redundancy Manager",
+        "relationshipType": "association",
+        "description": "The Control Module configures transceiver parameters and receives status telemetry via a dedicated digital bus."
+      },
+      {
+        "source": "Control and Redundancy Manager",
+        "target": "Power Distribution Unit",
+        "relationshipType": "dependency",
+        "description": "The Control Module requires stable 28V DC power with hot-swappable redundancy from the Power Unit."
+      },
+      {
+        "source": "VHF Transceiver",
+        "target": "Antenna Assembly",
+        "relationshipType": "composition",
+        "description": "The Antenna is a physically integrated component of the transceiver's RF path."
+      },
+      {
+        "source": "Environmental Monitoring Module",
+        "target": "Control and Redundancy Manager",
+        "relationshipType": "aggregation",
+        "description": "Environmental data feeds into the Control Module to adjust operational parameters dynamically."
+      },
+      {
+        "source": "Control and Redundancy Manager",
+        "target": "Flight Management Interface",
+        "relationshipType": "association",
+        "description": "The Control Module exchanges flight plan data and priority channel assignments with the FMS."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "Operating Frequency Range",
+        "type": "string",
+        "value": "118.00-136.975 MHz",
+        "description": "Complies with ICAO allocated channels for ATC and aircraft communications."
+      },
+      {
+        "name": "Transmission Power",
+        "type": "string",
+        "value": "50W peak (25W nominal)",
+        "description": "Adjustable power output to balance range (up to 200 NM) and regulatory limits."
+      },
+      {
+        "name": "Receiver Sensitivity",
+        "type": "string",
+        "value": "-113 dBm at 12 dB SINAD",
+        "description": "Ensures reception of weak signals in high-noise environments."
+      },
+      {
+        "name": "Redundancy Level",
+        "type": "string",
+        "value": "Triple Modular Redundancy (TMR)",
+        "description": "Three independent processing chains to achieve ASIL-D safety integrity level."
+      },
+      {
+        "name": "Latency Target",
+        "type": "string",
+        "value": "<30ms (95th percentile)",
+        "description": "Guaranteed end-to-end delay for mission-critical voice/data packets."
+      },
+      {
+        "name": "Compliance Standards",
+        "type": "string",
+        "value": "RTCA/DO-178C Level A, DO-254 Level A, MIL-STD-461G",
+        "description": "Certification for airborne software, hardware, and electromagnetic compatibility."
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "blocks": [
+        {
+          "id": "block-vhf-radio-system",
+          "type": "Block",
+          "name": "VHF Radio System",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-operating-frequency",
+            "attr-transmission-power",
+            "attr-receiver-sensitivity",
+            "attr-redundancy",
+            "attr-latency",
+            "attr-compliance"
+          ],
+          "operationIds": [
+            "op-tune-frequency",
+            "op-cpdlc-communication"
+          ],
+          "partIds": [
+            "block-vhf-transceiver",
+            "block-control-manager",
+            "block-power-distribution",
+            "block-antenna",
+            "block-environmental-monitor"
+          ]
+        },
+        {
+          "id": "block-vhf-transceiver",
+          "type": "Block",
+          "name": "VHF Transceiver",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-modulation-type",
+            "attr-frequency-accuracy"
+          ],
+          "partIds": [
+            "block-rf-frontend",
+            "block-digital-modem",
+            "block-frequency-synth"
+          ]
+        },
+        {
+          "id": "block-control-manager",
+          "type": "Block",
+          "name": "Control and Redundancy Manager",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "attributeIds": [
+            "attr-redundancy-logic",
+            "attr-failure-response-time"
+          ],
+          "partIds": [
+            "block-fpga-vote-logic",
+            "block-fms-interface"
+          ]
+        },
+        {
+          "id": "block-power-distribution",
+          "type": "Block",
+          "name": "Power Distribution Unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true
+        },
+        {
+          "id": "block-antenna",
+          "type": "Block",
+          "name": "Antenna Assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true
+        },
+        {
+          "id": "block-environmental-monitor",
+          "type": "Block",
+          "name": "Environmental Monitoring Module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true
+        }
+      ],
+      "interfaceBlocks": [
+        {
+          "id": "if-block-vhf-radio",
+          "type": "InterfaceBlock",
+          "name": "VHFRadioInterface",
+          "operationIds": [
+            "op-tune-frequency",
+            "op-cpdlc-communication"
+          ]
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "id": "flow-spec-cpdlc",
+          "type": "FlowSpecification",
+          "name": "CPDLCDataFlow",
+          "flowType": "DataFlow",
+          "dataType": "VDLMode2Packet",
+          "unit": null
+        }
+      ],
+      "ports": [
+        {
+          "id": "port-vhf-full",
+          "type": "Port",
+          "name": "VHFFullPort",
+          "blockId": "block-vhf-radio-system",
+          "portType": "full",
+          "isConjugated": false,
+          "providedInterfaceIds": [
+            "if-block-vhf-radio"
+          ]
+        },
+        {
+          "id": "port-cpdlc-flow",
+          "type": "FlowPort",
+          "name": "CPDLCFlowPort",
+          "blockId": "block-vhf-radio-system",
+          "flowSpecificationId": "flow-spec-cpdlc"
+        }
+      ],
+      "constraints": [
+        {
+          "id": "constraint-latency",
+          "type": "Constraint",
+          "name": "EndToEndLatencyConstraint",
+          "specification": "endToEndLatency < 30ms",
+          "constrainedElementIds": [
+            "block-vhf-radio-system"
+          ]
+        }
+      ],
+      "enumerations": [
+        {
+          "id": "enum-modulation-type",
+          "type": "Enumeration",
+          "name": "ModulationType",
+          "literals": [
+            {
+              "id": "lit-am",
+              "name": "AM"
+            },
+            {
+              "id": "lit-digital",
+              "name": "Digital"
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "id": "attr-operating-frequency",
+          "name": "operatingFrequency",
+          "propertyType": "String",
+          "value": "118.00-136.975 MHz",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-modulation-type",
+          "name": "modulationType",
+          "propertyType": "Enumeration",
+          "value": "AM",
+          "visibility": "public"
+        },
+        {
+          "id": "attr-redundancy",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "value": "Triple Modular Redundancy",
+          "visibility": "public"
+        }
+      ],
+      "associations": [
+        {
+          "id": "assoc-transceiver-control",
+          "type": "Association",
+          "name": "TransceiverControlLink",
+          "sourceId": "block-vhf-transceiver",
+          "targetId": "block-control-manager",
+          "sourceMultiplicity": "1",
+          "targetMultiplicity": "1"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-antenna-transceiver",
+          "type": "Composition",
+          "name": "AntennaIntegration",
+          "sourceId": "block-vhf-transceiver",
+          "targetId": "block-antenna"
+        }
+      ],
+      "comments": [
+        {
+          "id": "comment-vhf-overview",
+          "type": "Comment",
+          "body": "Critical avionics subsystem supporting ATC communication with triple redundancy and digital CPDLC capabilities.",
+          "annotatedElementId": "block-vhf-radio-system"
+        }
+      ]
+    }
+  },
+  "reference_system": "v_h_f_radio",
+  "parent_system": null,
+  "timestamp": "20250325_150801",
+  "provider": "qwen"
+}

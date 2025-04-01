@@ -1,0 +1,599 @@
+{
+  "system_id": "ventilation_system",
+  "system_name": "Ventilation System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the optimal airflow capacity of the unit, ensuring efficient ventilation throughout the aircraft cabin. The range is calibrated for diverse flight altitudes.",
+        "name": "airFlowRate",
+        "type": "string",
+        "value": "600 - 2500 CFM"
+      },
+      {
+        "description": "Specifies the ideal operating temperature range to ensure reliable performance under various in-flight thermal conditions.",
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "5°C - 45°C"
+      },
+      {
+        "description": "Indicates the pressure compatibility of the unit to maintain integrated operation with the cabin's environmental control systems.",
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "0.75 atm - 1.25 atm"
+      },
+      {
+        "description": "Describes the maximum sound level output of the AHU, crucial for maintaining passenger comfort and reducing in-flight noise pollution.",
+        "name": "noiseLevel",
+        "type": "string",
+        "value": "Below 65 dB"
+      },
+      {
+        "description": "Specifies the recommended inspection and maintenance intervals to uphold system safety and operational reliability.",
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "Every 450 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Air Handling Unit (AHU) is a pivotal subsystem within the aircraft's Environmental Control System (ECS). It is engineered to condition, filter, and distribute air efficiently across various cabin zones. The design leverages modern aerospace technology including high-efficiency airflow management, real-time monitoring via embedded sensor networks, and modular subcomponents to allow for rapid diagnostics, maintenance, and scalability. The AHU is capable of operating in extreme environments, ensuring that passengers experience a consistently comfortable cabin atmosphere despite external flight conditions.",
+      "name": "Air Handling Unit",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The AHU shall deliver a continuous and adjustable airflow between 600 and 2500 CFM ensuring proper cabin ventilation under all flight conditions."
+            }
+          ],
+          "title": "Airflow Regulation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The unit must maintain operational stability and performance within a temperature range of 5°C to 45°C, securing efficiency in varying environmental conditions."
+            }
+          ],
+          "title": "Temperature Stability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "An integrated multi-stage filtration system, including HEPA and activated carbon filters, shall remove particulates and chemical contaminants to uphold air quality and passenger health."
+            }
+          ],
+          "title": "Air Quality Assurance",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The system design must incorporate modular components with accessible interfaces, enabling quick replacement, maintenance, and potential upgrades without significant downtime."
+            }
+          ],
+          "title": "Modular Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Air Handling Unit is composed of multiple integrated subcomponents that operate collectively to treat and distribute airflow.",
+        "relationshipType": "composition",
+        "source": "Air Handling Unit",
+        "target": "High-Efficiency Fan"
+      },
+      {
+        "description": "The Ducting Network aggregates treated air and directs it uniformly through the cabin, forming an essential part of the AHU subsystem.",
+        "relationshipType": "aggregation",
+        "source": "Air Handling Unit",
+        "target": "Ducting Network"
+      },
+      {
+        "description": "The HEPA Filter, a critical component for air purification, is composed within the AHU to ensure contaminant-free air supply.",
+        "relationshipType": "composition",
+        "source": "Air Handling Unit",
+        "target": "HEPA Filter"
+      },
+      {
+        "description": "The Signal Processing Module monitors sensor data from the AHU subcomponents to facilitate real-time adjustments and fault detection.",
+        "relationshipType": "aggregation",
+        "source": "Air Handling Unit",
+        "target": "Signal Processing Module"
+      },
+      {
+        "description": "The Temperature Control System depends on the Air Handling Unit for the effective distribution of conditioned air required for thermal balance within the cabin.",
+        "relationshipType": "dependency",
+        "source": "Temperature Control System",
+        "target": "Air Handling Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The central subsystem responsible for processing, conditioning, and distributing ambient air throughout the cabin environment.",
+        "name": "Air Handling Unit",
+        "subComponents": [
+          {
+            "description": "A high-capacity fan assembly designed to generate and maintain the necessary airflow pressure for optimal cabin ventilation.",
+            "name": "High-Efficiency Fan",
+            "type": "Actuator"
+          },
+          {
+            "description": "A network of air ducts engineered to guide and distribute conditioned air uniformly across diverse cabin zones.",
+            "name": "Ducting Network",
+            "type": "Conduit"
+          },
+          {
+            "description": "An advanced HEPA filtration module intended to remove particulate matter and airborne pathogens, ensuring a healthy cabin environment.",
+            "name": "HEPA Filter",
+            "type": "Filter"
+          },
+          {
+            "description": "A dedicated signal processing unit that gathers real-time data from sensors embedded in the AHU, enabling predictive diagnostics and adaptive control.",
+            "name": "Signal Processing Module",
+            "type": "Control"
+          }
+        ],
+        "type": "Subsystem"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": [],
+      "actors": [],
+      "aggregations": [],
+      "associationBlocks": [],
+      "associationBlocksWithOwnedEnds": [],
+      "associations": [],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "101.3",
+          "id": "A1",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "101.3",
+          "name": "SystemPressure",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "101.3",
+          "value": "101.3",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "22",
+          "id": "A2",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "22",
+          "name": "SystemTemperature",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "22",
+          "value": "22",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "1500",
+          "id": "A3",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1500",
+          "name": "FanSpeed",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "1500",
+          "value": "1500",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "3000",
+          "id": "A4",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "3000",
+          "name": "MaxFanSpeed",
+          "propertyType": "Integer",
+          "type": "Property",
+          "upperValue": "3000",
+          "value": "3000",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.5",
+          "id": "A5",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0.5",
+          "name": "DuctDiameter",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "0.5",
+          "value": "0.5",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "10",
+          "id": "A6",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "10",
+          "name": "DuctLength",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "10",
+          "value": "10",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "0.95",
+          "id": "A7",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "0.95",
+          "name": "FilterEfficiency",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "0.95",
+          "value": "0.95",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "v1.2",
+          "id": "A8",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "v1.2",
+          "name": "ControlAlgorithmVersion",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "v1.2",
+          "value": "v1.2",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "100",
+          "id": "A9",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "100",
+          "name": "AirFlowRate",
+          "propertyType": "Double",
+          "type": "Property",
+          "upperValue": "100",
+          "value": "100",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "A1",
+            "A2"
+          ],
+          "constraintIds": [
+            "CB1"
+          ],
+          "id": "B1",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "VentilationSystem",
+          "operationIds": [
+            "OP1"
+          ],
+          "partIds": [
+            "P1",
+            "P2",
+            "P3",
+            "P4"
+          ],
+          "referenceIds": [
+            "INT1"
+          ],
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "A3",
+            "A4"
+          ],
+          "constraintIds": null,
+          "id": "B2",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Fan",
+          "operationIds": [
+            "OP2"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "A5",
+            "A6"
+          ],
+          "constraintIds": null,
+          "id": "B3",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Duct",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "A7"
+          ],
+          "constraintIds": null,
+          "id": "B4",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Filter",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [
+            "A8"
+          ],
+          "constraintIds": null,
+          "id": "B5",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ControlUnit",
+          "operationIds": [
+            "OP3"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "B1",
+          "body": "VentilationSystem integrates airflow control, filtering, and monitoring for cabin comfort.",
+          "id": "COM1",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [],
+      "connectors": [],
+      "constraintBlocks": [
+        {
+          "attributeIds": [],
+          "expression": "if (SystemPressure < 95 or SystemPressure > 105) then error",
+          "id": "CB1",
+          "name": "VentilationPressureConstraint",
+          "parameterIds": [],
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [
+        {
+          "constrainedElementIds": null,
+          "id": "C1",
+          "name": "PressureConstraint",
+          "specification": "SystemPressure must be maintained within operational limits (95-105 kPa)",
+          "type": "Constraint"
+        }
+      ],
+      "controlFlows": [],
+      "dependencies": [],
+      "directedAggregations": [],
+      "directedAssociations": [],
+      "directedCompositions": [],
+      "domains": [],
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "E1",
+          "literals": [
+            {
+              "id": "EL1",
+              "name": "Automatic"
+            },
+            {
+              "id": "EL2",
+              "name": "Manual"
+            }
+          ],
+          "name": "FanOperationMode",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": [],
+      "flowPorts": [],
+      "flowSpecifications": [
+        {
+          "attributeIds": [],
+          "dataType": "Real",
+          "flowType": "massFlow",
+          "id": "FS1",
+          "name": "AirFlowSpec",
+          "type": "FlowSpecification",
+          "unit": "kg/s"
+        }
+      ],
+      "fullPorts": [],
+      "generalizations": [],
+      "includes": [],
+      "instances": [],
+      "interfaceBlocks": [
+        {
+          "attributeIds": [
+            "A9"
+          ],
+          "constraintIds": null,
+          "id": "INT1",
+          "name": "AirFlowInterface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": [],
+      "interfaces": [],
+      "internalBlocks": [],
+      "itemFlows": [],
+      "lifelines": [],
+      "links": [],
+      "messages": [],
+      "objectFlows": [],
+      "packages": [],
+      "parameters": [],
+      "parts": [],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "P1",
+          "isConjugated": false,
+          "name": "AirInletPort",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "I1"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B1",
+          "flowSpecificationId": null,
+          "id": "P2",
+          "isConjugated": false,
+          "name": "AirOutletPort",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "I1"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B5",
+          "flowSpecificationId": null,
+          "id": "P3",
+          "isConjugated": true,
+          "name": "ControlSignalPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "I2"
+          ],
+          "requiredInterfaceIds": [
+            "I3"
+          ],
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "B5",
+          "flowSpecificationId": null,
+          "id": "P4",
+          "isConjugated": false,
+          "name": "StatusPort",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "I4"
+          ],
+          "requiredInterfaceIds": [],
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [],
+      "realizations": [],
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "R1",
+          "name": "VentilationSystemRequirement",
+          "reqId": "REQ-VENT-001",
+          "text": "The Ventilation System shall maintain cabin air quality and pressure within specified flight parameters.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": [],
+      "states": [],
+      "transitions": [],
+      "usages": [],
+      "useCases": [],
+      "valueTypes": []
+    }
+  },
+  "timestamp": "20250325_115535"
+}
