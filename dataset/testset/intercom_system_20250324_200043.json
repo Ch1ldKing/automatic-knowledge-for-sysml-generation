@@ -1,0 +1,636 @@
+{
+  "system_id": "intercom_system",
+  "system_name": "Intercom System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the extended operational temperature range ensuring reliable performance in high altitude and extreme weather conditions.",
+        "name": "operatingTemperature",
+        "type": "string",
+        "value": "-50°C to +90°C"
+      },
+      {
+        "description": "Specifies the required maximum response time for emergency communications ensuring prompt message delivery.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 1.5 seconds"
+      },
+      {
+        "description": "Indicates engineered power efficiency with optimized power consumption and dynamic load management for prolonged operation.",
+        "name": "powerEfficiency",
+        "type": "string",
+        "value": "Optimized with dynamic load management"
+      },
+      {
+        "description": "Establishes robust and high security communication protocols using advanced encryption standards for secure cabin data transmission.",
+        "name": "communicationProtocol",
+        "type": "string",
+        "value": "AES-256 encrypted channels"
+      },
+      {
+        "description": "Specifies the level of redundancy incorporated into the system design to ensure uninterrupted operation during component failures.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual redundant modules with automatic failover"
+      }
+    ],
+    "designScenario": {
+      "description": "The Advanced Cabin Communication System (ACCS) is tailored for modern passenger airplanes, delivering a multifaceted communication solution that integrates intercom, public address, and emergency alert functionalities. Engineered for high reliability and rapid response, the system seamlessly collaborates with cabin control units and other avionics subsystems. ACCS leverages cutting-edge digital signal processing and redundant architectures to provide secure, high-fidelity audio communications and robust fail-safe operations. Its design is influenced by strict aviation safety standards and operational performance criteria, ensuring effective communication during both routine operations and emergencies.",
+      "name": "Advanced Cabin Communication System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system must support clear two-way intercom communication between cabin crew and personnel."
+            },
+            {
+              "description": "Enable public address functionality to broadcast cabin announcements effectively."
+            },
+            {
+              "description": "Provide an integrated emergency alert mode capable of overriding all other communications in critical situations."
+            }
+          ],
+          "title": "Communication Functionality",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Process and deliver communications in less than 1.5 seconds to ensure immediate response in emergencies."
+            },
+            {
+              "description": "Maintain real-time audio processing with minimal latency across all transmission and reception modules."
+            }
+          ],
+          "title": "Performance Reliability",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Incorporate dual redundant communication pathways to sustain operations under component failure conditions."
+            },
+            {
+              "description": "Integrate emergency override mechanisms that automatically engage during fault detection."
+            }
+          ],
+          "title": "Safety Compliance",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Employ advanced encryption standards for secure data transmission and safeguard against cyber threats."
+            },
+            {
+              "description": "Design a user-friendly interface requiring minimal training for cabin crew while ensuring robust maintenance procedures."
+            }
+          ],
+          "title": "Non-Functional Quality",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Advanced Cabin Communication System is composed of specialized modules including the intercom, public address, and emergency alert components.",
+        "relationshipType": "composition",
+        "source": "Advanced Cabin Communication System",
+        "target": "Intercom Module"
+      },
+      {
+        "description": "The Advanced Cabin Communication System is composed of specialized modules including the intercom, public address, and emergency alert components.",
+        "relationshipType": "composition",
+        "source": "Advanced Cabin Communication System",
+        "target": "Public Address Subsystem"
+      },
+      {
+        "description": "The Advanced Cabin Communication System is composed of specialized modules including the intercom, public address, and emergency alert components.",
+        "relationshipType": "composition",
+        "source": "Advanced Cabin Communication System",
+        "target": "Emergency Alert Module"
+      },
+      {
+        "description": "The Advanced Cabin Communication System maintains an association with the Cabin Control Unit to exchange operational commands and status updates for synchronized cabin management.",
+        "relationshipType": "association",
+        "source": "Advanced Cabin Communication System",
+        "target": "Cabin Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The central communication hub that manages and orchestrates all audio and alert signals within the cabin, ensuring high fidelity and robust signal processing.",
+        "name": "Advanced Cabin Communication System",
+        "subComponents": [
+          {
+            "description": "Handles crew-to-crew communication with advanced noise cancellation and clear voice signal processing.",
+            "name": "Intercom Module",
+            "type": "Communication Module"
+          },
+          {
+            "description": "Facilitates clear and comprehensive public address announcements across the entire cabin with high quality sound output.",
+            "name": "Public Address Subsystem",
+            "type": "Audio Device"
+          },
+          {
+            "description": "Activates and manages emergency alerts with high priority, ensuring immediate broadcast in critical situations.",
+            "name": "Emergency Alert Module",
+            "type": "Alert System"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Interfacing component that communicates with the central Cabin Control Unit, handling command and control signals for integrated cabin management.",
+        "name": "Control Interface Module",
+        "subComponents": null,
+        "type": "Interface Device"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-comm-control-accs",
+          "memberEndIds": null,
+          "name": "CommToCabinControl",
+          "ownedEndIds": null,
+          "sourceId": "block-cabin-communication-system-accs",
+          "sourceMultiplicity": null,
+          "targetId": "block-cabin-control-unit",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "-50°C to +90°C",
+          "id": "attr-operating-temperature-accs",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operatingTemperature",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-50°C to +90°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Under 1.5 seconds",
+          "id": "attr-response-time-accs",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Under 1.5 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Optimized with dynamic load management",
+          "id": "attr-power-efficiency-accs",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "powerEfficiency",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Optimized with dynamic load management",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "AES-256 encrypted channels",
+          "id": "attr-communication-protocol-accs",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "communicationProtocol",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "AES-256 encrypted channels",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual redundant modules with automatic failover",
+          "id": "attr-redundancy-level-accs",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual redundant modules with automatic failover",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-operating-temperature-accs",
+            "attr-response-time-accs",
+            "attr-power-efficiency-accs",
+            "attr-communication-protocol-accs",
+            "attr-redundancy-level-accs"
+          ],
+          "constraintIds": null,
+          "id": "block-cabin-communication-system-accs",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Cabin Communication System",
+          "operationIds": [
+            "op-manage-signals",
+            "op-initiate-alert",
+            "op-broadcast-announcement"
+          ],
+          "partIds": [
+            "part-intercom-module-accs",
+            "part-public-address-subsystem-accs",
+            "part-emergency-alert-module-accs"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-intercom-module-accs",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Intercom Module",
+          "operationIds": [
+            "op-establish-intercom-comm"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-public-address-subsystem-accs",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Public Address Subsystem",
+          "operationIds": [
+            "op-broadcast-announcement-accs"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-emergency-alert-module-accs",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Emergency Alert Module",
+          "operationIds": [
+            "op-trigger-emergency-alert"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-control-interface-module-accs",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Control Interface Module",
+          "operationIds": [
+            "op-interface-cabin-control"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-cabin-control-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "Cabin Control Unit",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-cabin-communication-system-accs",
+          "body": "The Advanced Cabin Communication System (ACCS) is designed for modern aircraft cabins, integrating intercom, public address, and emergency alert functionalities. It ensures high-fidelity audio, rapid response (<1.5s), secure encrypted communications, and dual redundancy for fail-safe operation. The system collaborates with the Cabin Control Unit for seamless cabin management under both routine and emergency scenarios.",
+          "id": "comment-comm-system-accs",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-comm-intercom-accs",
+          "memberEndIds": null,
+          "name": "IntercomComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-cabin-communication-system-accs",
+          "sourceMultiplicity": null,
+          "targetId": "block-intercom-module-accs",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-comm-publicaddress-accs",
+          "memberEndIds": null,
+          "name": "PublicAddressComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-cabin-communication-system-accs",
+          "sourceMultiplicity": null,
+          "targetId": "block-public-address-subsystem-accs",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-comm-emergency-accs",
+          "memberEndIds": null,
+          "name": "EmergencyAlertComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-cabin-communication-system-accs",
+          "sourceMultiplicity": null,
+          "targetId": "block-emergency-alert-module-accs",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "responseTime == 'Under 1.5 seconds'",
+          "id": "constraint-performance-accs",
+          "name": "PerformanceConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "operatingTemperature in ['-50°C','+90°C']",
+          "id": "constraint-temperature-accs",
+          "name": "TemperatureConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-cabin-mode-accs",
+          "literals": [
+            {
+              "id": "literal-normal-accs",
+              "name": "Normal"
+            },
+            {
+              "id": "literal-emergency-accs",
+              "name": "Emergency"
+            },
+            {
+              "id": "literal-maintenance-accs",
+              "name": "Maintenance"
+            }
+          ],
+          "name": "CabinMode",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-cabin-communication-system-accs",
+          "flowSpecificationId": "flow-spec-comm-data-accs",
+          "id": "flowport-comm-data-accs",
+          "isConjugated": false,
+          "name": "CommDataFlowPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "AudioControlData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-comm-data-accs",
+          "name": "CommDataFlowSpec",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-comm-interface-accs",
+          "name": "CommunicationInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-intercom-module-accs",
+          "name": "Intercom Module",
+          "of": "block-intercom-module-accs",
+          "type": "Part"
+        },
+        {
+          "id": "part-public-address-subsystem-accs",
+          "name": "Public Address Subsystem",
+          "of": "block-public-address-subsystem-accs",
+          "type": "Part"
+        },
+        {
+          "id": "part-emergency-alert-module-accs",
+          "name": "Emergency Alert Module",
+          "of": "block-emergency-alert-module-accs",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-cabin-communication-system-accs",
+          "flowSpecificationId": "flow-spec-comm-data-accs",
+          "id": "port-comm-data-accs",
+          "isConjugated": false,
+          "name": "CommunicationDataPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-cabin-communication-system-accs",
+          "id": "proxy-port-comm-control-accs",
+          "isConjugated": false,
+          "name": "CommControlPort",
+          "providedInterfaceIds": [
+            "if-block-comm-interface-accs"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-comm-functionality-accs",
+          "name": "Communication Functionality",
+          "reqId": null,
+          "text": "The system must support clear two‐way intercom communication, enable public address announcements, and activate an emergency alert mode that overrides other communications.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-performance-reliability-accs",
+          "name": "Performance Reliability",
+          "reqId": null,
+          "text": "Communications must be processed and delivered in under 1.5 seconds with real‐time audio processing to ensure prompt response during emergencies.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-safety-compliance-accs",
+          "name": "Safety Compliance",
+          "reqId": null,
+          "text": "The design shall incorporate dual redundancy and emergency override mechanisms to ensure continuous operation under component failures.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-nonfunctional-quality-accs",
+          "name": "Non-Functional Quality",
+          "reqId": null,
+          "text": "Employ advanced AES-256 encryption for secure data transmission and ensure a user-friendly interface with streamlined maintenance protocols.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-temperature-accs",
+          "name": "TemperatureValue",
+          "quantityKindId": "quantity-temperature",
+          "type": "ValueType",
+          "unitId": "unit-celsius"
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-time-accs",
+          "name": "TimeValue",
+          "quantityKindId": "quantity-time",
+          "type": "ValueType",
+          "unitId": "unit-second"
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-power-accs",
+          "name": "PowerValue",
+          "quantityKindId": "quantity-power",
+          "type": "ValueType",
+          "unitId": "unit-watt"
+        }
+      ]
+    }
+  },
+  "reference_system": "cabin_communication_system",
+  "parent_system": null,
+  "timestamp": "20250324_200043"
+}

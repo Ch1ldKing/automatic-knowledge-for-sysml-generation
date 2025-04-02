@@ -1,0 +1,818 @@
+{
+  "system_id": "emergency_oxygen_system",
+  "system_name": "Emergency Oxygen System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Time required for the oxygen system to activate upon detecting cabin depressurization.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "3 seconds"
+      },
+      {
+        "description": "Pressure range of the oxygen system ensuring delivery within safe operational limits.",
+        "name": "operatingPressureRange",
+        "type": "string",
+        "value": "High Pressure: 2000 psi, Low Pressure: 60 psi"
+      },
+      {
+        "description": "Redundancy level of oxygen supply ensuring no single point of failure.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual supply lines"
+      },
+      {
+        "description": "Mean time between failures, reflecting system reliability in prolonged operations.",
+        "name": "MTBF",
+        "type": "string",
+        "value": "15000 hours"
+      },
+      {
+        "description": "Certifications adhering to stringent aviation regulatory standards such as FAA and EASA.",
+        "name": "certification",
+        "type": "string",
+        "value": "FAA and EASA approved"
+      }
+    ],
+    "designScenario": {
+      "description": "The Emergency Oxygen System is engineered to supply supplemental oxygen to passengers and crew during cabin depressurization or other emergency situations. The system integrates high-pressure oxygen storage with automated flow control, rapid mask deployment, and continuous monitoring to ensure immediate and sustained oxygen delivery. Designed according to rigorous airplane engineering standards, the system provides redundancy, real-time diagnostic capabilities, and seamless integration with cockpit alert systems.",
+      "name": "Emergency Oxygen System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Automatically detect cabin depressurization and initiate the oxygen delivery sequence."
+            },
+            {
+              "description": "Deploy oxygen masks within the cabin in coordination with system activation."
+            }
+          ],
+          "title": "Automated Oxygen Delivery",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure oxygen flow is activated within 3 seconds after emergency detection."
+            },
+            {
+              "description": "Maintain a stable and controlled oxygen flow rate at required concentration levels."
+            }
+          ],
+          "title": "Rapid Response",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement dual oxygen supply lines to avoid single points of failure."
+            },
+            {
+              "description": "Integrate fail-safe shutdown protocols to prevent over-pressurization or excessive oxygen delivery."
+            }
+          ],
+          "title": "Redundancy and Fail-Safe Operation",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Design modular components to allow quick maintenance and replacement during routine checks or in-flight diagnostics."
+            },
+            {
+              "description": "Ensure system interfaces are user-friendly for flight crew with compliance to aviation standards."
+            }
+          ],
+          "title": "System Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control and Monitoring Unit continuously aggregates operational data from the Oxygen Storage Module to monitor pressure and supply levels.",
+        "relationshipType": "aggregation",
+        "source": "Control and Monitoring Unit",
+        "target": "Oxygen Storage Module"
+      },
+      {
+        "description": "The Control and Monitoring Unit commands the Oxygen Flow Control Unit to adjust oxygen flow based on sensor data.",
+        "relationshipType": "dependency",
+        "source": "Control and Monitoring Unit",
+        "target": "Oxygen Flow Control Unit"
+      },
+      {
+        "description": "The Control and Monitoring Unit triggers the Mask Deployment Module to deploy oxygen masks when a depressurization event is detected.",
+        "relationshipType": "association",
+        "source": "Control and Monitoring Unit",
+        "target": "Mask Deployment Module"
+      },
+      {
+        "description": "The Oxygen Flow Control Unit is composed of precise components such as the Flow Control Valve and Pressure Regulator for managing oxygen delivery.",
+        "relationshipType": "composition",
+        "source": "Oxygen Flow Control Unit",
+        "target": "Flow Control Valve"
+      },
+      {
+        "description": "The Oxygen Flow Control Unit is composed of critical components such as the Flow Control Valve and Pressure Regulator for managing oxygen delivery.",
+        "relationshipType": "composition",
+        "source": "Oxygen Flow Control Unit",
+        "target": "Pressure Regulator"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Stores high-pressure oxygen in secure tanks and provides essential metrics such as tank pressure and oxygen volume.",
+        "name": "Oxygen Storage Module",
+        "subComponents": [
+          {
+            "description": "High-pressure oxygen tank designed to safely store oxygen at elevated pressures.",
+            "name": "Oxygen Tank",
+            "type": "Storage Unit"
+          },
+          {
+            "description": "Pressure gauge for real-time monitoring of oxygen tank pressure.",
+            "name": "Pressure Gauge",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Storage Unit"
+      },
+      {
+        "description": "Regulates and controls the flow of oxygen from the storage module to the delivery system.",
+        "name": "Oxygen Flow Control Unit",
+        "subComponents": [
+          {
+            "description": "Flow control valve that precisely regulates the oxygen flow rate.",
+            "name": "Flow Control Valve",
+            "type": "Actuator"
+          },
+          {
+            "description": "Pressure regulator ensuring oxygen is delivered within safe pressure limits.",
+            "name": "Pressure Regulator",
+            "type": "Regulator"
+          }
+        ],
+        "type": "Flow Controller"
+      },
+      {
+        "description": "Automates the deployment of oxygen masks to the passengers and crew, ensuring quick and effective oxygen delivery.",
+        "name": "Mask Deployment Module",
+        "subComponents": [
+          {
+            "description": "Deployment actuator responsible for releasing and positioning oxygen masks.",
+            "name": "Deployment Actuator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Mask harness assembly designed for secure fit and optimal oxygen delivery.",
+            "name": "Mask Harness",
+            "type": "Accessory"
+          }
+        ],
+        "type": "Deployment Module"
+      },
+      {
+        "description": "Monitors the overall health of the oxygen system and interfaces with cockpit displays to provide real-time alerts and diagnostics.",
+        "name": "Control and Monitoring Unit",
+        "subComponents": [
+          {
+            "description": "Sensor array that collects data on oxygen pressure, flow rates, and system integrity.",
+            "name": "Sensor Array",
+            "type": "Sensor Module"
+          },
+          {
+            "description": "Alert interface which communicates system status and emergency notifications to the flight crew.",
+            "name": "Alert Interface",
+            "type": "Display Module"
+          }
+        ],
+        "type": "Electronic Control Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-ccu-oxygen-storage-es",
+          "memberEndIds": null,
+          "name": "ControlUnitAggregatesOxygenStorage",
+          "ownedEndIds": null,
+          "sourceId": "block-control-monitoring-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-oxygen-storage-module",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-ccu-mask-deployment-es",
+          "memberEndIds": null,
+          "name": "CCUTriggersMaskDeployment",
+          "ownedEndIds": null,
+          "sourceId": "block-control-monitoring-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-mask-deployment-module",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "3 seconds",
+          "id": "attr-es-response-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "High Pressure: 2000 psi, Low Pressure: 60 psi",
+          "id": "attr-es-operating-pressure-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operatingPressureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "High Pressure: 2000 psi, Low Pressure: 60 psi",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual supply lines",
+          "id": "attr-es-redundancy-level",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual supply lines",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "15000 hours",
+          "id": "attr-es-MTBF",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "MTBF",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "15000 hours",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "FAA and EASA approved",
+          "id": "attr-es-certification",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "certification",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "FAA and EASA approved",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-es-response-time",
+            "attr-es-operating-pressure-range",
+            "attr-es-redundancy-level",
+            "attr-es-MTBF",
+            "attr-es-certification"
+          ],
+          "constraintIds": null,
+          "id": "block-emergency-oxygen-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "EmergencyOxygenSystem",
+          "operationIds": [
+            "op-initiateOxygenDelivery",
+            "op-runSelfTest"
+          ],
+          "partIds": [
+            "part-oxygen-storage-module",
+            "part-oxygen-flow-control-unit",
+            "part-mask-deployment-module",
+            "part-control-monitoring-unit"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-oxygen-storage-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "OxygenStorageModule",
+          "operationIds": [
+            "op-monitorTankPressure"
+          ],
+          "partIds": [
+            "part-oxygen-tank",
+            "part-pressure-gauge"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-oxygen-flow-control-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "OxygenFlowControlUnit",
+          "operationIds": [
+            "op-regulateOxygenFlow"
+          ],
+          "partIds": [
+            "part-flow-control-valve",
+            "part-pressure-regulator"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-mask-deployment-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "MaskDeploymentModule",
+          "operationIds": [
+            "op-deployOxygenMasks"
+          ],
+          "partIds": [
+            "part-deployment-actuator",
+            "part-mask-harness"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-control-monitoring-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ControlMonitoringUnit_Oxygen",
+          "operationIds": [
+            "op-aggregateSensorData"
+          ],
+          "partIds": [
+            "part-sensor-array",
+            "part-alert-interface"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-oxygen-tank",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "OxygenTank",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-pressure-gauge",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "PressureGauge",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-flow-control-valve",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FlowControlValve",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-pressure-regulator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "PressureRegulator",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-deployment-actuator",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "DeploymentActuator",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-mask-harness",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "MaskHarness",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-sensor-array",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "SensorArray",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-alert-interface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AlertInterface",
+          "operationIds": [],
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-emergency-oxygen-system",
+          "body": "Emergency Oxygen System integrates high-pressure oxygen storage, automated flow control, mask deployment, and continuous monitoring. Engineered to meet rigorous aviation standards.",
+          "id": "comment-oxygen-system-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-flow-control-valve",
+          "memberEndIds": null,
+          "name": "FlowControlCompositionValve",
+          "ownedEndIds": null,
+          "sourceId": "block-oxygen-flow-control-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-flow-control-valve",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-pressure-regulator",
+          "memberEndIds": null,
+          "name": "FlowControlCompositionPressureRegulator",
+          "ownedEndIds": null,
+          "sourceId": "block-oxygen-flow-control-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-pressure-regulator",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "responseTime <= '3 seconds' and MTBF >= '15000 hours'",
+          "id": "constraint-es-timing",
+          "name": "TimingAndReliabilityConstraint_ES",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-ccu-flow-control-es",
+          "name": "ControlUnitDependsOnFlowControl",
+          "sourceId": "block-control-monitoring-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-oxygen-flow-control-unit",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": [
+        {
+          "attributeIds": null,
+          "id": "domain-emergency",
+          "name": "EmergencyDomain",
+          "type": "Domain"
+        }
+      ],
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-oxygen-certification",
+          "literals": [
+            {
+              "id": "literal-cert-faa",
+              "name": "FAA"
+            },
+            {
+              "id": "literal-cert-easa",
+              "name": "EASA"
+            }
+          ],
+          "name": "OxygenCertification",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-control-monitoring-unit",
+          "flowSpecificationId": "flow-spec-oxygen-data",
+          "id": "flow-port-oxygen-sensor-in",
+          "isConjugated": false,
+          "name": "OxygenSensorDataIn",
+          "type": "FlowPort"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-emergency-oxygen-system",
+          "flowSpecificationId": "flow-spec-oxygen-data",
+          "id": "flow-port-oxygen-data-out",
+          "isConjugated": false,
+          "name": "OxygenDataOut",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "OxygenFlowData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-oxygen-data",
+          "name": "OxygenDataFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": [],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-oxygen-system-interface",
+          "name": "EmergencyOxygenSystemInterfaceSpec",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-oxygen-storage-module",
+          "name": "OxygenStorageModulePart",
+          "of": "block-oxygen-storage-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-oxygen-flow-control-unit",
+          "name": "OxygenFlowControlUnitPart",
+          "of": "block-oxygen-flow-control-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-mask-deployment-module",
+          "name": "MaskDeploymentModulePart",
+          "of": "block-mask-deployment-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-control-monitoring-unit",
+          "name": "ControlMonitoringUnitPart_Oxygen",
+          "of": "block-control-monitoring-unit",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-control-monitoring-unit",
+          "flowSpecificationId": "flow-spec-oxygen-data",
+          "id": "port-ccu-oxygen-data-in",
+          "isConjugated": false,
+          "name": "CCU_OxygenDataIn",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-oxygen-system-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-emergency-oxygen-system",
+          "flowSpecificationId": "flow-spec-oxygen-data",
+          "id": "port-es-oxygen-data-out",
+          "isConjugated": false,
+          "name": "EmergencyOxygenDataOut",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "ifb-oxygen-system-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-emergency-oxygen-system",
+          "id": "proxy-port-oxygen-interface",
+          "isConjugated": false,
+          "name": "OxygenInterfacePort",
+          "providedInterfaceIds": [
+            "ifb-oxygen-system-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-es-automated-oxygen-delivery",
+          "name": "Automated Oxygen Delivery",
+          "reqId": null,
+          "text": "Automatically detect cabin depressurization and initiate the oxygen delivery sequence. Deploy oxygen masks throughout the cabin.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-es-rapid-response",
+          "name": "Rapid Response",
+          "reqId": null,
+          "text": "Ensure oxygen flow is activated within 3 seconds after emergency detection and maintain a stable oxygen flow.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-es-redundancy-failsafe",
+          "name": "Redundancy and Fail-Safe Operation",
+          "reqId": null,
+          "text": "Implement dual oxygen supply lines and fail-safe shutdown protocols to prevent over-pressurization.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-es-maintainability",
+          "name": "System Maintainability",
+          "reqId": null,
+          "text": "Design modular components for quick maintenance and replacement with user-friendly interfaces for flight crew.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-time-es",
+          "name": "TimeValue_ES",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-pressure",
+          "name": "PressureValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": "psi"
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "safety_emergency_systems",
+  "timestamp": "20250324_212138"
+}

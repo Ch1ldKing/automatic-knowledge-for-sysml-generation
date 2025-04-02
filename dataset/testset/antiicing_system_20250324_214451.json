@@ -1,0 +1,843 @@
+{
+  "system_id": "antiicing_system",
+  "system_name": "Anti-Icing System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operational temperature range for activation of anti-ice and de-ice mechanisms.",
+        "name": "operationalTemperatureRange",
+        "type": "string",
+        "value": "-25°C to +25°C"
+      },
+      {
+        "description": "Response time for detection and mitigation actions in icing conditions.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 4 seconds"
+      },
+      {
+        "description": "Primary and backup energy sources powering the system including electric and pneumatic resources.",
+        "name": "energySource",
+        "type": "string",
+        "value": "Electric / Pneumatic"
+      },
+      {
+        "description": "Compliance with international certification and aerospace standards (FAA, EASA, and others).",
+        "name": "certification",
+        "type": "string",
+        "value": "FAA/EASA/Regional Certified"
+      },
+      {
+        "description": "System redundancy ensuring high reliability through triple-redundant control circuits and power backups.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Triple-redundant control circuits"
+      }
+    ],
+    "designScenario": {
+      "description": "The Advanced Anti-Ice and De-Ice System is engineered to proactively prevent ice accretion on critical surfaces such as wings, engine inlets, and control surfaces. Incorporating a distributed sensor network, intelligent control algorithms, and dual modality actuation (heating and fluid dispersion), this system continuously monitors atmospheric and surface conditions. Predictive analytics adjust system response in real time to rapidly activate anti-icing measures while optimizing energy usage and ensuring passenger safety in severe weather conditions.",
+      "name": "Advanced Anti-Ice and De-Ice System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall continuously monitor surface temperature, humidity, and ice buildup indicators using an integrated sensor network."
+            },
+            {
+              "description": "Automatic activation of de-icing and anti-icing mechanisms must occur upon detection of icing conditions."
+            }
+          ],
+          "title": "Icing Detection and Automated Response",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must initiate anti-icing measures within 4 seconds of ice detection to maintain aerodynamic performance."
+            },
+            {
+              "description": "It shall regulate surface temperatures efficiently while minimizing overall energy consumption."
+            }
+          ],
+          "title": "Performance Efficiency and Timeliness",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Redundant sensor arrays and control circuits must be implemented to ensure system reliability in the event of a component failure."
+            },
+            {
+              "description": "Fallback mechanisms must isolate malfunctioning subsystems, ensuring continued operation of critical anti-ice functions."
+            }
+          ],
+          "title": "Safety and Redundancy Assurance",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "User interfaces for system diagnostics and maintenance shall be intuitive and compliant with ergonomic standards."
+            },
+            {
+              "description": "The system design must facilitate modular upgrades and routine servicing with minimal aircraft downtime."
+            }
+          ],
+          "title": "Non-Functional Maintenance and Usability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Module relies on data from the Sensor Network to determine when to activate heating or fluid dispersion.",
+        "relationshipType": "dependency",
+        "source": "Control Module",
+        "target": "Sensor Network"
+      },
+      {
+        "description": "The Control Module commands the Heating System to activate electric heater arrays in response to icing.",
+        "relationshipType": "dependency",
+        "source": "Control Module",
+        "target": "Heating System"
+      },
+      {
+        "description": "The Fluid Dispersion Module is composed of a Fluid Pump and Valve Actuator which together manage de-icing fluid application.",
+        "relationshipType": "composition",
+        "source": "Fluid Dispersion Module",
+        "target": "Fluid Pump and Valve Actuator"
+      },
+      {
+        "description": "The Power Management Unit aggregates and regulates power supply for both the Control Module and Heating System during operations.",
+        "relationshipType": "aggregation",
+        "source": "Power Management Unit",
+        "target": "Control Module"
+      },
+      {
+        "description": "The Communication Suite is associated with the Aircraft’s Central Monitoring System for real-time diagnostics and data logging.",
+        "relationshipType": "association",
+        "source": "Communication Suite",
+        "target": "Aircraft Central Monitoring System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Centralized processing unit that aggregates sensor inputs and issues commands to activate de-icing and anti-icing measures.",
+        "name": "Control Module",
+        "subComponents": null,
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Integrated network of sensors that continually monitors environmental and surface conditions for icing detection.",
+        "name": "Sensor Network",
+        "subComponents": [
+          {
+            "description": "Thermal sensors monitoring surface and ambient temperatures.",
+            "name": "Thermal Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Humidity sensors that assess moisture levels critical for ice formation.",
+            "name": "Humidity Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Ice gauge sensors that measure the rate of ice accumulation.",
+            "name": "Ice Gauge Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Component"
+      },
+      {
+        "description": "Subsystem that employs electric heaters to raise the temperature of critical surfaces, preventing ice adherence.",
+        "name": "Heating System",
+        "subComponents": [
+          {
+            "description": "Electric heater arrays strategically positioned along the wings and engine inlets.",
+            "name": "Heater Array",
+            "type": "Actuator"
+          },
+          {
+            "description": "Thermal control regulators ensuring optimal heat distribution.",
+            "name": "Thermal Regulator",
+            "type": "Controller"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Module responsible for dispersing de-icing fluid to remove accumulated ice from aircraft surfaces.",
+        "name": "Fluid Dispersion Module",
+        "subComponents": [
+          {
+            "description": "Fluid Pump that pressurizes and pushes de-icing fluid through the system.",
+            "name": "Fluid Pump",
+            "type": "Actuator"
+          },
+          {
+            "description": "Valve Actuator that accurately controls the release of de-icing fluid.",
+            "name": "Valve Actuator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Distribution manifold that evenly channels fluid to targeted zones.",
+            "name": "Distribution Manifold",
+            "type": "Controller"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Unit dedicated to managing and regulating power supply across all system components, including emergency backups.",
+        "name": "Power Management Unit",
+        "subComponents": [
+          {
+            "description": "Dual connection to the aircraft’s alternators providing continuous power.",
+            "name": "Dual Alternator Interface",
+            "type": "Power Unit"
+          },
+          {
+            "description": "Emergency battery system ensuring uninterrupted operation during power fluctuations.",
+            "name": "Emergency Battery",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Communication module that facilitates real-time monitoring, diagnostics, and remote command capabilities.",
+        "name": "Communication Suite",
+        "subComponents": [
+          {
+            "description": "Digital diagnostic interface for onboard system analysis and maintenance.",
+            "name": "Diagnostic Interface",
+            "type": "Interface Module"
+          },
+          {
+            "description": "Telemetry transmitter that communicates operational data to ground control and central monitoring.",
+            "name": "Telemetry Transmitter",
+            "type": "Communications Hardware"
+          }
+        ],
+        "type": "Communication Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-power-control",
+          "memberEndIds": null,
+          "name": "AggregatesPowerForControlModule",
+          "ownedEndIds": null,
+          "sourceId": "block-power-management-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-control-module",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-comms-monitoring",
+          "memberEndIds": null,
+          "name": "CommunicatesWithAircraftMonitor",
+          "ownedEndIds": null,
+          "sourceId": "block-communication-suite",
+          "sourceMultiplicity": null,
+          "targetId": "block-aircraft-central-monitoring",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "-25°C to +25°C",
+          "id": "attr-operational-temperature-range",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operationalTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-25°C to +25°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Under 4 seconds",
+          "id": "attr-response-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Under 4 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Electric / Pneumatic",
+          "id": "attr-energy-source",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "energySource",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Electric / Pneumatic",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "FAA/EASA/Regional Certified",
+          "id": "attr-certification",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "certification",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "FAA/EASA/Regional Certified",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Triple-redundant control circuits",
+          "id": "attr-redundancy-level",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Triple-redundant control circuits",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-operational-temperature-range",
+            "attr-response-time",
+            "attr-energy-source",
+            "attr-certification",
+            "attr-redundancy-level"
+          ],
+          "constraintIds": null,
+          "id": "block-anti-ice-deice-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "AntiIceDeIceSystem",
+          "operationIds": [
+            "op-initiateAntiIce",
+            "op-activateDeIce",
+            "op-monitorIcingConditions"
+          ],
+          "partIds": [
+            "part-control-module",
+            "part-sensor-network",
+            "part-heating-system",
+            "part-fluid-dispersion-module",
+            "part-power-management-unit",
+            "part-communication-suite"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-control-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ControlModule",
+          "operationIds": [
+            "op-decideActivation",
+            "op-sendCommandSignals"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-sensor-network",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "SensorNetwork",
+          "operationIds": [
+            "op-collectEnvironmentalData"
+          ],
+          "partIds": [
+            "part-thermal-sensor",
+            "part-humidity-sensor",
+            "part-ice-gauge-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-heating-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HeatingSystem",
+          "operationIds": [
+            "op-activateHeaters"
+          ],
+          "partIds": [
+            "part-heater-array",
+            "part-thermal-controller"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-fluid-dispersion-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FluidDispersionModule",
+          "operationIds": [
+            "op-dispenseDeIceFluid"
+          ],
+          "partIds": [
+            "part-fluid-pump",
+            "part-valve-actuator",
+            "part-fluid-distributor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-power-management-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "PowerManagementUnit",
+          "operationIds": [
+            "op-regulatePower"
+          ],
+          "partIds": [
+            "part-primary-power-interface",
+            "part-emergency-battery"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-communication-suite",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "CommunicationSuite",
+          "operationIds": [
+            "op-transmitDiagnostics",
+            "op-receiveCommands"
+          ],
+          "partIds": [
+            "part-diagnostic-interface",
+            "part-telemetry-transmitter"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-aircraft-central-monitoring",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "AircraftCentralMonitoring",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-anti-ice-deice-system",
+          "body": "This Anti-Ice and De-Ice System integrates sensor-based icing detection, active heating, fluid dispersion, and redundant power management to ensure aerodynamic performance and passenger safety under severe weather conditions while complying with international aerospace standards.",
+          "id": "comment-system-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-fluid-actuation-assembly",
+          "memberEndIds": null,
+          "name": "FluidActuationComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-fluid-dispersion-module",
+          "sourceMultiplicity": null,
+          "targetId": "part-fluid-pump",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "operationalTemperatureRange must remain within -25°C and +25°C for reliable activation of anti-icing measures",
+          "id": "cons-temp-range",
+          "name": "TemperatureOperationalConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [],
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-control-sensor",
+          "name": "ControlModuleDependsOnSensorData",
+          "sourceId": "block-control-module",
+          "sourceMultiplicity": null,
+          "targetId": "block-sensor-network",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        },
+        {
+          "id": "dep-control-heating",
+          "name": "ControlModuleCommandsHeatingSystem",
+          "sourceId": "block-control-module",
+          "sourceMultiplicity": null,
+          "targetId": "block-heating-system",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-antiice-status",
+          "literals": [
+            {
+              "id": "literal-inactive",
+              "name": "Inactive"
+            },
+            {
+              "id": "literal-active",
+              "name": "Active"
+            },
+            {
+              "id": "literal-fault",
+              "name": "Fault"
+            }
+          ],
+          "name": "AntiIceStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-control-module",
+          "flowSpecificationId": "flow-spec-sensor-data",
+          "id": "flowport-sensor-input",
+          "isConjugated": false,
+          "name": "SensorDataInput",
+          "type": "FlowPort"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-communication-suite",
+          "flowSpecificationId": "flow-spec-operational-data",
+          "id": "flowport-data-output",
+          "isConjugated": false,
+          "name": "DataOutput",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "SensorData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-sensor-data",
+          "name": "SensorDataFlow",
+          "type": "FlowSpecification",
+          "unit": "N/A"
+        },
+        {
+          "attributeIds": null,
+          "dataType": "OperationalData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-operational-data",
+          "name": "OperationalDataFlow",
+          "type": "FlowSpecification",
+          "unit": "N/A"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-diagnostic",
+          "name": "DiagnosticInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-maintenance",
+          "name": "MaintenanceInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-antiice-deice",
+          "name": "AntiIceDeIceSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-control-module",
+          "name": "ControlModule",
+          "of": "block-control-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-sensor-network",
+          "name": "SensorNetwork",
+          "of": "block-sensor-network",
+          "type": "Part"
+        },
+        {
+          "id": "part-heating-system",
+          "name": "HeatingSystem",
+          "of": "block-heating-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-fluid-dispersion-module",
+          "name": "FluidDispersionModule",
+          "of": "block-fluid-dispersion-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-power-management-unit",
+          "name": "PowerManagementUnit",
+          "of": "block-power-management-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-communication-suite",
+          "name": "CommunicationSuite",
+          "of": "block-communication-suite",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-control-module",
+          "flowSpecificationId": "flow-spec-sensor-data",
+          "id": "port-sensor-input",
+          "isConjugated": false,
+          "name": "SensorInputPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-diagnostic"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-communication-suite",
+          "flowSpecificationId": "flow-spec-operational-data",
+          "id": "port-data-output",
+          "isConjugated": false,
+          "name": "DataOutputPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-maintenance"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-fluid-dispersion-module",
+          "id": "proxyport-fluid-control",
+          "isConjugated": false,
+          "name": "FluidControlPort",
+          "providedInterfaceIds": [
+            "if-block-diagnostic"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-icing-detection-activation",
+          "name": "IcingDetectionAndAutoActivation",
+          "reqId": null,
+          "text": "The system shall continuously monitor surface temperature, humidity, and ice buildup using an integrated sensor network and automatically activate anti-icing and de-icing mechanisms upon detection of icing conditions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-performance-timeliness",
+          "name": "PerformanceEfficiencyAndTimeliness",
+          "reqId": null,
+          "text": "The system must initiate anti-icing measures within 4 seconds of detection and manage energy consumption by regulating heater outputs and fluid dispersion.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-safety-redundancy",
+          "name": "SafetyAndRedundancyAssurance",
+          "reqId": null,
+          "text": "Redundant sensor arrays and control circuits shall be implemented to ensure system reliability and isolate faulty subsystems.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-maintenance-usability",
+          "name": "NonFunctionalMaintenanceAndUsability",
+          "reqId": null,
+          "text": "User interfaces for diagnostics and maintenance shall be intuitive and support modular upgrades with minimal aircraft downtime.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": [
+        {
+          "id": "usage-control-sensor-data",
+          "name": "ControlModuleUsesSensorData",
+          "sourceId": "block-control-module",
+          "targetId": "block-sensor-network",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-power-for-heating",
+          "name": "HeatingSystemUsesPowerManagement",
+          "sourceId": "block-heating-system",
+          "targetId": "block-power-management-unit",
+          "type": "Usage"
+        }
+      ],
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-temperature",
+          "name": "TemperatureValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-time",
+          "name": "TimeValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        }
+      ]
+    }
+  },
+  "reference_system": "anti_ice_system",
+  "parent_system": null,
+  "timestamp": "20250324_214451"
+}

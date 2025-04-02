@@ -1,0 +1,550 @@
+{
+  "system_id": "rudder_system",
+  "system_name": "Rudder System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Defines the maximum actuation time for the rudder to respond to control inputs, ensuring rapid deflection under critical conditions.",
+        "name": "actuationTime",
+        "type": "string",
+        "value": "<45ms"
+      },
+      {
+        "description": "Specifies the deflection precision to achieve fine angular adjustments during yaw control maneuvers.",
+        "name": "deflectionPrecision",
+        "type": "string",
+        "value": "±0.05°"
+      },
+      {
+        "description": "Indicates the material composition used to withstand high aerodynamic stresses while ensuring weight reduction.",
+        "name": "materialComposition",
+        "type": "string",
+        "value": "Ceramic Matrix Composites"
+      },
+      {
+        "description": "Describes the environmental operating limits, including testing standards for temperature range and exposure to corrosive elements.",
+        "name": "environmentLimits",
+        "type": "string",
+        "value": "-50°C to +90°C, humidity and salt spray resistant"
+      },
+      {
+        "description": "Specifies the aerodynamic efficiency designed into the rudder surface to reduce drag and enhance airflow.",
+        "name": "aerodynamicEfficiency",
+        "type": "string",
+        "value": "Optimized airfoil design, 10% drag reduction vs legacy models"
+      }
+    ],
+    "designScenario": {
+      "description": "The advanced Rudder system is engineered for enhanced yaw control and stability under diverse flight conditions. It integrates adaptive control mechanisms, rapid response actuation, and redundant sensing technology to ensure precision and safety. The design features a high-performance mechanical assembly with a focus on durability, modular maintainability, and aerodynamic efficiency. The system is optimized for both high-speed maneuvers and steady-state cruising, ensuring responsive adjustments coupled with minimal oscillations.",
+      "name": "Rudder",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Interpret flight control commands and translate them into finely graded deflection adjustments for robust aerodynamic yaw control."
+            },
+            {
+              "description": "Seamlessly integrate with the aircraft's flight control system to automatically adjust deflection based on real-time sensor data."
+            }
+          ],
+          "title": "Adaptive Yaw Control",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve maximum deflection within 45 milliseconds of input signal recognition for high-speed maneuvering."
+            },
+            {
+              "description": "Minimize residual oscillations to ensure smooth transitions and rapid damping post deflection."
+            }
+          ],
+          "title": "High-Speed Actuation Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement triple-redundant sensor arrays and self-diagnostic routines to detect and manage potential system faults."
+            },
+            {
+              "description": "Ensure a fail-safe mode that reverts the rudder to a predefined conservative position upon detecting anomalies."
+            }
+          ],
+          "title": "Redundancy and Fault Management",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Utilize advanced composite materials and modular design to enhance durability and ease of maintenance."
+            },
+            {
+              "description": "Optimize the structural layout to support long-term reliability under repetitive stress and environmental exposures."
+            }
+          ],
+          "title": "Durability and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Rudder is a key component within the overall Flight Control Surfaces system, aggregating with other aerodynamic surfaces.",
+        "relationshipType": "aggregation",
+        "source": "Flight Control Surfaces",
+        "target": "Rudder"
+      },
+      {
+        "description": "The Electronic Control Module sends critical actuation commands to the rudder system, ensuring coordinated movements.",
+        "relationshipType": "dependency",
+        "source": "Electronic Control Module",
+        "target": "Rudder"
+      },
+      {
+        "description": "The Rudder Actuator is a constituent part of the rudder assembly, comprising multiple electromechanical subcomponents that form a cohesive unit.",
+        "relationshipType": "composition",
+        "source": "Rudder",
+        "target": "Rudder Actuator"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The primary aerodynamic surface responsible for controlling yaw and maintaining directional stability through precise deflection.",
+        "name": "Rudder Assembly",
+        "subComponents": [
+          {
+            "description": "A high-strength blade designed for optimal aerodynamic performance with an optimized airfoil shape.",
+            "name": "Rudder Blade",
+            "type": "Control Surface"
+          },
+          {
+            "description": "A robust hinge mechanism that facilitates stable and precise pivot movements necessary for effective deflection.",
+            "name": "Pivot Assembly",
+            "type": "Mechanical Assembly"
+          },
+          {
+            "description": "Structural reinforcement elements that provide additional rigidity and resilience against high aerodynamic loads.",
+            "name": "Structural Reinforcement",
+            "type": "Support Structure"
+          }
+        ],
+        "type": "Control Surface Assembly"
+      },
+      {
+        "description": "The electromechanical component that receives control inputs and executes the precise movements of the rudder through servo mechanisms.",
+        "name": "Rudder Actuator",
+        "subComponents": [
+          {
+            "description": "An electromechanical servo that converts electrical signals into mechanical displacement of the rudder.",
+            "name": "Electromechanical Servo",
+            "type": "Actuator Component"
+          },
+          {
+            "description": "Coupled sensor array for real-time feedback, ensuring that the rudder's position accurately reflects control commands.",
+            "name": "Feedback Sensor Unit",
+            "type": "Sensor Module"
+          }
+        ],
+        "type": "Electromechanical Assembly"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": null,
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "<45ms",
+          "id": "attr-actuationTime",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "actuationTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "<45ms",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "±0.05°",
+          "id": "attr-deflectionPrecision",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "deflectionPrecision",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "±0.05°",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Ceramic Matrix Composites",
+          "id": "attr-materialComposition",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "materialComposition",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Ceramic Matrix Composites",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-50°C to +90°C, humidity and salt spray resistant",
+          "id": "attr-environmentLimits",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "environmentLimits",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-50°C to +90°C, humidity and salt spray resistant",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Optimized airfoil design, 10% drag reduction vs legacy models",
+          "id": "attr-aerodynamicEfficiency",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "aerodynamicEfficiency",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Optimized airfoil design, 10% drag reduction vs legacy models",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-actuationTime",
+            "attr-deflectionPrecision",
+            "attr-materialComposition",
+            "attr-environmentLimits",
+            "attr-aerodynamicEfficiency"
+          ],
+          "constraintIds": null,
+          "id": "block-rudder",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Rudder",
+          "operationIds": [],
+          "partIds": [
+            "part-rudder-blade",
+            "part-pivot-assembly",
+            "part-structural-reinforcement"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-rudder-actuator",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "Rudder Actuator Assembly",
+          "operationIds": [],
+          "partIds": [
+            "part-electromechanical-servo",
+            "part-feedback-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-rudder",
+          "body": "Design Scenario: The advanced Rudder system is engineered for enhanced yaw control and stability under diverse flight conditions. It integrates adaptive control mechanisms, rapid response actuation, and redundant sensing technology. The high-performance mechanical assembly emphasizes durability, modular maintainability, and aerodynamic efficiency for both high-speed maneuvers and steady-state cruising.",
+          "id": "comment-rudder-design",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-rudder-actuator",
+          "memberEndIds": [
+            "block-rudder",
+            "block-rudder-actuator"
+          ],
+          "name": "CompositionRudderActuatorAssembly",
+          "ownedEndIds": [
+            "block-rudder-actuator"
+          ],
+          "sourceId": "block-rudder",
+          "sourceMultiplicity": "1",
+          "targetId": "block-rudder-actuator",
+          "targetMultiplicity": "1",
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "actuationTime < 45ms",
+          "id": "constraint-actuationTime",
+          "name": "ActuationTimeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "abs(deflectionPrecision) <= 0.05°",
+          "id": "constraint-deflectionPrecision",
+          "name": "DeflectionPrecisionConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-ecm-to-rudder",
+          "name": "Electronic Control Dependency",
+          "sourceId": "Electronic Control Module",
+          "sourceMultiplicity": "1",
+          "targetId": "Rudder",
+          "targetMultiplicity": "1",
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-rudder-condition",
+          "literals": [
+            {
+              "id": "literal-nominal",
+              "name": "Nominal"
+            },
+            {
+              "id": "literal-alert",
+              "name": "Alert"
+            },
+            {
+              "id": "literal-critical",
+              "name": "Critical"
+            }
+          ],
+          "name": "RudderCondition",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-rudder",
+          "flowSpecificationId": "flow-spec-rudder-actuation",
+          "id": "flowport-rudder-actuation-in",
+          "isConjugated": false,
+          "name": "RudderActuationInPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "ControlCommand",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-rudder-actuation",
+          "name": "RudderActuationCommandFlow",
+          "type": "FlowSpecification",
+          "unit": "ms"
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-rudder",
+          "id": "port-rudder-data-out",
+          "isConjugated": false,
+          "name": "RudderDataOutPort",
+          "providedInterfaceIds": [
+            "ifb-rudder-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-rudder-interface",
+          "name": "RudderInterface",
+          "operationIds": [],
+          "signalIds": [],
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-rudder-blade",
+          "name": "Rudder Blade",
+          "of": "block-rudder",
+          "type": "Part"
+        },
+        {
+          "id": "part-pivot-assembly",
+          "name": "Pivot Assembly",
+          "of": "block-rudder",
+          "type": "Part"
+        },
+        {
+          "id": "part-structural-reinforcement",
+          "name": "Structural Reinforcement",
+          "of": "block-rudder",
+          "type": "Part"
+        },
+        {
+          "id": "part-electromechanical-servo",
+          "name": "Electromechanical Servo",
+          "of": "block-rudder-actuator",
+          "type": "Part"
+        },
+        {
+          "id": "part-feedback-sensor",
+          "name": "Feedback Sensor Unit",
+          "of": "block-rudder-actuator",
+          "type": "Part"
+        }
+      ],
+      "ports": null,
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-rudder",
+          "id": "proxyport-rudder-sensor-in",
+          "isConjugated": false,
+          "name": "RudderSensorInPort",
+          "providedInterfaceIds": [
+            "ifb-rudder-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-adaptive-yaw-control",
+          "name": "Adaptive Yaw Control",
+          "reqId": "REQ-RUDDER-001",
+          "text": "Interpret flight control commands and translate them into finely graded deflection adjustments for robust aerodynamic yaw control. Seamlessly integrate with the aircraft's flight control system utilizing real-time sensor data.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-high-speed-actuation",
+          "name": "High-Speed Actuation Performance",
+          "reqId": "REQ-RUDDER-002",
+          "text": "Achieve maximum rudder deflection within 45 milliseconds of command initiation while minimizing residual oscillations for smooth transitions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-redundancy-fault",
+          "name": "Redundancy and Fault Management",
+          "reqId": "REQ-RUDDER-003",
+          "text": "Implement triple-redundant sensor arrays and self-diagnostic routines to detect faults and automatically revert to a safe rudder position upon anomalies.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-durability-maintainability",
+          "name": "Durability and Maintainability",
+          "reqId": "REQ-RUDDER-004",
+          "text": "Utilize advanced composite materials and a modular design to enhance long-term durability and ease of maintenance under repetitive stress and environmental exposures.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-angle",
+          "name": "AngleValue",
+          "quantityKindId": "quantity-angle",
+          "type": "ValueType",
+          "unitId": "unit-degrees"
+        }
+      ]
+    }
+  },
+  "reference_system": "rudder",
+  "parent_system": null,
+  "timestamp": "20250324_171848"
+}

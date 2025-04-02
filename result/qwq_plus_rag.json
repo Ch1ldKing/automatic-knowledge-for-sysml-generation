@@ -1,0 +1,79 @@
+{
+  "results": {
+    "Structural Element Definition": {
+      "TP": 148,
+      "TN": 48,
+      "FP": 80,
+      "FN": 217
+    },
+    "Relationship Modeling": {
+      "TP": 10,
+      "TN": 71,
+      "FP": 75,
+      "FN": 160
+    },
+    "Attributes and Constraints": {
+      "TP": 80,
+      "TN": 91,
+      "FP": 128,
+      "FN": 166
+    },
+    "Interface and Connectivity Modeling": {
+      "TP": 69,
+      "TN": 12,
+      "FP": 21,
+      "FN": 158
+    },
+    "Requirements and Verification Modeling": {
+      "TP": 22,
+      "TN": 2,
+      "FP": 29,
+      "FN": 154
+    }
+  },
+  "metrics": {
+    "Structural Element Definition": {
+      "Precision": 0.6491228070175439,
+      "Recall": 0.4054794520547945,
+      "Accuracy": 0.3975659229208925,
+      "False_alarm": 0.625,
+      "F1": 0.49915682967959535
+    },
+    "Relationship Modeling": {
+      "Precision": 0.11764705882352941,
+      "Recall": 0.058823529411764705,
+      "Accuracy": 0.2563291139240506,
+      "False_alarm": 0.5136986301369864,
+      "F1": 0.07843137254901962
+    },
+    "Attributes and Constraints": {
+      "Precision": 0.38461538461538464,
+      "Recall": 0.3252032520325203,
+      "Accuracy": 0.36774193548387096,
+      "False_alarm": 0.5844748858447488,
+      "F1": 0.3524229074889868
+    },
+    "Interface and Connectivity Modeling": {
+      "Precision": 0.7666666666666667,
+      "Recall": 0.3039647577092511,
+      "Accuracy": 0.31153846153846154,
+      "False_alarm": 0.6363636363636364,
+      "F1": 0.43533123028391163
+    },
+    "Requirements and Verification Modeling": {
+      "Precision": 0.43137254901960786,
+      "Recall": 0.125,
+      "Accuracy": 0.11594202898550725,
+      "False_alarm": 0.9354838709677419,
+      "F1": 0.19383259911894274
+    },
+    "Overall": {
+      "Precision": 0.49697885196374625,
+      "Recall": 0.2778716216216216,
+      "Accuracy": 0.3176335439402642,
+      "False_alarm": 0.5978456014362658,
+      "F1": 0.3564463705308776
+    }
+  },
+  "timestamp": "2025-03-26 02:05:57"
+}

@@ -1,0 +1,79 @@
+{
+  "results": {
+    "Structural Element Definition": {
+      "TP": 255,
+      "TN": 11,
+      "FP": 55,
+      "FN": 161
+    },
+    "Relationship Modeling": {
+      "TP": 79,
+      "TN": 80,
+      "FP": 40,
+      "FN": 90
+    },
+    "Attributes and Constraints": {
+      "TP": 168,
+      "TN": 72,
+      "FP": 50,
+      "FN": 120
+    },
+    "Interface and Connectivity Modeling": {
+      "TP": 66,
+      "TN": 0,
+      "FP": 11,
+      "FN": 183
+    },
+    "Requirements and Verification Modeling": {
+      "TP": 72,
+      "TN": 0,
+      "FP": 5,
+      "FN": 149
+    }
+  },
+  "metrics": {
+    "Structural Element Definition": {
+      "Precision": 0.8225806451612904,
+      "Recall": 0.6129807692307693,
+      "Accuracy": 0.5518672199170125,
+      "False_alarm": 0.8333333333333334,
+      "F1": 0.7024793388429753
+    },
+    "Relationship Modeling": {
+      "Precision": 0.6638655462184874,
+      "Recall": 0.46745562130177515,
+      "Accuracy": 0.5501730103806228,
+      "False_alarm": 0.3333333333333333,
+      "F1": 0.548611111111111
+    },
+    "Attributes and Constraints": {
+      "Precision": 0.7706422018348624,
+      "Recall": 0.5833333333333334,
+      "Accuracy": 0.5853658536585366,
+      "False_alarm": 0.4098360655737705,
+      "F1": 0.6640316205533598
+    },
+    "Interface and Connectivity Modeling": {
+      "Precision": 0.8571428571428571,
+      "Recall": 0.26506024096385544,
+      "Accuracy": 0.25384615384615383,
+      "False_alarm": 1.0,
+      "F1": 0.4049079754601227
+    },
+    "Requirements and Verification Modeling": {
+      "Precision": 0.935064935064935,
+      "Recall": 0.3257918552036199,
+      "Accuracy": 0.3185840707964602,
+      "False_alarm": 1.0,
+      "F1": 0.48322147651006714
+    },
+    "Overall": {
+      "Precision": 0.7990012484394506,
+      "Recall": 0.4765450483991065,
+      "Accuracy": 0.48170365926814634,
+      "False_alarm": 0.49691358024691357,
+      "F1": 0.5970149253731343
+    }
+  },
+  "timestamp": "2025-03-25 13:01:52"
+}

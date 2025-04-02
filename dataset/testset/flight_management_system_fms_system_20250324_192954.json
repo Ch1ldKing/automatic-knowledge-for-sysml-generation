@@ -1,0 +1,999 @@
+{
+  "system_id": "flight_management_system_fms_system",
+  "system_name": "Flight Management System (FMS) System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "The frequency at which navigational sensor inputs are refreshed to support real-time decision making.",
+        "name": "updateInterval",
+        "type": "string",
+        "value": "50ms"
+      },
+      {
+        "description": "The level of redundancy implemented in safety-critical modules to ensure fault-tolerant operation.",
+        "name": "faultTolerance",
+        "type": "string",
+        "value": "Triple Modular Redundancy"
+      },
+      {
+        "description": "The maximum processing cycle time for computational tasks in the flight management algorithms.",
+        "name": "processingCycleTime",
+        "type": "string",
+        "value": "50ms"
+      },
+      {
+        "description": "The positional and sensor data accuracy requirement for navigational inputs.",
+        "name": "sensorPrecision",
+        "type": "string",
+        "value": "Within 3 meters accuracy"
+      },
+      {
+        "description": "Security encryption standard for protecting communication and stored flight data.",
+        "name": "encryptionStandard",
+        "type": "string",
+        "value": "AES-256 and RSA"
+      }
+    ],
+    "designScenario": {
+      "description": "The Flight Management System (FMS) is a comprehensive avionics solution that integrates flight planning, navigation, autopilot interfacing, sensor data fusion, and environmental monitoring. It is engineered to optimize flight trajectories, manage fuel consumption, and dynamically adjust flight routes in response to real-time atmospheric and operational conditions. Designed for high reliability and compliance with stringent aviation safety standards, the FMS utilizes advanced redundancy and security protocols to ensure optimum performance during all phases of flight.",
+      "name": "Flight Management System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Capture and synthesize data from multiple sensors including GPS, INS, and LIDAR to compute optimal flight trajectories in real-time."
+            },
+            {
+              "description": "Provide automated flight path adjustments in response to dynamic weather conditions and airspace restrictions."
+            }
+          ],
+          "title": "Real-time Flight Navigation and Trajectory Optimization",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Integrate environmental sensor data to optimize fuel management and ensure efficient flight routing amidst varying atmospheric conditions."
+            },
+            {
+              "description": "Support direct interfacing with the autopilot system to issue control commands based on computed flight paths."
+            }
+          ],
+          "title": "Dynamic Flight Routing and Autopilot Interfacing",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Process sensor and navigational data within a 50ms processing cycle to guarantee timely decision-making."
+            },
+            {
+              "description": "Ensure emergency re-routing computations are completed within 500ms under peak load conditions."
+            }
+          ],
+          "title": "High-performance Real-time Computation",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Implement triple modular redundancy in all core modules to eliminate single points of failure."
+            },
+            {
+              "description": "Continuously monitor system health and issue immediate alerts to flight crew on detection of sensor discrepancies or module failures."
+            }
+          ],
+          "title": "Robust Safety and Redundancy Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Ensure user interfaces are designed for clarity and ease-of-use, minimizing the training required for operation."
+            },
+            {
+              "description": "Adopt modular software and hardware architectures to facilitate smooth system updates and upgrades."
+            },
+            {
+              "description": "Employ industry-leading cybersecurity practices to safeguard against unauthorized access and data breaches."
+            }
+          ],
+          "title": "Maintainability, Usability, and Cybersecurity",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Core Flight Computer encompasses and controls the Navigation Suite for processing sensor data.",
+        "relationshipType": "composition",
+        "source": "Core Flight Computer",
+        "target": "Navigation Suite"
+      },
+      {
+        "description": "The Core Flight Computer is integrated with the Autopilot Interface to convert computed flight paths into control commands.",
+        "relationshipType": "composition",
+        "source": "Core Flight Computer",
+        "target": "Autopilot Interface"
+      },
+      {
+        "description": "The Communications Hub is associated with the Core Flight Computer to facilitate real-time data exchange with external systems.",
+        "relationshipType": "association",
+        "source": "Core Flight Computer",
+        "target": "Communications Hub"
+      },
+      {
+        "description": "The Flight Planning Module is associated with the Core Flight Computer to optimize flight paths based on real-time conditions.",
+        "relationshipType": "association",
+        "source": "Core Flight Computer",
+        "target": "Flight Planning Module"
+      },
+      {
+        "description": "The Data Management Unit aggregates and archives outputs from the Core Flight Computer for historical analysis and regulatory compliance.",
+        "relationshipType": "aggregation",
+        "source": "Core Flight Computer",
+        "target": "Data Management Unit"
+      },
+      {
+        "description": "The Environmental Sensor Array provides supplementary weather and atmospheric data critical to the Navigation Suite.",
+        "relationshipType": "dependency",
+        "source": "Navigation Suite",
+        "target": "Environmental Sensor Array"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central unit responsible for flight computation, sensor fusion, and coordination across all FMS modules.",
+        "name": "Core Flight Computer",
+        "subComponents": null,
+        "type": "Avionics Computer"
+      },
+      {
+        "description": "Subsystem that integrates multiple navigational sensors for precise position and motion tracking.",
+        "name": "Navigation Suite",
+        "subComponents": [
+          {
+            "description": "GPS module for satellite-based location tracking.",
+            "name": "GPS Module",
+            "type": "Sensor"
+          },
+          {
+            "description": "Inertial Measurement Unit (IMU) for accelerometer and gyroscope data.",
+            "name": "Inertial Measurement Unit",
+            "type": "Sensor"
+          },
+          {
+            "description": "LIDAR system providing high-resolution distance and obstacle data.",
+            "name": "LIDAR System",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Subsystem"
+      },
+      {
+        "description": "Module responsible for converting mode-computed commands into signals that can be interpreted by the autopilot.",
+        "name": "Autopilot Interface",
+        "subComponents": [
+          {
+            "description": "Converts flight commands into control signals for the autopilot.",
+            "name": "Control Signal Converter",
+            "type": "Interface Module"
+          },
+          {
+            "description": "Logs flight data for post-flight analysis and system tuning.",
+            "name": "Flight Data Logger",
+            "type": "Interface Module"
+          }
+        ],
+        "type": "Control Subsystem"
+      },
+      {
+        "description": "Handles communication between the aircraft and external systems such as air traffic control and weather services.",
+        "name": "Communications Hub",
+        "subComponents": [
+          {
+            "description": "VHF transceiver for short-range, line-of-sight communications.",
+            "name": "VHF Transceiver",
+            "type": "Communication Hardware"
+          },
+          {
+            "description": "SATCOM unit for long-range satellite communications.",
+            "name": "SATCOM Unit",
+            "type": "Communication Hardware"
+          }
+        ],
+        "type": "Communication Subsystem"
+      },
+      {
+        "description": "Software module that provides comprehensive pre-flight and in-flight planning capabilities including route and fuel management.",
+        "name": "Flight Planning Module",
+        "subComponents": null,
+        "type": "Planning Software"
+      },
+      {
+        "description": "Module that archives and manages flight data, logs, and historical performance metrics for regulatory compliance and analysis.",
+        "name": "Data Management Unit",
+        "subComponents": null,
+        "type": "Data Management System"
+      },
+      {
+        "description": "Subsystem dedicated to collecting weather and environmental data during flight operations.",
+        "name": "Environmental Sensor Array",
+        "subComponents": [
+          {
+            "description": "Weather radar system for real-time cloud and storm detection.",
+            "name": "Weather Radar",
+            "type": "Sensor"
+          },
+          {
+            "description": "Temperature sensor for monitoring ambient conditions.",
+            "name": "Temperature Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Pressure sensor to determine altitude-related atmospheric pressure.",
+            "name": "Pressure Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Aggregator"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-core-to-datamanagement",
+          "memberEndIds": null,
+          "name": "CoreAggregatesDataManagement",
+          "ownedEndIds": null,
+          "sourceId": "block-core-flight-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-data-management-unit",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-core-to-communications",
+          "memberEndIds": null,
+          "name": "CoreCommunicationsLink",
+          "ownedEndIds": null,
+          "sourceId": "block-core-flight-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-communications-hub",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "assoc-core-to-flightplanning",
+          "memberEndIds": null,
+          "name": "CoreFlightPlanningInterface",
+          "ownedEndIds": null,
+          "sourceId": "block-core-flight-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-flight-planning-module",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "50ms",
+          "id": "attr-updateInterval",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "updateInterval",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "50ms",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Triple Modular Redundancy",
+          "id": "attr-faultTolerance",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "faultTolerance",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Triple Modular Redundancy",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "50ms",
+          "id": "attr-processingCycleTime",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "processingCycleTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "50ms",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Within 3 meters accuracy",
+          "id": "attr-sensorPrecision",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "sensorPrecision",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Within 3 meters accuracy",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "AES-256 and RSA",
+          "id": "attr-encryptionStandard",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "encryptionStandard",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "AES-256 and RSA",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-updateInterval",
+            "attr-faultTolerance",
+            "attr-processingCycleTime",
+            "attr-sensorPrecision",
+            "attr-encryptionStandard"
+          ],
+          "constraintIds": null,
+          "id": "block-fms",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "FlightManagementSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-core-flight-computer",
+            "part-navigation-suite",
+            "part-autopilot-interface",
+            "part-communications-hub",
+            "part-flight-planning-module",
+            "part-data-management-unit",
+            "part-environmental-sensor-array"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-core-flight-computer",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "CoreFlightComputer",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-navigation-suite",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "NavigationSuite",
+          "operationIds": null,
+          "partIds": [
+            "part-gps-module",
+            "part-inertial-measurement-unit",
+            "part-lidar-system"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-autopilot-interface",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "AutopilotInterface",
+          "operationIds": null,
+          "partIds": [
+            "part-control-signal-converter",
+            "part-flight-data-logger"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-communications-hub",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "CommunicationsHub",
+          "operationIds": null,
+          "partIds": [
+            "part-vhf-transceiver",
+            "part-satcom-unit"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-flight-planning-module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "FlightPlanningModule",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-data-management-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "DataManagementUnit",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-environmental-sensor-array",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "EnvironmentalSensorArray",
+          "operationIds": null,
+          "partIds": [
+            "part-weather-radar",
+            "part-temperature-sensor",
+            "part-pressure-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-gps-module",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "GPSModule",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-inertial-measurement-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "InertialMeasurementUnit",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-lidar-system",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "LIDARSystem",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-control-signal-converter",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "ControlSignalConverter",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-flight-data-logger",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "FlightDataLogger",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-vhf-transceiver",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "VHFRadioTransceiver",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-satcom-unit",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "SATCOMUnit",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-weather-radar",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "WeatherRadar",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-temperature-sensor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "TemperatureSensor",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-pressure-sensor",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": false,
+          "name": "PressureSensor",
+          "operationIds": null,
+          "partIds": [],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-fms",
+          "body": "The Flight Management System integrates flight planning, navigation, autopilot interfacing, sensor fusion, and environmental monitoring. It is designed for high-reliability operations meeting strict aviation safety standards.",
+          "id": "comment-fms-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-core-contains-navigation",
+          "memberEndIds": null,
+          "name": "CoreContainsNavigationSuite",
+          "ownedEndIds": null,
+          "sourceId": "block-core-flight-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-navigation-suite",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-core-contains-autopilot",
+          "memberEndIds": null,
+          "name": "CoreContainsAutopilotInterface",
+          "ownedEndIds": null,
+          "sourceId": "block-core-flight-computer",
+          "sourceMultiplicity": null,
+          "targetId": "block-autopilot-interface",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "processingCycleTime <= 50ms",
+          "id": "constraint-cycle-time",
+          "name": "CycleTimeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-navigation-to-environment",
+          "name": "NavigationDependsOnEnvironment",
+          "sourceId": "block-navigation-suite",
+          "sourceMultiplicity": null,
+          "targetId": "block-environmental-sensor-array",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-navigation-suite",
+          "flowSpecificationId": "flow-spec-flight-data",
+          "id": "flow-port-navigation-in",
+          "isConjugated": false,
+          "name": "NavigationDataIn",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "FlightData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-flight-data",
+          "name": "FlightDataFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-core-flight-computer",
+          "id": "full-port-core-output",
+          "isConjugated": false,
+          "name": "CoreOutputPort",
+          "providedInterfaceIds": [
+            "if-block-navigation",
+            "if-block-autopilot",
+            "if-block-communication"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "FullPort"
+        }
+      ],
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-navigation",
+          "name": "NavigationInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-autopilot",
+          "name": "AutopilotInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-communication",
+          "name": "CommunicationInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-fms",
+          "name": "FlightManagementSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-core-flight-computer",
+          "name": "Core Flight Computer",
+          "of": "block-core-flight-computer",
+          "type": "Part"
+        },
+        {
+          "id": "part-navigation-suite",
+          "name": "Navigation Suite",
+          "of": "block-navigation-suite",
+          "type": "Part"
+        },
+        {
+          "id": "part-autopilot-interface",
+          "name": "Autopilot Interface",
+          "of": "block-autopilot-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-communications-hub",
+          "name": "Communications Hub",
+          "of": "block-communications-hub",
+          "type": "Part"
+        },
+        {
+          "id": "part-flight-planning-module",
+          "name": "Flight Planning Module",
+          "of": "block-flight-planning-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-data-management-unit",
+          "name": "Data Management Unit",
+          "of": "block-data-management-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-environmental-sensor-array",
+          "name": "Environmental Sensor Array",
+          "of": "block-environmental-sensor-array",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-autopilot-interface",
+          "flowSpecificationId": "flow-spec-flight-data",
+          "id": "port-autopilot-proxy",
+          "isConjugated": false,
+          "name": "AutopilotProxyPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-autopilot"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-communications-hub",
+          "flowSpecificationId": "flow-spec-flight-data",
+          "id": "port-communication-proxy",
+          "isConjugated": false,
+          "name": "CommunicationProxyPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-communication"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-navigation-suite",
+          "flowSpecificationId": "flow-spec-flight-data",
+          "id": "port-navigation-flow",
+          "isConjugated": false,
+          "name": "NavigationFlowPort",
+          "portType": "flow",
+          "providedInterfaceIds": [
+            "if-block-navigation"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-flight-navigation",
+          "name": "RealTimeFlightNavigation",
+          "reqId": null,
+          "text": "Capture and synthesize data from multiple sensors (GPS, INS, LIDAR) to compute optimal flight trajectories in real-time, enabling dynamic re-routing under variable weather conditions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-flight-routing-auto",
+          "name": "DynamicFlightRoutingAutopilot",
+          "reqId": null,
+          "text": "Integrate environmental sensor inputs to adjust flight routes and interface seamlessly with autopilot systems to automatically convert computed paths into control commands.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-high-performance",
+          "name": "HighPerformanceComputation",
+          "reqId": null,
+          "text": "Process sensor and navigation data within a 50ms cycle to ensure timely decision-making and emergency re-routing within 500ms under peak loads.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-safety-redundancy",
+          "name": "RobustSafetyAndRedundancy",
+          "reqId": null,
+          "text": "Implement triple modular redundancy in core modules and continuously monitor system health to alert flight crew in case of discrepancies.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-maintainability-security",
+          "name": "MaintainabilityUsabilityCybersecurity",
+          "reqId": null,
+          "text": "Ensure intuitive user interfaces, modular architectures for ease of updates, and robust cybersecurity measures compliant with aviation standards.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": [
+        {
+          "id": "usage-core-navigation",
+          "name": "NavigationDataUsage",
+          "sourceId": "block-core-flight-computer",
+          "targetId": "block-navigation-suite",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-flightplanning-core",
+          "name": "FlightPlanningDataExchange",
+          "sourceId": "block-flight-planning-module",
+          "targetId": "block-core-flight-computer",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-comm-core",
+          "name": "CommunicationInterfaceUsage",
+          "sourceId": "block-communications-hub",
+          "targetId": "block-core-flight-computer",
+          "type": "Usage"
+        }
+      ],
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-frequency",
+          "name": "FrequencyValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-time",
+          "name": "TimeValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        }
+      ]
+    }
+  },
+  "reference_system": "flight_management_system",
+  "parent_system": null,
+  "timestamp": "20250324_192954"
+}

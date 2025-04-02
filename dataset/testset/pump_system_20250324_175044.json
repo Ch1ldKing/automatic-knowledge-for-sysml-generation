@@ -1,0 +1,613 @@
+{
+  "system_id": "pump_system",
+  "system_name": "Pump System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Nominal operating pressure range required for optimal hydraulic performance, ensuring responsiveness in critical flight maneuvers.",
+        "name": "operatingPressure",
+        "type": "string",
+        "value": "1600-4800 psi"
+      },
+      {
+        "description": "Variable flow rate performance to accommodate differing load conditions across flight regimes.",
+        "name": "flowRate",
+        "type": "string",
+        "value": "Adaptive based on load"
+      },
+      {
+        "description": "Utilization of aerospace-grade, low-viscosity hydraulic oil to ensure efficiency and compatibility with aircraft systems.",
+        "name": "fluidType",
+        "type": "string",
+        "value": "Aerospace-grade low-viscosity hydraulic oil"
+      },
+      {
+        "description": "Degree of system integration with aircraft control, diagnostic, and actuation modules for real-time monitoring.",
+        "name": "integrationLevel",
+        "type": "string",
+        "value": "Full integration with FADEC and sensor arrays"
+      },
+      {
+        "description": "Scheduled maintenance interval, reflecting durability and self-diagnostic capabilities to maximize service life.",
+        "name": "maintenanceInterval",
+        "type": "string",
+        "value": "700 flight hours"
+      }
+    ],
+    "designScenario": {
+      "description": "The Hydraulic Pump is an advanced energy conversion unit that transforms mechanical input from a dedicated drive motor into high-pressure hydraulic fluid. Designed for modern aircraft, it ensures rapid response, precise control, and integrated safety mechanisms for operation under extreme conditions. Its design incorporates robust materials, high-efficiency mechanisms, and digital self-diagnostics, supporting both high-performance maneuvering and extended service intervals.",
+      "name": "Hydraulic Pump",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The pump shall convert mechanical energy to hydraulic energy with an efficiency rate exceeding 92% during standard operation, ensuring minimal energy loss."
+            }
+          ],
+          "title": "Efficient Energy Conversion",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system shall reliably generate and maintain hydraulic pressure within the range of 1600 psi to 4800 psi, with pressure fluctuations not exceeding ±10% even under variable load conditions."
+            }
+          ],
+          "title": "Consistent Pressure Output",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "The hydraulic pump must achieve full operational pressure within 0.4 seconds of activation to support rapid flight control adjustments."
+            }
+          ],
+          "title": "Rapid Reaction Time",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "An integrated fail-safe mechanism shall automatically engage a hydraulic bypass to a secure reservoir if sensor readings show deviations beyond acceptable thresholds."
+            }
+          ],
+          "title": "Integrated Fail-Safe Mechanism",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The pump design shall incorporate self-diagnostic features to continuously monitor operational parameters, extending service life with a maintenance interval of at least 700 flight hours."
+            }
+          ],
+          "title": "Durability & Self-Diagnostics",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Hydraulic Pump depends on the Hydraulic Reservoir for continuous supply of clean hydraulic fluid, ensuring uninterrupted operation.",
+        "relationshipType": "dependency",
+        "source": "Hydraulic Pump",
+        "target": "Hydraulic Reservoir"
+      },
+      {
+        "description": "The Drive Motor is aggregated within the Hydraulic Pump structure, delivering the necessary mechanical power for fluid pressurization.",
+        "relationshipType": "aggregation",
+        "source": "Hydraulic Pump",
+        "target": "Drive Motor"
+      },
+      {
+        "description": "The Pump Chamber and Control Unit are critical subcomponents composed within the Hydraulic Pump, ensuring effective pressure generation and integrated diagnostics.",
+        "relationshipType": "composition",
+        "source": "Hydraulic Pump",
+        "target": "Pump Chamber"
+      },
+      {
+        "description": "The Control Unit is an integral subcomponent of the Hydraulic Pump, embedded to provide real-time monitoring and self-diagnostic capabilities.",
+        "relationshipType": "composition",
+        "source": "Hydraulic Pump",
+        "target": "Control Unit"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "A high-performance unit that converts mechanical energy into pressurized hydraulic fluid to actuate aircraft control surfaces and landing gear systems.",
+        "name": "Hydraulic Pump",
+        "subComponents": [
+          {
+            "description": "A dedicated motor unit that supplies mechanical energy, optimized for high-efficiency operation in adverse flight conditions.",
+            "name": "Drive Motor",
+            "type": "Mechanical/Electrical Unit"
+          },
+          {
+            "description": "The chamber where hydraulic fluid is pressurized and regulated, ensuring consistent and reliable pressure output.",
+            "name": "Pump Chamber",
+            "type": "Actuator"
+          },
+          {
+            "description": "An embedded digital control module that provides self-diagnostics, performance monitoring, and integration with the aircraft’s control system.",
+            "name": "Control Unit",
+            "type": "Digital/Control Module"
+          }
+        ],
+        "type": "Power Unit"
+      },
+      {
+        "description": "The storage unit that securely houses hydraulic fluid and integrates advanced filtration systems to maintain fluid quality.",
+        "name": "Hydraulic Reservoir",
+        "subComponents": [
+          {
+            "description": "A robust container designed to store hydraulic fluid under controlled conditions, ensuring longevity and performance.",
+            "name": "Reservoir Tank",
+            "type": "Container"
+          },
+          {
+            "description": "A sophisticated filtration system that removes impurities from the hydraulic fluid, prolonging the lifespan of the pump and its components.",
+            "name": "Filtration Module",
+            "type": "Filter"
+          }
+        ],
+        "type": "Storage Unit"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-pump-drive-motor-hp",
+          "memberEndIds": null,
+          "name": "HydraulicPumpDriveMotorAggregation",
+          "ownedEndIds": null,
+          "sourceId": "block-hydraulic-pump",
+          "sourceMultiplicity": null,
+          "targetId": "block-drive-motor-hp",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-dependency-hp-reservoir",
+          "memberEndIds": null,
+          "name": "HydraulicPumpReservoirDependency",
+          "ownedEndIds": null,
+          "sourceId": "block-hydraulic-pump",
+          "sourceMultiplicity": null,
+          "targetId": "block-hydraulic-reservoir",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "1600-4800 psi",
+          "id": "attr-operating-pressure-hp",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "operatingPressure",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "1600-4800 psi",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Adaptive based on load",
+          "id": "attr-flow-rate-hp",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "flowRate",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Adaptive based on load",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Aerospace-grade low-viscosity hydraulic oil",
+          "id": "attr-fluid-type-hp",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "fluidType",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Aerospace-grade low-viscosity hydraulic oil",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Full integration with FADEC and sensor arrays",
+          "id": "attr-integration-level-hp",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "integrationLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "Full integration with FADEC and sensor arrays",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "700 flight hours",
+          "id": "attr-maintenance-interval-hp",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": null,
+          "name": "maintenanceInterval",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": null,
+          "value": "700 flight hours",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-operating-pressure-hp",
+            "attr-flow-rate-hp",
+            "attr-fluid-type-hp",
+            "attr-integration-level-hp",
+            "attr-maintenance-interval-hp"
+          ],
+          "constraintIds": null,
+          "id": "block-hydraulic-pump",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "HydraulicPump",
+          "operationIds": null,
+          "partIds": [
+            "part-drive-motor-hp",
+            "part-pump-chamber-hp",
+            "part-control-unit-hp"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-drive-motor-hp",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "DriveMotor",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-pump-chamber-hp",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "PumpChamber",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-control-unit-hp",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "ControlUnit",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-hydraulic-reservoir",
+          "isAbstract": false,
+          "isActive": true,
+          "isEncapsulated": true,
+          "name": "HydraulicReservoir",
+          "operationIds": null,
+          "partIds": [
+            "part-reservoir-tank-hp",
+            "part-filtration-module-hp"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-hydraulic-pump",
+          "body": "Hydraulic Pump serves as an advanced energy conversion unit in aircraft systems. It converts mechanical input into high-pressure hydraulic fluid while integrating fail-safe and self-diagnostic features for extreme flight conditions.",
+          "id": "comment-hp-design",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-pump-chamber-hp",
+          "memberEndIds": null,
+          "name": "PumpChamberComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-hydraulic-pump",
+          "sourceMultiplicity": null,
+          "targetId": "block-pump-chamber-hp",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-control-unit-hp",
+          "memberEndIds": null,
+          "name": "ControlUnitComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-hydraulic-pump",
+          "sourceMultiplicity": null,
+          "targetId": "block-control-unit-hp",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "operatingPressure >= 1600 && operatingPressure <= 4800",
+          "id": "cons-pressure-range-hp",
+          "name": "PressureRangeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": [],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-hp-operation-mode",
+          "literals": [
+            {
+              "id": "literal-standby",
+              "name": "Standby"
+            },
+            {
+              "id": "literal-operating",
+              "name": "Operating"
+            },
+            {
+              "id": "literal-fault",
+              "name": "Fault"
+            }
+          ],
+          "name": "HydraulicOperationMode",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": null,
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "HydraulicFluid",
+          "flowType": "MaterialFlow",
+          "id": "flow-spec-hydraulic-fluid-hp",
+          "name": "HydraulicFluidFlow",
+          "type": "FlowSpecification",
+          "unit": "psi"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-pump-control-hp",
+          "name": "PumpControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": null,
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-drive-motor-hp",
+          "name": "DriveMotorPart",
+          "of": "block-hydraulic-pump",
+          "type": "Part"
+        },
+        {
+          "id": "part-pump-chamber-hp",
+          "name": "PumpChamberPart",
+          "of": "block-hydraulic-pump",
+          "type": "Part"
+        },
+        {
+          "id": "part-control-unit-hp",
+          "name": "ControlUnitPart",
+          "of": "block-hydraulic-pump",
+          "type": "Part"
+        },
+        {
+          "id": "part-reservoir-tank-hp",
+          "name": "ReservoirTankPart",
+          "of": "block-hydraulic-reservoir",
+          "type": "Part"
+        },
+        {
+          "id": "part-filtration-module-hp",
+          "name": "FiltrationModulePart",
+          "of": "block-hydraulic-reservoir",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-hydraulic-pump",
+          "flowSpecificationId": "flow-spec-hydraulic-fluid-hp",
+          "id": "port-pump-output-hp",
+          "isConjugated": false,
+          "name": "PumpOutputPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-hydraulic-pump",
+          "id": "proxyport-pump-control-hp",
+          "isConjugated": false,
+          "name": "PumpControlProxyPort",
+          "providedInterfaceIds": [
+            "if-block-pump-control-hp"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-efficiency-hp",
+          "name": "EfficientEnergyConversion",
+          "reqId": null,
+          "text": "The pump shall convert mechanical energy to hydraulic energy with an efficiency exceeding 92% during nominal operation, ensuring minimal energy loss across all flight regimes.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-consistent-pressure-hp",
+          "name": "ConsistentPressureOutput",
+          "reqId": null,
+          "text": "The system shall reliably generate and maintain hydraulic pressure within the range of 1600 psi to 4800 psi, with pressure fluctuations not exceeding ±10% under variable load conditions.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-rapid-actuation-hp",
+          "name": "RapidReactionTime",
+          "reqId": null,
+          "text": "The hydraulic pump must reach full operational pressure within 0.4 seconds of activation to support rapid flight control adjustments.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-failsafe-hp",
+          "name": "IntegratedFailSafeMechanism",
+          "reqId": null,
+          "text": "An integrated fail-safe mechanism shall automatically activate a hydraulic bypass to a secure reservoir if sensor readings deviate beyond acceptable thresholds.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-self-diagnostic-hp",
+          "name": "DurabilityAndSelfDiagnostics",
+          "reqId": null,
+          "text": "The pump design shall incorporate self-diagnostic features to continuously monitor operational parameters, ensuring a maintenance interval of at least 700 flight hours.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-pressure-hp",
+          "name": "PressureValue",
+          "quantityKindId": "psi",
+          "type": "ValueType",
+          "unitId": "psi"
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-flow-hp",
+          "name": "FlowRateValue",
+          "quantityKindId": "GPM",
+          "type": "ValueType",
+          "unitId": "GPM"
+        }
+      ]
+    }
+  },
+  "reference_system": "hydraulic_pump",
+  "parent_system": null,
+  "timestamp": "20250324_175044"
+}

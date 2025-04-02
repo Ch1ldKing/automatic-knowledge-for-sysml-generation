@@ -1,0 +1,803 @@
+{
+  "system_id": "fire_suppression_system",
+  "system_name": "Fire Suppression System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum allowable activation time from fire detection to suppression initiation.",
+        "name": "activationTime",
+        "type": "string",
+        "value": "3 seconds"
+      },
+      {
+        "description": "Operational temperature range ensuring efficacy of suppression agents and sensor stability.",
+        "name": "operatingTemperatureRange",
+        "type": "string",
+        "value": "-20°C to 70°C"
+      },
+      {
+        "description": "Level of redundancy in suppression controls to prevent single point failures during emergencies.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual modular redundancy"
+      },
+      {
+        "description": "Reliability measured as mean time between failures (MTBF) for the fire suppression system.",
+        "name": "MTBF",
+        "type": "string",
+        "value": "18000 hours"
+      },
+      {
+        "description": "Energy and power backup specifications ensuring uninterrupted operation during emergencies.",
+        "name": "powerBackup",
+        "type": "string",
+        "value": "Dual power supply with integrated battery backup"
+      }
+    ],
+    "designScenario": {
+      "description": "The Fire Suppression System is engineered specifically to detect, control, and suppress onboard fires through rapid activation of suppression agents. The design integrates advanced sensors, a dedicated suppression control unit, and automated deployable suppression agents, ensuring that fire incidents are mitigated quickly to protect both structural integrity and passenger safety. This system is a critical component of the airplane's overall emergency response framework and complies with stringent aviation standards.",
+      "name": "Fire Suppression System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "Automatically trigger suppression mechanisms upon confirmed fire detection via integrated sensor arrays."
+            },
+            {
+              "description": "Interface directly with aircraft control systems to override non-essential operations during a fire event."
+            }
+          ],
+          "title": "Automatic Fire Activation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Achieve suppression agent deployment within 3 seconds of fire confirmation."
+            },
+            {
+              "description": "Ensure rapid distribution of suppression agents for complete coverage of affected zones."
+            }
+          ],
+          "title": "Rapid Suppression Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Maintain fail-safe operations with redundant control circuits and parallel agent distribution networks."
+            },
+            {
+              "description": "Incorporate isolation of faulty modules and continuous system diagnostics during an emergency."
+            }
+          ],
+          "title": "Fail-Safe and Redundancy",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "Provide intuitive pilot and crew interfacing with real-time system status and suppression agent levels."
+            },
+            {
+              "description": "Enable remote diagnostics and firmware updates to ensure long term maintainability."
+            }
+          ],
+          "title": "Interface and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Fire Suppression Control Unit aggregates input from the Fire Detection Interface to make timely suppression decisions.",
+        "relationshipType": "aggregation",
+        "source": "Fire Suppression Control Unit",
+        "target": "Fire Detection Interface"
+      },
+      {
+        "description": "The Fire Suppression Control Unit is composed of the Suppression Agent Distribution Module, ensuring a tightly integrated response.",
+        "relationshipType": "composition",
+        "source": "Fire Suppression Control Unit",
+        "target": "Suppression Agent Distribution Module"
+      },
+      {
+        "description": "The Emergency Override Interface depends on the Fire Suppression Control Unit to allow manual intervention and safe system shutdown.",
+        "relationshipType": "dependency",
+        "source": "Emergency Override Interface",
+        "target": "Fire Suppression Control Unit"
+      },
+      {
+        "description": "The Power Backup System is composed of battery and dual power modules to guarantee continuous operation of the suppression system.",
+        "relationshipType": "composition",
+        "source": "Power Backup System",
+        "target": "Battery Module"
+      },
+      {
+        "description": "The Power Backup System is composed of battery and dual power modules to guarantee continuous operation of the suppression system.",
+        "relationshipType": "composition",
+        "source": "Power Backup System",
+        "target": "Dual Power Module"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Processes sensor inputs and controls the activation of suppression mechanisms upon fire detection.",
+        "name": "Fire Suppression Control Unit",
+        "subComponents": null,
+        "type": "Control Module"
+      },
+      {
+        "description": "Monitors environmental conditions and detects fire signatures using advanced thermal and optical sensors.",
+        "name": "Fire Detection Interface",
+        "subComponents": [
+          {
+            "description": "Infrared sensors calibrated to detect abnormal thermal patterns indicative of a fire.",
+            "name": "Infrared Sensor Array",
+            "type": "Sensor"
+          },
+          {
+            "description": "Optical sensors designed to verify flame presence, supporting redundant detection.",
+            "name": "Optical Flame Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Sensor Module"
+      },
+      {
+        "description": "Deploys suppression agents such as inert gases or extinguishing chemicals through an array of nozzles.",
+        "name": "Suppression Agent Distribution Module",
+        "subComponents": [
+          {
+            "description": "Nozzle array engineered for uniform distribution of suppression agents across the fire zone.",
+            "name": "Nozzle Array",
+            "type": "Actuator"
+          },
+          {
+            "description": "Storage tank housing the suppression agents, designed for high-pressure discharge.",
+            "name": "Agent Storage Tank",
+            "type": "Storage Unit"
+          }
+        ],
+        "type": "Distribution Module"
+      },
+      {
+        "description": "Provides an emergency manual override for pilots and crew to control or abort suppression actions.",
+        "name": "Emergency Override Interface",
+        "subComponents": [
+          {
+            "description": "Touchscreen control panel with multilingual support for emergency intervention.",
+            "name": "Override Control Panel",
+            "type": "Interface"
+          }
+        ],
+        "type": "Interface Module"
+      },
+      {
+        "description": "Ensures uninterrupted operation of the suppression system via redundant power sources.",
+        "name": "Power Backup System",
+        "subComponents": [
+          {
+            "description": "High-output battery module designed for emergency power surges.",
+            "name": "Battery Module",
+            "type": "Power Unit"
+          },
+          {
+            "description": "Dual-input power converter for seamless transition between main and auxiliary power supplies.",
+            "name": "Dual Power Module",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Power Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": null,
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-ctrl-aggregates-fdi",
+          "memberEndIds": null,
+          "name": "ControlAggregatesDetection",
+          "ownedEndIds": null,
+          "sourceId": "block-fire-suppression-control-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-fire-detection-interface",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "comp-ctrl-composed-of-sadm",
+          "memberEndIds": null,
+          "name": "ControlComposedOfDistribution",
+          "ownedEndIds": null,
+          "sourceId": "block-fire-suppression-control-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-suppression-agent-distribution",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "dep-override-on-control",
+          "memberEndIds": null,
+          "name": "OverrideDependsOnControl",
+          "ownedEndIds": null,
+          "sourceId": "block-emergency-override-interface",
+          "sourceMultiplicity": null,
+          "targetId": "block-fire-suppression-control-unit",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "comp-power-backup-battery-fss",
+          "memberEndIds": null,
+          "name": "PowerBackupComposedOfBattery",
+          "ownedEndIds": null,
+          "sourceId": "block-power-backup-system-fss",
+          "sourceMultiplicity": null,
+          "targetId": "part-battery-module-fss",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "comp-power-backup-dual-fss",
+          "memberEndIds": null,
+          "name": "PowerBackupComposedOfDualPower",
+          "ownedEndIds": null,
+          "sourceId": "block-power-backup-system-fss",
+          "sourceMultiplicity": null,
+          "targetId": "part-dual-power-module-fss",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "3 seconds",
+          "id": "attr-activation-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "activationTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "-20°C to 70°C",
+          "id": "attr-operating-temp-range-fss",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operatingTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-20°C to 70°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual modular redundancy",
+          "id": "attr-redundancy-level-fss",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual modular redundancy",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "18000 hours",
+          "id": "attr-MTBF-fss",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "MTBF",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "18000 hours",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual power supply with integrated battery backup",
+          "id": "attr-power-backup-fss",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "powerBackup",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual power supply with integrated battery backup",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-activation-time",
+            "attr-operating-temp-range-fss",
+            "attr-redundancy-level-fss",
+            "attr-MTBF-fss",
+            "attr-power-backup-fss"
+          ],
+          "constraintIds": null,
+          "id": "block-fire-suppression-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FireSuppressionSystem",
+          "operationIds": [
+            "op-initiateSuppression",
+            "op-runDiagnostics"
+          ],
+          "partIds": [
+            "part-fire-suppression-control-unit",
+            "part-fire-detection-interface",
+            "part-suppression-agent-distribution",
+            "part-emergency-override-interface",
+            "part-power-backup-system"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-fire-suppression-control-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FireSuppressionControlUnit",
+          "operationIds": [
+            "op-processSensorData",
+            "op-triggerSuppression"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-fire-detection-interface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "FireDetectionInterface",
+          "operationIds": [
+            "op-detectFireSignatures"
+          ],
+          "partIds": [
+            "part-infrared-sensor-array",
+            "part-optical-flame-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-suppression-agent-distribution",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "SuppressionAgentDistributionModule",
+          "operationIds": [
+            "op-deployAgents"
+          ],
+          "partIds": [
+            "part-nozzle-array",
+            "part-agent-storage-tank"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-emergency-override-interface",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "EmergencyOverrideInterface",
+          "operationIds": [
+            "op-manualOverride"
+          ],
+          "partIds": [
+            "part-override-control-panel"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": [],
+          "constraintIds": null,
+          "id": "block-power-backup-system-fss",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "PowerBackupSystem",
+          "operationIds": [
+            "op-ensureUninterruptedPower"
+          ],
+          "partIds": [
+            "part-battery-module-fss",
+            "part-dual-power-module-fss"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-fire-suppression-system",
+          "body": "The Fire Suppression System integrates advanced fire detection, control logic, automated suppression deployment, manual override capability and redundant power backup to ensure optimum aircraft fire safety.",
+          "id": "comment-fss-overview",
+          "type": "Comment"
+        }
+      ],
+      "compositions": null,
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "activationTime <= '3 seconds' and MTBF >= '18000 hours'",
+          "id": "constraint-suppression-timing",
+          "name": "FireSuppressionTimingConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": [
+        {
+          "attributeIds": null,
+          "id": "domain-emergency",
+          "name": "EmergencyDomain",
+          "type": "Domain"
+        }
+      ],
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-suppression-status",
+          "literals": [
+            {
+              "id": "literal-ready",
+              "name": "Ready"
+            },
+            {
+              "id": "literal-active",
+              "name": "Active"
+            },
+            {
+              "id": "literal-fault",
+              "name": "Fault"
+            }
+          ],
+          "name": "SuppressionStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-fire-suppression-control-unit",
+          "flowSpecificationId": "flow-spec-sensor-data-fss",
+          "id": "flow-port-sensor-in",
+          "isConjugated": false,
+          "name": "SensorDataInPort",
+          "type": "FlowPort"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-fire-suppression-control-unit",
+          "flowSpecificationId": "flow-spec-suppression-command",
+          "id": "flow-port-suppression-out",
+          "isConjugated": false,
+          "name": "SuppressionCommandOutPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "SensorData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-sensor-data-fss",
+          "name": "SensorDataFlowFSS",
+          "type": "FlowSpecification",
+          "unit": null
+        },
+        {
+          "attributeIds": null,
+          "dataType": "SuppressionCommand",
+          "flowType": "ControlFlow",
+          "id": "flow-spec-suppression-command",
+          "name": "SuppressionCommandFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-override-interface-spec",
+          "name": "EmergencyOverrideInterfaceSpec",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "ifb-fire-detection-spec",
+          "name": "FireDetectionInterfaceSpec",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-fire-suppression",
+          "name": "FireSuppressionSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-fire-suppression-control-unit",
+          "name": "FireSuppressionControlUnitPart",
+          "of": "block-fire-suppression-control-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-fire-detection-interface",
+          "name": "FireDetectionInterfacePart",
+          "of": "block-fire-detection-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-suppression-agent-distribution",
+          "name": "SuppressionAgentDistributionPart",
+          "of": "block-suppression-agent-distribution",
+          "type": "Part"
+        },
+        {
+          "id": "part-emergency-override-interface",
+          "name": "EmergencyOverrideInterfacePart",
+          "of": "block-emergency-override-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-power-backup-system",
+          "name": "PowerBackupSystemPartFSS",
+          "of": "block-power-backup-system-fss",
+          "type": "Part"
+        },
+        {
+          "id": "part-infrared-sensor-array",
+          "name": "InfraredSensorArray",
+          "of": "block-fire-detection-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-optical-flame-sensor",
+          "name": "OpticalFlameSensor",
+          "of": "block-fire-detection-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-nozzle-array",
+          "name": "NozzleArray",
+          "of": "block-suppression-agent-distribution",
+          "type": "Part"
+        },
+        {
+          "id": "part-agent-storage-tank",
+          "name": "AgentStorageTank",
+          "of": "block-suppression-agent-distribution",
+          "type": "Part"
+        },
+        {
+          "id": "part-override-control-panel",
+          "name": "OverrideControlPanel",
+          "of": "block-emergency-override-interface",
+          "type": "Part"
+        },
+        {
+          "id": "part-battery-module-fss",
+          "name": "BatteryModule",
+          "of": "block-power-backup-system-fss",
+          "type": "Part"
+        },
+        {
+          "id": "part-dual-power-module-fss",
+          "name": "DualPowerModule",
+          "of": "block-power-backup-system-fss",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-fire-suppression-control-unit",
+          "flowSpecificationId": "flow-spec-sensor-data-fss",
+          "id": "flow-port-sensor-in",
+          "isConjugated": false,
+          "name": "SensorDataInPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-fire-suppression-control-unit",
+          "flowSpecificationId": "flow-spec-suppression-command",
+          "id": "flow-port-suppression-out",
+          "isConjugated": false,
+          "name": "SuppressionCommandOutPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-emergency-override-interface",
+          "flowSpecificationId": null,
+          "id": "proxy-port-override",
+          "isConjugated": false,
+          "name": "OverrideControlPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "ifb-override-interface-spec"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-emergency-override-interface",
+          "id": "proxy-port-override",
+          "isConjugated": false,
+          "name": "OverrideControlPort",
+          "providedInterfaceIds": [
+            "ifb-override-interface-spec"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-automatic-fire-activation",
+          "name": "Automatic Fire Activation",
+          "reqId": null,
+          "text": "Automatically trigger suppression mechanisms upon confirmed fire detection via integrated sensor arrays and interface with aircraft control systems.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-rapid-suppression-performance",
+          "name": "Rapid Suppression Performance",
+          "reqId": null,
+          "text": "Achieve suppression agent deployment within 3 seconds after fire confirmation with rapid distribution for complete coverage.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-fail-safe-redundancy-fss",
+          "name": "Fail-Safe and Redundancy",
+          "reqId": null,
+          "text": "Maintain fail-safe operations with redundant control circuits and parallel distribution networks, isolating faulty modules.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-interface-maintainability-fss",
+          "name": "Interface and Maintainability",
+          "reqId": null,
+          "text": "Provide intuitive pilot and crew interfaces with real-time system status, remote diagnostics, and firmware update capabilities.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": null,
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-pressure",
+          "name": "PressureValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "safety_emergency_systems",
+  "timestamp": "20250324_203318"
+}

@@ -1,4 +1,4 @@
-# SysML Auto Expansion Tool / SysML自动展开工具
+# SysML BDD Auto Expansion Tool / SysML BDD 自动建模工具
 
 [English](#english) | [中文](#chinese)
 
@@ -9,6 +9,7 @@
 
 SysML Auto Expansion Tool is a system modeling tool based on Large Language Models (LLMs). It can automatically model systems, expand subsystems, and maintain the relationships between them. The tool supports multiple LLM providers including GPT, Claude, DPSK, and Qwen.
 
+Data are in dataset/. Experimental results are in result/.
 ### Installation
 
 1. Clone the repository:
@@ -85,6 +86,7 @@ The configuration is stored in `auto_expansion_sysml/.envexample`, deleting 'exa
 ### 简介
 
 SysML自动展开工具是一个基于大语言模型(LLM)的系统建模工具。它可以自动建模系统，展开子系统，并维护它们之间的关系。该工具支持多种LLM提供商，包括GPT、Claude、DPSK和Qwen。
+
 
 ### 安装
 

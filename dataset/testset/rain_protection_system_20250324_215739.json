@@ -1,0 +1,998 @@
+{
+  "system_id": "rain_protection_system",
+  "system_name": "Rain Protection System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Operational temperature range for effective water management and sensor functionality.",
+        "name": "operationalTemperatureRange",
+        "type": "string",
+        "value": "-15°C to +35°C"
+      },
+      {
+        "description": "Maximum rain intensity level (in mm/hr) at which the system can reliably activate protection measures.",
+        "name": "rainIntensityThreshold",
+        "type": "string",
+        "value": "50 mm/hr"
+      },
+      {
+        "description": "Response time for detecting rainfall and activating hydrophobic or ejection measures.",
+        "name": "responseTime",
+        "type": "string",
+        "value": "Under 3 seconds"
+      },
+      {
+        "description": "Certification standards compliance such as FAA and EASA for adverse weather systems in modern aircraft.",
+        "name": "certification",
+        "type": "string",
+        "value": "FAA/EASA Certified"
+      },
+      {
+        "description": "Built-in redundancy level ensuring continuous operation during high precipitation events.",
+        "name": "redundancyLevel",
+        "type": "string",
+        "value": "Dual-redundant control circuits"
+      }
+    ],
+    "designScenario": {
+      "description": "The Rain Protection System is engineered to mitigate the adverse effects of heavy rainfall and water accumulation on critical aircraft surfaces such as windshields, sensor arrays, and other exposed control surfaces. By integrating advanced raindrop detection sensors, a hydrophobic surface application mechanism, and an active water ejection system, the Rain Protection System ensures optimal visibility, sensor performance, and overall aircraft safety during adverse weather conditions. The system continuously monitors environmental parameters and dynamically engages protective measures to prevent water-induced aerodynamic performance losses.",
+      "name": "Rain Protection System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The system shall detect rainfall intensity using a network of optical and capacitive sensors integrated into the aircraft’s sensor array."
+            },
+            {
+              "description": "Upon detection of rain above the predefined intensity threshold, protective measures shall be automatically activated."
+            }
+          ],
+          "title": "Rain Detection and Automatic Activation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must initiate protective measures within 3 seconds of detecting critical rainfall levels."
+            },
+            {
+              "description": "Maintain optimal surface conditions to ensure clear visibility and sensor integrity during heavy rain."
+            }
+          ],
+          "title": "Rapid Response and Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "The system must incorporate redundant control circuits and fallback procedures to maintain operation even if a sensor or actuator fails."
+            },
+            {
+              "description": "In the event of component failure, isolate the faulty module without compromising the overall rain protection capability."
+            }
+          ],
+          "title": "Safety and Reliability Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The user interface for system monitoring and maintenance must comply with ergonomic and aviation human factors standards."
+            },
+            {
+              "description": "System maintenance documentation and upgrade capabilities should be accessible and compliant with industry standards."
+            }
+          ],
+          "title": "Non-Functional Interface and Maintainability",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Control Unit processes data received from the Raindrop Sensor Array to trigger protective actions in the downstream modules.",
+        "relationshipType": "dependency",
+        "source": "Control Unit",
+        "target": "Raindrop Sensor Array"
+      },
+      {
+        "description": "The Water Ejection System aggregates power and control signals from the redundant Power Supply ensuring continuous operation during rainfall.",
+        "relationshipType": "aggregation",
+        "source": "Redundant Power Supply",
+        "target": "Water Ejection System"
+      },
+      {
+        "description": "The Hydrophobic Coating Application Module is composed of the Coating Dispenser and Drying System which work together to maintain surface repellency.",
+        "relationshipType": "composition",
+        "source": "Hydrophobic Coating Application Module",
+        "target": "Coating Dispenser"
+      },
+      {
+        "description": "The Hydrophobic Coating Application Module is composed of the Coating Dispenser and Drying System which work together to maintain surface repellency.",
+        "relationshipType": "composition",
+        "source": "Hydrophobic Coating Application Module",
+        "target": "Drying System"
+      },
+      {
+        "description": "The Connectivity Module maintains an association with the Aircraft Central Monitoring System for real-time diagnostic updates and weather alert information.",
+        "relationshipType": "association",
+        "source": "Connectivity Module",
+        "target": "Aircraft Central Monitoring System"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "The central processing unit that integrates sensor data and controls the activation of rain protection measures across the aircraft.",
+        "name": "Control Unit",
+        "subComponents": null,
+        "type": "Electronic Module"
+      },
+      {
+        "description": "An array of sensors including optical and capacitive types that detect raindrop presence and rain intensity on critical surfaces.",
+        "name": "Raindrop Sensor Array",
+        "subComponents": [
+          {
+            "description": "High-precision optical sensor designed to detect tiny water droplets impacting the aircraft surface.",
+            "name": "Optical Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Capacitive sensor used to sense changes in electrical properties of the aircraft surface due to water accumulation.",
+            "name": "Capacitive Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Component"
+      },
+      {
+        "description": "Module responsible for applying hydrophobic coatings to aircraft surfaces to repel rainwater and reduce water adhesion.",
+        "name": "Hydrophobic Coating Application Module",
+        "subComponents": [
+          {
+            "description": "Coating Dispenser responsible for the precise delivery of hydrophobic material onto aircraft surfaces.",
+            "name": "Coating Dispenser",
+            "type": "Actuator"
+          },
+          {
+            "description": "Drying System that ensures rapid curing and adherence of the hydrophobic coating after application.",
+            "name": "Drying System",
+            "type": "Controller"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Subsystem responsible for actively ejecting water droplets from the aircraft surfaces using high-pressure nozzles.",
+        "name": "Water Ejection System",
+        "subComponents": [
+          {
+            "description": "Nozzle Array designed to deliver focused streams of water to clear rain accumulation.",
+            "name": "Nozzle Array",
+            "type": "Actuator"
+          },
+          {
+            "description": "High-efficiency pump that pressurizes water for rapid ejection across affected surfaces.",
+            "name": "Ejection Pump",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Subsystem that collects and directs rainwater away from critical areas through dedicated drainage channels.",
+        "name": "Rainwater Drainage System",
+        "subComponents": [
+          {
+            "description": "Drainage Channels strategically designed to collect water from the aircraft fuselage and wings.",
+            "name": "Drainage Channels",
+            "type": "Passive Component"
+          },
+          {
+            "description": "Water Collector that accumulates and guides rainwater away from sensor and control zones.",
+            "name": "Water Collector",
+            "type": "Passive Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Provides redundant electrical power and supervisory control to ensure continuous operation of the rain protection measures.",
+        "name": "Redundant Power Supply",
+        "subComponents": [
+          {
+            "description": "Primary power converter tailored for the rain protection system.",
+            "name": "Primary Converter",
+            "type": "Power Unit"
+          },
+          {
+            "description": "Backup battery system to maintain operation during primary power disruptions.",
+            "name": "Backup Battery",
+            "type": "Power Unit"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Module dedicated to maintaining communication with the aircraft's central systems for diagnostics and operational oversight.",
+        "name": "Connectivity Module",
+        "subComponents": [
+          {
+            "description": "Wireless Transmitter that relays system status and diagnostics in real time.",
+            "name": "Wireless Transmitter",
+            "type": "Communications Hardware"
+          },
+          {
+            "description": "Remote Interface providing an accessible user interface for control operations and maintenance logging.",
+            "name": "Remote Interface",
+            "type": "Interface Module"
+          }
+        ],
+        "type": "Communication Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-power-water-ejection",
+          "memberEndIds": null,
+          "name": "AggregatePowerForWaterEjection",
+          "ownedEndIds": null,
+          "sourceId": "block-rainsys-redundant-power-supply",
+          "sourceMultiplicity": null,
+          "targetId": "block-water-ejection-system",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-connectivity-central",
+          "memberEndIds": null,
+          "name": "ConnectivityToAircraftMonitoring",
+          "ownedEndIds": null,
+          "sourceId": "block-rainsys-connectivity-module",
+          "sourceMultiplicity": null,
+          "targetId": "block-aircraft-central-monitoring-system",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "-15°C to +35°C",
+          "id": "attr-rain-operationalTemperatureRange",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "operationalTemperatureRange",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "-15°C to +35°C",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "50 mm/hr",
+          "id": "attr-rain-intensity-threshold",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "rainIntensityThreshold",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "50 mm/hr",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Under 3 seconds",
+          "id": "attr-rain-response-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "responseTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Under 3 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "FAA/EASA Certified",
+          "id": "attr-rain-certification",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "certification",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "FAA/EASA Certified",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Dual-redundant control circuits",
+          "id": "attr-rain-redundancy-level",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "redundancyLevel",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Dual-redundant control circuits",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-rain-operationalTemperatureRange",
+            "attr-rain-intensity-threshold",
+            "attr-rain-response-time",
+            "attr-rain-certification",
+            "attr-rain-redundancy-level"
+          ],
+          "constraintIds": null,
+          "id": "block-rain-protection-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "RainProtectionSystem",
+          "operationIds": [
+            "op-activateProtection",
+            "op-monitorRainIntensity",
+            "op-engageHydrophobicCoating",
+            "op-ejectWater",
+            "op-directDrainage"
+          ],
+          "partIds": [
+            "part-control-unit",
+            "part-raindrop-sensor-array",
+            "part-hydrophobic-coating-module",
+            "part-water-ejection-system",
+            "part-rainwater-drainage-system",
+            "part-rainsys-redundant-power-supply",
+            "part-rainsys-connectivity-module"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-control-unit",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ControlUnit",
+          "operationIds": [
+            "op-processSensorData"
+          ],
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-raindrop-sensor-array",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "RaindropSensorArray",
+          "operationIds": null,
+          "partIds": [
+            "part-optical-sensor",
+            "part-capacitive-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-hydrophobic-coating-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "HydrophobicCoatingApplicationModule",
+          "operationIds": [
+            "op-applyHydrophobicCoating"
+          ],
+          "partIds": [
+            "part-coating-dispenser",
+            "part-drying-system"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-water-ejection-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "WaterEjectionSystem",
+          "operationIds": [
+            "op-ejectWaterDroplets"
+          ],
+          "partIds": [
+            "part-nozzle-array",
+            "part-ejection-pump"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-rainwater-drainage-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "RainwaterDrainageSystem",
+          "operationIds": [
+            "op-directDrainage"
+          ],
+          "partIds": [
+            "part-drainage-channels",
+            "part-water-collector"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-rainsys-redundant-power-supply",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "RedundantPowerSupply",
+          "operationIds": [
+            "op-provideRedundantPower"
+          ],
+          "partIds": [
+            "part-primary-converter",
+            "part-backup-battery"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-rainsys-connectivity-module",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "ConnectivityModule",
+          "operationIds": [
+            "op-transmitDiagnostics"
+          ],
+          "partIds": [
+            "part-wireless-transmitter",
+            "part-remote-interface"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-aircraft-central-monitoring-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "AircraftCentralMonitoringSystem",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-rain-protection-system",
+          "body": "Rain Protection System is engineered to mitigate heavy rainfall effects on critical aircraft surfaces by integrating advanced raindrop detection sensors, hydrophobic coating mechanisms, active water ejection, dedicated drainage, redundant power supply, and connectivity for real-time diagnostics.",
+          "id": "comment-rain-system",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-rainprot-control-unit",
+          "memberEndIds": null,
+          "name": "ControlUnitComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-rain-protection-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-control-unit",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-rainprot-sensor-array",
+          "memberEndIds": null,
+          "name": "SensorArrayComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-rain-protection-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-raindrop-sensor-array",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-rainprot-hydrocoating",
+          "memberEndIds": null,
+          "name": "HydrophobicCoatingModuleComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-rain-protection-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-hydrophobic-coating-module",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-rainprot-water-ejection",
+          "memberEndIds": null,
+          "name": "WaterEjectionSystemComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-rain-protection-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-water-ejection-system",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-rainprot-drainage",
+          "memberEndIds": null,
+          "name": "RainwaterDrainageComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-rain-protection-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-rainwater-drainage-system",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-rainprot-power-supply",
+          "memberEndIds": null,
+          "name": "RedundantPowerSupplyComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-rain-protection-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-rainsys-redundant-power-supply",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-rainprot-connectivity",
+          "memberEndIds": null,
+          "name": "ConnectivityModuleComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-rain-protection-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-rainsys-connectivity-module",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-hydrocoating-dispenser",
+          "memberEndIds": null,
+          "name": "CoatingDispenserComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-hydrophobic-coating-module",
+          "sourceMultiplicity": null,
+          "targetId": "part-coating-dispenser",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-hydrocoating-drying",
+          "memberEndIds": null,
+          "name": "DryingSystemComposition",
+          "ownedEndIds": null,
+          "sourceId": "block-hydrophobic-coating-module",
+          "sourceMultiplicity": null,
+          "targetId": "part-drying-system",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "operationalTemperatureRange must be maintained between -15°C and +35°C for optimal system performance",
+          "id": "cons-rain-operational",
+          "name": "RainProtectionOperationalConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": [],
+      "controlFlows": null,
+      "dependencies": [
+        {
+          "id": "dep-control-raindrop",
+          "name": "ControlUnitDependsOnRaindropSensorArray",
+          "sourceId": "block-control-unit",
+          "sourceMultiplicity": null,
+          "targetId": "block-raindrop-sensor-array",
+          "targetMultiplicity": null,
+          "type": "Dependency"
+        }
+      ],
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-rain-protection-status",
+          "literals": [
+            {
+              "id": "literal-inactive",
+              "name": "Inactive"
+            },
+            {
+              "id": "literal-active",
+              "name": "Active"
+            },
+            {
+              "id": "literal-fault",
+              "name": "Fault"
+            }
+          ],
+          "name": "RainProtectionStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-rain-protection-system",
+          "flowSpecificationId": "flow-spec-rain-sensor-data",
+          "id": "flowport-rain-sensor",
+          "isConjugated": false,
+          "name": "RainSensorDataIn",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "RainSensorData",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-rain-sensor-data",
+          "name": "RainSensorDataFlow",
+          "type": "FlowSpecification",
+          "unit": "mm/hr"
+        },
+        {
+          "attributeIds": null,
+          "dataType": "ControlCommand",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-operational-command",
+          "name": "OperationalCommandFlow",
+          "type": "FlowSpecification",
+          "unit": "N/A"
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-rain-protection-interface",
+          "name": "RainProtectionInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-rain-protection",
+          "name": "RainProtectionSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-control-unit",
+          "name": "ControlUnit",
+          "of": "block-control-unit",
+          "type": "Part"
+        },
+        {
+          "id": "part-raindrop-sensor-array",
+          "name": "RaindropSensorArray",
+          "of": "block-raindrop-sensor-array",
+          "type": "Part"
+        },
+        {
+          "id": "part-hydrophobic-coating-module",
+          "name": "HydrophobicCoatingApplicationModule",
+          "of": "block-hydrophobic-coating-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-water-ejection-system",
+          "name": "WaterEjectionSystem",
+          "of": "block-water-ejection-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-rainwater-drainage-system",
+          "name": "RainwaterDrainageSystem",
+          "of": "block-rainwater-drainage-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-rainsys-redundant-power-supply",
+          "name": "RedundantPowerSupply",
+          "of": "block-rainsys-redundant-power-supply",
+          "type": "Part"
+        },
+        {
+          "id": "part-rainsys-connectivity-module",
+          "name": "ConnectivityModule",
+          "of": "block-rainsys-connectivity-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-optical-sensor",
+          "name": "OpticalSensor",
+          "of": "block-raindrop-sensor-array",
+          "type": "Part"
+        },
+        {
+          "id": "part-capacitive-sensor",
+          "name": "CapacitiveSensor",
+          "of": "block-raindrop-sensor-array",
+          "type": "Part"
+        },
+        {
+          "id": "part-coating-dispenser",
+          "name": "CoatingDispenser",
+          "of": "block-hydrophobic-coating-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-drying-system",
+          "name": "DryingSystem",
+          "of": "block-hydrophobic-coating-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-nozzle-array",
+          "name": "NozzleArray",
+          "of": "block-water-ejection-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-ejection-pump",
+          "name": "EjectionPump",
+          "of": "block-water-ejection-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-drainage-channels",
+          "name": "DrainageChannels",
+          "of": "block-rainwater-drainage-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-water-collector",
+          "name": "WaterCollector",
+          "of": "block-rainwater-drainage-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-primary-converter",
+          "name": "PrimaryConverter",
+          "of": "block-rainsys-redundant-power-supply",
+          "type": "Part"
+        },
+        {
+          "id": "part-backup-battery",
+          "name": "BackupBattery",
+          "of": "block-rainsys-redundant-power-supply",
+          "type": "Part"
+        },
+        {
+          "id": "part-wireless-transmitter",
+          "name": "WirelessTransmitter",
+          "of": "block-rainsys-connectivity-module",
+          "type": "Part"
+        },
+        {
+          "id": "part-remote-interface",
+          "name": "RemoteInterface",
+          "of": "block-rainsys-connectivity-module",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-rain-protection-system",
+          "flowSpecificationId": "flow-spec-rain-sensor-data",
+          "id": "port-rain-sensor",
+          "isConjugated": false,
+          "name": "RainSensorPort",
+          "portType": "full",
+          "providedInterfaceIds": [
+            "if-block-rain-protection-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-rain-protection-system",
+          "flowSpecificationId": "flow-spec-operational-command",
+          "id": "port-rain-command",
+          "isConjugated": false,
+          "name": "OperationalCommandPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-rain-protection-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-rainsys-connectivity-module",
+          "id": "proxyport-rain-connectivity",
+          "isConjugated": false,
+          "name": "ConnectivityProxyPort",
+          "providedInterfaceIds": [
+            "if-block-rain-protection-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "ProxyPort"
+        }
+      ],
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-rain-detection-activation",
+          "name": "RainDetectionAndActivation",
+          "reqId": null,
+          "text": "The system shall detect rainfall intensity using integrated optical and capacitive sensors and activate protective measures when intensity exceeds 50 mm/hr.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-rain-rapid-response",
+          "name": "RapidResponsePerformance",
+          "reqId": null,
+          "text": "The system must initiate protective measures within 3 seconds of detecting critical rainfall levels.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-rain-safety",
+          "name": "SafetyAndReliabilityMeasures",
+          "reqId": null,
+          "text": "The system must incorporate dual-redundant control circuits and fallback procedures to maintain operation in the event of component failure.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-rain-maintainability",
+          "name": "InterfaceAndMaintainability",
+          "reqId": null,
+          "text": "The user interface for system monitoring and maintenance must comply with ergonomic and aviation human factors standards.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": [
+        {
+          "id": "usage-control-unit-raindrop",
+          "name": "ControlUnitProcessesSensorData",
+          "sourceId": "block-control-unit",
+          "targetId": "block-raindrop-sensor-array",
+          "type": "Usage"
+        }
+      ],
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-temperature",
+          "name": "TemperatureValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-time",
+          "name": "TimeValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        }
+      ]
+    }
+  },
+  "reference_system": null,
+  "parent_system": "anti_ice_system",
+  "timestamp": "20250324_215739"
+}

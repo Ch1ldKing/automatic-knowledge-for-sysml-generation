@@ -1,0 +1,1170 @@
+{
+  "system_id": "main_landing_gear_system",
+  "system_name": "Main Landing Gear System",
+  "specification": {
+    "attributes": [
+      {
+        "description": "Maximum supported load for the landing gear to ensure safe landings under extreme operational conditions.",
+        "name": "maxLoadCapacity",
+        "type": "string",
+        "value": "160,000 lbs"
+      },
+      {
+        "description": "Time taken from gear extension command to full deployment under nominal conditions.",
+        "name": "deploymentTime",
+        "type": "string",
+        "value": "2.5 seconds"
+      },
+      {
+        "description": "Coefficient representing the system's ability to absorb shock and damp landing impacts.",
+        "name": "shockAbsorptionCoefficient",
+        "type": "string",
+        "value": "Advanced damping with 0.85 efficiency"
+      },
+      {
+        "description": "Operating hydraulic pressure required to effectively drive all actuation and braking mechanisms.",
+        "name": "hydraulicOperatingPressure",
+        "type": "string",
+        "value": "3200 PSI"
+      },
+      {
+        "description": "Noise and vibration levels during gear operation to comply with aviation and passenger comfort standards.",
+        "name": "noiseVibrationIndex",
+        "type": "string",
+        "value": "Minimal, within certification limits"
+      }
+    ],
+    "designScenario": {
+      "description": "The Landing Gear System is engineered to provide reliable, rapid, and safe deployment and retraction of the aircraft's landing gear. This system integrates advanced hydraulic actuation, precision gear deployment, robust shock absorption, efficient braking, and real-time sensor monitoring. It is optimized for high-load scenarios, emergency fail-safe operations, and routine maintenance, ensuring seamless performance during taxi, takeoff, landing, and ground maneuvers.",
+      "name": "Landing Gear System",
+      "requirements": [
+        {
+          "details": [
+            {
+              "description": "The gear must deploy and retract reliably on command for both normal operations and emergency scenarios."
+            },
+            {
+              "description": "Integration of shock absorption elements is mandatory for mitigating high impact forces during landing."
+            }
+          ],
+          "title": "Gear Deployment and Impact Mitigation",
+          "type": "functional"
+        },
+        {
+          "details": [
+            {
+              "description": "Deployment and retraction operations must be completed in less than 2.5 seconds under standard conditions."
+            },
+            {
+              "description": "Hydraulic actuators must operate within the specified time even in sub-optimal environmental conditions."
+            }
+          ],
+          "title": "Operation Timing Performance",
+          "type": "performance"
+        },
+        {
+          "details": [
+            {
+              "description": "Redundant actuation paths must be implemented to ensure gear extension in the event of primary system failure."
+            },
+            {
+              "description": "Fail-safe locking mechanisms should secure the gear in an extended state when anomalies are detected."
+            }
+          ],
+          "title": "Safety Redundancy and Fail-Safe Measures",
+          "type": "safety"
+        },
+        {
+          "details": [
+            {
+              "description": "The design must allow for simplified inspection and rapid replacement of faulty components to minimize downtime."
+            },
+            {
+              "description": "All components should adhere to or exceed current aviation environmental and durability guidelines."
+            }
+          ],
+          "title": "Maintainability and Regulatory Compliance",
+          "type": "nonFunctional"
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "description": "The Avionics Control Module receives data from the Sensor Suite and sends commands to the Gear Actuation Mechanism.",
+        "relationshipType": "association",
+        "source": "Avionics Control Module",
+        "target": "Sensor Suite"
+      },
+      {
+        "description": "The Gear Actuation Mechanism is dependent on the Hydraulic System to function, ensuring timely deployment of the landing gear.",
+        "relationshipType": "dependency",
+        "source": "Gear Actuation Mechanism",
+        "target": "Hydraulic System"
+      },
+      {
+        "description": "The Brake Assembly is composed as an integral part of the overall Wheel Assembly to provide synchronized deceleration during landing.",
+        "relationshipType": "composition",
+        "source": "Brake Assembly",
+        "target": "Wheel Assembly"
+      },
+      {
+        "description": "The Steering Ensemble is aggregated with the nose wheel segment of the Wheel Assembly for accurate ground directional control.",
+        "relationshipType": "aggregation",
+        "source": "Steering Ensemble",
+        "target": "Wheel Assembly"
+      },
+      {
+        "description": "Redundant Safety Sensor System is aggregated with the Avionics Control Module to monitor critical parameters and initiate fail-safe actions.",
+        "relationshipType": "aggregation",
+        "source": "Redundant Safety Sensor System",
+        "target": "Avionics Control Module"
+      },
+      {
+        "description": "The Structural Casting Assembly works in dependency with the Gear Actuation Mechanism to ensure load distribution during operation.",
+        "relationshipType": "dependency",
+        "source": "Structural Casting Assembly",
+        "target": "Gear Actuation Mechanism"
+      }
+    ],
+    "systemComponents": [
+      {
+        "description": "Central processing unit responsible for command, control, and monitoring of the landing gear operations.",
+        "name": "Avionics Control Module",
+        "subComponents": null,
+        "type": "Electronic Module"
+      },
+      {
+        "description": "Hydraulic system that drives the actuation of the landing gear, ensuring rapid and precise movements.",
+        "name": "Hydraulic System",
+        "subComponents": [
+          {
+            "description": "High-performance hydraulic pump generating consistent pressure required for gear actuation.",
+            "name": "Hydraulic Pump",
+            "type": "Actuator"
+          },
+          {
+            "description": "Reservoir for hydraulic fluid along with its management and cooling unit to maintain system efficiency.",
+            "name": "Hydraulic Reservoir",
+            "type": "Storage Unit"
+          },
+          {
+            "description": "Advanced hydraulic valves to control fluid dynamics across the system with precision.",
+            "name": "Hydraulic Control Valves",
+            "type": "Control Device"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Mechanical actuation module that physically extends or retracts the landing gear based on control commands.",
+        "name": "Gear Actuation Mechanism",
+        "subComponents": [
+          {
+            "description": "Precision linear actuators designed for rapid and accurate gear movements.",
+            "name": "Linear Actuators",
+            "type": "Actuator"
+          },
+          {
+            "description": "Position sensors embedded within the mechanism to confirm gear status during operation.",
+            "name": "Actuator Position Sensors",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Structural assembly including load-bearing struts and integrated impact dampers to distribute landing forces.",
+        "name": "Structural Casting Assembly",
+        "subComponents": [
+          {
+            "description": "Primary load-bearing struts engineered for optimal stress distribution.",
+            "name": "Primary Struts",
+            "type": "Structural Component"
+          },
+          {
+            "description": "Damping units designed to absorb and dissipate impact energy during touchdown.",
+            "name": "Impact Dampers",
+            "type": "Damping Device"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      },
+      {
+        "description": "Braking module integrated within the wheel assembly to decelerate the aircraft upon landing.",
+        "name": "Brake Assembly",
+        "subComponents": [
+          {
+            "description": "High friction brake calipers that apply force on the brake discs.",
+            "name": "Brake Calipers",
+            "type": "Actuator"
+          },
+          {
+            "description": "Durable brake discs attached to the wheels to provide efficient braking action.",
+            "name": "Brake Discs",
+            "type": "Friction Component"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Steering module that enables directional changes during taxiing and ground maneuvering.",
+        "name": "Steering Ensemble",
+        "subComponents": [
+          {
+            "description": "Steering actuator for dynamic control of the nose gear’s orientation.",
+            "name": "Steering Actuator",
+            "type": "Actuator"
+          },
+          {
+            "description": "Position sensor to track the steering angle and ensure responsiveness.",
+            "name": "Steering Position Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Subsystem"
+      },
+      {
+        "description": "Wheel assembly composed of main landing and nose gear wheels, engineered for high-load performance and durability.",
+        "name": "Wheel Assembly",
+        "subComponents": [
+          {
+            "description": "Main landing wheels designed to sustain heavy loads with minimal wear.",
+            "name": "Main Landing Wheels",
+            "type": "Mechanical Component"
+          },
+          {
+            "description": "Nose gear wheels integrated with steering capabilities for precise ground control.",
+            "name": "Nose Gear Wheels",
+            "type": "Mechanical Component"
+          }
+        ],
+        "type": "Mechanical Assembly"
+      },
+      {
+        "description": "Sensor suite that collects real-time data on hydraulic pressure, gear position, and load distribution.",
+        "name": "Sensor Suite",
+        "subComponents": [
+          {
+            "description": "High-sensitivity pressure sensor monitoring hydraulic fluid dynamics.",
+            "name": "Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Gear position sensor for confirming the status of gear extension or retraction.",
+            "name": "Gear Position Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Load sensor that gauges the stress on structural components during operation.",
+            "name": "Load Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      },
+      {
+        "description": "A redundant safety sensor system dedicated to emergency monitoring of critical landing gear parameters.",
+        "name": "Redundant Safety Sensor System",
+        "subComponents": [
+          {
+            "description": "Backup hydraulic pressure sensor for continuous monitoring in case of primary sensor failure.",
+            "name": "Backup Pressure Sensor",
+            "type": "Sensor"
+          },
+          {
+            "description": "Emergency gear status sensor ensuring secure locking of the gear during faults.",
+            "name": "Emergency Gear Sensor",
+            "type": "Sensor"
+          }
+        ],
+        "type": "Monitoring Module"
+      }
+    ]
+  },
+  "model": {
+    "diagramType": "BDD",
+    "elements": {
+      "abstractions": null,
+      "activities": null,
+      "actors": null,
+      "aggregations": [
+        {
+          "id": "agg-steering-wheel",
+          "memberEndIds": null,
+          "name": "Steering Ensemble Aggregated with Wheel Assembly",
+          "ownedEndIds": null,
+          "sourceId": "block-steering-ensemble",
+          "sourceMultiplicity": null,
+          "targetId": "block-wheel-assembly",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        },
+        {
+          "id": "agg-safety-control",
+          "memberEndIds": null,
+          "name": "Redundant Safety Sensors Aggregated with Avionics Control",
+          "ownedEndIds": null,
+          "sourceId": "block-redundant-safety-sensor",
+          "sourceMultiplicity": null,
+          "targetId": "block-avionics-control",
+          "targetMultiplicity": null,
+          "type": "Aggregation"
+        }
+      ],
+      "associationBlocks": null,
+      "associationBlocksWithOwnedEnds": null,
+      "associations": [
+        {
+          "id": "assoc-controller-sensor",
+          "memberEndIds": null,
+          "name": "Controller to Sensor Suite",
+          "ownedEndIds": null,
+          "sourceId": "block-avionics-control",
+          "sourceMultiplicity": null,
+          "targetId": "block-sensor-suite",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "dep-actuation-hydraulic",
+          "memberEndIds": null,
+          "name": "Gear Actuation Depends on Hydraulic System",
+          "ownedEndIds": null,
+          "sourceId": "block-gear-actuation",
+          "sourceMultiplicity": null,
+          "targetId": "block-hydraulic-system",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "comp-brake-wheel",
+          "memberEndIds": null,
+          "name": "Brake Assembly is Part of Wheel Assembly",
+          "ownedEndIds": null,
+          "sourceId": "block-brake-assembly",
+          "sourceMultiplicity": null,
+          "targetId": "block-wheel-assembly",
+          "targetMultiplicity": null,
+          "type": "Association"
+        },
+        {
+          "id": "dep-structure-actuation",
+          "memberEndIds": null,
+          "name": "Structural Casting Depends on Gear Actuation",
+          "ownedEndIds": null,
+          "sourceId": "block-structural-casting",
+          "sourceMultiplicity": null,
+          "targetId": "block-gear-actuation",
+          "targetMultiplicity": null,
+          "type": "Association"
+        }
+      ],
+      "attributes": [
+        {
+          "aggregation": "none",
+          "defaultValue": "160,000 lbs",
+          "id": "attr-max-load",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "maxLoadCapacity",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "160,000 lbs",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "2.5 seconds",
+          "id": "attr-deployment-time",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "deploymentTime",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "2.5 seconds",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Advanced damping with 0.85 efficiency",
+          "id": "attr-shock-absorption",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "shockAbsorptionCoefficient",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Advanced damping with 0.85 efficiency",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "3200 PSI",
+          "id": "attr-hydraulic-pressure",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "hydraulicOperatingPressure",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "3200 PSI",
+          "visibility": "public"
+        },
+        {
+          "aggregation": "none",
+          "defaultValue": "Minimal, within certification limits",
+          "id": "attr-noise-vibration",
+          "isDerived": false,
+          "isDerivedUnion": false,
+          "isID": false,
+          "isOrdered": false,
+          "isReadOnly": false,
+          "isStatic": false,
+          "isUnique": true,
+          "lowerValue": "1",
+          "name": "noiseVibrationIndex",
+          "propertyType": "String",
+          "type": "Property",
+          "upperValue": "1",
+          "value": "Minimal, within certification limits",
+          "visibility": "public"
+        }
+      ],
+      "blocks": [
+        {
+          "attributeIds": [
+            "attr-max-load",
+            "attr-deployment-time",
+            "attr-shock-absorption",
+            "attr-hydraulic-pressure",
+            "attr-noise-vibration"
+          ],
+          "constraintIds": null,
+          "id": "block-landing-gear-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": true,
+          "name": "LandingGearSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-avionics-control",
+            "part-hydraulic-system",
+            "part-gear-actuation",
+            "part-structural-casting",
+            "part-brake-assembly",
+            "part-steering-ensemble",
+            "part-wheel-assembly",
+            "part-sensor-suite",
+            "part-redundant-safety-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-avionics-control",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "AvionicsControlModule",
+          "operationIds": null,
+          "partIds": null,
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-hydraulic-system",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "HydraulicSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-hydraulic-pump",
+            "part-hydraulic-reservoir",
+            "part-hydraulic-control-valves"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-gear-actuation",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "GearActuationMechanism",
+          "operationIds": null,
+          "partIds": [
+            "part-linear-actuators",
+            "part-actuator-position-sensors"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-structural-casting",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "StructuralCastingAssembly",
+          "operationIds": null,
+          "partIds": [
+            "part-primary-struts",
+            "part-impact-dampers"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-brake-assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "BrakeAssembly",
+          "operationIds": null,
+          "partIds": [
+            "part-brake-calipers",
+            "part-brake-discs"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-steering-ensemble",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "SteeringEnsemble",
+          "operationIds": null,
+          "partIds": [
+            "part-steering-actuator",
+            "part-steering-position-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-wheel-assembly",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "WheelAssembly",
+          "operationIds": null,
+          "partIds": [
+            "part-main-landing-wheels",
+            "part-nose-gear-wheels"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-sensor-suite",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "SensorSuite",
+          "operationIds": null,
+          "partIds": [
+            "part-pressure-sensor",
+            "part-gear-position-sensor",
+            "part-load-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "block-redundant-safety-sensor",
+          "isAbstract": false,
+          "isActive": false,
+          "isEncapsulated": false,
+          "name": "RedundantSafetySensorSystem",
+          "operationIds": null,
+          "partIds": [
+            "part-backup-pressure-sensor",
+            "part-emergency-gear-sensor"
+          ],
+          "referenceIds": null,
+          "type": "Block",
+          "valueIds": null
+        }
+      ],
+      "comments": [
+        {
+          "annotatedElementId": "block-landing-gear-system",
+          "body": "Landing Gear System integrates hydraulic, actuation, structural, braking, steering and sensor subsystems to ensure safe, rapid, and reliable gear deployment and retraction during all phases of flight operations.",
+          "id": "comment-landing-gear-system",
+          "type": "Comment"
+        },
+        {
+          "annotatedElementId": "block-hydraulic-system",
+          "body": "Hydraulic System generates 3200 PSI to power both gear actuation and braking, ensuring precision under extreme conditions.",
+          "id": "comment-hydraulic-system",
+          "type": "Comment"
+        }
+      ],
+      "compositions": [
+        {
+          "id": "comp-lg-control",
+          "memberEndIds": null,
+          "name": "Avionics Control Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-avionics-control",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-lg-hydraulic",
+          "memberEndIds": null,
+          "name": "Hydraulic Subsystem Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-hydraulic-system",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-lg-actuation",
+          "memberEndIds": null,
+          "name": "Gear Actuation Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-gear-actuation",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-lg-structure",
+          "memberEndIds": null,
+          "name": "Structural Casting Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-structural-casting",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-lg-brake",
+          "memberEndIds": null,
+          "name": "Brake Assembly Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-brake-assembly",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-lg-steering",
+          "memberEndIds": null,
+          "name": "Steering Ensemble Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-steering-ensemble",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-lg-wheel",
+          "memberEndIds": null,
+          "name": "Wheel Assembly Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-wheel-assembly",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-lg-sensor",
+          "memberEndIds": null,
+          "name": "Sensor Suite Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-sensor-suite",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        },
+        {
+          "id": "comp-lg-safety",
+          "memberEndIds": null,
+          "name": "Redundant Safety Sensor Composition",
+          "ownedEndIds": null,
+          "sourceId": "block-landing-gear-system",
+          "sourceMultiplicity": null,
+          "targetId": "block-redundant-safety-sensor",
+          "targetMultiplicity": null,
+          "type": "Composition"
+        }
+      ],
+      "connectors": null,
+      "constraintBlocks": [
+        {
+          "attributeIds": null,
+          "expression": "deploymentTime < 2.6s",
+          "id": "const-deployment-time",
+          "name": "DeploymentTimeConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        },
+        {
+          "attributeIds": null,
+          "expression": "hydraulicOperatingPressure =~ 3200 PSI",
+          "id": "const-hydraulic-pressure",
+          "name": "HydraulicPressureConstraint",
+          "parameterIds": null,
+          "type": "ConstraintBlock"
+        }
+      ],
+      "constraints": null,
+      "controlFlows": null,
+      "dependencies": null,
+      "directedAggregations": null,
+      "directedAssociations": null,
+      "directedCompositions": null,
+      "domains": null,
+      "enumerations": [
+        {
+          "attributeIds": null,
+          "id": "enum-landing-gear-status",
+          "literals": [
+            {
+              "id": "literal-deployed",
+              "name": "Deployed"
+            },
+            {
+              "id": "literal-retracted",
+              "name": "Retracted"
+            },
+            {
+              "id": "literal-maintenance",
+              "name": "Maintenance"
+            },
+            {
+              "id": "literal-emergency",
+              "name": "Emergency"
+            }
+          ],
+          "name": "LandingGearStatus",
+          "type": "Enumeration"
+        }
+      ],
+      "extends": null,
+      "flowPorts": [
+        {
+          "attributeIds": null,
+          "blockId": "block-hydraulic-system",
+          "flowSpecificationId": "flow-spec-hydraulic-fluid",
+          "id": "fp-hydraulic-fluid",
+          "isConjugated": false,
+          "name": "HydraulicFluidPort",
+          "type": "FlowPort"
+        }
+      ],
+      "flowSpecifications": [
+        {
+          "attributeIds": null,
+          "dataType": "HydraulicFluid",
+          "flowType": "MaterialFlow",
+          "id": "flow-spec-hydraulic-fluid",
+          "name": "HydraulicFluidFlow",
+          "type": "FlowSpecification",
+          "unit": "PSI"
+        },
+        {
+          "attributeIds": null,
+          "dataType": "ControlCommand",
+          "flowType": "InformationFlow",
+          "id": "flow-spec-control-command",
+          "name": "ControlCommandFlow",
+          "type": "FlowSpecification",
+          "unit": null
+        }
+      ],
+      "fullPorts": null,
+      "generalizations": null,
+      "includes": null,
+      "instances": null,
+      "interfaceBlocks": [
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-deployment-control",
+          "name": "DeploymentControlInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        },
+        {
+          "attributeIds": null,
+          "constraintIds": null,
+          "id": "if-block-sensor-interface",
+          "name": "SensorInterface",
+          "operationIds": null,
+          "signalIds": null,
+          "type": "InterfaceBlock"
+        }
+      ],
+      "interfaceRealizations": null,
+      "interfaces": null,
+      "internalBlocks": null,
+      "itemFlows": null,
+      "lifelines": null,
+      "links": null,
+      "messages": null,
+      "objectFlows": null,
+      "packages": [
+        {
+          "elementImports": null,
+          "id": "package-landing-gear-system",
+          "name": "LandingGearSystemPackage",
+          "packageImports": null,
+          "type": "Package"
+        },
+        {
+          "elementImports": null,
+          "id": "package-lg-value-types",
+          "name": "ValueTypes",
+          "packageImports": [
+            "package-landing-gear-system"
+          ],
+          "type": "Package"
+        },
+        {
+          "elementImports": null,
+          "id": "package-lg-interfaces",
+          "name": "Interfaces",
+          "packageImports": [
+            "package-landing-gear-system",
+            "package-lg-value-types"
+          ],
+          "type": "Package"
+        },
+        {
+          "elementImports": null,
+          "id": "package-lg-blocks",
+          "name": "Blocks",
+          "packageImports": [
+            "package-landing-gear-system",
+            "package-lg-value-types",
+            "package-lg-interfaces"
+          ],
+          "type": "Package"
+        }
+      ],
+      "parameters": null,
+      "parts": [
+        {
+          "id": "part-avionics-control",
+          "name": "AvionicsControlModule",
+          "of": "block-avionics-control",
+          "type": "Part"
+        },
+        {
+          "id": "part-hydraulic-system",
+          "name": "HydraulicSystem",
+          "of": "block-hydraulic-system",
+          "type": "Part"
+        },
+        {
+          "id": "part-gear-actuation",
+          "name": "GearActuationMechanism",
+          "of": "block-gear-actuation",
+          "type": "Part"
+        },
+        {
+          "id": "part-structural-casting",
+          "name": "StructuralCastingAssembly",
+          "of": "block-structural-casting",
+          "type": "Part"
+        },
+        {
+          "id": "part-brake-assembly",
+          "name": "BrakeAssembly",
+          "of": "block-brake-assembly",
+          "type": "Part"
+        },
+        {
+          "id": "part-steering-ensemble",
+          "name": "SteeringEnsemble",
+          "of": "block-steering-ensemble",
+          "type": "Part"
+        },
+        {
+          "id": "part-wheel-assembly",
+          "name": "WheelAssembly",
+          "of": "block-wheel-assembly",
+          "type": "Part"
+        },
+        {
+          "id": "part-sensor-suite",
+          "name": "SensorSuite",
+          "of": "block-sensor-suite",
+          "type": "Part"
+        },
+        {
+          "id": "part-redundant-safety-sensor",
+          "name": "RedundantSafetySensorSystem",
+          "of": "block-redundant-safety-sensor",
+          "type": "Part"
+        }
+      ],
+      "ports": [
+        {
+          "attributeIds": null,
+          "blockId": "block-avionics-control",
+          "flowSpecificationId": "flow-spec-control-command",
+          "id": "port-control-command",
+          "isConjugated": false,
+          "name": "CommandPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-deployment-control"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-sensor-suite",
+          "flowSpecificationId": "flow-spec-control-command",
+          "id": "port-sensor-data",
+          "isConjugated": false,
+          "name": "SensorDataPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-sensor-interface"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-gear-actuation",
+          "flowSpecificationId": "flow-spec-control-command",
+          "id": "port-actuation-command",
+          "isConjugated": false,
+          "name": "ActuationCommandPort",
+          "portType": "proxy",
+          "providedInterfaceIds": [
+            "if-block-deployment-control"
+          ],
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        },
+        {
+          "attributeIds": null,
+          "blockId": "block-hydraulic-system",
+          "flowSpecificationId": "flow-spec-hydraulic-fluid",
+          "id": "port-hydraulic-fluid",
+          "isConjugated": false,
+          "name": "HydraulicFluidPort",
+          "portType": "flow",
+          "providedInterfaceIds": null,
+          "requiredInterfaceIds": null,
+          "type": "Port"
+        }
+      ],
+      "proxyPorts": null,
+      "realizations": null,
+      "requirements": [
+        {
+          "attributeIds": null,
+          "id": "req-gear-deployment-impact",
+          "name": "Gear Deployment and Impact Mitigation",
+          "reqId": null,
+          "text": "The landing gear must extend and retract reliably under both normal and emergency conditions and incorporate shock absorption to mitigate landing impact.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-performance-timing",
+          "name": "Operation Timing Performance",
+          "reqId": null,
+          "text": "Deployment and retraction operations must complete within 2.5 seconds under standard conditions with hydraulic actuators performing reliably even in low temperature environments.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-safety-redundancy",
+          "name": "Safety Redundancy and Fail-Safe Measures",
+          "reqId": null,
+          "text": "Redundant actuation paths and fail-safe locking mechanisms must be implemented to secure the gear in the extended state during system anomalies.",
+          "type": "Requirement"
+        },
+        {
+          "attributeIds": null,
+          "id": "req-maintainability",
+          "name": "Maintainability and Regulatory Compliance",
+          "reqId": null,
+          "text": "The design shall allow for easy inspection, rapid replacement of faulty components, and adhere to aviation environmental and durability standards.",
+          "type": "Requirement"
+        }
+      ],
+      "signals": null,
+      "states": null,
+      "transitions": null,
+      "usages": [
+        {
+          "id": "usage-avionics-control",
+          "name": "AvionicsControlUsage",
+          "sourceId": "block-landing-gear-system",
+          "targetId": "block-avionics-control",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-hydraulic-system",
+          "name": "HydraulicSystemUsage",
+          "sourceId": "block-landing-gear-system",
+          "targetId": "block-hydraulic-system",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-gear-actuation",
+          "name": "GearActuationUsage",
+          "sourceId": "block-landing-gear-system",
+          "targetId": "block-gear-actuation",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-structural-casting",
+          "name": "StructuralCastingUsage",
+          "sourceId": "block-landing-gear-system",
+          "targetId": "block-structural-casting",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-brake-assembly",
+          "name": "BrakeAssemblyUsage",
+          "sourceId": "block-landing-gear-system",
+          "targetId": "block-brake-assembly",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-steering-ensemble",
+          "name": "SteeringEnsembleUsage",
+          "sourceId": "block-landing-gear-system",
+          "targetId": "block-steering-ensemble",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-wheel-assembly",
+          "name": "WheelAssemblyUsage",
+          "sourceId": "block-landing-gear-system",
+          "targetId": "block-wheel-assembly",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-sensor-suite",
+          "name": "SensorSuiteUsage",
+          "sourceId": "block-landing-gear-system",
+          "targetId": "block-sensor-suite",
+          "type": "Usage"
+        },
+        {
+          "id": "usage-redundant-safety-sensor",
+          "name": "RedundantSafetySensorUsage",
+          "sourceId": "block-landing-gear-system",
+          "targetId": "block-redundant-safety-sensor",
+          "type": "Usage"
+        }
+      ],
+      "useCases": null,
+      "valueTypes": [
+        {
+          "attributeIds": [],
+          "id": "value-type-load",
+          "name": "LoadCapacityValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-time",
+          "name": "TimeValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-pressure",
+          "name": "PressureValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        },
+        {
+          "attributeIds": [],
+          "id": "value-type-vibration",
+          "name": "VibrationIndexValue",
+          "quantityKindId": "",
+          "type": "ValueType",
+          "unitId": ""
+        }
+      ]
+    }
+  },
+  "reference_system": "landing_gear_system",
+  "parent_system": null,
+  "timestamp": "20250324_184021"
+}
