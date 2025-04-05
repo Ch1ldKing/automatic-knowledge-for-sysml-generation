@@ -1,3 +1,10 @@
+Data are in dataset/.
+Experimental results are in result/. 
+Full version of Graph in full_graph.svg. 
+Full verrsion of the formal definition of JSON_Schema is in json_schema/.
+
+For updating of our data,  please refer to https://github.com/Ch1ldKing/automatic-knowledge-for-sysml-generation.
+
 # SysML BDD Auto Expansion Tool / SysML BDD 自动建模工具
 
 [English](#english) | [中文](#chinese)
